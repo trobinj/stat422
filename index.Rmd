@@ -1,0 +1,9 @@
+---
+title: "Statistics 422 (Survey Sampling Methods)"
+output: 
+  html_document: 
+    theme: readable
+---
+
+This space intentionally left blank. 
+
