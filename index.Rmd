@@ -5,5 +5,5 @@ output:
     theme: readable
 ---
 
-This space intentionally left blank. 
+This space intentionally left blank!
 
