@@ -5,5 +5,16 @@ output:
     theme: readable
 ---
 
-This space intentionally left blank!
+Course material for Stat 422 (Survey Sampling Methods) for the Fall semester of 2022 at the University of Idaho.
 
+***
+
+<center>
+
+![https://xkcd.com/523](http://imgs.xkcd.com/comics/decline.png)
+
+</center>
+
+***
+
+If you are interested in seeing the [R Markdown](https://rmarkdown.rstudio.com) code I use to create this website and its contents, you can browse the [source files on GitHub](https://github.com/trobinj/stat422/tree/gh-pages). The source files have a .Rmd extension.

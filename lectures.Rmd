@@ -1,0 +1,151 @@
+---
+title: "Lectures"
+output: 
+  html_document: 
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, message = FALSE}
+library(lubridate)
+d <- dmy("22-08-2022","24-08-2022","26-08-2022") + rep(7 * c(0:17), each = 3)
+d <- paste(wday(d, label = TRUE, abbr = TRUE), ", ", month(d, label = TRUE), " ", day(d), ".", sep = "")
+i <- 0
+```
+
+&nbsp;
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]`
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` Labor Day.
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` **First examination**. 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]`  
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]`  
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` **Second examination**. 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]`
+ 
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` Fall recess.
+
+`r i <- i + 1; d[i]` Fall recess. 
+
+`r i <- i + 1; d[i]` Fall recess. 
+ 
+***
+
+`r i <- i + 1; d[i]`
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` **Third examination**. 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+***
+
+Wednesday, Dec 14. **Final examination**, 12:45 to 2:45 PM.
+
+
