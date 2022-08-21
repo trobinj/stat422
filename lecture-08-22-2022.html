@@ -11,7 +11,7 @@
 
 
 
-<title>Lectures</title>
+<title>Monday, Aug 22</title>
 
 <script src="site_libs/header-attrs-2.15/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -267,80 +267,147 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Lectures</h1>
+<h1 class="title toc-ignore">Monday, Aug 22</h1>
 
 </div>
 
 
-<p> </p>
-<p>Mon, Aug 22. <a href="lecture-08-22-2022.html">Fundamental
-definitions: elements, sampling units, populations, samples, sampling
-designs</a>.</p>
-<p>Wed, Aug 24.</p>
-<p>Fri, Aug 26.</p>
-<hr />
-<p>Mon, Aug 29.</p>
-<p>Wed, Aug 31.</p>
-<p>Fri, Sep 2.</p>
-<hr />
-<p>Mon, Sep 5. Labor Day.</p>
-<p>Wed, Sep 7.</p>
-<p>Fri, Sep 9.</p>
-<hr />
-<p>Mon, Sep 12.</p>
-<p>Wed, Sep 14.</p>
-<p>Fri, Sep 16.</p>
-<hr />
-<p>Mon, Sep 19.</p>
-<p>Wed, Sep 21.</p>
-<p>Fri, Sep 23. <strong>First examination</strong>.</p>
-<hr />
-<p>Mon, Sep 26.</p>
-<p>Wed, Sep 28.</p>
-<p>Fri, Sep 30.</p>
-<hr />
-<p>Mon, Oct 3.</p>
-<p>Wed, Oct 5.</p>
-<p>Fri, Oct 7.</p>
-<hr />
-<p>Mon, Oct 10.</p>
-<p>Wed, Oct 12.</p>
-<p>Fri, Oct 14.</p>
-<hr />
-<p>Mon, Oct 17.</p>
-<p>Wed, Oct 19.</p>
-<p>Fri, Oct 21.</p>
-<hr />
-<p>Mon, Oct 24. <strong>Second examination</strong>.</p>
-<p>Wed, Oct 26.</p>
-<p>Fri, Oct 28.</p>
-<hr />
-<p>Mon, Oct 31.</p>
-<p>Wed, Nov 2.</p>
-<p>Fri, Nov 4.</p>
-<hr />
-<p>Mon, Nov 7.</p>
-<p>Wed, Nov 9.</p>
-<p>Fri, Nov 11.</p>
-<hr />
-<p>Mon, Nov 14.</p>
-<p>Wed, Nov 16.</p>
-<p>Fri, Nov 18.</p>
-<hr />
-<p>Mon, Nov 21. Fall recess.</p>
-<p>Wed, Nov 23. Fall recess.</p>
-<p>Fri, Nov 25. Fall recess.</p>
-<hr />
-<p>Mon, Nov 28.</p>
-<p>Wed, Nov 30.</p>
-<p>Fri, Dec 2. <strong>Third examination</strong>.</p>
-<hr />
-<p>Mon, Dec 5.</p>
-<p>Wed, Dec 7.</p>
-<p>Fri, Dec 9.</p>
-<hr />
-<p>Wednesday, Dec 14. <strong>Final examination</strong>, 12:45 to 2:45
-PM.</p>
+<p>You can also download a <a href="lecture-08-22-2022.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>What this class <em>is</em> about:</p>
+<ol style="list-style-type: decimal">
+<li><p><em>Sampling design</em>. How can we obtain a “representative”
+sample of things from a population of things? How can we do this
+effectively while also controlling survey cost? How can we use auxiliary
+information to create a design that might produce a more representative
+sample?</p></li>
+<li><p><em>Inference</em>. How can we characterize the
+“representativeness” of a sample? How can we assess the accuracy of
+making conclusions based on a sample? What can we do to improve
+representativeness/accuracy?</p></li>
+</ol>
+<p>This class is <em>not</em> about <em>measurement</em> (e.g.,
+questionnaire design, interviewer effects, disease diagnosis,
+quantification of foliage cover).</p>
+</div>
+<div id="advantages-and-disadvantages-of-sampling"
+class="section level2">
+<h2>Advantages and Disadvantages of Sampling</h2>
+<p>What are the advantages and disadvantages relative to a complete
+census?</p>
+<p><em>Advantages</em>:</p>
+<ol style="list-style-type: decimal">
+<li>reduced cost</li>
+<li>faster</li>
+<li>greater scope</li>
+<li>greater accuracy</li>
+</ol>
+<p><em>Disadvantages</em>:</p>
+<ol style="list-style-type: decimal">
+<li>loss of accuracy</li>
+<li>requires technical expertise</li>
+</ol>
+</div>
+<div id="elements-sampling-units-samples-and-populations"
+class="section level2">
+<h2>Elements, Sampling Units, Samples, and Populations</h2>
+<p>An <strong>element</strong> is the fundamental <em>observational
+unit</em> (i.e., the “thing” from which we get a value of a variable of
+interest). Let <span class="math inline">\(\mathcal{E}_i\)</span> denote
+the <span class="math inline">\(i\)</span>-th element. For each element
+we can observe the value of a <em>target variable</em> (<span
+class="math inline">\(y_i\)</span>).</p>
+<p><strong>Example</strong>: Suppose we have 12 elements: <span
+class="math inline">\(\mathcal{E}_1, \mathcal{E}_2, \dots,
+\mathcal{E}_{12}\)</span>.</p>
+<p>A <strong>population</strong> is the set of <em>all</em> elements of
+interest. We could denote this as <span
+class="math inline">\(\mathcal{P}\)</span>.</p>
+<p><strong>Example</strong>: The population is <span
+class="math inline">\(\mathcal{P} = \left\{ \mathcal{E}_1,
+\mathcal{E}_2, \dots, \mathcal{E}_{12} \right\}\)</span>.</p>
+<p>A <strong>sampling unit</strong> is a set of <em>one or more
+elements</em> such that if one of the elements within the sampling unit
+are in a sample, then all of the units within that sampling unit are in
+the sample (i.e., the elements in a sampling unit are always included in
+a sample <em>together</em>). The sampling units partition the population
+of units in such a way that each element appears in one and only one
+sampling unit. The <span class="math inline">\(i\)</span>-th sampling
+unit will be denoted as <span
+class="math inline">\(\mathcal{U}_i\)</span>.</p>
+<p><strong>Example</strong>: The sampling units <em>could be</em> as
+follows: <span class="math display">\[\begin{align*}
+  \mathcal{U}_1 &amp; = \left\{\mathcal{E}_1,\mathcal{E}_2\right\} \\
+  \mathcal{U}_2 &amp; = \left\{\mathcal{E}_3\right\} \\
+  \mathcal{U}_3 &amp; = \left\{\mathcal{E}_4, \mathcal{E}_5, \dots,
+\mathcal{E}_9\right\} \\
+  \mathcal{U}_4 &amp; = \left\{\mathcal{E}_{10}, \mathcal{E}_{11},
+\mathcal{E}_{12} \right\}
+\end{align*}\]</span></p>
+<p>A <strong>sampling frame</strong> is a list (literal or conceptual)
+of all of the <em>sampling units</em> in the population.</p>
+<p>A <strong>sample</strong> is a set of sampling units, and thus also a
+subset of the elements in a population. These are the only elements for
+which we observe the value of the target variable. Samples will be
+denoted as <span class="math inline">\(\mathcal{S}\)</span> or <span
+class="math inline">\(\mathcal{S}_i\)</span> if we need to refer to more
+than one sample.</p>
+<p><strong>Example</strong>: The sample <span class="math display">\[
+  \mathcal{S} = \left\{\mathcal{U}_1, \mathcal{U}_4\right\} =
+\left\{\mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_{10}, \mathcal{E}_{11},
+\mathcal{E}_{12} \right\}
+\]</span> contains two sampling units and five elements. The sample
+<span class="math display">\[  
+  \mathcal{S} = \left\{\mathcal{U}_1, \mathcal{U}_2\right\} =
+\left\{\mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3 \right\}
+\]</span> contains two sampling units and three elements.</p>
+</div>
+<div id="sampling-designs" class="section level2">
+<h2>Sampling Designs</h2>
+<p>A (probability) <strong>sampling design</strong> is (a) the list of
+all possible samples and (b) the probability of each possible
+sample.</p>
+<p><strong>Example</strong>: Here is a sampling design for the
+population <span class="math inline">\(\mathcal{P} = \left\{
+\mathcal{E}_1, \mathcal{E}_2, \dots, \mathcal{E}_{12} \right\}\)</span>
+based on the sampling units defined earlier. <span
+class="math display">\[\begin{align*}
+\mathcal{S}_1 &amp; =
+\left\{\mathcal{U}_1,\mathcal{U}_2,\mathcal{U}_3\right\} =
+\left\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4,\mathcal{E}_5,\mathcal{E}_6,\mathcal{E}_7,\mathcal{E}_8,\mathcal{E}_9
+\right\} \\
+\mathcal{S}_2 &amp; =
+\left\{\mathcal{U}_1,\mathcal{U}_2,\mathcal{U}_4\right\} =
+\left\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_{10},
+\mathcal{E}_{11}, \mathcal{E}_{12} \right\} \\
+\mathcal{S}_3 &amp; =
+\left\{\mathcal{U}_1,\mathcal{U}_3,\mathcal{U}_4\right\} =
+\left\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_4,\mathcal{E}_5,\mathcal{E}_6,\mathcal{E}_7,\mathcal{E}_8,\mathcal{E}_9,\mathcal{E}_{10},
+\mathcal{E}_{11}, \mathcal{E}_{12} \right\} \\
+\mathcal{S}_4 &amp; =
+\left\{\mathcal{U}_2,\mathcal{U}_3,\mathcal{U}_4\right\} =
+\left\{\mathcal{E}_3,\mathcal{E}_4,\mathcal{E}_5,\mathcal{E}_6,\mathcal{E}_7,\mathcal{E}_8,\mathcal{E}_9,\mathcal{E}_{10},
+\mathcal{E}_{11}, \mathcal{E}_{12}\right\}
+\end{align*}\]</span> <span class="math display">\[\begin{align*}
+P(\mathcal{S}_1) &amp; = 0.2 \\
+P(\mathcal{S}_2) &amp; = 0.3 \\
+P(\mathcal{S}_3) &amp; = 0.4 \\
+P(\mathcal{S}_4) &amp; = 0.1 \\
+\end{align*}\]</span></p>
+</div>
+<div id="probability-sampling" class="section level2">
+<h2>Probability Sampling</h2>
+<p>Why <em>probability sampling</em>?</p>
+<ol style="list-style-type: decimal">
+<li><p>To help avoid intentional or unintentional biases in our
+inferences from the sample to the population.</p></li>
+<li><p>Probability is mathematically tractable — we may not know what
+the sample will be, but we can speak volumes to how certain (or
+uncertain) we can be about what it <em>might</em> be.</p></li>
+</ol>
+</div>
 
 
 
