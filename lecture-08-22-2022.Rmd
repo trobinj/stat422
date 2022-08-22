@@ -45,7 +45,7 @@ What this class *is* about:
 
 1. *Sampling design*. How can we obtain a "representative" sample of things from a population of things? How can we do this effectively while also controlling survey cost? How can we use auxiliary information to create a design that might produce a more representative sample? 
 
-2. *Inference*. How can we characterize the "representativeness" of a sample? How can we assess the accuracy of making conclusions based on a sample? What can we do to improve representativeness/accuracy? 
+2. *Inference*. How can we characterize the "representativeness" of a sample? How can we assess the accuracy of making conclusions based on a sample? How can we use auxiliary information to make inferences that might be more accurate? 
 
 This class is *not* about *measurement* (e.g., questionnaire design, disease diagnosis, quantification of foliage cover), although that is *very* important. 
 
