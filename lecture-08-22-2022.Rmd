@@ -47,7 +47,19 @@ What this class *is* about:
 
 2. *Inference*. How can we characterize the "representativeness" of a sample? How can we assess the accuracy of making conclusions based on a sample? What can we do to improve representativeness/accuracy? 
 
-This class is *not* about *measurement* (e.g., questionnaire design, interviewer effects, disease diagnosis, quantification of foliage cover).
+This class is *not* about *measurement* (e.g., questionnaire design, disease diagnosis, quantification of foliage cover), although that is *very* important. 
+
+Example applications:
+
+How many Hobbits living in the Shire have foot lice? (epidemiology)
+
+What is the average lead content of pottery shards at a site? (archaeology)
+
+What is the average algebra skills test score at a high school? (education)
+
+What proportion of undergraduates at UI use an Android phone? (marketing)
+
+How many otter dens are there along the cost of Scotland? (ecology)
 
 ## Advantages and Disadvantages of Sampling
 
