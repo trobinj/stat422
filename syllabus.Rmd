@@ -19,7 +19,7 @@ header-includes:
 
 **Prerequisites**: Stat 251 or Stat 301 with a grade of 'C' or better.
 
-**Textbook**: There is no textbook for this course. Lectures and lecture notes will be your source of material.
+**Textbook**: There is no textbook for this course. Lecture (notes) will be your primary source.
 
 **Software**: I will be using [R](https://www.r-project.org) with [RStudio](https://www.rstudio.com) for some demonstrations. Both software packages are free and available for download for a variety of operating systems. Prior experience with R and RStudio is not assumed.
 
