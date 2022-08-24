@@ -101,7 +101,7 @@ for every sample.
 
 0. Every element has the same *inclusion probability* of $\pi_i = \frac{n}{N}$.[^inclusionprob] The **inclusion probability** of an element, denoted as $\pi_i$, is the *probability that the element will be included within the selected sample*.
 
-[^inclusionprob]: To see why consider that the number of samples that include the $i$-the element equals the total number of samples minus the number of samples that *exclude* the $i$-th element, which is 
+[^inclusionprob]: To see why consider that the number of samples that include the $i$-th element equals the total number of samples minus the number of samples that *exclude* the $i$-th element, which is 
 $$
   \binom{N}{n} - \binom{N-1}{n}.
 $$
