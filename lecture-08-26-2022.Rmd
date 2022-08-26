@@ -167,8 +167,12 @@ $$
 $$
 where $\sigma^2$ is the *population variance*
 $$
-  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i - \mu)^2. 
+  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i - \mu)^2, 
 $$
+and where $\mu$ is the population mean.[^denominator]
+
+[^denominator]: Some textbooks will define $\sigma^2$ by dividing by $N$ instead of $N-1$. This can be done but it changes the formulas for $V(\bar{y})$ and $V(\hat\tau)$ in a way that I find awkward for later developments. In terms of our interpretation of $\sigma^2$ this is inconsequential since we rarely care about $\sigma^2$ in isolation and the difference between $N$ and $N-1$ is very small when $N$ is large which is frequently the case in survey sampling. 
+
 **Example**: For the smaller population above $\sigma^2 =$ `r round(sigma1,2)`, and for the larger population $\sigma^2 \approx$ `r round(sigma2,2)`. What are $\text{V}(\bar{y})$ and $\text{V}(\hat\tau)$ for each design?
 
 \vspace{5cm}

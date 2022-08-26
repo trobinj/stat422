@@ -915,9 +915,12 @@ variances can be computed as <span class="math display">\[
 \frac{n}{N}\right)\frac{\sigma^2}{n},
 \]</span> where <span class="math inline">\(\sigma^2\)</span> is the
 <em>population variance</em> <span class="math display">\[
-  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i - \mu)^2.
-\]</span> <strong>Example</strong>: For the smaller population above
-<span class="math inline">\(\sigma^2 =\)</span> 7.33, and for the larger
+  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i - \mu)^2,
+\]</span> and where <span class="math inline">\(\mu\)</span> is the
+population mean.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></p>
+<p><strong>Example</strong>: For the smaller population above <span
+class="math inline">\(\sigma^2 =\)</span> 7.33, and for the larger
 population <span class="math inline">\(\sigma^2 \approx\)</span> 8.84.
 What are <span class="math inline">\(\text{V}(\bar{y})\)</span> and
 <span class="math inline">\(\text{V}(\hat\tau)\)</span> for each
@@ -956,6 +959,26 @@ of the target variable in the population were selected randomly from the
 integers from 1 and 100. The figure below shows the sampling
 distribution of <span class="math inline">\(\bar{y}\)</span>.
 <img src="lecture-08-26-2022_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Some textbooks will define <span
+class="math inline">\(\sigma^2\)</span> by dividing by <span
+class="math inline">\(N\)</span> instead of <span
+class="math inline">\(N-1\)</span>. This can be done but it changes the
+formulas for <span class="math inline">\(V(\bar{y})\)</span> and <span
+class="math inline">\(V(\hat\tau)\)</span> in a way that I find awkward
+for later developments. In terms of our interpretation of <span
+class="math inline">\(\sigma^2\)</span> this is inconsequential since we
+rarely care about <span class="math inline">\(\sigma^2\)</span> in
+isolation and the difference between <span
+class="math inline">\(N\)</span> and <span
+class="math inline">\(N-1\)</span> is very small when <span
+class="math inline">\(N\)</span> is large which is frequently the case
+in survey sampling.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 
