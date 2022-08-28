@@ -194,6 +194,8 @@ p <- p + scale_x_continuous(breaks = c(1, seq(10, 160, by = 10)))
 plot(p)
 ```
 
+<!-- In the future delay discussion of the CLT and first discuss the FPC and sampling with replacement (see beginning of next lecture). -->
+
 ## Central Limit Theorem
 
 What can we say about the *shape* of the sampling distribution of $\bar{y}$ or $\hat\tau$? 
