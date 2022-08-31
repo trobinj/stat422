@@ -163,7 +163,7 @@ We can also write this estimator as
 $$
   \hat\tau_d = \frac{N}{n}n_d\bar{y}_d
 $$
-because $\bar{y}_d = \frac{1}{n_d}\sum_{i \in \mathcal{S}} y_i'$. The term $\frac{N}{n}n_d$ is effectively an *estimator* of $N_d$.
+because $\bar{y}_d = \frac{1}{n_d}\sum_{i \in \mathcal{S}} y_i'$. The term $\frac{N}{n}n_d$ is effectively an *estimator* of $N_d$ (we will see why later when we talk about *ratio estimators*).
 
 ```{r}
 set.seed(126)

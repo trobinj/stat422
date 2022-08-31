@@ -67,7 +67,7 @@ Why *simple* random sampling?
 
 1. A good place to start for didactic purposes.
 0. A "baseline" sampling design against which to compare complex sampling designs. 
-2. A "building block" for *complex* sampling designs.
+0. A "building block" for *complex* sampling designs.
 
 A **complex sampling design** is essentially any probability sampling design other than simple random sampling, many of which we will discuss later.
 
