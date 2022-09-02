@@ -204,7 +204,7 @@ tau <- with(p, sum(u))
 
 How do these two estimators compare with respect to their sampling distributions? We could try to derive the standard errors and thus the bound on the error of estimation for each estimator, but instead consider a simulation study. Suppose we have a population of $N$ = `r N` elements, of which $N_d$ = `r Nd` elements are in a domain of interest. The total for the domain of interest is $\tau_d$ = `r format(tau, scientific = FALSE)`. We can simulate a simple random sampling design with a sample size of $n$ = `r n` and estimates from two estimators of $\tau_d$: 
 $$
-  \hat\tau_d = N_d\bar{y} \ \ \ \text{and} \ \ \ \hat\tau_d = \frac{N}{n}n_d\bar{y}_d.
+  \hat\tau_d = N_d\bar{y}_d \ \ \ \text{and} \ \ \ \hat\tau_d = \frac{N}{n}n_d\bar{y}_d.
 $$
 The figure below shows the *empirical* distribution of the estimates from each estimator.
 
