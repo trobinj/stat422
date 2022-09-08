@@ -38,7 +38,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Introduction to stratified random sampling](lecture-09-07-2022.html). A set of [homework problems](hw-stratified.html) on stratified random sampling is now available. The [study guide](e1-studyguide.html) for the first examination is also now available.
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Optimum allocation for stratified random sampling](lecture-09-09-2022.html). 
  
 ***
 
