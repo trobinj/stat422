@@ -67,7 +67,7 @@ Now we are ready for the constrained optimization to compute optimum allocations
 d <- data.frame(Stratum = 1:2, Region = c("Forest","Prairie"), Ni = c(30,87), ni = c(8,5),
   mi = c(287,11.3), si = c(149.1,16.8))
 d$Region <- as.character(d$Region)
-d <- rbind(d, c("","",117,13,""))
+d <- rbind(d, c("","",117,13,"",""))
 names(d)[3:6] <- c("$N_j$","$n_j$","$\\bar{y}_j$","$s_j$")
 ktbl(d)
 ```
