@@ -44,7 +44,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Effectiveness of optimum allocation, stratified versus simple random sampling, design effect and effective sample size](lecture-09-12-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Optimum stratification, double sampling](lecture-09-14-2022.html).
 
 `r i <- i + 1; d[i]` 
  

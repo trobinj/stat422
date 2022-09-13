@@ -39,6 +39,8 @@ source("../../utilities.R")
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
+<!-- This lecture could use a little life. Not sure how to do that though. -->
+
 ## Simulation Study of Optimum Allocation
 
 Strata have same variance, but different sizes. 
