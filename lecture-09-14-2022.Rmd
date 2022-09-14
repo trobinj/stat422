@@ -149,13 +149,15 @@ ktbl(d.pop, align = c("l","c"))
 ```
 And the sample obtained in the second stage using stratified random sampling can be summarized as follows.
 ```{r}
-d.smp <- data.frame(Politics = c("Liberal","Moderate","Conservative"), n = c(25,15,10), m = c(5.5,4,2.25), s = c(0.9,2.1,1.1))
+d.smp <- data.frame(Politics = c("Liberal","Moderate","Conservative"), n = c(20,20,10), m = c(5.5,4,2.25), s = c(0.9,2.1,1.1))
 names(d.smp)[2:4] <- c("$n_j$","$\\bar{y}_j$","$s_j$")
 ktbl(d.smp, align = c("l","c","c","c"))
 ```
 What is the estimate of $\mu$?
 
 \vspace{2cm}
+
+<!-- A useful thing to note here is that the sample mean (i.e., the standard estimator from SRS) implicitly uses the sample sizes from the second phase sample to "estimate" the stratum proportions. -->
 
 ## Comparison of Sampling Designs
 
