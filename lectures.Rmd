@@ -46,7 +46,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Optimum stratification, double sampling](lecture-09-14-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Post-stratification, survey weights](lecture-09-16-2022.html).
  
 ***
 
