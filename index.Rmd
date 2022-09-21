@@ -11,7 +11,9 @@ Course material for Stat 422 (Survey Sampling Methods) for the Fall semester of 
 
 <center>
 
-![](calvinandhobbes.gif)
+![https://xkcd.com/2443](https://imgs.xkcd.com/comics/immune_response.png)
+
+I was reminded of this comic after getting the new COVID-19 bivalent booster vaccine recently.
 
 </center>
 

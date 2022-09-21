@@ -45,7 +45,7 @@ source("../../utilities.R")
 
 When strata correspond to one or more domains of interest, additional inferences concerning those domains can easily be done when using stratified random sampling.
 
-1. Estimation of $\mu_i$ or $\tau_i$ in one strata
+1. Estimation of $\mu_i$ or $\tau_i$ in one stratum.
 0. Estimation of mean or total for several strata combined.
 0. Estimation of the difference in the mean or total between two strata.
 
