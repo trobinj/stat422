@@ -84,9 +84,9 @@ This computes the sample mean ($\bar{y}_j$), sample standard deviation ($s_j$), 
 
 The `otters` data were collected using a *stratified* random sampling design, but for this example we will (incorrectly) assume that the data were collected using *simple* random sampling. Note that data do not know how they were collected. It is the responsibility of the survey researcher to correctly communicate the design to the software.
 
-The first step is to specify the *sampling design*. But before we do that we need to add more information to the data set. Namely we need to specify the *population size* (which is 242 sections). This is done by creating a new variable.
+The first step is to specify the *sampling design*. But before we do that we need to add more information to the data set. Namely we need to specify the *population size* (which is 237 sections). This is done by creating a new variable.
 ```{r}
-otters$N <- 242
+otters$N <- 237
 head(otters)
 ```
 Now the design can be specified using the `svydesign` function. 
@@ -289,7 +289,7 @@ We can compute sampling weights using the `weights` function. For simple random 
 otters$w <- weights(ottersrs)
 head(otters)
 ```
-Remember that we changed the variable `N` earlier for the stratified random sampling design. For the weights for simple random sampling $N$ = 242 and $n$ = 82. For stratified random sampling an element has a weight of $N_j/n_j$ if it is form the $j$-th stratum.
+Remember that we changed the variable `N` earlier for the stratified random sampling design. For the weights for simple random sampling $N$ = 237 and $n$ = 82. For stratified random sampling an element has a weight of $N_j/n_j$ if it is form the $j$-th stratum.
 ```{r}
 otters$w <- weights(otterstrat)
 head(otters)
