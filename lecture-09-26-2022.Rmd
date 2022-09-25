@@ -1,0 +1,356 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-26-2022"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", comment = "", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+<!-- Move up the discussion of two estimators of R: $\bar{y}/\bar{x}$ and $\bar{y}/\mu_x$. This is discussed in the lecture for 10/5/2020.  -->
+
+## Estimation of a Ratio and Ratio Estimators
+
+Confusingly, there are two somewhat related problems that we will consider involving "ratios" in estimation. 
+
+1. The estimation of a *ratio of totals* of two variables (an "estimator of a ratio").
+
+0. Using an estimated ratio to estimate a population *mean* or *total* (a "ratio estimator").
+
+Today's lecture considers only the first problem --- i.e., estimating a ratio of totals.
+
+## Estimation of a Ratio (of Totals)
+
+Sometimes we are interested in estimating the *ratio* of the totals of *two* variables, defined as
+$$
+  R = \frac{\tau_y}{\tau_x} = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i}.
+$$
+Note that because $\mu_y = \frac{1}{N}\sum_{i=1}^N y_i$ and $\mu_x = \frac{1}{N}\sum_{i=1}^N x_i$, then we can also write $R = \mu_y/\mu_x$. 
+
+Note that by convention $y_i$ will denote the value of the *numerator* variable and $x_i$ will denote the value of the *denominator* variable for element $i$.
+
+Examples include the estimation of a *proportions*, *rates*, or *densities*. 
+
+**Example**: Consider the problem of estimating the *proportion* of trees that are of a particular species in a region of land divided into $N$ plots.
+```{r}
+d <- data.frame(Quantity = c("$y_i$", "$x_i$", "$R$"),
+  Description = c("number of trees of a particular species in plot $i$", 
+  "number of trees in plot $i$", "proportion of trees in the region that are of a particular species"))
+ktbl(d, align = c("r","l"))
+```
+
+**Example**: Consider the problem of estimating the birth *rate* in a population of $N$ villages.
+```{r}
+d <- data.frame(Quantity = c("$y_i$", "$x_i$", "$R$"),
+  Description = c("number of births in the past year in village $i$", 
+  "number of people in village $i$", "birth rate (number of births per person per year)"))
+ktbl(d, align = c("r","l"))
+```
+
+**Example**: Consider the problem of estimating the *density* of errors in a stream of data divided into $N$ chunks of varying size.
+```{r}
+d <- data.frame(Quantity = c("$y_i$", "$x_i$", "$R$"),
+  Description = c("number of errors in the chunk $i$", 
+  "size of chunk $i$", "error density (errors per unit size)"))
+ktbl(d, align = c("r","l"))
+```
+
+We will also see that sometimes estimators of means will take the form of a ratio. Examples include the estimation of the means of *domains*, and the estimation of means when elements are *clustered*.
+
+## Estimator for a Ratio
+
+For a *simple random sampling* design, an estimator of $R$ is
+$$
+  r = \frac{\hat\tau_y}{\hat\tau_x} = \frac{N\bar{y}}{N\bar{x}} = \frac{\bar{y}}{\bar{x}}.
+$$
+
+```{r}
+set.seed(123)
+n <- 10
+
+d <- data.frame(x = runif(n, 0, 200))
+d <- d %>% mutate(x = round(x), y = rpois(n, x/20),
+  r = mean(y)/mean(x), yhat = x*r, e = y - yhat, element = letters[1:n])
+
+r <- with(d, mean(y)/mean(x))
+```
+
+**Example**: Consider a survey using a simple random sampling design with $n$ = `r n` villages to estimate birth rate, where $y_i$ is the number of births in the $i$-th sampled village, and $x_i$ is the number of people in the $i$-th sampled village. 
+```{r}
+d %>% select(element, y, x) %>% rename("village" = element, "$y_i$" = y, "$x_i$" = x) %>% ktbl()
+```
+We have that $\bar{y}$ = `r mean(d$y)` and $\bar{x}$ = `r mean(d$x)`, so the estimated birth rate is then $r$ = `r mean(d$y)`/`r mean(d$x)` $\approx$ `r round(r,2)` births per person. 
+
+The estimated variance of the estimator $r$ under simple random sampling is
+$$
+  \hat{V}(r) = \left(\frac{1}{\mu_x^2}\right)\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}.
+$$
+Note: If $\mu_x$ is unknown it can be replaced with $\bar{x}$. 
+
+**Example**: Returning to the birth rate problem, what is $\hat{V}(r)$ if $N$ = 100? And what is the bound on the error of estimation?
+```{r}
+dtab <- d %>% select(element, y, x, e) %>% mutate(e2 = e^2) 
+
+v <- with(dtab, (1 / mean(x)^2) * (1 - nrow(dtab)/100) * sum(e2) / (nrow(dtab) - 1) / nrow(dtab))
+
+dtab <- dtab %>% rename("village" = element, "$y_i$" = y, "$x_i$" = x, "$y_i - rx_i$" = e, "$(y_i - rx_i)^2$" = e2)
+dtab[,4] <- round(dtab[,4],2)
+dtab[,5] <- round(dtab[,5],2)
+dtab <- rbind(dtab, c("","","","",round(sum(d$e^2),2)))
+
+ktbl(dtab)
+```
+Note that quantities shown in the table are rounded.
+
+\pagebreak
+
+```{r, fig.height = 4}
+library(ggrepel)
+
+p <- ggplot(d, aes(x = x, y = y, label = element)) + theme_classic()
+p <- p + geom_point() + labs(x = "People", y = "Births")
+p <- p + geom_abline(intercept = 0, slope = r, alpha = 0.25)
+p <- p + geom_segment(aes(xend = x, yend = yhat), alpha = 0.25)
+p <- p + scale_x_continuous(breaks = seq(0, 200, by = 50), limits = c(0,200))
+p <- p + scale_y_continuous(breaks = seq(0, 10, by = 1), limits = c(0,10))
+p <- p + geom_label_repel(box.padding = 1, size = 2.5)
+plot(p)
+```
+We can show that $\hat{V}(r)$ $\approx$ `r format(v, scientific = FALSE)`, which gives a bound on the error of estimation of $B$ $\approx$ `r format(round(2*sqrt(v), 3), scientific = FALSE)`.
+
+\pagebreak
+
+How does the relationship between $y_i$ and $x_i$ affect the variance of $r$? 
+```{r, fig.height = 4}
+set.seed(127)
+
+n <- 10
+d <- data.frame(x = runif(n, 50, 100))
+d <- d %>% mutate(yhat = x/4, e = rnorm(n, 0, 1), low = yhat + 2*e, medium = yhat + 4*e, high = yhat + 8*e) %>% select(x, low, medium, high)
+
+d <- pivot_longer(d, cols = 2:4, names_to = "variance", values_to = "y")
+d <- d %>% group_by(variance) %>% mutate(r = mean(y)/mean(x), yhat = r*x)
+
+d$variance <- factor(d$variance, levels = c("low","medium","high"))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal() + facet_wrap(~ variance)
+p <- p + geom_point() + labs(x = "x", y = "y")
+p <- p + geom_line(aes(y = yhat), alpha = 0.25)
+p <- p + geom_segment(aes(xend = x, yend = yhat), alpha = 0.25)
+
+plot(p)
+```
+Note that the lines in the figures below have intercepts of zero (i.e., they pass through the origin) and slopes of $r$. 
+
+**Example**: Consider a survey to estimate the proportion of households with televisions in Des Moines, Iowa, in 1951. The sampling units are *blocks* of households. 
+
+```{r}
+d <- trtools::televisions %>% mutate(block = 1:n()) %>% 
+  select(block, tv, households)
+ktbl(headtail(d, 5))
+
+r <- with(d, mean(tv)/mean(households))
+e2sum <- with(d, sum((tv - r*households)^2))
+```
+
+We can compute $\bar{y} \approx$ `r round(mean(d$tv),2)` and $\bar{x} \approx$ `r round(mean(d$households),2)`. The estimate of the proportion of households with TVs is $r \approx$ `r round(mean(d$tv)/mean(d$households),2)`.
+
+```{r, fig.height = 4}
+d <- trtools::televisions
+v <- with(d, (1 / (56296/9460)^2) * (1 - nrow(d)/9460) * e2sum / (nrow(d) - 1) / nrow(d))
+
+d <- trtools::televisions %>% group_by(households, tv) %>% summarize(n = n())
+
+p <- ggplot(d, aes(x = households, y = tv)) + theme_classic()
+p <- p + theme(panel.grid.major = element_line(color = grey(0.85)))
+p <- p + geom_abline(intercept = 0, slope = r, alpha = 0.25)
+p <- p + geom_point(aes(size = n), pch = 21, fill = "white") + scale_size_area()
+p <- p + guides(size = "none")
+p <- p + scale_x_continuous(breaks = 0:44)
+p <- p + scale_y_continuous(breaks = 0:8)
+p <- p + labs(x = "Number of Households", y = "Households With Televisions",
+  title = "Households with Televisions by Number of Households",
+  subtitle = "Note: Point area is proportional to frequency.")
+plot(p)
+```
+
+We have $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum, 2)`, and we know that $N$ = 9460 and that $\tau_x$ = 56296 households, so $\mu_x$ = 56296/9460 $\approx$ `r round(56296/9460, 2)`. We can show that $\hat{V}(r)$ $\approx$ `r format(round(v, 4), scientific = FALSE)` and that the bound on the error of estimation is $B$ $\approx$ `r round(2*sqrt(v), 2)`. 
+
+\pagebreak
+
+## Estimation of a $\mu$ With Clusters of Elements
+
+**Example**: Consider a sampling design where the elements are plot, $y_i$ is tree biomass in the $i$-th plot, and $x_i$ is the number of trees in the $i$-th plot Here are the data for a simple random sampling design that selected $n$ = 10 plots.
+```{r}
+set.seed(123)
+n <- 10
+d <- data.frame(Trees = rpois(n, 5))
+d$Biomass <- with(d, round(rgamma(n, 50, 2) * Trees))
+d %>% mutate(Plot = 1:n) %>% select(Plot, Biomass, Trees) %>% ktbl()
+```
+Note that mean volume *per tree* ($\mu$) is 
+$$
+  \mu = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i} = 
+  \frac{\text{total biomass for all trees}}{\text{total number of trees}},
+$$
+which can be estimated by the ratio $r = \bar{y}/\bar{x}$. Here we have that $\hat\mu$ = $r$ = $\bar{y}/\bar{x} \approx$ `r round(mean(d$Biomass)/mean(d$Trees),1)` units of biomass *per tree*.  
+
+Note: We will see this estimator again when we discuss *one-stage cluster sampling*.
+
+## Comparison of Two Estimators of a Ratio of Totals
+
+Consider two estimators of $R = \tau_y/\tau_x$: 
+$$
+  r = \bar{y}/\bar{x} \ \ \ \text{and} \ \ \ r = \bar{y}/\mu_x.
+$$
+The latter would be an option if $\mu_x$ is *known*.
+
+**Example**: Consider the problem of estimating the density of larkspur in a region, where $y_i$ is the number of larkspur in the $i$-th plot, and $x_i$ is the area of the $i$-th plot. Here $\mu_x$ is the mean area of all plots. We may know this.
+
+**Example**: Consider the problem of estimating the number of televisions per household in a city, where $y_i$ is the number of televisions owned by households in the $i$-th block, and $x_i$ is the number of households in the $i$-th block. Here $\tau_x$ is the total number of households in the city, so $\mu_x = \tau_x/N$. We may know this. 
+
+Which estimator should we use? Under simple random sampling the estimated variances of these estimators are
+$$
+  \hat{V}(\bar{y}/\bar{x}) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{and} \ \ \
+  \hat{V}(\bar{y}/\mu_x) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s^2}{n},
+$$
+where 
+$$
+  s_r^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \ \ \ \text{and} \ \ \ 
+  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2,
+$$  
+so the (estimated) relative efficiency depends only on $s_r^2$ and $s^2$. 
+
+### Approximately Proportional Variables
+
+Here $s_r^2 < s^2$.
+
+```{r, fig.width = 9, fig.height = 4, warning = FALSE}
+set.seed(123)
+
+N <- 10000
+n <- 25
+r <- 10000
+
+d <- data.frame(x = rep(1:25, N/25)) %>% mutate(y = rpois(n(), x))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
+p1 <- p + ggtitle("Population")
+
+mux <- mean(d$x)
+
+u <- data.frame(e1 = rep(NA, r), e2 = rep(NA, r))
+
+for (i in 1:r) {
+  indx <- sample(1:N, n)
+  
+  ysmp <- d$y[indx]
+  xsmp <- d$x[indx]
+  
+  u$e1[i] <- mean(ysmp) / mux
+  u$e2[i] <- mean(ysmp) / mean(xsmp)
+}
+
+u <- u %>% pivot_longer(cols = c(e1, e2), names_to = "estimator", values_to = "estimate")
+
+p <- ggplot(u, aes(x = estimate, fill = estimator)) + theme_classic()
+p <- p + geom_density(adjust = 3, alpha = 0.5)
+p <- p + scale_fill_manual(values = c(grey(0.4), grey(0.75)))
+p <- p + scale_x_continuous(breaks = seq(0, 2, by = 0.1), limits = c(0.4, 1.4),
+  labels = c(seq(0, 0.9, by = 0.1), tex("$\\mu_y$"), seq(1.1, 2, by = 0.1)))
+p <- p + theme(legend.position = c(0.25, 0.75))
+p <- p + labs(fill = "Estimator", x = "Estimate") + guides(fill = "none")
+p <- p + annotate("text", x = 0.4, y = 5.7, label = "Estimator", hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 5.2, label = tex("$\\bar{y} / \\mu_x$"), hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 4.7, label = tex("$\\bar{y} / \\bar{x}$"), hjust = 0)
+p <- p + annotate("point", x = 0.43, y = 5.2, shape = 22, fill = grey(0.40), size = 7, alpha = 0.5)
+p <- p + annotate("point", x = 0.43, y = 4.7, shape = 22, fill = grey(0.75), size = 7, alpha = 0.5)
+p2 <- p + ggtitle("Sampling Distributions") + noyaxis
+
+cowplot::plot_grid(p1, p2, ncol = 2, rel_widths = c(1,1))
+```
+
+### Unrelated Variables
+
+Here $s_r^2 > s^2$. 
+
+```{r, fig.width = 9, fig.height = 4, warning = FALSE}
+set.seed(123)
+
+N <- 10000
+n <- 25
+r <- 10000
+
+d <- data.frame(x = rep(1:25, N/25)) %>% mutate(y = rpois(n(), 13))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
+p1 <- p + ggtitle("Population")
+
+mux <- mean(d$x)
+
+u <- data.frame(e1 = rep(NA, r), e2 = rep(NA, r))
+
+for (i in 1:r) {
+  indx <- sample(1:N, n)
+  
+  ysmp <- d$y[indx]
+  xsmp <- d$x[indx]
+  
+  u$e1[i] <- mean(ysmp) / mux
+  u$e2[i] <- mean(ysmp) / mean(xsmp)
+}
+
+u <- u %>% pivot_longer(cols = c(e1, e2), names_to = "estimator", values_to = "estimate")
+
+p <- ggplot(u, aes(x = estimate, fill = estimator)) + theme_classic()
+p <- p + geom_density(adjust = 3, alpha = 0.5)
+p <- p + scale_fill_manual(values = c(grey(0.4), grey(0.75)))
+p <- p + scale_x_continuous(breaks = seq(0, 2, by = 0.1), limits = c(0.4, 1.4),
+  labels = c(seq(0, 0.9, by = 0.1), tex("$\\mu_y$"), seq(1.1, 2, by = 0.1)))
+p <- p + theme(legend.position = c(0.25, 0.75))
+p <- p + labs(fill = "Estimator", x = "Estimate") + guides(fill = "none")
+p <- p + annotate("text", x = 0.4, y = 5.7, label = "Estimator", hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 5.2, label = tex("$\\bar{y} / \\mu_x$"), hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 4.7, label = tex("$\\bar{y} / \\bar{x}$"), hjust = 0)
+p <- p + annotate("point", x = 0.43, y = 5.2, shape = 22, fill = grey(0.40), size = 7, alpha = 0.5)
+p <- p + annotate("point", x = 0.43, y = 4.7, shape = 22, fill = grey(0.75), size = 7, alpha = 0.5)
+p2 <- p + ggtitle("Sampling Distributions") + noyaxis
+
+cowplot::plot_grid(p1, p2, ncol = 2, rel_widths = c(1,1))
+```
+So, it depends!
