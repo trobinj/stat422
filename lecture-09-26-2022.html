@@ -935,6 +935,158 @@ error of estimation is <span class="math inline">\(B\)</span> <span
 class="math inline">\(\approx\)</span> 0.04.</p>
 <div style="page-break-after: always;"></div>
 </div>
+<div id="estimation-of-a-mu-with-clusters-of-elements"
+class="section level2">
+<h2>Estimation of a <span class="math inline">\(\mu\)</span> With
+Clusters of Elements</h2>
+<strong>Example</strong>: Consider a sampling design where the elements
+are plot, <span class="math inline">\(y_i\)</span> is tree biomass in
+the <span class="math inline">\(i\)</span>-th plot, and <span
+class="math inline">\(x_i\)</span> is the number of trees in the <span
+class="math inline">\(i\)</span>-th plot Here are the data for a simple
+random sampling design that selected <span
+class="math inline">\(n\)</span> = 10 plots.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Plot
+</th>
+<th style="text-align:center;">
+Biomass
+</th>
+<th style="text-align:center;">
+Trees
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+125
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+185
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+82
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+152
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+263
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+52
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+131
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+201
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+114
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+148
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that mean volume <em>per tree</em> (<span
+class="math inline">\(\mu\)</span>) is <span class="math display">\[
+  \mu = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i} =
+  \frac{\text{total biomass for all trees}}{\text{total number of
+trees}},
+\]</span> which can be estimated by the ratio <span
+class="math inline">\(r = \bar{y}/\bar{x}\)</span>. Here we have that
+<span class="math inline">\(\hat\mu\)</span> = <span
+class="math inline">\(r\)</span> = <span
+class="math inline">\(\bar{y}/\bar{x} \approx\)</span> 25.5 units of
+biomass <em>per tree</em>.</p>
+<p>Note: We will see this estimator again when we discuss <em>one-stage
+cluster sampling</em>.</p>
+</div>
 <div id="estimation-of-domain-means" class="section level2">
 <h2>Estimation of Domain Means</h2>
 <p>Under simple random sampling, the estimator of <span

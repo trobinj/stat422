@@ -211,6 +211,25 @@ We have $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum, 2)`, an
 
 \pagebreak
 
+## Estimation of a $\mu$ With Clusters of Elements
+
+**Example**: Consider a sampling design where the elements are plot, $y_i$ is tree biomass in the $i$-th plot, and $x_i$ is the number of trees in the $i$-th plot Here are the data for a simple random sampling design that selected $n$ = 10 plots.
+```{r}
+set.seed(123)
+n <- 10
+d <- data.frame(Trees = rpois(n, 5))
+d$Biomass <- with(d, round(rgamma(n, 50, 2) * Trees))
+d %>% mutate(Plot = 1:n) %>% select(Plot, Biomass, Trees) %>% ktbl()
+```
+Note that mean volume *per tree* ($\mu$) is 
+$$
+  \mu = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i} = 
+  \frac{\text{total biomass for all trees}}{\text{total number of trees}},
+$$
+which can be estimated by the ratio $r = \bar{y}/\bar{x}$. Here we have that $\hat\mu$ = $r$ = $\bar{y}/\bar{x} \approx$ `r round(mean(d$Biomass)/mean(d$Trees),1)` units of biomass *per tree*.  
+
+Note: We will see this estimator again when we discuss *one-stage cluster sampling*.
+
 ## Estimation of Domain Means 
 
 Under simple random sampling, the estimator of $\mu_d$ can be written as
