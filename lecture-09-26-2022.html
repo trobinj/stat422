@@ -935,209 +935,197 @@ error of estimation is <span class="math inline">\(B\)</span> <span
 class="math inline">\(\approx\)</span> 0.04.</p>
 <div style="page-break-after: always;"></div>
 </div>
-<div id="estimation-of-a-mu-with-clusters-of-elements"
-class="section level2">
-<h2>Estimation of a <span class="math inline">\(\mu\)</span> With
-Clusters of Elements</h2>
-<strong>Example</strong>: Consider a sampling design where the elements
-are plot, <span class="math inline">\(y_i\)</span> is tree biomass in
-the <span class="math inline">\(i\)</span>-th plot, and <span
-class="math inline">\(x_i\)</span> is the number of trees in the <span
-class="math inline">\(i\)</span>-th plot Here are the data for a simple
-random sampling design that selected <span
-class="math inline">\(n\)</span> = 10 plots.
+<div id="estimation-of-domain-means" class="section level2">
+<h2>Estimation of Domain Means</h2>
+<p>Under simple random sampling, the estimator of <span
+class="math inline">\(\mu_d\)</span> can be written as <span
+class="math display">\[
+  \bar{y}_d = \frac{\sum_{i \in \mathcal{S}} y_i&#39;}{\sum_{i \in
+\mathcal{S}} x_i},
+\]</span> where <span class="math display">\[
+  y_i&#39; =
+  \begin{cases}
+    y_i, &amp; \text{if the $i$-th element is in the domain}, \\
+    0,   &amp; \text{if the $i$-th element is not in the domain},
+  \end{cases}
+\]</span> and <span class="math display">\[
+  x_i =
+  \begin{cases}
+    1,   &amp; \text{if the $i$-th element is in the domain}, \\
+    0,   &amp; \text{if the $i$-th element is not in the domain}.
+  \end{cases}
+\]</span> Note that <span class="math inline">\(\sum_{i \in \mathcal{S}}
+x_i = n_d\)</span> (i.e., the number of elements in the sample that are
+in the domain).</p>
+<strong>Example</strong>: Here is how <span
+class="math inline">\(y_i&#39;\)</span> and <span
+class="math inline">\(x_i\)</span> would be defined for a sample of
+<span class="math inline">\(n\)</span> = 10.
 <table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:center;">
-Plot
+Domain
 </th>
 <th style="text-align:center;">
-Biomass
+<span class="math inline">\(y_i\)</span>
 </th>
 <th style="text-align:center;">
-Trees
+<span class="math inline">\(y_i&#39;\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-125
-</td>
-<td style="text-align:center;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-185
-</td>
-<td style="text-align:center;">
-7
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-82
-</td>
-<td style="text-align:center;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-152
-</td>
-<td style="text-align:center;">
-8
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5
-</td>
-<td style="text-align:center;">
-263
+yes
 </td>
 <td style="text-align:center;">
 9
 </td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+1
+</td>
 </tr>
 <tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
 <td style="text-align:center;">
 6
 </td>
 <td style="text-align:center;">
-52
+6
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
 </td>
 <td style="text-align:center;">
 2
 </td>
-</tr>
-<tr>
 <td style="text-align:center;">
-7
+2
 </td>
 <td style="text-align:center;">
-131
-</td>
-<td style="text-align:center;">
-5
+1
 </td>
 </tr>
 <tr>
+<td style="text-align:center;">
+no
+</td>
 <td style="text-align:center;">
 8
 </td>
 <td style="text-align:center;">
-201
+0
 </td>
 <td style="text-align:center;">
-8
+0
 </td>
 </tr>
 <tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
 <td style="text-align:center;">
 9
 </td>
 <td style="text-align:center;">
-114
+9
 </td>
 <td style="text-align:center;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-10
-</td>
-<td style="text-align:center;">
-148
-</td>
-<td style="text-align:center;">
-5
+1
 </td>
 </tr>
 </tbody>
 </table>
-<p>Note that mean volume <em>per tree</em> (<span
-class="math inline">\(\mu\)</span>) is <span class="math display">\[
-  \mu = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i} =
-  \frac{\text{total biomass for all trees}}{\text{total number of
-trees}},
-\]</span> which can be estimated by the ratio <span
-class="math inline">\(r = \bar{y}/\bar{x}\)</span>. Here we have that
-<span class="math inline">\(\hat\mu\)</span> = <span
-class="math inline">\(r\)</span> = <span
-class="math inline">\(\bar{y}/\bar{x} \approx\)</span> 25.5 units of
-biomass <em>per tree</em>.</p>
-<p>Note: We will see this estimator again when we discuss <em>one-stage
-cluster sampling</em>.</p>
-</div>
-<div id="comparison-of-two-estimators-of-a-ratio-of-totals"
-class="section level2">
-<h2>Comparison of Two Estimators of a Ratio of Totals</h2>
-<p>Consider two estimators of <span class="math inline">\(R =
-\tau_y/\tau_x\)</span>: <span class="math display">\[
-  r = \bar{y}/\bar{x} \ \ \ \text{and} \ \ \ r = \bar{y}/\mu_x.
-\]</span> The latter would be an option if <span
-class="math inline">\(\mu_x\)</span> is <em>known</em>.</p>
-<p><strong>Example</strong>: Consider the problem of estimating the
-density of larkspur in a region, where <span
-class="math inline">\(y_i\)</span> is the number of larkspur in the
-<span class="math inline">\(i\)</span>-th plot, and <span
-class="math inline">\(x_i\)</span> is the area of the <span
-class="math inline">\(i\)</span>-th plot. Here <span
-class="math inline">\(\mu_x\)</span> is the mean area of all plots. We
-may know this.</p>
-<p><strong>Example</strong>: Consider the problem of estimating the
-number of televisions per household in a city, where <span
-class="math inline">\(y_i\)</span> is the number of televisions owned by
-households in the <span class="math inline">\(i\)</span>-th block, and
-<span class="math inline">\(x_i\)</span> is the number of households in
-the <span class="math inline">\(i\)</span>-th block. Here <span
-class="math inline">\(\tau_x\)</span> is the total number of households
-in the city, so <span class="math inline">\(\mu_x = \tau_x/N\)</span>.
-We may know this.</p>
-<p>Which estimator should we use? Under simple random sampling the
-estimated variances of these estimators are <span
-class="math display">\[
-  \hat{V}(\bar{y}/\bar{x}) = \frac{1}{\mu_x^2}\left(1 -
-\frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{and} \ \ \
-  \hat{V}(\bar{y}/\mu_x) = \frac{1}{\mu_x^2}\left(1 -
-\frac{n}{N}\right)\frac{s^2}{n},
-\]</span> where <span class="math display">\[
-  s_r^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \ \ \
-\text{and} \ \ \
-  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2,
-\]</span><br />
-so the (estimated) relative efficiency depends only on <span
-class="math inline">\(s_r^2\)</span> and <span
-class="math inline">\(s^2\)</span>.</p>
-<div id="approximately-proportional-variables" class="section level3">
-<h3>Approximately Proportional Variables</h3>
-<p>Here <span class="math inline">\(s_r^2 &lt; s^2\)</span>.</p>
-<p><img src="lecture-09-26-2022_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="unrelated-variables" class="section level3">
-<h3>Unrelated Variables</h3>
-<p>Here <span class="math inline">\(s_r^2 &gt; s^2\)</span>.</p>
-<p><img src="lecture-09-26-2022_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" />
-So, it depends!</p>
-</div>
+<p>The variance of <span class="math inline">\(\bar{y}_d\)</span> under
+simple random sampling tends to be a bit larger than if we had used the
+domains in a stratified random sampling design because <span
+class="math inline">\(n_d\)</span> is <em>random</em> rather than
+<em>fixed by design</em>.</p>
 </div>
 
 

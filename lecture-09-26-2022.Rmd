@@ -211,146 +211,40 @@ We have $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum, 2)`, an
 
 \pagebreak
 
-## Estimation of a $\mu$ With Clusters of Elements
+## Estimation of Domain Means 
 
-**Example**: Consider a sampling design where the elements are plot, $y_i$ is tree biomass in the $i$-th plot, and $x_i$ is the number of trees in the $i$-th plot Here are the data for a simple random sampling design that selected $n$ = 10 plots.
-```{r}
-set.seed(123)
-n <- 10
-d <- data.frame(Trees = rpois(n, 5))
-d$Biomass <- with(d, round(rgamma(n, 50, 2) * Trees))
-d %>% mutate(Plot = 1:n) %>% select(Plot, Biomass, Trees) %>% ktbl()
-```
-Note that mean volume *per tree* ($\mu$) is 
+Under simple random sampling, the estimator of $\mu_d$ can be written as
 $$
-  \mu = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i} = 
-  \frac{\text{total biomass for all trees}}{\text{total number of trees}},
-$$
-which can be estimated by the ratio $r = \bar{y}/\bar{x}$. Here we have that $\hat\mu$ = $r$ = $\bar{y}/\bar{x} \approx$ `r round(mean(d$Biomass)/mean(d$Trees),1)` units of biomass *per tree*.  
-
-Note: We will see this estimator again when we discuss *one-stage cluster sampling*.
-
-## Comparison of Two Estimators of a Ratio of Totals
-
-Consider two estimators of $R = \tau_y/\tau_x$: 
-$$
-  r = \bar{y}/\bar{x} \ \ \ \text{and} \ \ \ r = \bar{y}/\mu_x.
-$$
-The latter would be an option if $\mu_x$ is *known*.
-
-**Example**: Consider the problem of estimating the density of larkspur in a region, where $y_i$ is the number of larkspur in the $i$-th plot, and $x_i$ is the area of the $i$-th plot. Here $\mu_x$ is the mean area of all plots. We may know this.
-
-**Example**: Consider the problem of estimating the number of televisions per household in a city, where $y_i$ is the number of televisions owned by households in the $i$-th block, and $x_i$ is the number of households in the $i$-th block. Here $\tau_x$ is the total number of households in the city, so $\mu_x = \tau_x/N$. We may know this. 
-
-Which estimator should we use? Under simple random sampling the estimated variances of these estimators are
-$$
-  \hat{V}(\bar{y}/\bar{x}) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{and} \ \ \
-  \hat{V}(\bar{y}/\mu_x) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s^2}{n},
+  \bar{y}_d = \frac{\sum_{i \in \mathcal{S}} y_i'}{\sum_{i \in \mathcal{S}} x_i},
 $$
 where 
 $$
-  s_r^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \ \ \ \text{and} \ \ \ 
-  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2,
-$$  
-so the (estimated) relative efficiency depends only on $s_r^2$ and $s^2$. 
+  y_i' = 
+  \begin{cases}
+    y_i, & \text{if the $i$-th element is in the domain}, \\
+    0,   & \text{if the $i$-th element is not in the domain},
+  \end{cases}
+$$
+and
+$$
+  x_i = 
+  \begin{cases}
+    1,   & \text{if the $i$-th element is in the domain}, \\
+    0,   & \text{if the $i$-th element is not in the domain}.
+  \end{cases}
+$$
+Note that $\sum_{i \in \mathcal{S}} x_i = n_d$ (i.e., the number of elements in the sample that are in the domain). 
 
-### Approximately Proportional Variables
-
-Here $s_r^2 < s^2$.
-
-```{r, fig.width = 9, fig.height = 4, warning = FALSE}
+**Example**: Here is how $y_i'$ and $x_i$ would be defined for a sample of $n$ = 10.
+```{r}
 set.seed(123)
+n <- 10
+d <- data.frame(domain = sample(c("yes","no"), n, replace = TRUE), y = rpois(n, 5))
+d <- d %>% mutate(yprime = ifelse(domain == "yes", y, 0), d = as.numeric(domain == "yes"),
+  e2 = (yprime - mean(yprime)/mean(d)*d)^2)
 
-N <- 10000
-n <- 25
-r <- 10000
-
-d <- data.frame(x = rep(1:25, N/25)) %>% mutate(y = rpois(n(), x))
-
-p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
-p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
-p1 <- p + ggtitle("Population")
-
-mux <- mean(d$x)
-
-u <- data.frame(e1 = rep(NA, r), e2 = rep(NA, r))
-
-for (i in 1:r) {
-  indx <- sample(1:N, n)
-  
-  ysmp <- d$y[indx]
-  xsmp <- d$x[indx]
-  
-  u$e1[i] <- mean(ysmp) / mux
-  u$e2[i] <- mean(ysmp) / mean(xsmp)
-}
-
-u <- u %>% pivot_longer(cols = c(e1, e2), names_to = "estimator", values_to = "estimate")
-
-p <- ggplot(u, aes(x = estimate, fill = estimator)) + theme_classic()
-p <- p + geom_density(adjust = 3, alpha = 0.5)
-p <- p + scale_fill_manual(values = c(grey(0.4), grey(0.75)))
-p <- p + scale_x_continuous(breaks = seq(0, 2, by = 0.1), limits = c(0.4, 1.4),
-  labels = c(seq(0, 0.9, by = 0.1), tex("$\\mu_y$"), seq(1.1, 2, by = 0.1)))
-p <- p + theme(legend.position = c(0.25, 0.75))
-p <- p + labs(fill = "Estimator", x = "Estimate") + guides(fill = "none")
-p <- p + annotate("text", x = 0.4, y = 5.7, label = "Estimator", hjust = 0)
-p <- p + annotate("text", x = 0.47, y = 5.2, label = tex("$\\bar{y} / \\mu_x$"), hjust = 0)
-p <- p + annotate("text", x = 0.47, y = 4.7, label = tex("$\\bar{y} / \\bar{x}$"), hjust = 0)
-p <- p + annotate("point", x = 0.43, y = 5.2, shape = 22, fill = grey(0.40), size = 7, alpha = 0.5)
-p <- p + annotate("point", x = 0.43, y = 4.7, shape = 22, fill = grey(0.75), size = 7, alpha = 0.5)
-p2 <- p + ggtitle("Sampling Distributions") + noyaxis
-
-cowplot::plot_grid(p1, p2, ncol = 2, rel_widths = c(1,1))
+d <- d %>% rename(Domain = domain, "$y_i$" = y, "$y_i'$" = yprime, "$x_i$" = d)
+d %>% select(-e2) %>% ktbl()
 ```
 
-### Unrelated Variables
-
-Here $s_r^2 > s^2$. 
-
-```{r, fig.width = 9, fig.height = 4, warning = FALSE}
-set.seed(123)
-
-N <- 10000
-n <- 25
-r <- 10000
-
-d <- data.frame(x = rep(1:25, N/25)) %>% mutate(y = rpois(n(), 13))
-
-p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
-p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
-p1 <- p + ggtitle("Population")
-
-mux <- mean(d$x)
-
-u <- data.frame(e1 = rep(NA, r), e2 = rep(NA, r))
-
-for (i in 1:r) {
-  indx <- sample(1:N, n)
-  
-  ysmp <- d$y[indx]
-  xsmp <- d$x[indx]
-  
-  u$e1[i] <- mean(ysmp) / mux
-  u$e2[i] <- mean(ysmp) / mean(xsmp)
-}
-
-u <- u %>% pivot_longer(cols = c(e1, e2), names_to = "estimator", values_to = "estimate")
-
-p <- ggplot(u, aes(x = estimate, fill = estimator)) + theme_classic()
-p <- p + geom_density(adjust = 3, alpha = 0.5)
-p <- p + scale_fill_manual(values = c(grey(0.4), grey(0.75)))
-p <- p + scale_x_continuous(breaks = seq(0, 2, by = 0.1), limits = c(0.4, 1.4),
-  labels = c(seq(0, 0.9, by = 0.1), tex("$\\mu_y$"), seq(1.1, 2, by = 0.1)))
-p <- p + theme(legend.position = c(0.25, 0.75))
-p <- p + labs(fill = "Estimator", x = "Estimate") + guides(fill = "none")
-p <- p + annotate("text", x = 0.4, y = 5.7, label = "Estimator", hjust = 0)
-p <- p + annotate("text", x = 0.47, y = 5.2, label = tex("$\\bar{y} / \\mu_x$"), hjust = 0)
-p <- p + annotate("text", x = 0.47, y = 4.7, label = tex("$\\bar{y} / \\bar{x}$"), hjust = 0)
-p <- p + annotate("point", x = 0.43, y = 5.2, shape = 22, fill = grey(0.40), size = 7, alpha = 0.5)
-p <- p + annotate("point", x = 0.43, y = 4.7, shape = 22, fill = grey(0.75), size = 7, alpha = 0.5)
-p2 <- p + ggtitle("Sampling Distributions") + noyaxis
-
-cowplot::plot_grid(p1, p2, ncol = 2, rel_widths = c(1,1))
-```
-So, it depends!
+The variance of $\bar{y}_d$ under simple random sampling tends to be a bit larger than if we had used the domains in a stratified random sampling design because $n_d$ is *random* rather than *fixed by design*.
