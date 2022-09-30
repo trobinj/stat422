@@ -286,8 +286,6 @@ plot(p)
 data %>% group_by(estimator) %>% summarize(variance = round(var(estimate),5)) %>% mutate(B = round(2 * sqrt(variance),2)) %>% ktbl()
 ```
 
-\pagebreak
-
 ## Sources of Auxiliary Variables for Ratio Estimators
 
 1. What is *necessary* for a variable to be used as an auxiliary variable?
