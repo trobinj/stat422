@@ -696,9 +696,9 @@ a ratio estimator.</p>
 <li><p>Estimate <span class="math inline">\(\mu_{y,j}\)</span> or <span
 class="math inline">\(\tau_{y,j}\)</span> <em>separately</em> for each
 stratum using a ratio estimator so that <span class="math display">\[
-  \hat\mu_{y,j} = \mu_{x,j}\frac{\bar{y}_j}{\bar{x}_j} \ \ \ \text{or} \
+  \hat\mu_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\mu_{x,j} \ \ \ \text{or} \
 \ \
-  \hat\tau_{y,j} = \tau_{x,j}\frac{\bar{y}_j}{\bar{x}_j},
+  \hat\tau_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\tau_{x,j},
 \]</span> respectively.</p></li>
 <li><p>Estimate <span class="math inline">\(\mu_y\)</span> or <span
 class="math inline">\(\tau_y\)</span> using <span
@@ -722,9 +722,9 @@ the means from the strata.</p>
 <li>Estimate <span class="math inline">\(\mu_y\)</span> or <span
 class="math inline">\(\tau_y\)</span> using the ratio estimators <span
 class="math display">\[
-  \hat\mu_y = \mu_x\frac{\bar{y}_{st}}{\bar{x}_{st}} \ \ \ \text{or} \ \
+  \hat\mu_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\mu_x \ \ \ \text{or} \ \
 \
-  \hat\tau_y = \tau_x\frac{\bar{y}_{st}}{\bar{x}_{st}},
+  \hat\tau_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\tau_x,
 \]</span> respectively.</li>
 </ol>
 <strong>Example</strong>: Consider the following summary from a
@@ -819,18 +819,18 @@ Stratum
 <em>separate</em> ratio estimator of <span
 class="math inline">\(\mu_y\)</span> is <span class="math display">\[
   \hat\mu_y =
-\frac{500}{1000}\underbrace{\left[95\left(\frac{90}{50}\right)\right]}_{\hat\mu_{y,1}}
+\frac{500}{1000}\underbrace{\left[\left(\frac{90}{50}\right)95\right]}_{\hat\mu_{y,1}}
 +
-  \frac{400}{1000}\underbrace{\left[78\left(\frac{80}{45}\right)\right]}_{\hat\mu_{y,2}}
+  \frac{400}{1000}\underbrace{\left[\left(\frac{80}{45}\right)78\right]}_{\hat\mu_{y,2}}
 +
-  \frac{100}{1000}\underbrace{\left[72\left(\frac{70}{40}\right)\right]}_{\hat\mu_{y,3}}.
+  \frac{100}{1000}\underbrace{\left[\left(\frac{70}{40}\right)72\right]}_{\hat\mu_{y,3}}.
 \]</span> The <em>combined</em> ratio estimator is <span
 class="math display">\[
-\hat\mu_y = 85.9\frac{\overbrace{\left(\frac{500}{1000}\right)90 +
+\hat\mu_y = \frac{\overbrace{\left(\frac{500}{1000}\right)90 +
 \left(\frac{400}{1000}\right)80 +
 \left(\frac{100}{1000}\right)70}^{\bar{y}_{st}}}{\underbrace{\left(\frac{500}{1000}\right)50
 + \left(\frac{400}{1000}\right)45 +
-\left(\frac{100}{1000}\right)40}_{\bar{x}_{st}}}.
+\left(\frac{100}{1000}\right)40}_{\bar{x}_{st}}}85.9.
 \]</span> Which one should we use? It depends on a couple of
 factors.</p>
 <ol style="list-style-type: decimal">

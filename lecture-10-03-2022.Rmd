@@ -245,8 +245,8 @@ Estimate the mean or total of each stratum *separately* using a ratio estimator.
 
 1. Estimate $\mu_{y,j}$ or $\tau_{y,j}$ *separately* for each stratum using a ratio estimator so that
 $$
-  \hat\mu_{y,j} = \mu_{x,j}\frac{\bar{y}_j}{\bar{x}_j} \ \ \ \text{or} \ \ \ 
-  \hat\tau_{y,j} = \tau_{x,j}\frac{\bar{y}_j}{\bar{x}_j},
+  \hat\mu_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\mu_{x,j} \ \ \ \text{or} \ \ \ 
+  \hat\tau_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\tau_{x,j},
 $$
 respectively. 
 
@@ -268,8 +268,8 @@ $$
 $$
 2. Estimate $\mu_y$ or $\tau_y$ using the ratio estimators
 $$
-  \hat\mu_y = \mu_x\frac{\bar{y}_{st}}{\bar{x}_{st}} \ \ \ \text{or} \ \ \ 
-  \hat\tau_y = \tau_x\frac{\bar{y}_{st}}{\bar{x}_{st}},
+  \hat\mu_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\mu_x \ \ \ \text{or} \ \ \ 
+  \hat\tau_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\tau_x,
 $$
 respectively.
 
@@ -287,13 +287,13 @@ x <- d$x
 ```
 Also $\mu_x$ = `r sum(Ni*mx/N)`. The *separate* ratio estimator of $\mu_y$ is
 $$
-  \hat\mu_y = \frac{`r Ni[1]`}{`r N`}\underbrace{\left[`r mx[1]`\left(\frac{`r y[1]`}{`r x[1]`}\right)\right]}_{\hat\mu_{y,1}} + 
-  \frac{`r Ni[2]`}{`r N`}\underbrace{\left[`r mx[2]`\left(\frac{`r y[2]`}{`r x[2]`}\right)\right]}_{\hat\mu_{y,2}} +
-  \frac{`r Ni[3]`}{`r N`}\underbrace{\left[`r mx[3]`\left(\frac{`r y[3]`}{`r x[3]`}\right)\right]}_{\hat\mu_{y,3}}.
+  \hat\mu_y = \frac{`r Ni[1]`}{`r N`}\underbrace{\left[\left(\frac{`r y[1]`}{`r x[1]`}\right)`r mx[1]`\right]}_{\hat\mu_{y,1}} + 
+  \frac{`r Ni[2]`}{`r N`}\underbrace{\left[\left(\frac{`r y[2]`}{`r x[2]`}\right)`r mx[2]`\right]}_{\hat\mu_{y,2}} +
+  \frac{`r Ni[3]`}{`r N`}\underbrace{\left[\left(\frac{`r y[3]`}{`r x[3]`}\right)`r mx[3]`\right]}_{\hat\mu_{y,3}}.
 $$
 The *combined* ratio estimator is 
 $$
-\hat\mu_y = `r sum(Ni*mx/N)`\frac{\overbrace{\left(\frac{`r Ni[1]`}{`r N`}\right)`r y[1]` + \left(\frac{`r Ni[2]`}{`r N`}\right)`r y[2]` + \left(\frac{`r Ni[3]`}{`r N`}\right)`r y[3]`}^{\bar{y}_{st}}}{\underbrace{\left(\frac{`r Ni[1]`}{`r N`}\right)`r x[1]` + \left(\frac{`r Ni[2]`}{`r N`}\right)`r x[2]` + \left(\frac{`r Ni[3]`}{`r N`}\right)`r x[3]`}_{\bar{x}_{st}}}.
+\hat\mu_y = \frac{\overbrace{\left(\frac{`r Ni[1]`}{`r N`}\right)`r y[1]` + \left(\frac{`r Ni[2]`}{`r N`}\right)`r y[2]` + \left(\frac{`r Ni[3]`}{`r N`}\right)`r y[3]`}^{\bar{y}_{st}}}{\underbrace{\left(\frac{`r Ni[1]`}{`r N`}\right)`r x[1]` + \left(\frac{`r Ni[2]`}{`r N`}\right)`r x[2]` + \left(\frac{`r Ni[3]`}{`r N`}\right)`r x[3]`}_{\bar{x}_{st}}}`r sum(Ni*mx/N)`.
 $$
 Which one should we use? It depends on a couple of factors. 
 
