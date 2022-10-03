@@ -291,10 +291,15 @@ estimator. An expression of the “imprecision” of <span
 class="math inline">\(\hat\theta\)</span> for estimating <span
 class="math inline">\(\theta\)</span> is the <strong>mean squared
 error</strong> (MSE) defined as <span class="math display">\[
-  E[(\hat\theta - \theta)^2] = \sum_{\mathcal{S}} (\hat\theta -
-\theta)^2 P(\mathcal{S}).
-\]</span> The mean squared error can be usefully decomposed into two
-terms as <span class="math display">\[
+  E[(\hat\theta - \theta)^2] = \sum_{j=1}^{J} (\hat\theta_j - \theta)^2
+P(\mathcal{S}_j),
+\]</span> for a sample space of <span class="math inline">\(J\)</span>
+samples, where the <span class="math inline">\(j\)</span>-th sample is
+denoted as <span class="math inline">\(\mathcal{S}_j\)</span>, and the
+estimate produced by that sample is denoted as <span
+class="math inline">\(\hat\theta_j\)</span>.</p>
+<p>The mean squared error can be usefully decomposed into two terms as
+<span class="math display">\[
   E[(\hat\theta - \theta)^2] = [E(\hat\theta) - \theta]^2 +
 V(\hat\theta),
 \]</span> where <span class="math inline">\(E(\hat\theta) -

@@ -49,8 +49,10 @@ Ratio estimators are (usually) *biased*.
 
 Suppose that $\theta$ is a parameter and $\hat\theta$ is an estimator. An expression of the "imprecision" of $\hat\theta$ for estimating $\theta$ is the **mean squared error** (MSE) defined as
 $$
-  E[(\hat\theta - \theta)^2] = \sum_{\mathcal{S}} (\hat\theta - \theta)^2 P(\mathcal{S}).
+  E[(\hat\theta - \theta)^2] = \sum_{j=1}^{J} (\hat\theta_j - \theta)^2 P(\mathcal{S}_j),
 $$
+for a sample space of $J$ samples, where the $j$-th sample is denoted as $\mathcal{S}_j$, and the estimate produced by that sample is denoted as $\hat\theta_j$.
+
 The mean squared error can be usefully decomposed into two terms as
 $$
   E[(\hat\theta - \theta)^2] = [E(\hat\theta) - \theta]^2 + V(\hat\theta),
