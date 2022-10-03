@@ -211,8 +211,7 @@ plot(p)
 
 **Example**: Suppose that $C$ = 100, $c_y$ = 1, and $c_x$ = 1. What happens as we increase $\sigma^2/\sigma_r^2$ (i.e., the relative efficiency of the ratio estimator)? 
 ```{r, fig.height = 4}
-xlab <- expression(sigma^2/sigma[r]^2)
-xlab <- ifelse(knitr::is_html_output(), xlab, "$\\sigma^2/\\sigma_r^2$")
+xlab <- "Relative Efficiency"
 
 cy <- 1
 cx <- 1
