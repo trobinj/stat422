@@ -68,7 +68,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Bias and mean squared error, double sampling for ratio estimators, ratio estimators for stratified random sampling designs](lecture-10-03-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Regression estimators, the prediction perspective](lecture-10-05-2022.html).
 
 `r i <- i + 1; d[i]`  
  
