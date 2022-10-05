@@ -107,7 +107,7 @@ $$
   \hat{V}(\hat\mu_y) = \left(1 - \frac{n}{N}\right)\frac{\sum_{i \in \mathcal{S}}(y_i - a - bx_i)^2/(n-2)}{n}.
 $$
 The term $\sum_{i \in \mathcal{S}} (y_i - a - bx_i)^2$ can also be computed as 
-$\sum_{i \in \mathcal{S}} (y_i - a - bx_i)^2 = (n-1)s_y^2(1-\hat\rho^2)$, which shows that it gets smaller as the correlation gets larger.
+$\sum_{i \in \mathcal{S}} (y_i - a - bx_i)^2 = (n-1)s_y^2(1-\hat\rho^2)$, which shows that it gets smaller as the correlation gets larger (in absolute value).
 
 The estimated variance of $\hat\tau_y = N\bar{y} + b(\tau_x - N\bar{x})$ is then
 $$
