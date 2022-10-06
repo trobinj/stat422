@@ -70,7 +70,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Regression estimators, the prediction perspective](lecture-10-05-2022.html).
 
-`r i <- i + 1; d[i]`  
+`r i <- i + 1; d[i]` [Reweighting, calibration](lecture-10-07-2022.html).
  
 ***
 
