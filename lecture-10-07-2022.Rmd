@@ -87,7 +87,7 @@ $$
 $$
 if the $i$-th element is in the $j$-th stratum. Then
 $$
-  \hat\tau_j = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L,
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L,
 $$
 which is the estimator we use for *post-stratification*. 
 
