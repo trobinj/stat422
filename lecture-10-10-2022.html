@@ -13,7 +13,7 @@
 
 <title>Monday, Oct 10</title>
 
-<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -180,8 +180,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -189,16 +189,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -545,7 +538,7 @@ class="math inline">\(\mu\)</span> with <span class="math display">\[
 \frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i},
 \]</span> (i.e., the ratio of the totals of the clusters totals and the
 cluster sizes <em>for the sampled clusters</em>). Where have we seen <a
-href="lecture-09-27-2021.html">this kind of estimator</a> before?</p>
+href="lecture-09-26-2022.html">this kind of estimator</a> before?</p>
 <p><strong>Example</strong>: A cluster sampling design selects <span
 class="math inline">\(n\)</span> = 3 boxes using simple random sampling
 of the boxes. The number of widgets in these boxes are <span

@@ -148,7 +148,7 @@ where $\mu_y$ is the *mean cluster total across all clusters* (which is *not* ne
 $$
   \hat\mu = \frac{\bar{y}}{\bar{m}} = \frac{\frac{1}{n}\sum_{i \in \mathcal{S}} y_i}{\frac{1}{n}\sum_{i \in \mathcal{S}} m_i} = \frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i},
 $$
-(i.e., the ratio of the totals of the clusters totals and the cluster sizes *for the sampled clusters*). Where have we seen [this kind of estimator](lecture-09-27-2021.html) before?
+(i.e., the ratio of the totals of the clusters totals and the cluster sizes *for the sampled clusters*). Where have we seen [this kind of estimator](lecture-09-26-2022.html) before?
 
 **Example**: A cluster sampling design selects $n$ = 3 boxes using simple random sampling of the boxes. The number of widgets in these boxes are $m_1$ = 3, $m_2$ = 4, and $m_3$ = 5. The total weight of the widgets in these boxes are $y_1$ = 6.2, $y_2$ = 7.5, and $y_3$ = 10.3. What is the estimate of $\mu$?
 
