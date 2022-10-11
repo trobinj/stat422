@@ -11,7 +11,7 @@
 
 
 
-<title>Lectures</title>
+<title>Cluster Sampling</title>
 
 <script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -260,121 +262,224 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Lectures</h1>
+<h1 class="title toc-ignore">Cluster Sampling</h1>
 
 </div>
 
 
-<p> </p>
-<p>Mon, Aug 22. <a href="lecture-08-22-2022.html">Fundamental
-definitions: elements, sampling units, populations, samples, sampling
-designs</a>.</p>
-<p>Wed, Aug 24. <a href="lecture-08-24-2022.html">Simple random
-sampling, population totals and means, and an introduction to sampling
-distributions</a>.</p>
-<p>Fri, Aug 26. <a href="lecture-08-26-2022.html">Sampling distributions
-of <span class="math inline">\(\bar{y}\)</span> and <span
-class="math inline">\(\hat\tau\)</span> under simple random sampling
-designs</a>. A set of <a href="hw-srs.html">homework problems concerning
-simple random sampling</a> is now available. You should be able to start
-on the problems in the section titled “Sampling Distributions” after
-today’s lecture. Future lectures will cover domain estimation and sample
-size selection.</p>
-<hr />
-<p>Mon, Aug 29. <a href="lecture-08-29-2022.html">Sampling with
-replacement, the central limit theorem, standard errors, confidence
-intervals</a>.</p>
-<p>Wed, Aug 31. <a href="lecture-08-31-2022.html">Simulation studies,
-categorical target variables, domain estimators</a>.</p>
-<p>Fri, Sep 2. <a href="lecture-09-02-2022.html">Sample size selection,
-summary of results for simple random sampling</a>.</p>
-<hr />
-<p>Mon, Sep 5. Labor Day.</p>
-<p>Wed, Sep 7. <a href="lecture-09-07-2022.html">Introduction to
-stratified random sampling</a>. A set of <a
-href="hw-stratified.html">homework problems</a> on stratified random
-sampling is now available. The <a href="e1-studyguide.html">study
-guide</a> for the first examination is also now available.</p>
-<p>Fri, Sep 9. <a href="lecture-09-09-2022.html">Optimum allocation for
-stratified random sampling</a>.</p>
-<hr />
-<p>Mon, Sep 12. <a href="lecture-09-12-2022.html">Effectiveness of
-optimum allocation, stratified versus simple random sampling, design
-effect and effective sample size</a>.</p>
-<p>Wed, Sep 14. <a href="lecture-09-14-2022.html">Optimum
-stratification, double sampling</a>.</p>
-<p>Fri, Sep 16. <a href="lecture-09-16-2022.html">Post-stratification,
-survey weights</a>.</p>
-<hr />
-<p>Mon, Sep 19. <a href="lecture-09-19-2022.html">Inferences concerning
-strata parameters</a>. Note: I added one additional item to the study
-guide for this material.</p>
-<p>Wed, Sep 21. <a href="lecture-09-21-2022.html">Using the
-<strong>survey</strong> package in R</a>.</p>
-<p>Fri, Sep 23. <strong>First examination</strong>.</p>
-<hr />
-<p>Mon, Sep 26. <a href="lecture-09-26-2022.html">Estimation of a ratio
-of totals</a>.</p>
-<p>Wed, Sep 28. <a href="lecture-09-28-2022.html">Introduction to ratio
-estimators</a>.</p>
-<p>Fri, Sep 30. <a href="lecture-09-30-2022.html">Domain total
-estimators revisited, the geometry and performance of ratio
-estimators</a>. A set of <a href="hw-ratio.html">homework problems</a>
-on estimation ratios, ratio estimators, and related topics is now
-available.</p>
-<hr />
-<p>Mon, Oct 3. <a href="lecture-10-03-2022.html">Bias and mean squared
-error, double sampling for ratio estimators, ratio estimators for
-stratified random sampling designs</a>.</p>
-<p>Wed, Oct 5. <a href="lecture-10-05-2022.html">Regression estimators,
-the prediction perspective</a>.</p>
-<p>Fri, Oct 7. <a href="lecture-10-07-2022.html">Reweighting,
-calibration</a>.</p>
-<hr />
-<p>Mon, Oct 10. <a href="lecture-10-10-2022.html">Introduction to
-(one-stage) cluster sampling</a>. The <a href="e2-studyguide.html">study
-guide</a> for the next examination is now available.</p>
-<p>Wed, Oct 12. <a href="lecture-10-12-2022.html">Cluster sampling —
-continued, estimators of <span class="math inline">\(\tau\)</span>, the
-design effect of cluster sampling designs</a>. A <a
-href="hw-cluster.html">set of homework problems</a> on cluster sampling
-is now available.</p>
-<p>Fri, Oct 14.</p>
-<hr />
-<p>Mon, Oct 17.</p>
-<p>Wed, Oct 19.</p>
-<p>Fri, Oct 21.</p>
-<hr />
-<p>Mon, Oct 24. <strong>Second examination</strong>.</p>
-<p>Wed, Oct 26.</p>
-<p>Fri, Oct 28.</p>
-<hr />
-<p>Mon, Oct 31.</p>
-<p>Wed, Nov 2.</p>
-<p>Fri, Nov 4.</p>
-<hr />
-<p>Mon, Nov 7.</p>
-<p>Wed, Nov 9.</p>
-<p>Fri, Nov 11.</p>
-<hr />
-<p>Mon, Nov 14.</p>
-<p>Wed, Nov 16.</p>
-<p>Fri, Nov 18.</p>
-<hr />
-<p>Mon, Nov 21. Fall recess.</p>
-<p>Wed, Nov 23. Fall recess.</p>
-<p>Fri, Nov 25. Fall recess.</p>
-<hr />
-<p>Mon, Nov 28.</p>
-<p>Wed, Nov 30.</p>
-<p>Fri, Dec 2. <strong>Third examination</strong>.</p>
-<hr />
-<p>Mon, Dec 5.</p>
-<p>Wed, Dec 7.</p>
-<p>Fri, Dec 9.</p>
-<hr />
-<p>Wednesday, Dec 14. <strong>Final examination</strong>, 12:45 to 2:45
-PM.</p>
+<p>You can also download a <a href="hw-cluster.pdf">PDF</a> copy of this
+document.</p>
+<div id="bullying-behavior" class="section level3">
+<h3>Bullying Behavior</h3>
+Consider a (one-stage) cluster sampling design using a population of
+2000 second grade students in a school district. The researchers want to
+estimate the number of incidents of bullying behavior among these
+students during a school year. But because special training and
+protocols are necessary to help teachers recognize bullying behavior,
+the researchers decide to select a sample of students by selecting a
+sample 5 classrooms from the 100 classrooms of second grade students in
+the district (these are some lazy researchers). The teachers for the
+sampled classroom keep a record of the number of times each student
+exhibited bullying behavior. The table below shows the total number of
+incidents of bullying behavior for each classroom as well as the number
+of students in the classroom.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Classroom
+</th>
+<th style="text-align:center;">
+Incidents
+</th>
+<th style="text-align:center;">
+Students
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use these data for the following concerning the estimation of the
+total number of bullying incidents among second grade students in the
+school district for the school year.</p>
+<ol style="list-style-type: decimal">
+<li><p>Assume that the researchers selected classrooms using <em>simple
+random sampling</em>. Confirm that estimate of the total number of
+incidents using the <em>unbiased</em> estimator is 320, and that the
+bound on the error of estimation of this estimator is approximately
+226.</p></li>
+<li><p>Assume that the researchers selected classrooms using <em>simple
+random sampling</em>. Confirm that estimate of the total number of
+incidents using the <em>ratio</em> estimator is approximately 337, and
+that the bound on the error of estimation of this estimator is
+approximately 195.</p></li>
+<li><p>Assume that the researchers selected classrooms using
+<em>sampling with replacement</em> with <em>selection probabilities
+proportional to classroom size</em>. Confirm that the estimate of the
+total number of incidents using the Hansen-Hurwitz estimator is
+approximately 316, and that the bound on the error of estimation of this
+estimator is approximately 210.</p></li>
+</ol>
+<p>Note: The bounds on the error of estimation are quite large because
+the sample size is (probably unrealistically) small.</p>
+</div>
+<div id="educational-testing" class="section level3">
+<h3>Educational Testing</h3>
+Consider a (one-stage) cluster sampling design using a population of
+2000 second grade students in a school district. Researchers would like
+to estimate the average score of these students on a particular test
+based on a sample of students since the testing is expensive. They
+decide to use a cluster sampling design where they select a sample of 5
+classrooms of students out of the 100 classrooms in the district (again,
+these are some lazy researchers). The table below shows the average test
+score and the number of students in each of the sampled classrooms.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Classroom
+</th>
+<th style="text-align:center;">
+Mean Score
+</th>
+<th style="text-align:center;">
+Students
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+70
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+75
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+72
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+88
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use these data to answer the following questions concerning the
+estimation of the mean test score for all second grade students in the
+district. (Hint: Many calculations for cluster sampling are expressed in
+terms of cluster <em>totals</em> rather than cluster <em>means</em>, but
+cluster totals can be found from cluster means by simply multiplying the
+mean by the number of elements in the cluster.)</p>
+<ol style="list-style-type: decimal">
+<li><p>Assume that the researchers selected the classrooms using
+<em>simple random sampling</em>. Confirm that the estimate of the mean
+test score for all the second grade student in the district is
+approximately 77.65, with a bound on the error of estimation of
+approximately 6.2376.</p></li>
+<li><p>Assume that the researchers selected the classrooms using
+<em>sampling with replacement</em> with <em>selection probabilities
+proportional to classroom size</em>. Confirm that the estimate of the
+mean test score using the Hansen-Hurwitz estimator is 77, with a bound
+on the error of estimation of approximately 6.4498.</p></li>
+</ol>
+</div>
 
 
 
