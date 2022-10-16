@@ -82,7 +82,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Stratified cluster sampling designs, systematic sampling](lecture-10-17-2022.html).
 
 `r i <- i + 1; d[i]` 
 
