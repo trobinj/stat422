@@ -69,7 +69,7 @@ Question: Some people [define](https://www.investopedia.com/terms/s/simple-rando
 
 ### Auxiliary Variables
 
-An *auxiliary variable* is a variable that can be observed for every element in the population.
+An *auxiliary variable* is a variable that can be observed for every element (or sometimes the sampling unit) in the population.
 
 Uses of auxiliary variables:
 
