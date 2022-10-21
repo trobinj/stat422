@@ -90,7 +90,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` **Second examination**. 
+`r i <- i + 1; d[i]` **Second examination**
 
 `r i <- i + 1; d[i]` 
 
