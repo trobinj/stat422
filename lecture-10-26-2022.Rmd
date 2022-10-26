@@ -139,7 +139,7 @@ How is a [*one-stage cluster sampling design*](one-versus-two-stage.png) a speci
 
 How is a *stratified sampling design* a special case?
 
-\vspace{2cm}
+\pagebreak
 
 ## Advantages and Disadvantages Relative to Other Designs
 
