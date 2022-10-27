@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Oct 31</title>
+
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Oct 31</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-31-2022.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="multi-stage-cluster-sampling" class="section level2">
+<h2>Multi-Stage Cluster Sampling</h2>
+<p>A multi-stage cluster sampling design is a natural extension of a
+two-stage cluster sampling design. A <span
+class="math inline">\(k\)</span>-stage cluster sampling design where
+<span class="math inline">\(k\)</span> <span
+class="math inline">\(\ge\)</span> 2 can be designed by applying
+clusters sampling designs <em>recursively</em>.</p>
+<p>A three-stage cluster sampling design can be described as
+follows.</p>
+<ol style="list-style-type: decimal">
+<li>Partition the <span class="math inline">\(M\)</span> elements in a
+population into clusters.</li>
+<li>Select <span class="math inline">\(n_1\)</span> clusters using a
+probability sampling design.</li>
+<li>For each of the <span class="math inline">\(n_1\)</span> sampled
+clusters, partition the elements into sub-clusters.</li>
+<li>Select <span class="math inline">\(n_2\)</span> sub-clusters using a
+probability sampling design.</li>
+<li>For each of the <span class="math inline">\(n_2\)</span> sampled
+sub-clusters, sample elements using a probability sampling design, and
+observe the target variable for these sampled elements.</li>
+</ol>
+<p>Multi-stage cluster sampling designs are useful when elements are
+formed into groups <em>hierarchically</em>. Here are some examples of
+the three levels of sampling units in three-stage cluster sampling
+designs.</p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Sampling Unit
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+primary
+</th>
+<th style="text-align:center;">
+secondary
+</th>
+<th style="text-align:center;">
+tertiary
+</th>
+<th style="text-align:center;">
+Target Variable
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+pallet
+</td>
+<td style="text-align:center;">
+box
+</td>
+<td style="text-align:center;">
+widget
+</td>
+<td style="text-align:center;">
+weight
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+neighborhood
+</td>
+<td style="text-align:center;">
+block
+</td>
+<td style="text-align:center;">
+household
+</td>
+<td style="text-align:center;">
+income
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+county
+</td>
+<td style="text-align:center;">
+farm
+</td>
+<td style="text-align:center;">
+field
+</td>
+<td style="text-align:center;">
+acres of wheat
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+school
+</td>
+<td style="text-align:center;">
+classroom
+</td>
+<td style="text-align:center;">
+student
+</td>
+<td style="text-align:center;">
+test score
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+day
+</td>
+<td style="text-align:center;">
+hour
+</td>
+<td style="text-align:center;">
+minute
+</td>
+<td style="text-align:center;">
+number of fish
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+plot
+</td>
+<td style="text-align:center;">
+sub-plot
+</td>
+<td style="text-align:center;">
+tree
+</td>
+<td style="text-align:center;">
+volume
+</td>
+</tr>
+</tbody>
+</table>
+<p>In principle, any probability sampling design can be used at each
+stage. But often only the first stage uses a design other than SRS
+(e.g., PPS, stratified random sampling).</p>
+</div>
+<div id="abundance-estimation" class="section level2">
+<h2>Abundance Estimation</h2>
+<p><em>Abundance estimation</em> concerns estimating (a) the number of
+elements in a population, or (b) the number of elements in a particular
+domain. Abundance estimation can often be done using designs and
+estimators we have already discussed if we define the target variable in
+a particular way.</p>
+<div id="abundance-estimation-with-one-stage-cluster-sampling"
+class="section level3">
+<h3>Abundance Estimation with One-Stage Cluster Sampling</h3>
+<p>Consider a one-stage cluster sampling design and where <span
+class="math inline">\(y_{ij}\)</span> is the value of the target
+variable for the <span class="math inline">\(j\)</span>-th element in
+the <span class="math inline">\(i\)</span>-th cluster. Suppose we define
+the target variable as <span class="math display">\[
+  y_{ij} = 1
+\]</span> for <em>all</em> <span class="math inline">\(M\)</span>
+elements in the population. Recall that we defined <span
+class="math inline">\(y_i\)</span> as the sum of all elements in the
+<span class="math inline">\(i\)</span>-th cluster so that <span
+class="math display">\[
+  y_i = \sum_{j=1}^{m_i} y_{ij}.
+\]</span> But if all <span class="math inline">\(y_{ij}\)</span> = 1
+then <span class="math inline">\(y_i = m_i\)</span> (recall that <span
+class="math inline">\(m_i\)</span> is the <em>number</em> of elements in
+the <span class="math inline">\(i\)</span>-th cluster), and <span
+class="math inline">\(\tau = M\)</span>, where <span
+class="math inline">\(M\)</span> is the number of elements in the
+population. So here <em>estimation of <span
+class="math inline">\(M\)</span> is the same as estimating <span
+class="math inline">\(\tau\)</span> when <span class="math inline">\(y_i
+= m_i\)</span></em>.</p>
+<p>Recall that we discussed two estimators — “unbiased” and “ratio” — of
+<span class="math inline">\(\tau\)</span> for one-stage cluster sampling
+with simple random sampling of clusters: <span class="math display">\[
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{and} \
+\ \
+  \hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
+\mathcal{S}} m_i}.
+\]</span> The ratio estimator is not useful for estimating <span
+class="math inline">\(M\)</span>. Why? But we could use an alternative
+<em>cluster-level</em> auxiliary variable <span
+class="math inline">\(x_i\)</span> and use the ratio estimator <span
+class="math display">\[
+  \hat\tau = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
+\mathcal{S}} x_i}.
+\]</span> where <span class="math inline">\(x_i\)</span> is the value of
+the auxiliary variable for the <span class="math inline">\(i\)</span>-th
+<em>cluster</em>, and <span class="math inline">\(\tau_x = \sum_{i=1}^N
+x_i\)</span> is known. Why might we prefer this ratio estimator over the
+unbiased estimator?</p>
+<p><strong>Example</strong>: A warehouse contains 1000 boxes of widgets.
+Suppose we select a sample of five boxes using simple random sampling.
+The number of widgets in each of these boxes are 10, 12, 15, 9, and 14
+widgets. What is our estimate of the number of widgets in the
+warehouse?</p>
+<p><strong>Example</strong>: A warehouse contains 1000 boxes of widgets
+Suppose we select a sample of five boxes using simple random sampling.
+The number of widgets in each of these boxes are 10, 12, 15, 9, and 14
+widgets. We also find that the weights of these boxes are 5.5, 6.2, 7,
+4, and 8.3 lbs, and it is known that the weight of all the boxes in the
+warehouse is 6220 lbs. Using weight as an auxiliary variable, what is
+our estimate of the number of widgets in the warehouse?</p>
+<div style="page-break-after: always;"></div>
+<p>Now suppose we want to estimate the number of elements in a
+population that are in a given domain based on a one-stage cluster
+sampling design. Define <span class="math inline">\(y_{ij}\)</span> as
+<span class="math display">\[
+  y_{ij} =
+  \begin{cases}
+    1, &amp; \text{if the $j$-th element in the $i$-th cluster is in the
+domain}, \\
+    0, &amp; \text{otherwise}.
+  \end{cases}
+\]</span> Now <span class="math display">\[
+  y_i = \sum_{j=1}^{m_i} y_{ij}
+\]</span> is the number of elements in the <span
+class="math inline">\(i\)</span>-th cluster <em>that are in the
+domain</em>, and <span class="math display">\[
+\tau = \sum_{i=1}^N y_i
+\]</span> is the number of elements in the population <em>that are in
+the domain</em>. So estimation of the number of elements in a domain is
+the same as estimating <span class="math inline">\(\tau\)</span> when
+<span class="math inline">\(y_i\)</span> is the number of elements in
+the <span class="math inline">\(i\)</span>-th cluster that are in the
+domain.</p>
+<p>Here we could use <span class="math display">\[\begin{equation*}
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{or} \ \
+\
+  \hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
+\mathcal{S}} m_i},
+\end{equation*}\]</span>frac{<em>{i } y_i}{</em>{i } m_i},
+\end{equation*} depending on if we know <span
+class="math inline">\(M\)</span> (i.e., the number of elements in the
+population). We also could use <span class="math display">\[
+  \hat\tau = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
+\mathcal{S}} x_i}
+\]</span> for some other cluster-level auxiliary variable if <span
+class="math inline">\(M\)</span> is unknown. Why might we prefer this
+ratio estimator over the unbiased estimator?</p>
+<p><strong>Example</strong>: A warehouse contains 1000 boxes of widgets.
+Suppose we select a sample of five boxes using simple random sampling.
+The number of widgets in each of these boxes are 10, 12, 15, 9, and 14
+widgets. These contain 5, 4, 10, 3, and 7 defective widgets,
+respectively. What is an estimate of the number of defective widgets in
+the warehouse?</p>
+<p><strong>Example</strong>: Suppose we know that there are a total of
+10000 widgets in the warehouse. Now what is our estimate if we use the
+number of defective widgets in each box as an auxiliary variable?</p>
+<p><strong>Example</strong>: Suppose we do not know the number of
+widgets in the warehouse, but we do know that the weights of these boxes
+are 5.5, 6.2, 7, 4, and 8.3 lbs, and that the weight of all the boxes in
+the warehouse is 6220 lbs. Now what is our estimate of the number of
+defective widgets when using box weight as an auxiliary variable?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="abundance-estimation-with-simple-random-sampling"
+class="section level3">
+<h3>Abundance Estimation with Simple Random Sampling</h3>
+<p>Consider a simple random sampling design and suppose we define the
+target variable as <span class="math display">\[
+  y_i = 1
+\]</span> for <em>all</em> <span class="math inline">\(N\)</span>
+elements in the population. Then <span class="math inline">\(\tau =
+N\)</span>. How can we estimate <span
+class="math inline">\(N\)</span>?</p>
+<ol style="list-style-type: decimal">
+<li><p>We cannot use <span class="math inline">\(\hat\tau =
+N\bar{y}\)</span>. Why?</p></li>
+<li><p>We could use the ratio estimator <span
+class="math inline">\(\hat\tau_y = \tau_x\bar{y}/\bar{x}\)</span>,
+provided we have <span class="math inline">\(\tau_x\)</span> (and
+presumably not from observing <span class="math inline">\(x_1, x_2,
+\dots, x_N\)</span> individually as then we would know <span
+class="math inline">\(N\)</span> and not need to estimate it).</p></li>
+</ol>
+<p>Note that <span class="math inline">\(\bar{y}\)</span> = 1 because
+all <span class="math inline">\(y_i\)</span> = 1.</p>
+<p><strong>Example</strong>: Suppose we wish to estimate the number of
+fish in the hold of a trawler. The total weight of the fish in the hold
+is 18000 lbs. If we select a sample of 100 fish using simple random
+sampling and find that the mean weight in that sample is 20 lbs, what is
+our estimate of the number of fish in the hold using the ratio estimator
+with weight as an auxiliary variable?</p>
+<div style="page-break-after: always;"></div>
+<p>Now suppose we want to estimate the number of elements in the
+population that are in a given domain. Define <span
+class="math inline">\(y_i\)</span> as<br />
+<span class="math display">\[
+  y_i =
+  \begin{cases}
+    1, &amp; \text{if the $i$-th element is in the domain}, \\
+    0, &amp; \text{otherwise}.
+  \end{cases}
+\]</span> So <span class="math inline">\(\tau\)</span> is the number of
+elements in the population that are in the domain.</p>
+<ol style="list-style-type: decimal">
+<li><p>We could use <span class="math inline">\(\hat\tau =
+N\bar{y}\)</span> if we know <span
+class="math inline">\(N\)</span>.</p></li>
+<li><p>We could use <span class="math inline">\(\hat\tau_y =
+\tau_x\bar{y}/\bar{x}\)</span> if we know <span
+class="math inline">\(\tau_x\)</span> for some auxiliary variable <span
+class="math inline">\(x_i\)</span>.</p></li>
+</ol>
+<p>For both estimators, note that <span class="math display">\[
+  \bar{y} = \frac{1}{n}\sum_{i \in \mathcal{S}} y_i
+\]</span> is the <em>proportion</em> of elements in the sample that are
+in the domain.</p>
+<p><strong>Example</strong>: Suppose we wish to estimate the number of
+<em>defective</em> widgets in a box of 1000 widgets. A simple random
+sample of 100 widgets yields 20 defective widgets. What is our estimate
+of the number of defective widgets in the box?</p>
+<p><strong>Example</strong>: Suppose we wish to estimate the number of
+<em>female</em> fish in the hold of a trawler. The total weight of the
+fish in the hold is 18000 lbs. If we select a sample of 100 fish using
+simple random sampling and find that the mean weight in that sample is
+20 lbs. We also find that 40 of the fish in the sample are female. What
+is our estimate of the number of female fish in the hold?</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

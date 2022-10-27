@@ -14,7 +14,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, out.width 
 
 ```{r packages, message = FALSE}
 library(tidyverse)
-library(kableExtra)
+suppressWarnings(library(kableExtra))
 ```
 
 ```{r utilities}

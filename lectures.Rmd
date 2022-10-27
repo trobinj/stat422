@@ -94,7 +94,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Two-stage cluster sampling](lecture-10-26-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Optimum sample sizes for two-stage cluster sampling, multi-stage cluster sampling](lecture-10-28-2022.html). A [set of homework problems](hw-twostage.html) on two-stage cluster sampling is now available.
  
 ***
 
