@@ -66,9 +66,11 @@ $$
 $$
 where $x_i$ is the value of the auxiliary variable for the $i$-th *cluster*, and $\tau_x = \sum_{i=1}^N x_i$ is known. Why might we prefer this ratio estimator over the unbiased estimator?
 
+\pagebreak
+
 **Example**: A warehouse contains 1000 boxes of widgets. Suppose we select a sample of five boxes using simple random sampling. The number of widgets in each of these boxes are 10, 12, 15, 9, and 14 widgets. What is our estimate of the number of widgets in the warehouse?
 
-\vspace{3cm}
+\vspace{5cm}
 
 **Example**: A warehouse contains 1000 boxes of widgets Suppose we select a sample of five boxes using simple random sampling. The number of widgets in each of these boxes are 10, 12, 15, 9, and 14 widgets. We also find that the weights of these boxes are 5.5, 6.2, 7, 4, and 8.3 lbs, and it is known that the weight of all the boxes in the warehouse is 6220 lbs. Using weight as an auxiliary variable, what is our estimate of the number of widgets in the warehouse? 
 
@@ -102,6 +104,8 @@ $$
   \hat\tau = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} x_i}
 $$
 for some other cluster-level auxiliary variable if $M$ is unknown. Why might we prefer this ratio estimator over the unbiased estimator?
+
+\pagebreak
 
 **Example**: A warehouse contains 1000 boxes of widgets. Suppose we select a sample of five boxes using simple random sampling. The number of widgets in each of these boxes are 10, 12, 15, 9, and 14 widgets. These contain 5, 4, 10, 3, and 7 defective widgets, respectively. What is an estimate of the number of defective widgets in the warehouse?
 
