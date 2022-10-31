@@ -32,8 +32,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -269,150 +267,6 @@ $(document).ready(function () {
 
 <p>You can also download a <a href="lecture-10-31-2022.pdf">PDF</a> copy
 of this lecture.</p>
-<div id="multi-stage-cluster-sampling" class="section level2">
-<h2>Multi-Stage Cluster Sampling</h2>
-<p>A multi-stage cluster sampling design is a natural extension of a
-two-stage cluster sampling design. A <span
-class="math inline">\(k\)</span>-stage cluster sampling design where
-<span class="math inline">\(k\)</span> <span
-class="math inline">\(\ge\)</span> 2 can be designed by applying
-clusters sampling designs <em>recursively</em>.</p>
-<p>A three-stage cluster sampling design can be described as
-follows.</p>
-<ol style="list-style-type: decimal">
-<li>Partition the <span class="math inline">\(M\)</span> elements in a
-population into clusters.</li>
-<li>Select <span class="math inline">\(n_1\)</span> clusters using a
-probability sampling design.</li>
-<li>For each of the <span class="math inline">\(n_1\)</span> sampled
-clusters, partition the elements into sub-clusters.</li>
-<li>Select <span class="math inline">\(n_2\)</span> sub-clusters using a
-probability sampling design.</li>
-<li>For each of the <span class="math inline">\(n_2\)</span> sampled
-sub-clusters, sample elements using a probability sampling design, and
-observe the target variable for these sampled elements.</li>
-</ol>
-<p>Multi-stage cluster sampling designs are useful when elements are
-formed into groups <em>hierarchically</em>. Here are some examples of
-the three levels of sampling units in three-stage cluster sampling
-designs.</p>
-<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-Sampling Unit
-</div>
-</th>
-<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
-</th>
-</tr>
-<tr>
-<th style="text-align:center;">
-primary
-</th>
-<th style="text-align:center;">
-secondary
-</th>
-<th style="text-align:center;">
-tertiary
-</th>
-<th style="text-align:center;">
-Target Variable
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-pallet
-</td>
-<td style="text-align:center;">
-box
-</td>
-<td style="text-align:center;">
-widget
-</td>
-<td style="text-align:center;">
-weight
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-neighborhood
-</td>
-<td style="text-align:center;">
-block
-</td>
-<td style="text-align:center;">
-household
-</td>
-<td style="text-align:center;">
-income
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-county
-</td>
-<td style="text-align:center;">
-farm
-</td>
-<td style="text-align:center;">
-field
-</td>
-<td style="text-align:center;">
-acres of wheat
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-school
-</td>
-<td style="text-align:center;">
-classroom
-</td>
-<td style="text-align:center;">
-student
-</td>
-<td style="text-align:center;">
-test score
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-day
-</td>
-<td style="text-align:center;">
-hour
-</td>
-<td style="text-align:center;">
-minute
-</td>
-<td style="text-align:center;">
-number of fish
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-plot
-</td>
-<td style="text-align:center;">
-sub-plot
-</td>
-<td style="text-align:center;">
-tree
-</td>
-<td style="text-align:center;">
-volume
-</td>
-</tr>
-</tbody>
-</table>
-<p>In principle, any probability sampling design can be used at each
-stage. But often only the first stage uses a design other than SRS
-(e.g., PPS, stratified random sampling).</p>
-</div>
 <div id="abundance-estimation" class="section level2">
 <h2>Abundance Estimation</h2>
 <p><em>Abundance estimation</em> concerns estimating (a) the number of
@@ -499,15 +353,14 @@ the same as estimating <span class="math inline">\(\tau\)</span> when
 <span class="math inline">\(y_i\)</span> is the number of elements in
 the <span class="math inline">\(i\)</span>-th cluster that are in the
 domain.</p>
-<p>Here we could use <span class="math display">\[\begin{equation*}
+<p>Here we could use <span class="math display">\[
   \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{or} \ \
 \
   \hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
 \mathcal{S}} m_i},
-\end{equation*}\]</span>frac{<em>{i } y_i}{</em>{i } m_i},
-\end{equation*} depending on if we know <span
-class="math inline">\(M\)</span> (i.e., the number of elements in the
-population). We also could use <span class="math display">\[
+\]</span> depending on if we know <span class="math inline">\(M\)</span>
+(i.e., the number of elements in the population). We also could use
+<span class="math display">\[
   \hat\tau = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
 \mathcal{S}} x_i}
 \]</span> for some other cluster-level auxiliary variable if <span
