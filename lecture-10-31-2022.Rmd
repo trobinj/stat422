@@ -111,7 +111,7 @@ for some other cluster-level auxiliary variable if $M$ is unknown. Why might we 
 
 \vspace{3cm}
 
-**Example**: Suppose we know that there are a total of 10000 widgets in the warehouse. Now what is our estimate if we use the number of defective widgets in each box as an auxiliary variable?
+**Example**: Suppose we know that there are a total of 10000 widgets in the warehouse. Now what is our estimate if we use the number of widgets in each box as an auxiliary variable?
 
 \vspace{3cm}
 
