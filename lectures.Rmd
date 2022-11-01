@@ -100,7 +100,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Introduction to abundance estimation](lecture-10-31-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Abundance estimation with diagnostic tests, introduction to mark-recapture designs](lecture-11-02-2022.html).
 
 `r i <- i + 1; d[i]` 
  
