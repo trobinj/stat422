@@ -11,7 +11,7 @@ Course material for Stat 422 (Survey Sampling Methods) for the Fall semester of 
 
 <center>
 
-![](paranormal.jpg)
+![https://xkcd.com/2110](http://imgs.xkcd.com/comics/error_bars.png)
 
 </center>
 
