@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Nov 7</title>
+
+<script src="site_libs/header-attrs-2.17/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Nov 7</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-11-07-2022.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="inclusion-probabilities-revisited" class="section level2">
+<h2>Inclusion Probabilities Revisited</h2>
+<p>The <strong>inclusion probability</strong> of an element is the
+probability that it will be included in a sample.</p>
+<strong>Example</strong>: Suppose we have the population <span
+class="math inline">\(\mathcal{P} =
+\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4,\mathcal{E}_5\}\)</span>
+and the following sampling design. <span
+class="math display">\[\begin{align*}
+  \mathcal{S}_1 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_4\}, \
+P(\mathcal{S}_1) = 0.1 \\
+  \mathcal{S}_2 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_5\}, \
+P(\mathcal{S}_2) = 0.2 \\
+  \mathcal{S}_3 &amp; = \{\mathcal{E}_1,\mathcal{E}_3,\mathcal{E}_4\}, \
+P(\mathcal{S}_3) = 0.3 \\
+  \mathcal{S}_4 &amp; = \{\mathcal{E}_1,\mathcal{E}_3,\mathcal{E}_5\}, \
+P(\mathcal{S}_4) = 0.2 \\
+  \mathcal{S}_5 &amp; = \{\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4\}, \
+P(\mathcal{S}_5) = 0.1 \\
+  \mathcal{S}_6 &amp; = \{\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_5\}, \
+P(\mathcal{S}_6) = 0.1 \\
+\end{align*}\]</span> Based on this design we can determine the
+inclusion probabilities for all elements.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Element (<span class="math inline">\(\mathcal{E}_i\)</span>)
+</th>
+<th style="text-align:right;">
+Inclusion Probability (<span class="math inline">\(\pi_i\)</span>)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{ 1 }\)</span>
+</td>
+<td style="text-align:right;">
+0.1 + 0.2 + 0.3 + 0.2 = 0.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{ 2 }\)</span>
+</td>
+<td style="text-align:right;">
+0.1 + 0.2 + 0.1 + 0.1 = 0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{ 3 }\)</span>
+</td>
+<td style="text-align:right;">
+0.3 + 0.2 + 0.1 + 0.1 = 0.7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{ 4 }\)</span>
+</td>
+<td style="text-align:right;">
+0.1 + 0.3 + 0.1 = 0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{ 5 }\)</span>
+</td>
+<td style="text-align:right;">
+0.2 + 0.2 + 0.1 = 0.5
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<p>Note that <em>inclusion probabilities</em> are not the same as
+<em>selection probabilities</em> when sampling with replacement. But
+they are related because when sampling with replacement <span
+class="math inline">\(\pi_i = 1 - (1 - \delta_i)^n\)</span>, where <span
+class="math inline">\(\pi_i\)</span> and <span
+class="math inline">\(\delta_i\)</span> are the inclusion and selection
+probabilities, respectively, of the <span
+class="math inline">\(i\)</span>-th element.</p>
+<strong>Example</strong>: Consider the <span
+class="math inline">\(\mathcal{P} =
+\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4\}\)</span> and
+a sampling design using sampling <em>with replacement</em> with
+selection probabilities given below and a sample size of <span
+class="math inline">\(n\)</span> = 3.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Element
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\delta_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\pi_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+0.488
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+0.271
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+0.2
+</td>
+<td style="text-align:center;">
+0.488
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+0.875
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="the-horvitz-thompson-estimator" class="section level2">
+<h2>The Horvitz-Thompson Estimator</h2>
+<p>Suppose we select a sample of elements with some arbitrary
+probability sampling design. The <strong>Horvitz-Thompson
+estimator</strong> of <span class="math inline">\(\tau\)</span> is <span
+class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} \frac{y_i}{\pi_i},
+\]</span> where <span class="math inline">\(\mathcal{S}\)</span>
+represents the set of <em>distinct</em> elements in the sample, and
+<span class="math inline">\(\pi_i\)</span> is the inclusion probability
+of the <span class="math inline">\(i\)</span>-th element.</p>
+<p><strong>Example</strong>: Consider the sampling design in the
+previous example with the population of five elements. Suppose that the
+values of the target variable are <span
+class="math inline">\(y_1\)</span> = 1, <span
+class="math inline">\(y_2\)</span> = 4, <span
+class="math inline">\(y_3\)</span> = 2, <span
+class="math inline">\(y_4\)</span> = 3, and <span
+class="math inline">\(y_5\)</span> = 1. What is the estimate of <span
+class="math inline">\(\tau\)</span> based on the Horvitz-Thompson
+estimator if we select, say, sample <span
+class="math inline">\(\mathcal{S}_1\)</span>?</p>
+<p><strong>Example</strong>: Consider the sampling design in the
+previous example that used sampling with replacement. Suppose that the
+values of the target variable are <span
+class="math inline">\(y_1\)</span> = 3, <span
+class="math inline">\(y_2\)</span> = 1, <span
+class="math inline">\(y_3\)</span> = 2, and <span
+class="math inline">\(y_4\)</span> = 5. What would be the value of <span
+class="math inline">\(\hat\tau\)</span> based on the Horvitz-Thompson
+estimator if the sample was <span class="math inline">\(\mathcal{S} =
+\{\mathcal{E}_1,\mathcal{E}_1,\mathcal{E}_2\}\)</span>?</p>
+<p>The Horvitz-Thompson estimator of <span
+class="math inline">\(\tau\)</span> can be used to estimate <span
+class="math inline">\(\mu\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p>If the number of elements in the population is <em>known</em>,
+then we divide <span class="math inline">\(\hat\tau\)</span> by that
+number.</p></li>
+<li><p>If the number of elements in the population is <em>unknown</em>,
+it can be estimated as <span class="math inline">\(\sum_{i \in
+\mathcal{S}} \frac{1}{\pi_i}\)</span>, and then <span
+class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in
+\mathcal{S}} 1/\pi_i}.
+\]</span> <strong>Example</strong>: What would be the estimates of <span
+class="math inline">\(\mu\)</span> for the earlier problems if the
+number of elements in the population was unknown?</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<div
+id="some-properties-of-inclusion-probabilities-and-the-horvitz-thompson-estimator"
+class="section level3">
+<h3>Some Properties of Inclusion Probabilities and the Horvitz-Thompson
+Estimator</h3>
+<ol style="list-style-type: decimal">
+<li><p>The Horvitz-Thompson estimator is an unbiased estimator of <span
+class="math inline">\(\tau\)</span> for <em>any</em> sampling design
+provided that all <span class="math inline">\(\pi_i &gt; 0\)</span>.<a
+href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p></li>
+<li><p>For a design with a <em>fixed</em> sample size, <span
+class="math inline">\(\sum_{i \in \mathcal{P}} \pi_i\)</span> (i.e., the
+sum of the inclusion probabilities for <em>all</em> elements in the
+population) equals the number of elements in the sample. For a design
+with a <em>random</em> sample size, <span class="math inline">\(\sum_{i
+\in \mathcal{P}} \pi_i\)</span> equals the <em>expected</em> number of
+elements in the sample.<a href="#fn2" class="footnote-ref"
+id="fnref2"><sup>2</sup></a> An example of a design where the number of
+elements in the sample may be random is cluster sampling.</p></li>
+<li><p>The Horvitz-Thompson estimator has zero variance if the inclusion
+probabilities are proportional to the target variable such that <span
+class="math display">\[
+  \pi_i = ny_i/\tau_y.
+\]</span> In practice then we might use <span class="math display">\[
+\pi_i = nx_i/\tau_x
+\]</span> for some auxiliary variable <span
+class="math inline">\(x_i\)</span> that is assumed to be
+<em>approximately</em> proportional to <span
+class="math inline">\(y_i\)</span>. Then the variance of <span
+class="math inline">\(\hat\tau\)</span> may not be zero, but it may be
+smaller than it would be had we not used the auxiliary variable to
+determine the inclusion probabilities. Also note that by specifying the
+inclusion probabilities as <span class="math inline">\(\pi_i =
+nx_i/\tau_x\)</span> guarantees that the sum of the inclusion
+probabilities in the population equals the <span
+class="math inline">\(n\)</span> (if <span
+class="math inline">\(n\)</span> is fixed).</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="hansen-hurwitz-and-horvitz-thompson" class="section level2">
+<h2>Hansen-Hurwitz and Horvitz-Thompson</h2>
+<p>The Hansen-Hurwitz and Horvitz-Thompson estimators can be viewed as
+general “recipes” for estimators. But be careful not to confuse the
+<em>Hansen-Hurwitz</em> estimator with the <em>Horvitz-Thompson</em>
+estimator.</p>
+<div id="hansen-hurwitz-estimator" class="section level3">
+<h3>Hansen-Hurwitz Estimator</h3>
+<p>The Hansen-Hurwitz estimator can be used for any design that uses
+<em>sampling with replacement</em> with known <em>selection
+probabilities</em>. The estimator is <span class="math display">\[
+  \hat\tau = \frac{1}{n}\sum_{i \in \mathcal{S}}\frac{y_i}{\delta_i},
+\]</span> where <span class="math inline">\(\delta_i\)</span> is the
+<em>selection probability</em> of the <span
+class="math inline">\(i\)</span>-th element. Recall that a selection
+probability is the probability of selecting the element <em>on each
+draw</em> from the population. Also note that we may draw the same
+element more than once, and the <em>summation may involve the same
+element more than once</em>.</p>
+<p><strong>Example</strong>: Consider the sampling design in the
+previous example that used sampling with replacement. What would be the
+value of <span class="math inline">\(\hat\tau\)</span> based on the
+Hansen-Hurwitz estimator if the sample was <span
+class="math inline">\(\mathcal{S} =
+\{\mathcal{E}_1,\mathcal{E}_1,\mathcal{E}_2\}\)</span>?</p>
+</div>
+<div id="horvitz-thompson-estimator" class="section level3">
+<h3>Horvitz-Thompson Estimator</h3>
+<p>The Horvitz-Thompson estimator can be used for <em>any</em> design
+with known <em>inclusion probabilities</em>. The estimator is <span
+class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i},
+\]</span> where <span class="math inline">\(\pi_i\)</span> is the
+<em>inclusion probability</em> of the <span
+class="math inline">\(i\)</span>-th element. Recall that an inclusion
+probability is the probability the element will be included in the
+sample. Also unlike the Hansen-Hurwitz estimator the summation is only
+over the <em>distinct</em> elements in the sample.</p>
+<p><strong>Example</strong>: What would be the value of <span
+class="math inline">\(\hat\tau\)</span> based on the Horvitz-Thompson
+estimator and the same sample obtained in the previous example?</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="inclusion-probabilities-for-some-common-designs"
+class="section level2">
+<h2>Inclusion Probabilities for Some Common Designs</h2>
+<p>Inclusion probabilities can be relatively easily derived for the
+designs we have discussed so far.</p>
+<ol style="list-style-type: decimal">
+<li><p>For <strong>simple random sampling</strong> the inclusion
+probabilities are all <span class="math display">\[
+  \pi_i = \frac{n}{N},
+\]</span> where <span class="math inline">\(N\)</span> is the number of
+elements in the population and <span class="math inline">\(n\)</span> is
+the number of elements sampled.</p></li>
+<li><p>For <strong>stratified random champing</strong> the inclusion
+probabilities are <span class="math display">\[
+  \pi_i = n_j/N_j
+\]</span> if the <span class="math inline">\(i\)</span>-th element is in
+the <span class="math inline">\(j\)</span>-th stratum, where <span
+class="math inline">\(N_j\)</span> is the number of elements in the
+<span class="math inline">\(j\)</span>-th stratum, and <span
+class="math inline">\(n_j\)</span> is the number of elements sampled
+from the <span class="math inline">\(j\)</span>-th stratum.</p></li>
+<li><p>For <strong>one-stage cluster sampling</strong> the inclusion
+probabilities are <span class="math display">\[
+  \pi_i = n/N
+\]</span> if clusters are sampled using <em>simple random sampling</em>,
+where <span class="math inline">\(N\)</span> is the number of clusters,
+and <span class="math inline">\(n\)</span> is the number of sampled
+clusters. But if clusters are sampled with replacement with
+probabilities proportional to cluster size, so that the <em>selection
+probability</em> of the <span class="math inline">\(i\)</span>-th
+cluster is <span class="math inline">\(\delta_j = m_j/M\)</span>,
+then<br />
+<span class="math display">\[
+  \pi_i = 1 - (1 - m_j/M)^n,
+\]</span> assuming that the <span class="math inline">\(i\)</span>-th
+element is in the <span class="math inline">\(j\)</span>-th cluster,
+where <span class="math inline">\(M\)</span> is the number of elements
+in the population and <span class="math inline">\(m_j\)</span> is the
+number of elements in the <span class="math inline">\(j\)</span>-th
+cluster.</p></li>
+<li><p>For <strong>two-stage cluster sampling</strong> with simple
+random sampling at both stages, the inclusion probabilities are <span
+class="math display">\[
+  \pi_i = \frac{n}{N} \times \frac{m_j}{M_j}
+\]</span> assuming that the <span class="math inline">\(i\)</span>-th
+element is in the <span class="math inline">\(j\)</span>-th cluster,
+where <span class="math inline">\(N\)</span> is the number of clusters,
+and <span class="math inline">\(n\)</span> is the number of sampled
+clusters, <span class="math inline">\(M_j\)</span> is the number of
+elements in the <span class="math inline">\(j\)</span>-th cluster, and
+<span class="math inline">\(m_j\)</span> is the number of sampled
+elements from the <span class="math inline">\(j\)</span>-th cluster. If
+clusters are sampled with replacement with probabilities proportional to
+cluster size, but sampling in the second stage is still simple random
+sampling, then <span class="math display">\[
+  \pi_i = [1 - (1 - M_j/M)^n] \times \frac{m_j}{M_j}.
+\]</span> For simple and stratified random sampling, the
+Horvitz-Thompson estimator for <span class="math inline">\(\tau\)</span>
+is the same as that we discussed in the context of those designs. For
+one-stage and two-stage cluster sampling with simple random sampling at
+both stages, the Horvitz-Thompson estimator for <span
+class="math inline">\(\tau\)</span> based on the inclusion probabilities
+shown above is the same as the unbiased estimator for <span
+class="math inline">\(\tau\)</span> we discussed in the context of
+discussing each of those designs.</p></li>
+</ol>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>To prove that the Horvitz-Thompson estimator is
+unbiased, first note that we can write it as <span
+class="math inline">\(\sum_{i \in \mathcal{P}} I_iy_i/\pi_i\)</span>
+where <span class="math inline">\(\mathcal{P}\)</span> is the index set
+of <em>all</em> elements in the population, and <span
+class="math inline">\(I_i\)</span> is an indicator variable such that
+<span class="math inline">\(I_i = 1\)</span> if the <span
+class="math inline">\(i\)</span>-th element is in the sample, and <span
+class="math inline">\(I_i = 0\)</span> if the <span
+class="math inline">\(i\)</span>-th element is not in the sample. Now to
+show that the estimator is unbiased we need to show that <span
+class="math display">\[
+  E\left(\sum_{i \in \mathcal{P}} I_i\frac{y_i}{\pi_i} \right) = \tau.
+\]</span> To do this we use the fact that the expectation operator can
+be distributed over addition, and that <span
+class="math inline">\(E(I_i) = 1 \times P(I_i = 1) + 0 \times P(I_i = 0)
+= \pi_i\)</span> since <span class="math inline">\(P(I_i) =
+\pi_i\)</span> by definition. So we have that <span
+class="math display">\[
+  E\left(\sum_{i \in \mathcal{P}} I_i\frac{y_i}{\pi_i} \right) =
+  \sum_{i \in \mathcal{P}} E\left(I_i\frac{y_i}{\pi_i}\right) =
+  \sum_{i \in \mathcal{P}} E(I_i)\frac{y_i}{\pi_i} = \sum_{i \in
+\mathcal{P}}y_i = \tau.
+\]</span> Note that we can write that <span
+class="math inline">\(E(I_iy_i/\pi_i) = E(I_i)y_i/\pi_i\)</span> because
+both <span class="math inline">\(y_i\)</span> and <span
+class="math inline">\(\pi_i\)</span> are considered to be fixed
+constants here. It is only <span class="math inline">\(I_i\)</span> that
+is a random variable.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>To show this note that <span
+class="math inline">\(\sum_{i \in \mathcal{P}} \pi_i = \sum_{i \in
+\mathcal{P}} E(I_i)\)</span> where <span
+class="math inline">\(I_i\)</span> is an <em>indicator variable</em>
+such that <span class="math inline">\(I_i\)</span> = 1 if the <span
+class="math inline">\(i\)</span>-th element is included in the sample,
+and <span class="math inline">\(I_i\)</span> = 0 if the element is
+excluded from the sample. We have that <span class="math inline">\(\pi_i
+= E(I_i)\)</span> because <span class="math inline">\(E(I_i) = 1\pi_i +
+0(1-\pi_i) = \pi_i\)</span>. Now <span class="math display">\[
+  \sum_{i \in \mathcal{P}} E(I_i) = E\left(\sum_{i \in \mathcal{P}}
+I_i\right),
+\]</span> because the expectation of a sum equals the sum of
+expectations, and <span class="math inline">\(\sum_{i=1}^N I_i\)</span>
+is a count of the number of elements in the sample. And if the number of
+elements is not random then <span
+class="math inline">\(E\left(\sum_{i=1}^N I_i\right) = \sum_{i=1}^N
+I_i\)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

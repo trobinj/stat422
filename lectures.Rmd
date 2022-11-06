@@ -106,7 +106,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Inclusion probabilities, the Horvitz-Thompson estimator, and the Hansen-Hurwitz estimator](lecture-11-07-2022.html). The [study guide](e3-studyguide.html) for the third examination is now available.
 
 `r i <- i + 1; d[i]` 
 
