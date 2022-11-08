@@ -204,4 +204,7 @@ $$
 $$
 For simple and stratified random sampling, the Horvitz-Thompson estimator for $\tau$ is the same as that we discussed in the context of those designs. For one-stage and two-stage cluster sampling with simple random sampling at both stages, the Horvitz-Thompson estimator for $\tau$ based on the inclusion probabilities shown above is the same as the unbiased estimator for $\tau$ we discussed in the context of discussing each of those designs.
 
+## Horvitz-Thompson Estimators for Some Common Designs
+
+For simple and stratified random sampling, the Horvitz-Thompson estimator of $\tau$ is the same estimator we discussed for those designs. For one- and two-stage cluster sampling designs using simple random sampling of clusters, the Horvitz-Thompson estimators of $\tau$ are the *unbiased* estimators we discussed in class.  
 
