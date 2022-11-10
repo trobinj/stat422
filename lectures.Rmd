@@ -110,7 +110,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [The Hájek estimator, Horvitz-Thompson estimators with auxiliary variables, second-order inclusion probabilities and the variance of the Horvitz-Thompson estimator, specification of inclusion probabilities](lecture-11-09-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Sampling designs and inclusion probabilities --- direct and indirect approach examples, balanced sampling](lecture-11-11-2022.html). A set of [homework problems](hw-inclusion.html) concerning inclusion probabilities and some related topics is now available.
  
 ***
 
