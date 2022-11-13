@@ -39,7 +39,7 @@ source("../../utilities.R")
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
-!-- Next time rearrange things to cover more indirect approaches first. These include line-intercept, fixed area plot, Bitterlich, and adaptive cluster at least. Then do direct approach which would include balanced sampling. Maybe also expand a bit on these sampling designs, considering different estimators for them (see Thompson's book on this). -->
+<!-- Next time rearrange things to cover more indirect approaches first. These include line-intercept, fixed area plot, Bitterlich, and adaptive cluster at least. Then do direct approach which would include balanced sampling. Maybe also expand a bit on these sampling designs, considering different estimators for them (see Thompson's book on this). -->
 
 <!-- But now that I think about this again I'm not sure waiting to cover direct approaches is the best idea. -->
 

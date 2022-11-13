@@ -92,7 +92,7 @@ $$
 $$
 Substituting the Horvitz-Thompson estimators for $\bar{y}$ and $\bar{x}$ as we did for the ratio estimator gives the regression estimator for an arbitrary design,
 $$
-  \hat\tau_y = \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i} + b\left(\tau_x - \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i}\right).
+  \hat\tau_y = \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i} + b\left(\tau_x - \sum_{i \in \mathcal{S}}\frac{x_i}{\pi_i}\right).
 $$
 The slope of the line ($b$) that relates the target variable to the auxiliary variable is computed differently to take into account the inclusion probabilities (the details have been omitted here).
 
