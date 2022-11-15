@@ -7,7 +7,7 @@ output:
 
 ```{r, echo = FALSE, message = FALSE}
 library(lubridate)
-date <- "11-14-2022"
+date <- "11-16-2022"
 weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
 month <- month(mdy(date), label = TRUE)
 day <- day(mdy(date))
@@ -39,6 +39,7 @@ source("../../utilities.R")
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
+<!-- Note: Had to drop/condense lectures here due to classes being canceled. -->
 
 ## Line-Intercept Sampling
 
