@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Nov 28</title>
+
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Nov 28</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-11-28-2022.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="detectability-non-response-and-inclusion-probabilities"
+class="section level2">
+<h2>Detectability, Non-Response, and Inclusion Probabilities</h2>
+<p>Recall that we can estimate <span class="math inline">\(\tau\)</span>
+as <span class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i},
+\]</span> where <span class="math inline">\(\pi_i\)</span> is the
+probability of inclusion of the <span
+class="math inline">\(i\)</span>-th element in the sample <span
+class="math inline">\(\mathcal{S}\)</span>. To be included the element
+must be (a) <em>sampled</em> and (b) the response variable of a sampled
+element must be <em>observed</em>. <span class="math display">\[
+  \pi_i = P(\mbox{the $i$-th element is sampled})P(\mbox{the $i$-th
+element is observed } | \mbox{ the $i$-th element is sampled}).
+\]</span> Failure to observe an element may be due to a variety of
+factors.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Detectability</strong> concerns the situation where
+sampled elements are, for some reason, never known to exist (i.e.,
+``passed over’’). This is how the issue is usually framed in the natural
+sciences.</p></li>
+<li><p><strong>Non-response</strong> concerns the situation where
+sampled elements fail or refuse to be observed. This is how the issue is
+usually framed in the social sciences where elements are people or
+social organizations (e.g., a business).</p></li>
+</ol>
+<p>In this lecture we will from the problem of non-observation in terms
+of detectability, and discuss non-response specifically in a future
+lecture. But the results below apply to non-observation due to either
+non-detection or non-response.</p>
+<p>It is useful to write the inclusion probability as <span
+class="math display">\[
+  \pi_i = \underbrace{P(\mbox{the $i$-th element is
+sampled})}_{\pi_{i,S}}\underbrace{P(\mbox{the $i$-th element is observed
+} | \mbox{ the $i$-th element is sampled})}_{\pi_{i,D}},
+\]</span> so that <span class="math inline">\(\pi_i =
+\pi_{i,S}\pi_{i,D}\)</span>. The probability an element is sampled comes
+from the sampling design, but the probability that a sampled element is
+detected is determined by other factors.</p>
+</div>
+<div id="detectability-and-estimation" class="section level2">
+<h2>Detectability and Estimation</h2>
+<p>Recall that the Horvitz-Thompson estimator of <span
+class="math inline">\(\tau\)</span> can be written as <span
+class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} \frac{y_i}{\pi_i}.
+\]</span> Now considering that inclusion requires (a) sampling and (b)
+observations, we have that <span class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} \frac{y_i}{\pi_{i,S}\pi_{i,D}},
+\]</span> since <span class="math inline">\(\pi_i =
+\pi_{i,S}\pi_{i,D}\)</span>, and <span
+class="math inline">\(\mathcal{S}\)</span> is the set of elements that
+are both sampled and detected. <em>In principle</em> we can account for
+unobserved elements <em>if</em> we know the probability (<span
+class="math inline">\(\pi_{i,D}\)</span>) that each element in the
+sample would be observed.</p>
+<div id="constant-detection-probability" class="section level3">
+<h3>Constant Detection Probability</h3>
+<p>If <span class="math inline">\(\pi_{i,D}\)</span> is a constant
+(i.e., the same for all elements), which we will call <span
+class="math inline">\(\pi_D\)</span>, then the Horvitz-Thompson
+estimator becomes <span class="math display">\[
+  \hat\tau = \frac{1}{\pi_D}\sum_{i \in \mathcal{S}}
+\frac{y_i}{\pi_{i,S}}.
+\]</span> This makes it clear that if ignore the problem of undetected
+or non-responding elements, implicitly assuming that <span
+class="math inline">\(\pi_D\)</span> = 1, then we will tend to
+<em>underestimate</em> <span class="math inline">\(\tau\)</span> because
+<span class="math display">\[
+  \frac{1}{\pi_D}\sum_{i \in \mathcal{S}} \frac{y_i}{\pi_{i,S}} \ge
+\sum_{i \in \mathcal{S}} \frac{y_i}{\pi_{i,S}}.
+\]</span> That is, unless <span class="math inline">\(\pi_D\)</span> = 1
+the estimator would be <em>biased</em> because <span
+class="math inline">\(E(\hat\tau) &lt; \tau\)</span>.</p>
+<p>This also makes it clear that if we <em>know</em> <span
+class="math inline">\(\pi_D\)</span> (or can estimate it), then we can
+correct for undetected/non-response by simply multiplying an estimator
+of <span class="math inline">\(\tau\)</span> by <span
+class="math inline">\(1/\pi_D\)</span>.</p>
+<p><strong>Example</strong>: A one-stage cluster sampling design
+estimates that the number of larkspur in a region is <span
+class="math inline">\(\hat\tau\)</span> = 1000 plants. However we also
+know that some larkspur will likely go undetected, and that the
+probability of detection is 0.8. What is our estimate <span
+class="math inline">\(\tau\)</span> if we account for detectability?</p>
+</div>
+<div id="constant-detection-probability-and-estimation-of-mu"
+class="section level3">
+<h3>Constant Detection Probability and Estimation of <span
+class="math inline">\(\mu\)</span></h3>
+<p>The situation for estimating <span class="math inline">\(\mu\)</span>
+is a bit different when <span class="math inline">\(\pi_{i,D}\)</span>
+is a constant. Consider the Hájek estimator of <span
+class="math inline">\(\mu\)</span> which can be written as <span
+class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in
+\mathcal{S}} 1/\pi_i}.
+\]</span> If <span class="math inline">\(\pi_D\)</span> is a constant so
+that <span class="math inline">\(\pi_i = \pi_{i,S}\pi_D\)</span>, then
+we can write this estimator as <span class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i/\pi_{i,S}}{\sum_{i \in
+\mathcal{S}} 1/\pi_{i,S}}.
+\]</span> Note that <span class="math inline">\(\pi_D\)</span> <em>does
+not appear in the estimator</em> (because it cancels-out), and so we do
+not need to know/estimate <span class="math inline">\(\pi_D\)</span>,
+and we do not introduce bias into our estimator by failing to account
+for it. But this is only true if the probability of detection/response
+is <em>constant</em> (i.e., the same for all elements). Also note that
+there is still a negative impact of undetected or non-responding
+elements on estimation — it reduces the number of elements in the sample
+and so tends to increase the variance of an estimator and thus the bound
+on the error of estimation.</p>
+</div>
+<div id="non-constant-detection-probability" class="section level3">
+<h3>Non-Constant Detection Probability</h3>
+<p>Things get more complicated when the probability of
+detection/response is not constant. In that case we can still, in
+principle, use Horvitz-Thompson or Hájek estimators like <span
+class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} \frac{y_i}{\pi_i} \ \ \ \text{and}
+\ \ \
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in
+\mathcal{S}} 1/\pi_i},
+\]</span> where <span class="math inline">\(\pi_i =
+\pi_{i,S}\pi_{i,D}\)</span>, but now we would need to know (or be able
+to estimate) the detection/response probability of <em>every
+element</em> in the sample.</p>
+</div>
+</div>
+<div id="estimating-detectability" class="section level2">
+<h2>Estimating Detectability</h2>
+<p>Consider the problem of abundance estimation using one-stage cluster
+sampling. Let <span class="math inline">\(y_i\)</span> be the number of
+elements in the <span class="math inline">\(i\)</span>-th cluster, and
+let <span class="math inline">\(x_i\)</span> be the number of
+<em>detected</em> elements in the <span
+class="math inline">\(i\)</span>-th cluster. Then detectability is <span
+class="math inline">\(\pi_D = \tau_x/\tau_y\)</span>. How do we estimate
+this?</p>
+<ol style="list-style-type: decimal">
+<li><strong>Estimation as a ratio</strong>. Using the data from a
+one-stage cluster sampling design where <span
+class="math inline">\(y_i\)</span> and <span
+class="math inline">\(x_i\)</span> are observed from <span
+class="math inline">\(n\)</span> clusters, estimate the detectability as
+a ratio so that <span class="math display">\[
+  \hat\pi_D = \bar{x}/\bar{y}.
+\]</span> <strong>Example</strong>: Consider the problem of estimating
+the number of plants of a particular species. In a simple random sample
+of 20 plots, the mean number of plants per plot was 50, while the mean
+number of detected plants per plot was 40. What is the detectability
+estimate?</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li><p><strong>Double-sampling</strong>. Consider a one-stage cluster
+sampling design with the ratio estimator <span class="math display">\[
+  \hat\tau_y = \tau_x\bar{y}/\bar{x}.
+\]</span> Here <span class="math inline">\(\tau_y\)</span> is the number
+of elements in the population, and <span
+class="math inline">\(\tau_x\)</span> is the number of <em>detected</em>
+elements in the population. Since usually <span
+class="math inline">\(\tau_x\)</span> would be unknown, it could be
+estimated using double-sampling such that <span
+class="math inline">\(\hat\tau_x = N\bar{x}&#39;\)</span>, where <span
+class="math inline">\(N\)</span> is the number of clusters in the
+population, and <span class="math inline">\(\bar{x}&#39;\)</span> is the
+mean number of detected elements in a first-phase sample of clusters.
+Note that <span class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\bar{x}\)</span> are the mean number of elements
+and detected elements, respectively based on the second-phase sample of
+clusters.Then we can write the ratio estimator of <span
+class="math inline">\(\tau_y\)</span> as <span class="math display">\[
+  \hat\tau_y = N\bar{x}&#39;\bar{y}/\bar{x} = N\bar{x}&#39;/\hat\pi_D.
+\]</span> Note that this estimator implicitly uses the ratio <span
+class="math inline">\(\bar{x}/\bar{y}\)</span> to estimate <span
+class="math inline">\(\pi_D\)</span> (see the first method above) and
+adjust the biased estimator <span
+class="math inline">\(N\bar{x}&#39;\)</span>.</p>
+<p><strong>Example</strong>: Suppose that the sample described in the
+previous problem was the second-phase sample from a double-sampling
+design. Suppose the first-phase sample of 40 plots yielded a mean number
+of detected elements of 45, and assume the population consists of 100
+plots. What is the detectability-adjusted estimate of the total number
+of plants in the population?</p></li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li><p><strong>Mark-recapture</strong>. Let <span
+class="math inline">\(y_i\)</span> denote the number of <em>marked
+units</em> in the <span class="math inline">\(i\)</span>-th cluster, and
+let <span class="math inline">\(x_i\)</span> denote the number of
+<em>detected marked units</em> in the <span
+class="math inline">\(i\)</span>-th cluster. Assuming that the
+detectability of marked units is the same as unmarked units, we can use
+<span class="math inline">\(\bar{x}/\bar{y}\)</span> to estimate
+detectability.</p>
+<p><strong>Example</strong>: Suppose the researchers already know of
+some plants in the region of interest from a previous survey. In a
+sample of plots selected using simple random sampling, the mean number
+of known plants per plot was 30, and the mean number of the known plants
+that were detected was 24. What is the estimate of the detectability of
+the plants?</p></li>
+</ol>
+</div>
+<div id="detectability-and-estimator-variance" class="section level2">
+<h2>Detectability and Estimator Variance</h2>
+<p>Consider a one-stage cluster sampling design to estimate
+<em>abundance</em>. Then <span class="math inline">\(y_i = m_i\)</span>,
+and <span class="math inline">\(\hat\tau\)</span> is an estimator of the
+number of elements in the population (i.e., abundance estimation).
+Assume constant detectability <span
+class="math inline">\(\pi_D\)</span>.</p>
+<p>If each of the <span class="math inline">\(m_i\)</span> elements in a
+cluster has a probability of <span class="math inline">\(\pi_D\)</span>
+of being observed, then <span class="math inline">\(y_i\)</span> has a
+<em>binomial</em> distribution (assuming observations are independent).
+It can be shown that <span class="math display">\[
+  V(\hat\tau) = N^2\left[\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n} +
+\left(\frac{1-\pi_D}{\pi_D}\right)\frac{\mu}{n}\right],
+\]</span> where <span class="math inline">\(\mu = M/N\)</span> is the
+mean number of elements per cluster. Note that the term <span
+class="math inline">\((1-\pi_D)/\pi_D\)</span> increases as <span
+class="math inline">\(\pi_D\)</span> decreases, so what happens to the
+variance of <span class="math inline">\(\hat\tau\)</span> as
+detectability gets worse (i.e., lower)? And what happens if
+detectability is perfect (i.e., <span
+class="math inline">\(\pi_D\)</span> = 1)?</p>
+<p>In practice we often need to <em>estimate</em> detectability somehow.
+In these cases we often have that <span class="math display">\[
+  V(\hat\tau) \approx
+N^2\left[\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n} +
+\left(\frac{1-\pi_D}{\pi_D}\right)\frac{\mu}{n} +
+\frac{\mu^2}{\pi_D}V(\hat\pi_D)\right].
+\]</span> So what effect does the variance of our estimate of
+detectability have on the variance of our estimator for <span
+class="math inline">\(\tau\)</span>?</p>
+</div>
+<div id="distance-sampling-mostly-just-for-fun" class="section level2">
+<h2>Distance Sampling (Mostly Just for Fun)</h2>
+<p>In many cases detectability may be a function of some other variable.
+The method of <em>distance sampling</em> assumes that detectability is a
+function of distance from the observer to the element.</p>
+<p>Assume a random line transect and that detectability follows a
+<em>detection function</em> that depends on the distance to the center
+of the transect.
+<img src="lecture-11-28-2022_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
+Assume perfect detection at a distance of <span
+class="math inline">\(x\)</span> = 0 so that <span
+class="math inline">\(g(0)\)</span> = 1.</p>
+<p>The expected detectability of a randomly sampled element is <span
+class="math display">\[
+    \int_0^w\!\! \frac{g(x)}{w} dx = \frac{1}{w}\int_0^w\!\! g(x)dx,
+\]</span> i.e., the <em>expected value</em> of <span
+class="math inline">\(g(x)\)</span>. The probability density of <span
+class="math inline">\(x\)</span> is <span class="math inline">\(u(x) =
+1/w\)</span> between 0 and <span class="math inline">\(w\)</span>. Here
+<span class="math inline">\(w\)</span> is the half-width of the transect
+(i.e., the distance from the center to the edge). So <span
+class="math display">\[\int_0^w g(x)dx\]</span> is the <em>area under
+the curve</em> and between 0 and <span class="math inline">\(w\)</span>.
+<img src="lecture-11-28-2022_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
+This allows us to determine the <em>distribution of distances to
+detected elements</em> (see proof below).
+<img src="lecture-11-28-2022_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
+Thus the detectability of an element can be computed as <span
+class="math display">\[
+  \pi_D = \frac{1}{wf(0|\text{detected})},
+\]</span> where <span
+class="math inline">\(f(0|\text{detected})\)</span> is the probability
+density of the distances of detected elements at a distance of zero (see
+proof below).</p>
+<p><strong>Informal proof</strong>: The distribution of distances of
+<em>detected</em> elements is <span class="math display">\[
+    f(x|\text{detected}) =
+\frac{P(\text{detected}|x)u(x)}{P(\text{detected})},
+\]</span> where <span class="math inline">\(u(x)\)</span> is the
+distribution of distances (detected or not). Now <span
+class="math inline">\(P(\text{detected}|x) = g(x)\)</span>, and <span
+class="math inline">\(P(\text{detected})\)</span> is the detectability,
+<span class="math display">\[
+    P(\text{detected}) = \frac{1}{w}\int_0^w\!\! g(x) dx,
+\]</span> and because transects are located randomly, <span
+class="math inline">\(u(x) = 1/w\)</span>. Thus, <span
+class="math display">\[
+    f(x|\text{detected}) = \frac{g(x)/w}{\frac{1}{w}\int_0^w\!\! g(x)
+dx} = \frac{g(x)}{wP(\text{detected})}.
+\]</span> But since <span class="math inline">\(g(0) = 1\)</span>, if
+evaluate this function at <span class="math inline">\(x = 0\)</span> we
+have <span class="math display">\[
+  f(0|\text{detected}) = \frac{1}{wP(\text{detected})}
+\]</span> which implies that <span class="math display">\[
+  P(\text{detected}) = \frac{1}{wf(0|\text{detected})}.
+\]</span></p>
+<p>In practice, we need to <em>estimate</em> the distribution of the
+detected elements. There are two general approaches.</p>
+<ol style="list-style-type: decimal">
+<li>A non-parametric estimator (e.g., a density histogram).</li>
+<li>A parametric estimator, assuming a particular family of probability
+distributions.</li>
+</ol>
+<p><strong>Example</strong>: The figures blow show non-parametric and
+parametric estimates of the distribution of distances of detected
+elements for the three surveys using a half-width of <span
+class="math inline">\(w\)</span> = 10.
+<img src="lecture-11-28-2022_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-11-28-2022_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Density at Zero
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Case
+</th>
+<th style="text-align:center;">
+Histogram
+</th>
+<th style="text-align:center;">
+Parametric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:center;">
+0.1096
+</td>
+<td style="text-align:center;">
+0.1060
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:center;">
+0.1644
+</td>
+<td style="text-align:center;">
+0.1668
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+0.5691
+</td>
+<td style="text-align:center;">
+0.6366
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Detectability
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Case
+</th>
+<th style="text-align:center;">
+Histogram
+</th>
+<th style="text-align:center;">
+Parametric
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:center;">
+0.9124
+</td>
+<td style="text-align:center;">
+0.9434
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:center;">
+0.6084
+</td>
+<td style="text-align:center;">
+0.5994
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+0.1757
+</td>
+<td style="text-align:center;">
+0.1571
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

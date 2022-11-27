@@ -41,6 +41,7 @@ source("../../utilities.R")
 
 <!-- Note: Had to drop/condense lectures here due to classes being canceled. Moved the discussion of weights to after the third examination. -->
 
+<!-- This particular lecture does not take a full session. Either add material or expand on the explanations. -->
 
 ## Adaptive Cluster Sampling
 

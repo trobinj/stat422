@@ -129,7 +129,7 @@ $$
 $$
 The estimated variance of $\hat\tau$ is then
 $$
-  \hat{V}(\hat\tau) = \frac{1}{K-1}\sum_{k=1}^K(\hat\tau_k - \hat\tau)^2.
+  \hat{V}(\hat\tau) = \frac{1}{K(K-1)}\sum_{k=1}^K(\hat\tau_k - \hat\tau)^2.
 $$
 
 **Example**: What is the estimate of $\tau$ based on the survey given earlier?
@@ -308,7 +308,7 @@ $$
 $$
 The estimated variance of $\hat\tau$ is 
 $$
-  \hat{V}(\hat\tau) = \frac{1}{K-1}\sum_{k=1}^K (\hat\tau_k - \hat\tau)^2.
+  \hat{V}(\hat\tau) = \frac{1}{K(K-1)}\sum_{k=1}^K (\hat\tau_k - \hat\tau)^2.
 $$
 
 **Example**: Assume a region with a total area of 5000 meters and $K$ = 3 non-empty circular plots.

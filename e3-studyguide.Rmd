@@ -105,9 +105,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 0. Have a rough idea of the different methods of dealing with bias due to non-response. 
 
-0. What are the un-adjusted survey weights (i.e., design weights) for the elements for each of the following designs: simple random sampling, stratified random sampling, one-stage cluster sampling, and two-stage cluster sampling. Be able to compute the weight of a given element for each design given sufficient information about the design. 
+0. ~~What are the un-adjusted survey weights (i.e., design weights) for the elements for each of the following designs: simple random sampling, stratified random sampling, one-stage cluster sampling, and two-stage cluster sampling. Be able to compute the weight of a given element for each design given sufficient information about the design.~~
 
-0. Given the values of the target variable and the corresponding survey weights, how can we compute an estimate of $\tau$ and how can we compute an estimate of $\mu$? 
+0. ~~Given the values of the target variable and the corresponding survey weights, how can we compute an estimate of $\tau$ and how can we compute an estimate of $\mu$?~~
 
 In addition to the above, be comfortable understanding the calculations used in the homework problems as well as all notation.
 
