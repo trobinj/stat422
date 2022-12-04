@@ -1,0 +1,169 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "12-05-2022"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", comment = "", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Survey Weights Revisited
+
+Estimators of $\tau$ can often be written as 
+$$
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+$$
+where $w_i$ is the *survey weight* for the $i$-th element in the sample. Where does $w_i$ come from? 
+
+1. The sampling design. If there is no adjustment/re-weighting (see below) then $w_i = 1/\pi_i$ where $\pi_i$ is the inclusion probability of the $i$-th element. See [this lecture](lecture-11-07-2022.html) on inclusion probabilities.
+
+0. Calibration. Certain estimators such as ratio and (generalized) regression estimators effectively adjust or re-weight the weights based on known totals for one or more auxiliary variables. This also includes post-stratification and raking. See [this lecture](lecture-10-07-2022.html) on how weights on re-weighting and calibration.
+
+0. Non-response/detectability. Further adjustment or re-weighting may be done to account for known (or estimated) probabilities of response or detection. See the lectures on [detectability](lecture-11-28-2022.html) and [non-response](lecture-11-30-2022.html). 
+
+### Estimation of $\mu$
+
+There are a couple of ways that we can estimate $\mu$ using survey weights. One is
+$$
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} w_iy_i}{\text{number of elements in the population}},
+$$
+if the denominator is *known*. If not, then we can use
+$$
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} w_iy_i}{\sum_{i \in \mathcal{S}} w_i},
+$$
+since $\sum_{i \in \mathcal{S}} w_i$ is an estimator of the number of elements in the population.
+
+### Target Variable Specification
+
+Once the weights are known, the user can define $y_i$ depending on what they want to estimate. 
+
+1. $y_i$ can be the value of some target variable of interest.
+
+0. $y_i$ can be defined as equal to one for all elements in the population. Then $\hat\tau = \sum_{i \in \mathcal{S}} w_iy_i = \sum_{i \in \mathcal{S}} w_i$ is an estimator of the number of elements in the population.
+
+0. $y_i$ can be defined as
+$$
+  y_i = 
+  \begin{cases}
+    1, & \text{if the $i$-th element is in a given domain}, \\
+    0, & \text{otherwise},
+  \end{cases}
+$$
+so that $\hat\tau$ is an estimator of the *number of elements in the domain* and $\hat\mu$ is an estimator of the *proportion of elements in the domain*.
+
+0. $y_i$ can be defined as 
+$$
+  y_i = 
+  \begin{cases}
+    y_i, & \text{if the $i$-th element is in a given domain}, \\
+    0, & \text{otherwise},
+  \end{cases}
+$$
+so that $\hat\tau$ is an estimator of the total for *the sub-population of elements in the domain* and $\hat\mu$ is an estimator of the mean for *the sub-population of elements in the domain*.
+
+### Computational Convenience
+
+The advantage of survey weights is that they make it relatively easy for non-specialists to compute estimates using only the survey weights and the (specified) target variable values. (However computing the (estimated) variance of an estimator to compute the bound on the error of estimation still requires more information and expertise.)
+
+**Example**: The following table shows the value of the target variable and the corresponding survey weights for a sample of five elements obtained using some unknown probability sampling design.
+```{r}
+set.seed(123)
+N <- 100
+n <- 5
+w <- round(rnorm(N, rep(N/n, N), 5),1)
+y <- rpois(n, 5)
+d <- data.frame(y = y[1:5], w = w[1:5])
+names(d) <- c("Target Variable", "Survey Weight")
+ktbl(d)
+```
+How do we compute estimates of $\tau$ and $\mu$ using only this information?
+
+## R Demonstration of Using Survey Weights
+
+Here I will demonstrate the use of sampling weights from the [European Social Survey (ESS)](https://www.europeansocialsurvey.org). Survey data from the ESS are available for download. For this example we will use data from the ninth round of the survey that was conducted from 2018 to 2020.
+```{r, echo = TRUE}
+essdata <- read.csv("ESS9e03_1.csv")
+```
+You can download the data yourself. Registration is required but is free and not restrictive. 
+
+The data require a little bit of formatting before we can use it. Here I re-code the missing responses, select the variables we want to use (just to keep the data to a manageable size), and drop elements with missing data. I am also going to create some age groups based on the age of the respondent. This can be done many different ways in R. I will use the **dplyr** and **tidyr** packages.
+```{r, echo = TRUE}
+library(dplyr)
+library(tidyr)
+ukdata <- essdata %>% filter(cntry == "GB") %>%
+  select(psu, stratum, dweight, pspwght, agea, hmsacld) %>%
+  mutate(agea = ifelse(agea == 999, NA, agea)) %>%
+  mutate(hmsacld = ifelse(hmsacld %in% c(7,8,9), NA, hmsacld)) %>%
+  drop_na() %>% 
+  mutate(agegroup = cut(agea, breaks = c(min(agea) - 1, 
+    quantile(agea, c(0.25, 0.5, 0.75)), max(agea))))
+```
+Here you can see the first 20 responses.
+```{r, echo = TRUE}
+head(ukdata, 20)
+```
+The variables `psu` and `stratum` identify the primary sampling unit and the stratum. I believe the survey uses a kind of stratified multi-stage cluster sampling design. The variables `dweight` and `pspwght` are the design weight and survey weight, respectively. The latter has been adjusted through a re-weighting method (post-stratification) using raking with age, gender, education, and region as the auxiliary variables. The variable `agea` is the age of the respondent, which I have used to form four age groups (`agegroup`) based on quartiles. The target variable for this demonstration will be `hmsacld` which is a response to the statement "Gay male and lesbian couples should have the same rights to adopt children as straight couples." The response was on a 5-point scale: agree strongly (1), agree (2), neither agree nor disagree (3), disagree (4), disagree strongly (5). 
+
+To estimate the mean response for the population, we simply need to multiply the target variable (`hmsacld`) by the survey weight (`pspwght`), add these up across the sampled elements, and divide by the sum of weights for the sampled elements. The formula is
+$$
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} w_iy_i}{\sum_{i \in \mathcal{S}}w_i}
+$$
+where $y_i$ is the target variable (`hmscald`) and $w_i$ is the survey weight (`pspwght`). Here's how we could do this in R. 
+```{r, echo = TRUE}
+ukdata %>% summarize(y = sum(hmsacld * pspwght) / sum(pspwght))
+```
+We can also estimate the mean response for each age group by doing this separately for each part of the sample. Technically we can do this by defining $y_i$ as equal to zero if the elements is *not* in the domain of interest, but we can also do this simply by doing the calculation separately for each domain. 
+```{r, echo = TRUE}
+ukdata %>% group_by(agegroup) %>% summarize(y = sum(hmsacld * pspwght) / sum(pspwght))
+```
+Note that this did not require any knowledge of the sampling design and the calibration. It also does not require sophisticated software. Everything that was done could be done with any statistical package or a spreadsheet program. But we can confirm that the estimates are consistent with what would be obtained using specialized software like the **survey** package for R.
+```{r, echo = TRUE}
+library(survey)
+ukdesign <- svydesign(ids = ~psu, strata = ~stratum, weights = ~pspwght, data = ukdata)
+svymean(~hmsacld, design = ukdesign)
+svyby(~hmsacld, by = ~agegroup, design = ukdesign, FUN = svymean)
+```
+Same estimates (aside from differences in rounding), but the **survey** package is also capable of estimating standard errors *given correct information about the sampling design*. Here that information is communicated through the identity of the primary sampling units, the identity of the strata, as well as the weights.
+
+We can also treat `hmscald` as a categorical variable if we want to estimate the proportion of people in the population that would respond in a certain way.
+```{r, echo = TRUE}
+ukdata <- ukdata %>%
+  mutate(hmsacld = factor(hmsacld, levels = 1:5, 
+    labels = c("strongly agree", "agree", "neither", 
+      "disagree", "disagree strongly")))
+ukdesign <- svydesign(ids = ~psu, strata = ~stratum, weights = ~pspwght, data = ukdata)
+svymean(~hmsacld, design = ukdesign)
+confint(svymean(~hmsacld, design = ukdesign))
+```
