@@ -140,7 +140,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Survey weights revisited](lecture-12-05-2022.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Review: foundations and sampling designs](lecture-12-07-2022.html).
 
 `r i <- i + 1; d[i]` 
 

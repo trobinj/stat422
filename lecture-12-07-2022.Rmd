@@ -1,0 +1,89 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "12-07-2022"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", comment = "", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Information about the Final Examination
+
+1. The final examination is on Wednesday, December 14th, from 12:45 to 2:45 PM. It will be in the same room as lecture. 
+
+0. The format of the final examination is like that of the other examinations. The only difference is that it is a "cumulative" examination (i.e., including material covered over the entire semester), and you will have 120 minutes rather than 50 minutes to complete it. It will not have more questions than the other examinations, and is worth the same amount (25%) as the other examinations. As usual the final examination is open-notes.
+
+0. The final examination will focus more on concepts. There will be fewer computational problems. 
+
+0. Be sure to review the use of weights as discussed in the lecture on 12/5. Also see the corresponding homework problem.
+
+0. I will be available outside of my office hours during the week of finals if you have questions. If you would like to meet outside my office hours please just email me. 
+
+## Foundations
+
+Understand the distinction between a *population* and a *sample*, between an *element* and a *sampling unit*, between a *parameter* and a *estimator*, and between a *target* and *auxiliary* variable. 
+
+What do we mean by a *sampling frame*? 
+
+What do we mean by a *sampling design*?
+
+What are *inclusion probabilities* and what are *selection probabilities*? What are *first-order* versus *second-order* inclusion probabilities? 
+
+What do we mean by the *sampling distribution* of an estimator? 
+
+How do we talk about the "accuracy" of an estimator in terms of its *bias*, *variance*, and *mean squared error*? 
+
+What is the relationship between the *standard error*, the *variance of an estimator*, the *bound on the error of estimation*, and a *confidence interval*? 
+
+## Sampling Designs
+
+From a short description of a sampling design (assuming you are given adequate information) you should be able to identify whether the design is a *simple random sampling design*, a *stratified random sampling design*, a *one-stage cluster sampling design*, or a *two-stage cluster sampling design* (assuming it is one of these). Think about the defining characteristics of each design.
+
+Relative to a simple random sampling design with the same sample size (i.e., the same number of sampled elements), what advantages and disadvantages (if any) do we have by using *stratified random sampling* or *cluster sampling*? Are there any advantages to *two-stage* cluster sampling over *one-stage* cluster sampling? What? 
+Both stratified random sampling and cluster sampling (both one-stage and two-stage) use the fact that the elements in a population have been partitioned into groups that we call either *strata* or *clusters*. When then distinguishes a stratified random sampling design from a cluster sampling design, and what distinguishes a one-stage cluster sampling design from a two-stage cluster sampling design? 
+
+If the goal is to reduce the variance of an estimator of $\tau$ or $\mu$, what is the best way to assign elements to *strata*? What is the best way to assign elements to *clusters*? Think about *when* the variance will be relatively small in terms of how elements are stratified/clustered.
+
+How can simple random sampling be used as a component of various *complex* sampling designs, including stratified random sampling and cluster sampling designs? Also what kinds of sampling designs might we use to sample *clusters* in a cluster sampling design? 
+
+What is meant by *optimum allocation* in the context of stratified random sampling. What is the basic approach? Which strata should get the largest/smallest allocation? 
+
+What is the distinction between sampling *with* versus *without* replacement? 
+
+Have some understanding of some of the specialized sampling designs that we discussed including *ranked set sampling*, *systematic sampling*, *Poisson sampling*, *line-intercept sampling*, *fixed-area plot sampling*, *adaptive cluster sampling*, and *balanced sampling*. 
+
+
+
+
