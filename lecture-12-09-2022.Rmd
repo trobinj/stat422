@@ -1,0 +1,74 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "12-09-2022"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", comment = "", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Estimators
+
+1. Several times we have seen that there were a couple of different estimators that could be used to estimate a total or mean. What factors would we consider in evaluating the advantages/disadvantages of each estimator relative to the other? Given a pair of such estimators you should be able to list their relative advantages and disadvantages (if any). 
+
+0. What do we mean by *variance estimation*?
+
+0. In what situations is a ratio or regression estimator best suited?
+
+0. In one-stage and two-stage cluster sampling designs, what is the *auxiliary variable* that we are using when we use the "ratio estimator" of $\tau$ or $\mu$? 
+
+0. How do we specify the target variable if we want to estimate *abundance* (i.e., the number of elements in a population)? How do we specify it if we want to estimate the abundance *for a domain* (i.e., the number of elements in a particular sub-population)? 
+
+0. How do we specify the target variable if we want to estimate the mean or total *in a given domain*? 
+
+0. What does it mean to say that a sample is *calibrated*? 
+
+0. What is meant by *post-stratification*? How is it different from stratified random sampling?
+
+0. Many estimators used in survey sampling (and in statistics in general) are *biased*. Why is this sometimes tolerable? 
+
+0. Given the values of the target variable and the inclusion probability for the elements within a sample, how do we compute the *Horvitz-Thompson estimator* and the *Hájek estimator* for $\tau$ and $\mu$? And for $\mu$ how is this done when the number of elements in the population is known versus when it is not?
+
+0. How/when do we use a *Hansen-Hurwitz estimator*? 
+
+0. If we can choose our own selection probabilities when sampling with replacement, or our own inclusion probabilities when sampling without replacement, how should we specify them so as to reduce the variance of an estimator of $\tau$ or $\mu$?
+
+0. What determines *survey weights*? How are survey weights used in estimation? 
+
+0. Be familiar with why and how we would use *double sampling* to (a) estimate $\mu$ or $\tau$ when we have strata and (b) are using a ratio estimator of $\mu$ or $\tau$. 
+
+0. How does detectability and non-response affect inferences? How do we conceptualize these issues in terms of inclusion probabilities? 
+
+
