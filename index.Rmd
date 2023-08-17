@@ -5,4 +5,14 @@ output:
     theme: readable
 ---
 
-This is a placeholder for material for Stat 422 (Survey Sampling Methods).
+This site contains material for Dr. Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho for the fall semester of 2023.
+
+***
+
+<center>
+
+![](calvinandhobbes.gif)
+
+</center>
+
+***
