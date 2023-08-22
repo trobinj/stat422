@@ -20,7 +20,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Introduction, fundamental concepts: elements, sampling units, populations, samples, sampling designs](lecture-08-21-2023.html).
 
-`r i <- i + 1; d[i]`
+`r i <- i + 1; d[i]` [Introduction to simple random sampling designs](lecture-08-23-2023.html). 
 
 `r i <- i + 1; d[i]`
  
