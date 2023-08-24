@@ -22,7 +22,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Introduction to simple random sampling designs](lecture-08-23-2023.html). 
 
-`r i <- i + 1; d[i]`
+`r i <- i + 1; d[i]` [Sampling distributions of $\bar{y}$ and $\hat\tau$ under simple random sampling designs](lecture-08-25-2023.html). A set of [homework problems concerning simple random sampling](hw-srs.html) is now available. You should be able to start on the problems in the section titled "Sampling Distributions" after today's lecture. Future lectures will cover the other topics in that homework set.
  
 ***
 
