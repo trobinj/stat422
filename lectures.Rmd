@@ -26,7 +26,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Sampling with replacement, the central limit theorem, standard errors, bounds on the error of estimation, and confidence intervals](lecture-08-28-2023.html).
 
 `r i <- i + 1; d[i]` 
 
