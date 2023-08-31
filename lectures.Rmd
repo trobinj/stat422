@@ -30,7 +30,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Simulation studies, categorical target variables, domain estimators](lecture-08-30-2023.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Sample size selection, overview of simple random sampling](lecture-09-01-2023.html).
  
 ***
 
