@@ -155,7 +155,7 @@ plot(p)
 ```
 This suggests a strategy for computing an *upper bound* on $n$ by using $\sigma^2$ $\approx$ 0.25 when the target variable is categorical if we do not have a good guess of $\mu$. 
 
-**Example**: Recall the survey using a simple random sampling design to estimate the proportion of students at a university of 20000 that own a non-iPhone mobile phone. If we wanted to estimate $\mu$ (the proportion of students at the university that own an Android mobile phone) with a bound on the error of estimation of $B$ = 0.01, what sample size would be needed if (a) we used a prior survey that estimated that $\mu$ is 0.4 and (b) if we wanted to use an upper bound on $n$? 
+**Example**: Recall the survey using a simple random sampling design to estimate the proportion of students at a university of 20000 that own an Android mobile phone. If we wanted to estimate $\mu$ (the proportion of students at the university that own an Android mobile phone) with a bound on the error of estimation of $B$ = 0.01, what sample size would be needed if (a) we used a prior survey that estimated that $\mu$ is 0.4 and (b) if we wanted to use an upper bound on $n$? 
 
 \pagebreak
 
