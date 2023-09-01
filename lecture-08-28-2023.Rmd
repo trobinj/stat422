@@ -173,7 +173,7 @@ m <- mean(pop)
 v <- var(pop)
 ```
 
-**Example**: At the end of the previous lecture we considered an example with a population of $N$ = 50 elements and a simple random sampling design of $n$ = 5 elements. The mean and variance for the population are $\mu$ = `r m` and $\sigma^2$ $\approx$ `r round(v,2)`, respectively. What can we conclude about the sampling distribution of $\bar{y}$? 
+**Example**: Considered the earlier example with a population of $N$ = 50 elements and a simple random sampling design of $n$ = 5 elements. The mean and variance for the population are $\mu$ = `r m` and $\sigma^2$ $\approx$ `r round(v,2)`, respectively. What can we conclude about the sampling distribution of $\bar{y}$? 
 
 \pagebreak
 

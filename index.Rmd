@@ -16,3 +16,5 @@ This site contains material for Dr. Johnson's *Survey Sampling Methods* course (
 </center>
 
 ***
+
+If you are interested in the R markdown source code for these web pages, see the [repository](https://github.com/trobinj/stat422/tree/gh-pages). The relevant code is in the files with .Rmd extensions.
