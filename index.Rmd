@@ -11,7 +11,7 @@ This site contains material for Dr. Johnson's *Survey Sampling Methods* course (
 
 <center>
 
-![https://xkcd.com/2620](https://imgs.xkcd.com/comics/health_data.png)
+![https://xkcd.com/688](https://imgs.xkcd.com/comics/self_description.png)
 
 </center>
 
