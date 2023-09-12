@@ -204,9 +204,9 @@ If the $\sigma_j^2$ are unknown then they can be replaced with the $s_j^2$ to pr
 The variance of $\hat\tau$ is
 $$
 	V(\hat\tau) = 
-  N_1^2 V(\hat\tau_1) + 
-	N_2^2 V(\hat\tau_2) + \cdots + 
-	N_L^2 V(\hat\tau_L),
+  V(\hat\tau_1) + 
+	V(\hat\tau_2) + \cdots + 
+	V(\hat\tau_L),
 $$
 where 
 $$
