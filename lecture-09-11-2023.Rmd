@@ -40,7 +40,7 @@ source("../../utilities.R")
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
 
-<!-- This lecture could use a little life. Not sure how to do that though. Possibly discuss other kinds of optimum allocation (e.g., specific domains)? -->
+<!-- This lecture could use a little life. Not sure how to do that though. Possibly discuss other kinds of optimum allocation (e.g., specific domains)? Also maybe show how to compute the design effect by estimating \sigma for the SRS variance from the sample from a stratified design? -->
 
 ## Simulation Study of Optimum Allocation
 

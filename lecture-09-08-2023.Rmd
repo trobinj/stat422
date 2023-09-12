@@ -184,7 +184,7 @@ There are some practical restrictions on an optimum allocation.
 
 1. Optimum $n$ and $n_j$ must be non-negative integers, so usually the optimum allocation is approximate.
 
-0. An optimum allocation may produce $n_j = 0$ or $n_j = 1$. But to estimate $s_j^2$ we need all $n_j \ge 2$.
+0. An optimum allocation may produce $n_j = 0$ or $n_j = 1$. But to estimate $\sigma_j^2$ we need all $n_j \ge 2$.
 
 0. It is possible to have an optimum allocation of $n_j > N_j$, which is an impossible design.
 
