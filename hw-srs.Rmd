@@ -157,8 +157,12 @@ N <- 10000
 B <- 0.01
 p <- 0.1
 q <- 1 - p
-n.est <- N*p*q*N/(N-1) / ((N-1)*(B^2/4) + p*q*N/(N-1)) 
-n.bnd <- N*0.25*N/(N-1) / ((N-1)*(B^2/4) + 0.25*N/(N-1)) 
+#n.est <- N*p*q*N/(N-1) / ((N-1)*(B^2/4) + p*q*N/(N-1)) 
+#n.bnd <- N*0.25*N/(N-1) / ((N-1)*(B^2/4) + 0.25*N/(N-1)) 
+v <- p*q*N/(N-1)
+n.est <- 4*N*v/(B^2 * N + 4*v)
+v <- 0.25*N/(N-1)
+n.bnd <- 4*N*v/(B^2 * N + 4*v)
 ```
 
 0. You are planning a survey using a simple random sampling design to estimate the proportion of Hobbits in a population of $N$ = `r format(N, scientific = FALSE)` that have foot lice. Based on other information you believe that about 10\% of the population is infected. Use this information to confirm that an appropriate sample size for a bound on the error of estimation of $B$ = `r B` is about $n$ = `r round(n.est)`, but that if you wanted to be sure that you had a large enough sample size for a bound on the error of estimation no larger than $B$ = `r B` to estimate *any* value of the proportion of infected Hobbits in the population, the necessary sample size would be no larger than $n$ = `r round(n.bnd)`.
