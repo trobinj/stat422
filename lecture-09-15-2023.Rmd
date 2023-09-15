@@ -166,7 +166,7 @@ which we can also write as $\hat\tau = N\bar{y}$. We can also write this as
 $$
   \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
 $$
-where $w_i = N/n$. Furthermore it can be shown that $N = \sum_{i=1}^n w_i$.[^sumweights] So the estimator of $\mu$ (i.e., $\bar{y} = \hat\mu$) can be written as
+where $w_i = N/n$. Furthermore it can be shown that $N = \sum_{i \in \mathcal{S}}^n w_i$.[^sumweights] So the estimator of $\mu$ (i.e., $\bar{y} = \hat\mu$) can be written as
 $$
   \hat\mu = \frac{\sum_{i \in \mathcal{S}} w_i y_i}{\sum_{i \in \mathcal{S}}w_i}.
 $$
