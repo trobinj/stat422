@@ -50,7 +50,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Inferences concerning stratum parameters](lecture-09-18-2023.html).
 
 `r i <- i + 1; d[i]` 
 
