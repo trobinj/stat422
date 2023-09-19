@@ -39,7 +39,7 @@ source("../../utilities.R")
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
-<!-- A couple of points to note here: (1) under SRS the sample mean is like the post-stratification estimator for $\mu$ except we replace $N_j/N$ with $n_j/n$, and (2) stratified random sampling will be even more better than post-stratification if not all $\sigma_j$ are approximately equal if we use optimum (Neyman) allocation.  -->
+<!-- A couple of points to note here: (1) under SRS the sample mean is like the post-stratification estimator for $\mu$ except we replace $N_j/N$ with $n_j/n$, and (2) stratified random sampling will be even more better than post-stratification if not all $\sigma_j$ are approximately equal if we use optimum (Neyman) allocation. -->
 
 ## Post-Stratification
 
