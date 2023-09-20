@@ -52,7 +52,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Inferences concerning stratum parameters](lecture-09-18-2023.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Survey sampling inferences using the **survey** package in R](lecture-09-20-2023.html).
 
 `r i <- i + 1; d[i]` **First examination**. 
  
