@@ -131,7 +131,7 @@ The objective is to select weights ($w_i)$ for the elements in the sample to mee
 1. The weights are close (in some sense) to the original design weights.
 0. The sample is calibrated with respect to the auxiliary variable(s). 
 
-Different approaches arise due to (a) the choice of auxiliary variable(s), and (b) what we mean by "close."
+Different approaches arise due to (a) the choice of auxiliary variable(s), and (b) what we mean by "close." This can be viewed as a [constrained optimization problem](calibration-as-optimization.html).
 
 ### Raking
 

@@ -1,0 +1,101 @@
+---
+title: Calibration As Constrained Optimization
+output:
+  html_document: 
+    theme: readable
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"), comment = "")
+```
+
+This demonstration shows how calibration can be approached as a [constrained optimization](https://en.wikipedia.org/wiki/Constrained_optimization) problem.
+
+First I will create some artificial data, although we could use real data if it was available. 
+```{r}
+set.seed(123)
+
+N <- 100 # population size
+n <- 5 # sample size
+y <- runif(N, 2, 10) # generate sample
+x <- y + runif(N, -1, 1) # generate auxiliary variable
+
+mux <- mean(x) # population mean of x
+taux <- sum(x) # population total of x
+
+i <- sample(1:N, n) # indices of sampled elements
+i
+
+y <- y[i] # values of target variable for sampled elements
+x <- x[i] # values of auxiliary variable for sampled elements
+cbind(y, x)
+```
+Here we used simple random sampling, so the design weights are all defined as $d_i = N/n$ which is `r N/n` for every sampled element. Consider finding a set of survey weights that are "close" to the design weights in the sense that the loss function
+$$
+\sum_{i \in \mathcal{S}} \frac{(w_i - d_i)^2}{d_iq_i},
+$$
+where $1/q_i$ is a "weight" for the $i$-th element (not the same as a design or survey weight). We can program this in R as follows.
+```{r}
+lf <- function(w) {
+  sum((w - d)^2/(d * q))
+}
+```
+We want to minimize the loss function, but subject to the constrain that the sample is *calibrated*. Suppose we wish to calibrate the sample with respect to $\tau_x$ so that 
+$$
+  \tau_x = \sum_{i \in \mathcal{S}}w_ix_i.
+$$
+We can write the following constraint function which should take a value of zero if the constraint is met.
+```{r}
+cf <- function(w) {
+  sum(w*x) - taux
+}
+```
+Now suppose we specify that $q_i = 1/x_i$ and solve the constrained optimization problem by finding the set of weights that minimize the loss function subject to the constraint defined above.
+```{r}
+library(Rsolnp)
+w <- runif(n) # initial values of weights
+d <- rep(N/n, n) # design weights
+q <- 1/x # reciprocal loss function weights
+w <- solnp(pars = w, fun = lf, eqfun = cf, eqB = 0, LB = rep(0, n))$pars
+w
+```
+We can verify that these weights calibrate the sample with respect to $\tau_x$.
+```{r}
+taux
+sum(w*x)
+```
+Also we can see that these weights are equivalent to using a *ratio estimator*. 
+```{r}
+sum(w*y)
+taux * mean(y) / mean(x)
+```
+Now suppose we define $q_i = 1$ and define a second auxiliary variable $z_i = 1$. Note that $N = \sum_{i=1}^N z_i$ so if we calibrate with respect to this auxiliary variable we are simply requiring that we can "estimate" the population size. 
+```{r}
+q <- 1
+z <- rep(1, n)
+cf <- function(w) {
+  sum(w*z) - N
+}
+w <- solnp(pars = w, fun = lf, eqfun = cf, eqB = 0, LB = rep(0, n))$pars
+w
+```
+These are equivalent to the design weights. The sample was already calibrated to with respect to this auxiliary variable. But now suppose we want to calibrate with respect to *both* $x_i$ and $z_i$. 
+```{r}
+cf <- function(w) {
+  c(sum(w*z) - N, sum(w*x) - taux)
+}
+w <- solnp(pars = w, fun = lf, eqfun = cf, eqB = c(0, 0), LB = rep(0, n))$pars
+w
+```
+We can verify calibration.
+```{r}
+c(N,taux)
+c(sum(w*z), sum(w*x))
+```
+It turns out that this is equivalent to using a *regression estimator*.
+```{r}
+sum(w*y)
+b <- cor(y, x) * sd(y) / sd(x)
+N*mean(y) + b * (taux - N * mean(x))
+```
+
