@@ -92,7 +92,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` **Second examination**.
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Two-stage cluster sampling](lecture-10-25-2023.html). 
 
 `r i <- i + 1; d[i]` 
  
