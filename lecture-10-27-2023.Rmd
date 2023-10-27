@@ -7,7 +7,7 @@ output:
 
 ```{r, echo = FALSE, message = FALSE}
 library(lubridate)
-date <- "10-25-2023"
+date <- "10-27-2023"
 weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
 month <- month(mdy(date), label = TRUE)
 day <- day(mdy(date))
@@ -39,7 +39,6 @@ source("../../utilities.R")
 ```
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
-
 
 ## Optimum Sample Sizes for Two-Stage Cluster Sampling
 
