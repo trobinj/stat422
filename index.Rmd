@@ -11,7 +11,7 @@ This site contains material for Dr. Johnson's *Survey Sampling Methods* course (
 
 <center>
 
-![https://xkcd.com/2443](https://imgs.xkcd.com/comics/immune_response.png)
+![](paranormal.jpg)
 
 </center>
 

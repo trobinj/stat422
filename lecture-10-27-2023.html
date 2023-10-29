@@ -552,7 +552,7 @@ cf &lt;- function(x, msb, msw, N, Mbar, c1, c2) {
 # Find n and m to minimize the variance subject to the
 # constraint that the cost must equal 100. 
 tmp &lt;- solnp(pars = c(5,5), fun = vf, eqfun = cf, eqB = 100, 
-  N = 25, Mbar = 50, msb = 1551.41, msw = 10.39, c1 = 10, c2 = 1, LB = c(1,1), UB = c(25,50))</code></pre>
+  N = 25, Mbar = 50, msb = 1551.41, msw = 10.39, c1 = 10, c2 = 1, LB = c(1,1), UB = c(50,25))</code></pre>
 <pre><code>
 Iter: 1 fn: 3.4968   Pars:  3.71283 7.09572
 Iter: 2 fn: 3.1969   Pars:  2.72390 7.80416
