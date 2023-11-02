@@ -1,0 +1,314 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "11-03-2023"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{array}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+library(gridExtra)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+
+## Multinomial Model
+
+The mark-recapture design involves two samples: 
+  
+1. The first sample of elements which are all marked ($\tau_x$ elements total).
+0. The second sample of $n$ elements of $m$ are marked and $n-m$ are not marked. 
+
+```{r}
+library(shape)
+
+par(mai = c(0,0,0,0) + 0.1)
+
+emptyplot(xlim = c(0, 1), ylim = c(0.2, 0.8))
+polygon(x = c(0,0,1,1,0), y = c(0.2,0.8,0.8,0.2,0.2))
+plotcircle(mid = c(0.35, 0.5), r = 0.2)
+plotcircle(mid = c(0.65, 0.5), r = 0.2)
+
+text(0.5, 0.5, tex("$m$"))
+text(0.35, 0.5, tex("$\\tau_x - m$"))
+text(0.65, 0.5, tex("$n - m$"))
+text(0.1, 0.25, tex("$N - \\tau_x - n + m$"))
+```
+Classify every element in the population in terms of whether it was *included* or *excluded* from the two samples.
+```{r}
+d <- data.frame(first = c("included","excluded","Total"),
+                included = c("$m$","$n-m$","$n$"),
+                excluded = c("$\\tau_x - m$","$N - \\tau_x - n + m$", "$N-n$"),
+                Total = c("$\\tau_x$","$N-\\tau_x$","$N$"))
+names(d)[1] <- "First Sample"
+ktbl(d) %>% add_header_above(c(" " = 1, "Second Sample" = 2, " " = 1)) %>% column_spec(1, bold = knitr::is_html_output())
+```
+If the number of marked elements ($\tau_x$) and the number of sampled elements in second sample ($n$) are *not fixed* by design, the number of elements in each of the four cells has a [multinomial distribution](https://en.wikipedia.org/wiki/Multinomial_distribution).
+
+**Example**: Suppose I have a large jar of jelly beans. We remove a handful of 300 jelly beans, mark them each with a pen, and then put them back in the jar. Then we shake the jar and draw a handful of 100 jelly beans. Of these we find that 30 are marked.
+```{r}
+d <- data.frame(first = c("included","excluded","Total"),
+                included = c("30","70","100"),
+                excluded = c("270","$N$ - 370", "$N$ - 100"),
+                Total = c("300","$N$ - 300","$N$"))
+names(d)[1] <- "First Sample"
+ktbl(d) %>% add_header_above(c(" " = 1, "Second Sample" = 2, " " = 1)) %>% column_spec(1, bold = knitr::is_html_output())
+```
+Assume inclusion in the second sample is *independent* of inclusion in the first sample (i.e., the probability of being included in the second sample is the same whether or not an element was included in the first sample). Then the *expected* number of elements included in the second sample is
+$$
+  E(m) = N \times \overbrace{\underbrace{P(\text{inclusion in first sample})}_{\tau_x/N} \times \underbrace{P(\text{inclusion in second sample})}_{n/N}}^{P(\text{inclusion in both samples assuming independence})},  
+$$
+  so 
+$$
+  E(m) = \tau_xn/N,
+$$ 
+  and thus
+$$
+  N = \tau_xn/E(m).
+$$
+  Replacing $E(m)$ with $m$ since $E(m) \approx m$ gives the Lincoln-Petersen estimator $\hat{N} = \tau_xn/m$. 
+
+This way of viewing the mark-recapture design is useful in applications using two "lists" of elements, rather than actual marking. 
+
+**Example**: Merry and Pippin want to estimate the number of Hobbits that attended Bilbo's 111-th birthday party. They each made a list of the Hobbits that they talked with at the party. There were 72 Hobbits on Merry's list, 100 Hobbits on Pippin's list, and 50 on both lists. 
+```{r}
+d <- data.frame(first = c("included","excluded","Total"),
+  included = c(50,22,72),
+  excluded = c(50,"?","?"),
+  Total = c(100,"?","$N$"))
+names(d)[1] <- c("Pippin's List")
+ktbl(d) %>% add_header_above(c(" " = 1, "Merry's List" = 2, " " = 1)) %>% column_spec(1, bold = TRUE)
+```
+What is the estimate of the number of Hobbits attending the party based on the Lincoln-Petersen estimator?
+
+\vspace{3cm}
+
+## Violations of Independence Assumption
+
+The estimators assume *simple random sampling*, which is what implies an inclusion probability (in the second sample) of $n/N$. There are a couple of ways this assumption is often violated in practice.
+
+1. Capturing/marking an element increases or decreases the probability of recapture.
+
+0. Elements vary with respect to their probability of inclusion.
+
+0. Closed population.
+
+How might these bias our estimate? 
+
+<!-- Could show the (log)likelihood function for the multinomial model as well.  -->
+
+## Hypergeometric Model
+
+Assume $\tau_x$ marked units in a population of $N$ units. If a SRS of $n$ units is obtained, and the values of $\tau_x$ and $n$ are *fixed* by design, the probability that $m$ units in that sample will be marked is
+$$
+P(m) = \frac{\binom{\tau_x}{m}\binom{N-\tau_x}{n-m}}{\binom{N}{n}},
+$$
+where
+$$
+	\binom{a}{b} = \frac{a!}{b!(a-b)!},
+$$
+and recall that $x! = x(x-1)(x-2) \cdots 1$, and $0!=1$. The number of marked units in the sample ($m$) has a [hypergeometric distribution](https://en.wikipedia.org/wiki/Hypergeometric_distribution).
+
+The *likelihood function* is the probability of a sample with $m$ marked elements *as a function of the unknown parameter $N$*, which can be written as
+$$
+  L(N) = \frac{\binom{\tau_x}{m}\binom{N-\tau_x}{n-m}}{\binom{N}{n}}.
+$$
+The *maximum likelihood estimate* of $N$ is the value that *maximizes the likelihood of the data*. 
+
+```{r}
+taux <- 10
+n <- 15
+m <- 4
+
+d <- data.frame(N = 15:150)
+d$p <- with(d, dhyper(m, taux, d$N - taux, n))
+
+p <- ggplot(d, aes(x = N, y = p)) + theme_minimal()
+p <- p + geom_point(size = 0.5)
+p <- p + labs(x = "N", y = "Likelihood")
+p <- p + scale_x_continuous(breaks = seq(0, 200, by = 10))
+```
+
+**Example**: Consider a mark-recapture design where $\tau_x$ = `r taux` elements were marked, and in a simple random sample of $n$ = `r n` elements it was found that $m$ = `r m` elements were marked. The likelihood function is then
+$$
+  L(N) = \frac{\binom{`r taux`}{`r m`}\binom{N-`r taux`}{`r n`-`r m`}}{\binom{N}{`r n`}}.
+$$
+This function can be plotted as follows.
+```{r, fig.height = 4}
+plot(p)
+```
+The *maximum likelihood estimator* of $N$ is the value of $N$ that maximizes the likelihood of the data.
+```{r, fig.height = 4, warning = FALSE}
+p <- p + scale_x_continuous(breaks = seq(0, 200, by = 1), limits = c(30,50))
+p <- p + scale_y_continuous(limits = c(0.2, 0.3))
+plot(p)
+```
+What is the maximum likelihood estimate of $N$?
+
+It can be shown that with the likelihood given above the maximum likelihood estimator is always
+$$
+  \hat{N} = \lfloor \tau_xn/m \rfloor,
+$$
+where $\lfloor x \rfloor$ is the [floor](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) function (i.e., the nearest integer *less than* the argument). 
+
+Using the likelihood function is very useful in more complex designs such as one with multiple recaptures where there is no estimator that can be written in [closed form](https://en.wikipedia.org/wiki/Closed-form_expression). In these cases estimates must be found *numerically* by using some sort of algorithm to find the value of $N$ that maximizes the likelihood (although here that could be done "by eye" by just inspecting plots of the likelihood function).
+
+**Example**: Consider a design with multiple recaptures such that every time elements are captured all unmarked elements are marked and then released. Let $\tau_{x_k}$ be the number of marked elements in the population when obtaining the $k$-th sample, let $n_k$ be the size of the $k$-th sample, and let $m_k$ be the number of marked elements in the $k$-th sample. 
+```{r}
+d <- data.frame(k = 1:4, taux = c(0,100,195,285), n = c(100,100,100,100), m = c(0,5,10,20))
+d$nm <- d$n - d$m
+names(d) <- c("$k$","$\\tau_{x_k}$","$n$","$m$","$n-m$")
+ktbl(d)
+```
+For $K$ samples the likelihood function is
+$$
+  L(N) = \prod_{j=2}^K \frac{ \binom{\tau_{x_k}}{m_k}\binom{N-\tau_{x_k}}{n_k-m_k}}{\binom{N}{n_k}}.
+$$
+Note that the first sample is not part of the likelihood since there are not yet any marked elements in the population. 
+
+```{r, fig.height = 4}
+taux <- c(100,195,285)
+m <- c(5,10,20)
+n <- c(100,100,100)
+N <- 100:1000
+
+d <- data.frame(N = 1000:3000)
+d$p <- exp(with(d, dhyper(m[1], taux[1], N - taux[1], n[1], log = TRUE) +  
+  dhyper(m[2], taux[2], N - taux[2], n[2], log = TRUE) + 
+  dhyper(m[3], taux[3], N - taux[3], n[3], log = TRUE)))
+
+p <- ggplot(d, aes(x = N, y = p)) + theme_minimal()
+p <- p + geom_point(size = 0.1)
+p <- p + labs(x = "N", y = "Likelihood")
+plot(p)
+```
+
+```{r, fig.height = 4, warning = FALSE}
+p <- p + xlim(1600, 1700) + ylim(0.00144,0.00148)
+plot(p)
+```
+
+## Mark-Recapture with Clustering
+
+Suppose that a known number of elements in a population are "marked" in some way, and we use a one-stage cluster sampling design where we observe for each cluster the number of elements in the cluster ($y_i$) and the number of marked units in the cluster ($x_i$). 
+
+**Example**: The figure below shows a region that has been divided into $N$ = 20 transects, of which $n$ = 5 have been selected using simple random sampling.
+```{r, fig.height = 3, fig.width = 9}
+N <- 1000
+n <- 5
+
+par(mai = c(0,0,0,0))
+set.seed(107)
+
+data <- data.frame(i = 1:N, x = rbeta(N, 3, 2)*99 + 0.5, y = runif(N, 0.5, 49.5))
+data$marked <- NA
+for (i in 1:N) {
+  data$marked[i] <- ifelse((runif(1, 0, 100) < data$x[i]) & 
+    (runif(1, 0, 50) < data$y[i]), "yes", "no")  
+}
+data$cluster <- cut(data$x, breaks = seq(0, 100, by = 5), labels = FALSE)
+data$sampled <- ifelse(data$cluster %in% sample(1:max(data$cluster), n), TRUE, FALSE)
+
+plot(data$x, data$y, pch = ifelse(data$marked == "yes", 16, 1),
+     xlab = "", ylab = "", 
+     bty = "n", cex = 0.5, ylim = c(0,55), xlim = c(0,100),
+     yaxt = "n", xaxt = "n")
+
+for (i in 1:max(data$cluster)) {
+  x.coord <- seq(0, 100, by = 5)
+  if (i %in% unique(data$cluster[data$sampled == TRUE])) {
+    polygon(x = c(x.coord[i], x.coord[i+1], x.coord[i+1], x.coord[i]),
+      y = c(0, 0, 50, 50), col = grey(0.85))  
+  }  
+}
+
+for (i in seq(0, 95, by = 5)) {
+  polygon(x = c(i, i + 5, i + 5, i), 
+          y = c(0, 0, 50, 50), col = NA)
+}
+
+points(data$x, data$y, cex = 0.5, pch = ifelse(data$marked == "yes", 16, 1))
+       
+for (i in 1:20) {
+  text(i*5 - 2.5, 53, labels = i)  
+}
+
+taux <- sum(data$marked == "yes")
+
+```
+The goal is to estimate the number of elements represented by points. The marked elements are represented by solid points, while the unmarked elements are represented by open points. It is known that the number of marked points is $\tau_x$ = `r taux`. The data from the sample are shown below. 
+
+```{r}
+d <- data %>% filter(sampled) %>% group_by(cluster) %>% summarize(y = n(), x = sum(marked == "yes"))
+names(d) <- c("Transect","$y_i$","$x_i$")
+ktbl(d)
+```
+
+Here $\tau = M$. The two estimators of $\tau$ for one-stage cluster sampling were
+$$
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{and} \ \ \
+  \hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i}.
+$$
+Of course the ratio estimator (on the right) isn't practical here. But we could use another ratio estimator,
+$$
+  \hat\tau = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} x_i},
+$$
+by using $x_i$ (the number of marked elements in the cluster) as the auxiliary variable instead of $m_i$ (the number of elements in the cluster), provided that we know the total number of marked elements ($\tau_x$). What are the estimates of the number of elements in the region?
+
+\vspace{3cm}
+
+```{r}
+M <- 5000
+N <- 100
+n <- 5
+taux <- 200
+```
+
+**Example**: A company wants to estimate the number of employees who have at some point been sexually harassed. The company first sets up a voluntary online survey where all `r M` employees are invited to participate the survey. Few employees take the survey, but of those that do `r taux` reported experiencing sexual harassment. Now the company conducts a second survey. The employees are naturally divided into `r N` offices in different parts of the country. The company selects a simple random sample of `r n` offices and uses an on-site survey to elicit responses from *every* employee at those offices. The table below shows the number of employees at each office ($m_i$), the number of employees that reported experiencing sexual harassment in the on-site survey ($y_i$), and the number of employees reporting experiencing sexual harassment in the online survey ($x_i$).
+```{r}
+set.seed(12345)
+d <- data.frame(m = round(rnorm(n, 50, 2)), y = rpois(5, c(10, 40, 30, 20, 5)), x = NA)
+for (i in 1:n) {
+  while (TRUE) {
+    d$x[i] <- rpois(1, d$y[i]/10)
+    if (d$y[i] >= d$x[i]) {
+      break
+    }
+  }
+}
+names(d) <- c("$m_i$", "$y_i$", "$x_i$")
+ktbl(d)
+```
+What are our estimates of the number of employees at the company that have experienced sexual harassment?
+
