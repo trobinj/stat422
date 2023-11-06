@@ -11,7 +11,7 @@ This site contains material for Dr. Johnson's *Survey Sampling Methods* course (
 
 <center>
 
-![](axesofevil.jpg)
+![https://xkcd.com/1725](https://imgs.xkcd.com/comics/linear_regression.png)
 
 </center>
 
