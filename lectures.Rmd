@@ -108,7 +108,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Inclusion probabilities --- revisited, the Horvitz-Thompson and Hansen-Hurwitz estimators](lecture-11-06-2023.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [The Hájek estimator, generalized Horvitz-Thompson estimators, second-order inclusion probabilities, the variance of the Horvitz-Thompson estimator, specification of inclusion probabilities](lecture-11-08-2023.html).
 
 `r i <- i + 1; d[i]`
  
