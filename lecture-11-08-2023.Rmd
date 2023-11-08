@@ -59,17 +59,17 @@ $$
   \hat\mu = \frac{1}{N}\sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i} \ \ \ \text{and} \ \ \
   \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in \mathcal{S}} 1/\pi_i},
 $$
-respectively. We also have *two* estimators of $\tau$. We have the Horvitz-Thompson and Hájek estimators of $\tau$ which are
+respectively. Here $N$ denotes the number of elements in the population. We also have *two* estimators of $\tau$. We have the Horvitz-Thompson and Hájek estimators of $\tau$ which are
 $$
   \hat\tau = \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i} \ \ \ \text{and} \ \ \ \hat\tau = N\frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in \mathcal{S}} 1/\pi_i},
 $$
-respectively, where here $N$ denotes the number of elements in the population Which might we prefer? The Hájek estimator tends to have smaller variance than the Horvitz-Thompson estimator under the following conditions.
+respectively. Which might we prefer? The Hájek estimator tends to have smaller variance than the Horvitz-Thompson estimator under the following conditions.
 
 1. The population is relatively homogeneous meaning that $\sigma^2$ is small. 
 0. The sample size is random.
 0. The inclusion probabilities are weakly or negatively correlated with the target variable.
 
-Note also that some estimators require knowing $N$.
+Note also that some estimators require knowing $N$ (the number of elements in the population).
 
 ## Generalized Horvitz-Thompson Estimators
 

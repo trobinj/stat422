@@ -292,18 +292,18 @@ Hájek estimators of <span class="math inline">\(\mu\)</span> which are
 \text{and} \ \ \
   \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in
 \mathcal{S}} 1/\pi_i},
-\]</span> respectively. We also have <em>two</em> estimators of <span
-class="math inline">\(\tau\)</span>. We have the Horvitz-Thompson and
-Hájek estimators of <span class="math inline">\(\tau\)</span> which are
-<span class="math display">\[
+\]</span> respectively. Here <span class="math inline">\(N\)</span>
+denotes the number of elements in the population. We also have
+<em>two</em> estimators of <span class="math inline">\(\tau\)</span>. We
+have the Horvitz-Thompson and Hájek estimators of <span
+class="math inline">\(\tau\)</span> which are <span
+class="math display">\[
   \hat\tau = \sum_{i \in \mathcal{S}}\frac{y_i}{\pi_i} \ \ \ \text{and}
 \ \ \ \hat\tau = N\frac{\sum_{i \in \mathcal{S}} y_i/\pi_i}{\sum_{i \in
 \mathcal{S}} 1/\pi_i},
-\]</span> respectively, where here <span
-class="math inline">\(N\)</span> denotes the number of elements in the
-population Which might we prefer? The Hájek estimator tends to have
-smaller variance than the Horvitz-Thompson estimator under the following
-conditions.</p>
+\]</span> respectively. Which might we prefer? The Hájek estimator tends
+to have smaller variance than the Horvitz-Thompson estimator under the
+following conditions.</p>
 <ol style="list-style-type: decimal">
 <li>The population is relatively homogeneous meaning that <span
 class="math inline">\(\sigma^2\)</span> is small.</li>
@@ -312,7 +312,8 @@ class="math inline">\(\sigma^2\)</span> is small.</li>
 the target variable.</li>
 </ol>
 <p>Note also that some estimators require knowing <span
-class="math inline">\(N\)</span>.</p>
+class="math inline">\(N\)</span> (the number of elements in the
+population).</p>
 </div>
 <div id="generalized-horvitz-thompson-estimators"
 class="section level2">
