@@ -418,8 +418,9 @@ elements.</p>
 <p>Not all sampling algorithms are equally effective in terms of the
 <em>variance</em> the Horvitz-Thompson estimator. Why?</p>
 Here are the results of a simulation study using two different sampling
-algorithms, Poisson and Tillé, with the sampling frame given above
-(target variable values were generated randomly).
+algorithms, Poisson and Sampford, with the sampling frame given above
+(target variable values were generated randomly).<a href="#fn1"
+class="footnote-ref" id="fnref1"><sup>1</sup></a>
 <img src="lecture-11-13-2023_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
 <table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -441,28 +442,28 @@ bound
 Poisson
 </td>
 <td style="text-align:center;">
-2.193206
+2.175507
 </td>
 <td style="text-align:center;">
-2.961895
+2.949920
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-Tille
+Sampford
 </td>
 <td style="text-align:center;">
-1.025588
+1.072398
 </td>
 <td style="text-align:center;">
-2.025426
+2.071133
 </td>
 </tr>
 </tbody>
 </table>
 <p>There are almost always multiple sampling designs with the same
-inclusion probabilities. Some algorithms (e.g., Tillé) tend to result in
-estimators with lower variance than others (e.g., Poisson). In some
+inclusion probabilities. Some algorithms (e.g., Sampford) tend to result
+in estimators with lower variance than others (e.g., Poisson). In some
 cases we can use additional information in the form of auxiliary
 variables to “guide” the choice of sampling design.</p>
 </div>
@@ -526,10 +527,10 @@ bound
 Balanced
 </td>
 <td style="text-align:center;">
-0.498418
+0.4938504
 </td>
 <td style="text-align:center;">
-1.411974
+1.405490
 </td>
 </tr>
 <tr>
@@ -537,10 +538,10 @@ Balanced
 Unbalanced
 </td>
 <td style="text-align:center;">
-2.378165
+2.3558348
 </td>
 <td style="text-align:center;">
-3.084260
+3.069746
 </td>
 </tr>
 </tbody>
@@ -640,6 +641,24 @@ reflect <em>where</em> the elements are located in space/time.</p></li>
 The R packages <strong>BalancedSampling</strong> and
 <strong>Spbsampling</strong> include functions for spatially balanced
 sampling.</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Sampford’s method is relatively simple. First sample
+just one unit using the inclusion probabilities <span
+class="math inline">\(\pi_1, \pi_2, \dots, \pi_n\)</span>. This is easy
+because when <span class="math inline">\(n=1\)</span> the inclusion
+probabilities are the same as the selection probabilities. Next sample
+the remaining <span class="math inline">\(n-1\)</span> units <em>with
+replacement</em> with selection probabilities are computed as <span
+class="math inline">\(\delta_i = \pi_i/(1 - n\pi_i)\)</span>. But if the
+sample does not contain <em>distinct</em> units (i.e., some elements
+appear more than once) then repeat both steps until it contains only
+distinct units. It can be shown that this results in a sample of <span
+class="math inline">\(n\)</span> units with the specified inclusion
+probabilities.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 
