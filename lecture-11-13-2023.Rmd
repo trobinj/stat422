@@ -1,0 +1,290 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "11-08-2023"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{array}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"), comment = "")
+```
+
+```{r packages}
+library(tidyverse)
+library(gridExtra)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+<!-- Note: One day of lecture lost due to gas outage. -->
+
+## Sampling Designs and Inclusion Probabilities
+
+Recall that there are a couple of ways that we can connect the sampling design with the inclusion probabilities. 
+
+1. *Indirect approach*: we specify a *sampling design*, which implies the inclusion probabilities of the elements. 
+
+0. *Direct approach*: we specify the *inclusion probabilities* and find a sampling design that has those inclusion probabilities. 
+
+## Indirect Approach Examples
+
+**Example**: Suppose we have a population of objects distributed over a region with total area $A$, and we use the following sampling design.
+
+1. Select a random point within the region based on a *uniform distribution* (i.e., select a random $x$ coordinate, and select a random $y$ coordinate, both from uniform distributions).
+
+0. The element that is closest to that point is included within the sample. 
+Do this $n$ times, sampling *with replacement*. 
+```{r, fig.height = 5}
+library(deldir)
+set.seed(101)
+N <- 100
+n <- 10
+x <- 1000 * runif(N)
+y <- 1000 * runif(N)
+d <- sample(rep(c(0, 1), c(N-n, n)))
+tess <- deldir(x, y)
+par(mar = rep(1, 4))
+plot(x, y, axes = FALSE, ann = FALSE, pch = ifelse(d, 16, 1), cex = 0.5)
+plot(tess, wlines = "tess", lty = "solid", showpoints = FALSE, add = TRUE, col = grey(0.75))
+box()
+```
+Let $y_i$ be the value of the target variable for the $i$-th object, and let $a_i$ be the area of the polygon around that object that contains all the points that would lead to the selection of that object. How would we compute an estimate of $\tau$ or $\mu$ using the Hansen-Hurwitz and Horvitz-Thompson estimators? 
+
+\pagebreak
+
+**Example**: Suppose we have a population of elements, and for each element we decide independently with a virtual "coin flip" whether to include it in the sample. This probability could depend on an auxiliary variable $x_i$ so that the probability is $cx_i$ for some $c > 0$ such that $0 < cx_i < 1$ for all elements. This in an example of what is called **Poisson sampling**. A special case of Poisson sampling is **Bernoulli sampling** where all $\pi_i$ are equal.
+
+What are the first-order and second-order inclusion probabilities? What is the (expected) sample size?
+
+\pagebreak
+
+## Direct Approach Examples
+
+**Example**: A variety of sampling *algorithms* have been developed that, given a sampling frame and desired inclusion probabilities, will select a sample using a sampling design with those inclusion probabilities.
+
+Here I will make a small sampling frame for a population of with an auxiliary variable, and compute desired inclusion probabilities as $\pi_i = nx_i/\tau_x$ where $n$ = 10.
+```{r, echo = TRUE}
+set.seed(123)
+library(tidyverse)
+f <- data.frame(element = letters[1:25], x = rpois(25, 5)) %>% 
+  mutate(p = 10 * x / sum(x))
+f
+```
+The R package **sampling** includes several sampling algorithms for specified inclusion probabilities. Each of them creates an indicator variable to tell us if a given element is to be sampled.
+```{r, echo = TRUE}
+library(sampling)
+f <- f %>% mutate(I = UPtille(p))
+f
+```
+So here is our sample.
+```{r, echo = TRUE}
+f %>% filter(I == 1)
+```
+Next step is to go observe the target variable for these elements. 
+
+Not all sampling algorithms are equally effective in terms of the *variance* the Horvitz-Thompson estimator. Why? 
+
+Here are the results of a simulation study using two different sampling algorithms, Poisson and Tillé, with the sampling frame given above (target variable values were generated randomly). 
+```{r, echo = FALSE}
+reps <- 10000  
+
+y <- runif(nrow(f), 0, 10)  
+N <- length(y)
+p <- f$p 
+
+mu.a <- rep(NA, reps) 
+mu.b <- rep(NA, reps) 
+
+for (i in 1:reps) {
+  inc <- UPtille(p)                
+  mu.a[i] <- sum(y[inc == 1]/p[inc == 1])/N
+  inc <- UPpoisson(p)
+  mu.b[i] <- sum(y[inc == 1]/p[inc == 1])/N
+}
+
+d <- data.frame(estimate = c(mu.a, mu.b),
+  design = rep(c("Tille","Poisson"), each = reps))
+
+p <- ggplot(d, aes(x = estimate)) + theme_minimal() +
+  geom_histogram() + facet_wrap(~ design) + 
+  labs(x = "Estimate", y = "Frequency")
+plot(p)
+
+d %>% group_by(design) %>% 
+  summarize(variance = var(estimate), bound = 2*sqrt(variance)) %>%
+  ktbl()
+```
+
+There are almost always multiple sampling designs with the same inclusion probabilities. Some algorithms (e.g., Tillé) tend to result in estimators with lower variance than others (e.g., Poisson). In some cases we can use additional information in the form of auxiliary variables to "guide" the choice of sampling design.
+
+## Balanced Sampling
+
+Suppose that we have the following information:
+
+1. Specified (first-order) inclusion probabilities ($\pi_i$) for each element in a population of elements. 
+
+0. The values of one or more auxiliary variables $(x_{i1}, x_{i2}, \dots, x_{ik})$ for each element in the population of elements, as well as the their totals $(\tau_{x_1}, \tau_{x_2}, \dots, \tau_{x_k})$.
+
+A **balanced sampling** design has the following properties. 
+
+1. The inclusion probabilities of the elements equal the specified values.
+
+0. The sample is (approximately) calibrated such that 
+$$
+  \tau_{x_1} \approx \sum_{i \in S} \frac{x_{i1}}{\pi_i}, \ \tau_{x_2} \approx \sum_{i \in S} \frac{x_{i2}}{\pi_i}, \dots, \ \tau_{x_k} \approx \sum_{i \in S} \frac{x_{ik}}{\pi_i}.
+$$
+These are sometimes called the *balancing equations*.
+
+Whereas ratio and (generalized) regression estimators seek to calibrate the sample by re-weighting *after* the sample is obtained, while balanced sampling seeks to select a sample that is *already calibrated*. 
+
+**Example**: Here is a simulation study with a population of 1000 elements. For each element we have two auxiliary variables: $x_{i1}$ and $x_{i2}$. I used two sampling designs to select a sample of $n$ = 50 elements: an *unbalanced* sampling design where all elements have an inclusion probability of 0.05 (SRS), and a *balanced* sampling design using the same inclusion probabilities but also using the two auxiliary variables for the balancing equations.  
+```{r, fig.height = 3}
+library(BalancedSampling)
+
+reps <- 10000  # number of samples to sample
+N <- 1000      # population size
+n <- 50        # sample size
+
+est.bal <- rep(NA, reps) # array for estimates from balanced sampling
+est.unb <- rep(NA, reps) # array for estimates from unbalanced sampling
+
+x1 <- runif(N, 0.1, 25) # first auxiliary variable
+x2 <- runif(N, 0.1, 25) # second auxiliary variable
+y  <- rpois(N, x1 + x2) # target variable
+
+p <- rep(n/N, N)      # specify inclusion probabilities
+X <- cbind(p, x1, x2) # specify array (matrix) of auxiliary variables
+
+for (i in 1:reps) {
+  indx <- sample(1:N, n)               # unbalanced sampling (SRS)
+  est.unb[i] <- mean(y[indx])          # compute estimate of mu
+  indx <- cube(p, X)                   # balanced sampling using the "cube method"
+  est.bal[i] <- sum(y[indx]/p[indx])/N # compute estimate of mu
+}
+
+# visualization of the approximated sampling distributions 
+
+d <- data.frame(estimate = c(est.unb, est.bal), 
+  design = rep(c("Unbalanced", "Balanced"), each = reps))
+
+library(ggplot2)
+p <- ggplot(d, aes(x = estimate)) + theme_minimal()
+p <- p + geom_histogram() + facet_wrap(~design)
+p <- p + labs(x = "Estimate", y = "Frequency")
+plot(p)
+
+d %>% group_by(design) %>% summarize(variance = var(estimate), bound = 2*sqrt(variance)) %>% ktbl()
+```
+
+An interesting use of balanced sampling is with strata. Stratified random sampling can be viewed as a special case of balanced sampling, but balanced sampling allows us to make use of overlapping strata. 
+
+### Stratified Random Sampling as Balanced Sampling
+
+Suppose we use balanced sampling with the following.
+
+1. Set the inclusion probabilities such that $\pi_i = n_j/N_j$ if the $i$-th element is in the $j$-th stratum.
+0. Use auxiliary variables $x_{i1}, x_{i2}, \dots, x_{iL}$ such that
+$$
+  x_{ij} = 
+  \begin{cases}
+    1, & \text{if the $i$-th element is from the $j$-th stratum}, \\
+    0, & \text{otherwise}.
+  \end{cases}
+$$
+
+Balanced sampling will satisfy the balancing equations if the number of elements from the $j$-th stratum is $n_j$. The balancing equations for $x_{ij}$ are
+$$
+  \tau_{x_j} \approx \sum_{i \in \mathcal{S}}\frac{x_{ij}}{\pi_{i}} = \frac{N_j}{n_j}\sum_{i \in \mathcal{S}}x_{ij}.
+$$
+Since $\tau_{x_j} = \sum_{i=1}^N x_{ij} = N_j$, the balancing equations will be satisfied exactly if $\sum_{i \in \mathcal{S}}x_{ij} = n_j$ (i.e., the number of elements sampled from the $j$-th stratum is $n_j$). It turns out this is the same as stratified random sampling, and if the variances of the strata are approximately equal it is approximately an optimal allocation (i.e., proportional allocation). 
+
+### Balanced Sampling for Overlapping Strata
+
+Balanced sampling gives us a way to deal with *overlapping strata*. For example, suppose we can stratify Hobbits by *Farthing* (North, South, East, or West), and by age group (young, adult, old). Suppose we know the number of elements in each Farthing ($N_n$, $N_s$, $N_e$, and $N_w$), and the number of elements in each age group ($N_y$, $N_a$, and $N_o$), but *not* the number of elements in each *combination* of Farthing and age group (e.g., we do not know how many young Hobbits there are in the North Farthing). So we cannot use stratified random sampling, but we can use balanced sampling if we specify auxiliary variables for each stratum such as
+$$
+  x_{in} = 
+  \begin{cases}
+    1, & \text{if the $i$-th element is from the North Farthing}, \\
+    0, & \text{otherwise},
+  \end{cases}
+$$
+for the North Farthing stratum, and
+$$
+  x_{iy} = 
+  \begin{cases}
+    1, & \text{if the $i$-th element is from young age group}, \\
+    0, & \text{otherwise},
+  \end{cases}
+$$
+for the young age group stratum. Note that we would have to specify auxiliary variables for the other Farthing and age group strata. 
+
+There is a loose connection here with the technique of *raking* which is a way of calibrating the sample *after* it is selected with respect to overlapping strata. Here we use balanced sampling to try to select a balanced sample. 
+
+The R package **BalancedSampling** includes functions for balanced sampling.
+
+## Spatially Balanced Sampling
+
+A **spatially balanced sampling** design has the following properties. 
+
+1. The inclusion probabilities of the elements equal the specified values.
+
+0. The elements in the selected sample tend to "spread out" in terms of the inter-element distances. Here the auxiliary variables effectively reflect *where* the elements are located in space/time. 
+
+```{r, fig.height = 5}
+library(Spbsampling)
+
+set.seed(123)
+
+frame <- expand.grid(x = 0:30, y = 0:30) %>% mutate(unit = 1:n())
+
+dmatrix <- stprod(as.matrix(dist(with(frame, cbind(x, y)))), rep(1, nrow(frame)))$mat
+
+s <- hpwd(dmatrix, n = 100, beta = 0) # drawn sample
+
+frame <- frame %>% mutate(sampled = ifelse(unit %in% s, "yes", "no"))
+
+p <- ggplot(frame, aes(x = x, y = y, alpha = sampled)) + theme_minimal()
+p <- p + geom_point(pch = 16) + scale_alpha_manual(values = c(0.25, 0.75))
+p <- p + labs(x = "Longitude", y = "Latitude") + guides(alpha = "none")
+p <- p + ggtitle("Simple Random Sampling")
+p1 <- p
+
+s <- hpwd(dmatrix, n = 100, beta = 10) # drawn sample
+
+frame <- frame %>% mutate(sampled = ifelse(unit %in% s, "yes", "no"))
+
+p <- ggplot(frame, aes(x = x, y = y, alpha = sampled)) + theme_minimal()
+p <- p + geom_point(pch = 16) + scale_alpha_manual(values = c(0.25, 0.75))
+p <- p + labs(x = "Longitude", y = "Latitude") + guides(alpha = "none")
+p <- p + ggtitle("Spatially Balanced Sampling")
+p2 <- p
+
+cowplot::plot_grid(p1, p2)
+```
+The R packages **BalancedSampling** and **Spbsampling** include functions for spatially balanced sampling.
+
