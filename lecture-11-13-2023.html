@@ -11,7 +11,7 @@
 
 
 
-<title>Wednesday, Nov 8</title>
+<title>Monday, Nov 13</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -264,12 +264,12 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Wednesday, Nov 8</h1>
+<h1 class="title toc-ignore">Monday, Nov 13</h1>
 
 </div>
 
 
-<p>You can also download a <a href="lecture-11-08-2023.pdf">PDF</a> copy
+<p>You can also download a <a href="lecture-11-13-2023.pdf">PDF</a> copy
 of this lecture.</p>
 <!-- Note: One day of lecture lost due to gas outage. -->
 <div id="sampling-designs-and-inclusion-probabilities"
@@ -652,12 +652,14 @@ because when <span class="math inline">\(n=1\)</span> the inclusion
 probabilities are the same as the selection probabilities. Next sample
 the remaining <span class="math inline">\(n-1\)</span> units <em>with
 replacement</em> with selection probabilities are computed as <span
-class="math inline">\(\delta_i = \pi_i/(1 - n\pi_i)\)</span>. But if the
-sample does not contain <em>distinct</em> units (i.e., some elements
-appear more than once) then repeat both steps until it contains only
-distinct units. It can be shown that this results in a sample of <span
-class="math inline">\(n\)</span> units with the specified inclusion
-probabilities.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+class="math display">\[
+  \delta_i = \frac{\pi_i/(1 - n\pi_i)}{\sum_{k=1}^N \pi_k/(1 - n\pi_k)}.
+\]</span> But if the sample does not contain <em>distinct</em> units
+(i.e., some elements appear more than once) then repeat both steps until
+it contains only distinct units. It can be shown that this results in a
+sample of <span class="math inline">\(n\)</span> units with the
+specified inclusion probabilities.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
