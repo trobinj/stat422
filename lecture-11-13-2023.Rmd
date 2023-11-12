@@ -142,7 +142,11 @@ d %>% group_by(design) %>%
 
 There are almost always multiple sampling designs with the same inclusion probabilities. Some algorithms (e.g., Sampford) tend to result in estimators with lower variance than others (e.g., Poisson). In some cases we can use additional information in the form of auxiliary variables to "guide" the choice of sampling design.
 
-[^sampford]: Sampford's method is relatively simple. First sample just one unit using the inclusion probabilities $\pi_1, \pi_2, \dots, \pi_n$. This is easy because when $n=1$ the inclusion probabilities are the same as the selection probabilities. Next sample the remaining $n-1$ units *with replacement* with selection probabilities are computed as $\delta_i = \pi_i/(1 - n\pi_i)$. But if the sample does not contain *distinct* units (i.e., some elements appear more than once) then repeat both steps until it contains only distinct units. It can be shown that this results in a sample of $n$ units with the specified inclusion probabilities.
+[^sampford]: Sampford's method is relatively simple. First sample just one unit using the inclusion probabilities $\pi_1, \pi_2, \dots, \pi_n$. This is easy because when $n=1$ the inclusion probabilities are the same as the selection probabilities. Next sample the remaining $n-1$ units *with replacement* with selection probabilities are computed as 
+$$
+  \delta_i = \frac{\pi_i/(1 - n\pi_i)}{\sum_{k=1}^N \pi_k/(1 - n\pi_k)}.
+$$ 
+But if the sample does not contain *distinct* units (i.e., some elements appear more than once) then repeat both steps until it contains only distinct units. It can be shown that this results in a sample of $n$ units with the specified inclusion probabilities.
 
 ## Balanced Sampling
 
