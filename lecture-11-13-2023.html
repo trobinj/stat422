@@ -497,55 +497,58 @@ equations</em>.</p></li>
 calibrate the sample by re-weighting <em>after</em> the sample is
 obtained, while balanced sampling seeks to select a sample that is
 <em>already calibrated</em>.</p>
-<strong>Example</strong>: Here is a simulation study with a population
-of 1000 elements. For each element we have two auxiliary variables:
-<span class="math inline">\(x_{i1}\)</span> and <span
+<p><strong>Example</strong>: Here is a simulation study with a
+population of 1000 elements. For each element we have two auxiliary
+variables: <span class="math inline">\(x_{i1}\)</span> and <span
 class="math inline">\(x_{i2}\)</span>. I used two sampling designs to
 select a sample of <span class="math inline">\(n\)</span> = 50 elements:
 an <em>unbalanced</em> sampling design where all elements have an
 inclusion probability of 0.05 (SRS), and a <em>balanced</em> sampling
 design using the same inclusion probabilities but also using the two
-auxiliary variables for the balancing equations.<br />
-<img src="lecture-11-13-2023_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
-<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<thead>
-<tr>
-<th style="text-align:center;">
-design
-</th>
-<th style="text-align:center;">
-variance
-</th>
-<th style="text-align:center;">
-bound
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-Balanced
-</td>
-<td style="text-align:center;">
-0.4938504
-</td>
-<td style="text-align:center;">
-1.405490
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-Unbalanced
-</td>
-<td style="text-align:center;">
-2.3558348
-</td>
-<td style="text-align:center;">
-3.069746
-</td>
-</tr>
-</tbody>
-</table>
+auxiliary variables for the balancing equations.</p>
+<pre class="r"><code>library(BalancedSampling)
+
+set.seed(123)  # random number seed 
+
+reps &lt;- 10000  # number of samples to sample
+N &lt;- 1000      # population size
+n &lt;- 50        # sample size
+
+est.bal &lt;- rep(NA, reps) # array for estimates from balanced sampling
+est.unb &lt;- rep(NA, reps) # array for estimates from unbalanced sampling
+
+x1 &lt;- runif(N, 0.1, 25) # first auxiliary variable
+x2 &lt;- runif(N, 0.1, 25) # second auxiliary variable
+y  &lt;- rpois(N, x1 + x2) # target variable
+
+p &lt;- rep(n/N, N)      # specify inclusion probabilities
+X &lt;- cbind(p, x1, x2) # specify array (matrix) of auxiliary variables
+
+for (i in 1:reps) {
+  indx &lt;- sample(1:N, n)               # unbalanced sampling (SRS)
+  est.unb[i] &lt;- mean(y[indx])          # compute estimate of mu
+  indx &lt;- cube(p, X)                   # balanced sampling using the &quot;cube method&quot;
+  est.bal[i] &lt;- sum(y[indx]/p[indx])/N # compute estimate of mu
+}
+
+# visualization of the approximated sampling distributions 
+
+d &lt;- data.frame(estimate = c(est.unb, est.bal), 
+  design = rep(c(&quot;Unbalanced&quot;, &quot;Balanced&quot;), each = reps))
+
+library(ggplot2)
+p &lt;- ggplot(d, aes(x = estimate)) + theme_minimal() +
+  geom_histogram() + facet_wrap(~design) + 
+  labs(x = &quot;Estimate&quot;, y = &quot;Frequency&quot;)
+plot(p)</code></pre>
+<p><img src="lecture-11-13-2023_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(dplyr)
+d %&gt;% group_by(design) %&gt;% summarize(variance = var(estimate), bound = 2*sqrt(variance))</code></pre>
+<pre><code># A tibble: 2 × 3
+  design     variance bound
+  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+1 Balanced      0.500  1.41
+2 Unbalanced    2.31   3.04</code></pre>
 <p>An interesting use of balanced sampling is with strata. Stratified
 random sampling can be viewed as a special case of balanced sampling,
 but balanced sampling allows us to make use of overlapping strata.</p>

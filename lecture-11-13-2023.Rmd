@@ -169,8 +169,10 @@ These are sometimes called the *balancing equations*.
 Whereas ratio and (generalized) regression estimators seek to calibrate the sample by re-weighting *after* the sample is obtained, while balanced sampling seeks to select a sample that is *already calibrated*. 
 
 **Example**: Here is a simulation study with a population of 1000 elements. For each element we have two auxiliary variables: $x_{i1}$ and $x_{i2}$. I used two sampling designs to select a sample of $n$ = 50 elements: an *unbalanced* sampling design where all elements have an inclusion probability of 0.05 (SRS), and a *balanced* sampling design using the same inclusion probabilities but also using the two auxiliary variables for the balancing equations.  
-```{r, fig.height = 3}
+```{r, fig.height = 3, echo = TRUE}
 library(BalancedSampling)
+
+set.seed(123)  # random number seed 
 
 reps <- 10000  # number of samples to sample
 N <- 1000      # population size
@@ -199,12 +201,13 @@ d <- data.frame(estimate = c(est.unb, est.bal),
   design = rep(c("Unbalanced", "Balanced"), each = reps))
 
 library(ggplot2)
-p <- ggplot(d, aes(x = estimate)) + theme_minimal()
-p <- p + geom_histogram() + facet_wrap(~design)
-p <- p + labs(x = "Estimate", y = "Frequency")
+p <- ggplot(d, aes(x = estimate)) + theme_minimal() +
+  geom_histogram() + facet_wrap(~design) + 
+  labs(x = "Estimate", y = "Frequency")
 plot(p)
 
-d %>% group_by(design) %>% summarize(variance = var(estimate), bound = 2*sqrt(variance)) %>% ktbl()
+library(dplyr)
+d %>% group_by(design) %>% summarize(variance = var(estimate), bound = 2*sqrt(variance))
 ```
 
 An interesting use of balanced sampling is with strata. Stratified random sampling can be viewed as a special case of balanced sampling, but balanced sampling allows us to make use of overlapping strata. 
