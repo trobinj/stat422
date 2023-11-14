@@ -116,7 +116,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Indirect and direct approaches to inclusion probabilities --- continued, balanced sampling](lecture-11-13-2023.html). A set of [homework problems](hw-inclusion.html) on inclusion probabilities is now available. The [study guide](e3-studyguide.html) for the third examination is also now available. 
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Line-intercept sampling, fixed area plot sampling, and Bitterlich sampling](lecture-11-15-2023.html).
  
 `r i <- i + 1; d[i]` 
  
