@@ -556,13 +556,13 @@ but balanced sampling allows us to make use of overlapping strata.</p>
 <h3>Balanced Sampling to Set Sample Size(s)</h3>
 <p>Suppose we set the inclusion probabilities such that <span
 class="math display">\[
-  \sum_{i \in \mathcal{P}} \pi_i = n
+  \sum_{i \in \mathcal{P}} \pi_i = a
 \]</span></p>
 <p>and specify an auxiliary variable of <span class="math inline">\(x_i
 = \pi_i\)</span>. What then does the balancing equation imply?</p>
 <p>Now suppose we set the inclusion probabilities such that <span
 class="math display">\[
-  \sum_{i \in \mathcal{D}} \pi_i = n_D,
+  \sum_{i \in \mathcal{D}} \pi_i = b,
 \]</span> where <span class="math inline">\(\mathcal{D}\)</span> denotes
 a domain, and we specify an auxiliary variable of <span
 class="math display">\[
@@ -572,6 +572,7 @@ class="math display">\[
     0, &amp; \text{otherwise}.
   \end{cases}
 \]</span> What then does the balancing equation imply?</p>
+<!-- Note that if we compute the inclusion probabilities as $\pi_i = nx_i/\tau_x$ then the sample will be "automatically" balanced with rexpect to $x_i$. -->
 </div>
 <div id="stratified-random-sampling-as-balanced-sampling"
 class="section level3">

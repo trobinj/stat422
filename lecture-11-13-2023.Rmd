@@ -216,14 +216,14 @@ An interesting use of balanced sampling is with strata. Stratified random sampli
 
 Suppose we set the inclusion probabilities such that 
 $$
-  \sum_{i \in \mathcal{P}} \pi_i = n
+  \sum_{i \in \mathcal{P}} \pi_i = a
 $$
 
 and specify an auxiliary variable of $x_i = \pi_i$. What then does the balancing equation imply? 
 
 Now suppose we set the inclusion probabilities such that
 $$
-  \sum_{i \in \mathcal{D}} \pi_i = n_D,
+  \sum_{i \in \mathcal{D}} \pi_i = b,
 $$
 where $\mathcal{D}$ denotes a domain, and we specify an auxiliary variable of 
 $$
@@ -234,6 +234,8 @@ $$
   \end{cases}
 $$
 What then does the balancing equation imply?
+
+<!-- Note that if we compute the inclusion probabilities as $\pi_i = nx_i/\tau_x$ then the sample will be "automatically" balanced with rexpect to $x_i$. -->
 
 ### Stratified Random Sampling as Balanced Sampling
 
