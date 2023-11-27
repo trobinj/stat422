@@ -235,7 +235,7 @@ $$
 $$
 What then does the balancing equation imply?
 
-<!-- Note that if we compute the inclusion probabilities as $\pi_i = nx_i/\tau_x$ then the sample will be "automatically" balanced with rexpect to $x_i$. -->
+<!-- Note that if we compute the inclusion probabilities as $\pi_i = nx_i/\tau_x$ then the sample will be "automatically" balanced (or calibrated) with respect to $x_i$. It is easy to show that $\sum_{i \in \mathcal{S}} x_i/\pi_i = \tau_x$. -->
 
 ### Stratified Random Sampling as Balanced Sampling
 
