@@ -41,8 +41,6 @@ source("../../utilities.R")
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
-
-
 ## Bias Due to Non-response
 
 Assume two strata: $N_r$ responders, and $N_m$ non-responders (*m* for *missing*). Thus

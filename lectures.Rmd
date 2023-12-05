@@ -140,9 +140,9 @@ i <- 0
 
 `r i <- i + 1; d[i]` No class.
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Using survey weights from real surveys](lecture-12-06-2023.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Final examination review](lecture-12-08-2023.html).
 
 ***
 
