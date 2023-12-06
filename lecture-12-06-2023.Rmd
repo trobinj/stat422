@@ -53,7 +53,7 @@ where $w_i$ is the *survey weight* for the $i$-th element in the sample. Where d
 
 0. Calibration. Certain estimators such as ratio and (generalized) regression estimators effectively adjust or re-weight the weights based on known totals for one or more auxiliary variables. This also includes post-stratification and raking. See [this lecture](lecture-10-06-2023.html) on how weights on re-weighting and calibration.
 
-0. Non-response/detectability. Further adjustment or re-weighting may be done to account for known (or estimated) probabilities of response or detection. See the lectures on [detectability](lecture-11-27-2023.html) and [non-response](lecture-11-39-2023.html). 
+0. Non-response/detectability. Further adjustment or re-weighting may be done to account for known (or estimated) probabilities of response or detection. See the lectures on [detectability](lecture-11-27-2023.html) and [non-response](lecture-11-29-2023.html). 
 
 ### Estimation of $\mu$
 
