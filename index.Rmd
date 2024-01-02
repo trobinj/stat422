@@ -5,16 +5,5 @@ output:
     theme: readable
 ---
 
-This site contains material for Dr. Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho for the fall semester of 2023.
+This site is a placeholder for Dr. Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho.
 
-***
-
-<center>
-
-![https://xkcd.com/557](http://imgs.xkcd.com/comics/students.png)
-
-</center>
-
-***
-
-If you are interested in the R markdown source code for these web pages, see the [repository](https://github.com/trobinj/stat422/tree/gh-pages). The relevant code is in the files with .Rmd extensions.
