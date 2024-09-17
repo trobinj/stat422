@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>First Examination Study Guide</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">First Examination Study Guide</h1>
+
+</div>
+
+
+<p>You can also download a <a href="e1-studyguide.pdf">PDF</a> copy of
+this lecture.</p>
+<ol style="list-style-type: decimal">
+<li><p>Understand <em>elements</em> and a <em>sampling units</em> and
+the difference between them.</p></li>
+<li><p>How do we define a <em>population</em> and a
+<em>sample</em>?</p></li>
+<li><p>How do we define a <em>sampling frame</em>?</p></li>
+<li><p>How do we define a <em>sample space</em>?</p></li>
+<li><p>How do we define a <em>sampling design</em>?</p></li>
+<li><p>How do we define a <em>simple random sampling</em>
+design?</p></li>
+<li><p>What is meant by a <em>complex sampling design</em>?</p></li>
+<li><p>What is meant by <em>element sampling</em>?</p></li>
+<li><p>How can you determine the number of possible samples for a simple
+random sampling, and how can you do this for a stratified sampling
+design?</p></li>
+<li><p>What is the <em>inclusion probability</em> of an element, and how
+do you compute the inclusion probability of an element for a simple
+random sampling design and for a stratified sampling design?</p></li>
+<li><p>What is meant by sampling <em>with</em> versus <em>without</em>
+replacement?</p></li>
+<li><p>What do the parameters <span class="math inline">\(\tau\)</span>
+and <span class="math inline">\(\mu\)</span> represent? How would you
+compute them <em>if</em> you could observe the value of the target
+variable for every element in the population?</p></li>
+<li><p>What are the estimators for <span
+class="math inline">\(\tau\)</span> and <span
+class="math inline">\(\mu\)</span> using a sample obtained using a
+simple random sampling design? What are the estimators of <span
+class="math inline">\(\tau\)</span> and <span
+class="math inline">\(\mu\)</span> using a sample obtained using a
+stratified sampling design? What are the variances of these estimators
+for each design?</p></li>
+<li><p>What is meant by the <em>sampling distribution</em> of an
+estimator?</p></li>
+<li><p>What does it mean to say that an estimator is
+<em>unbiased</em>?</p></li>
+<li><p>What is the <em>finite population correction</em>? When then
+would it be “safe” to ignore the finite population correct factor in our
+calculations by assuming <span class="math inline">\(1-n/N \approx
+1\)</span>? What does this suggest we might do if we do not know <span
+class="math inline">\(N\)</span> when we need to compute/estimate the
+variance of an estimator or a function thereof?</p></li>
+<li><p>A <em>census</em> is when every element in the population is
+observed. It can be viewed as a special case of a simple random sampling
+design with <span class="math inline">\(n=N\)</span>. When using simple
+random sampling, how many possible samples are there for a census, and
+what are <span class="math inline">\(V(\hat\tau)\)</span> and <span
+class="math inline">\(V(\hat\mu)\)</span> for a census?</p></li>
+<li><p>Consider <span class="math inline">\(V(\hat\tau)\)</span> and
+<span class="math inline">\(V(\hat\mu)\)</span>. What effect does
+increasing <span class="math inline">\(n\)</span> have on these
+quantities, assuming everything else is constant. Also what is the
+effect of increasing <span class="math inline">\(N\)</span> or
+increasing <span class="math inline">\(\sigma^2\)</span>?</p></li>
+<li><p>What is stated by the <em>central limit theorem</em>?</p></li>
+<li><p>If we consider the distribution of the error of estimation, <span
+class="math inline">\(|\hat\theta - \theta|\)</span>, where <span
+class="math inline">\(\hat\theta\)</span> represents and estimator like
+<span class="math inline">\(\bar{y}\)</span> or <span
+class="math inline">\(\hat\tau\)</span>, and <span
+class="math inline">\(\theta\)</span> represents a parameter like <span
+class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span>, how can we find the (approximate)
+mean, median, and 95th percentile of the error of estimation using <span
+class="math inline">\(V(\hat\theta)\)</span>?</p></li>
+<li><p>What is meant by the <em>standard error</em> of an
+estimator?</p></li>
+<li><p>What does the <em>bound on the error of estimation</em> mean in
+general — i.e., how would you define it or interpret it? How is this
+related to the (estimated) variance of an estimator and the <em>standard
+error</em> for an estimator?</p></li>
+<li><p>How is a <em>confidence interval</em> for <span
+class="math inline">\(\tau\)</span> or <span
+class="math inline">\(\mu\)</span> constructed using an estimator and
+the bound on the error of estimation? What is meant by the
+<em>confidence level</em> of a confidence interval formula?</p></li>
+<li><p>What is meant by <em>variance estimation</em>? What is the
+distinction between, say, <span
+class="math inline">\(V(\hat\tau)\)</span> and <span
+class="math inline">\(\hat{V}(\hat\tau)\)</span>?</p></li>
+<li><p>How do we define <span class="math inline">\(y_i\)</span> if the
+target variable is <em>categorical</em>, and what are the interpretation
+of <span class="math inline">\(\tau\)</span> and <span
+class="math inline">\(\mu\)</span> when we do this?</p></li>
+<li><p>What is a <em>domain</em>?</p></li>
+<li><p>For a simple random sampling design we discussed <em>two</em>
+estimators of <span class="math inline">\(\tau_d\)</span>. What are
+their advantages and disadvantages relative to the other (i.e., when
+might you use one estimator over the other)?</p></li>
+<li><p>How do we specify the <em>sample size</em> (<span
+class="math inline">\(n\)</span>) for a simple random sampling design?
+What are our strategies for specifying <span
+class="math inline">\(\sigma\)</span> in this calculation? When
+estimating the number or proportion of elements in the population that
+fall into some category, what are our strategies for specifying <span
+class="math inline">\(\sigma\)</span>?</p></li>
+<li><p>What is <em>stratified random sampling</em>? What are the
+steps?</p></li>
+<li><p>Simple random sampling is often a <em>part</em> of a complex
+sampling design. In what sense is this true for stratified random
+sampling? That is, how does a stratified random sampling design use
+simple random sampling?</p></li>
+<li><p>Two design decisions in stratified random sampling are
+<em>stratification</em> and <em>allocation</em>. What is meant by
+each?</p></li>
+<li><p>In general, when using <em>optimum allocation</em>, how do <span
+class="math inline">\(N_j\)</span>, <span
+class="math inline">\(\sigma_j\)</span>, and <span
+class="math inline">\(c_j\)</span> affect allocation? That is, if you
+consider the allocation fraction <span
+class="math inline">\(n_j/n\)</span> (i.e., the proportion of the total
+sample size allocated to the <span class="math inline">\(j\)</span>-th
+stratum), how does increasing/decreasing <span
+class="math inline">\(N_j\)</span>, <span
+class="math inline">\(\sigma_j\)</span>, or <span
+class="math inline">\(c_j\)</span> change the allocation
+fraction?</p></li>
+<li><p>For optimum allocation we discussed <em>two</em> formulas for
+computing the total sample size (<span
+class="math inline">\(n\)</span>). Why two formulas?</p></li>
+<li><p>What is meant by <em>Neyman allocation</em> and <em>proportional
+allocation</em>?</p></li>
+<li><p>Consider our discussion of stratified random sampling with
+<em>optimum</em> allocation, stratified random sampling with
+<em>proportional</em> allocation, and simple random sampling. If we
+compare the three designs, when is one better than the other in terms of
+the producing a lower variance of the estimators <span
+class="math inline">\(\mu\)</span> and <span
+class="math inline">\(\tau\)</span>?</p></li>
+<li><p>What is the <em>design effect</em> of a complex sampling design?
+How do you interpret it?</p></li>
+<li><p>What is the <em>effective sample size</em> of a complex sampling
+design? How do you interpret it?</p></li>
+<li><p>When we can assign elements to strata (i.e., form our own
+strata), how should we do so to achieve the <em>optimum
+stratification</em> so as to reduce/minimize the variance of <span
+class="math inline">\(\hat\mu\)</span> or <span
+class="math inline">\(\hat\tau\)</span>?</p></li>
+<li><p>Why would we use <em>double sampling</em> instead of stratified
+random sampling?</p></li>
+<li><p>How does the variance of an estimator of <span
+class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span> with double sampling compare to that
+under stratified random sampling and simple random sampling?</p></li>
+<li><p>What is meant by <em>post-stratification</em>?</p></li>
+<li><p>How does post-stratification differ from stratified random
+sampling with respect to <em>how the sample is selected</em>?</p></li>
+<li><p>How does post-stratification differ from stratified random
+sampling with respect to the <em>variances of estimators</em> of <span
+class="math inline">\(\mu\)</span> and <span
+class="math inline">\(\tau\)</span>?</p></li>
+<li><p>How are <em>survey weights</em> used to compute <span
+class="math inline">\(\hat\tau\)</span> or <span
+class="math inline">\(\hat\mu\)</span>?</p></li>
+<li><p>How is a survey weight of an element computed for a simple random
+sampling design and for a stratified random sampling design?</p></li>
+<li><p>For a stratified random sampling design, understand how t make
+inferences for the mean or total for one stratum, the mean or total of
+two or more strata combined, and for the difference between the means or
+totals of two strata.</p></li>
+</ol>
+<p>In addition to the above, be comfortable understanding how to do the
+calculations used in the homework problems as well as all notation.</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

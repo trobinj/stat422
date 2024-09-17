@@ -1,0 +1,446 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-09-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Simulation Study of Optimum Allocation
+
+Strata have same variance, but different sizes. 
+
+```{r}
+set.seed(123)
+```
+
+```{r, fig.height = 3}
+N1 <- 9000
+N2 <- 1000
+
+p1 <- rbeta(N1, 2, 6) * 100
+p2 <- rbeta(N2, 2, 6) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.equal <- 100 * c(0.5,0.5)
+n.optim <- round(100 * c(length(p1) * sd(p1), length(p2) * sd(p2)) / (length(p1) * sd(p1) + length(p2) * sd(p2)))
+N <- c(length(p1), length(p2)) 
+equal <- rep(NA, reps)
+optim <- rep(NA, reps)
+for (i in 1:reps) {
+  equal[i] <- N[1]/sum(N) * mean(sample(p1, n.equal[1])) + N[2]/sum(N) * mean(sample(p2, n.equal[2]))
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+}
+
+mydata <- data.frame(estimate = c(equal, optim),
+  design = rep(c(paste("Equal ", "(", n.equal[1], ",", n.equal[2], ")", ", B = ", round(2*sd(equal), 1), sep = ""), paste("Optimum ", "(", n.optim[1], ",", n.optim[2], ")", ", B = ", round(2*sd(optim), 1), sep = "")), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate, fill = design)) + theme_minimal()
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.5)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.5)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = "Relative Frequency", colour = "Allocation", fill = "Allocation")
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8)) + noyaxis
+p <- p + geom_point(aes(x = mean(pop$y), y = 0), shape = 16, show.legend = FALSE)
+p <- p + scale_fill_manual(values = c("#E69F00", "#56B4E9"))
+p
+```
+Strata have different variance, but same sizes.
+```{r, fig.height = 3}
+N1 <- 5000
+N2 <- 5000
+
+p1 <- rbeta(N1, 2*20, 6*20) * 100
+p2 <- rbeta(N2, 1, 3) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.equal <- 100 * c(0.5,0.5)
+n.optim <- round(100 * c(length(p1) * sd(p1), length(p2) * sd(p2)) / (length(p1) * sd(p1) + length(p2) * sd(p2)))
+N <- c(length(p1), length(p2)) 
+equal <- rep(NA, reps)
+optim <- rep(NA, reps)
+for (i in 1:reps) {
+  equal[i] <- N[1]/sum(N) * mean(sample(p1, n.equal[1])) + N[2]/sum(N) * mean(sample(p2, n.equal[2]))
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+}
+
+mydata <- data.frame(estimate = c(equal, optim),
+  design = rep(c(paste("Equal ", "(", n.equal[1], ",", n.equal[2], ")", ", B = ", round(2*sd(equal), 1), sep = ""), paste("Optimum ", "(", n.optim[1], ",", n.optim[2], ")", ", B = ", round(2*sd(optim), 1), sep = "")), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate, fill = design)) + theme_minimal()
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.5)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.5)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = "Relative Frequency", colour = "Allocation", fill = "Allocation")
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.8, 0.8)) + noyaxis
+p <- p + geom_point(aes(x = mean(pop$y), y = 0), shape = 16, show.legend = FALSE)
+p <- p + scale_fill_manual(values = c("#E69F00", "#56B4E9"))
+p
+```
+
+Strata have different variances and sizes.
+```{r, fig.height = 3}
+N1 <- 1000
+N2 <- 9000
+
+p1 <- rbeta(N1, 2*20, 6*20) * 100
+p2 <- rbeta(N2, 1, 3) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.equal <- 100 * c(0.5,0.5)
+n.optim <- round(100 * c(length(p1) * sd(p1), length(p2) * sd(p2)) / (length(p1) * sd(p1) + length(p2) * sd(p2)))
+N <- c(length(p1), length(p2)) 
+equal <- rep(NA, reps)
+optim <- rep(NA, reps)
+for (i in 1:reps) {
+  equal[i] <- N[1]/sum(N) * mean(sample(p1, n.equal[1])) + N[2]/sum(N) * mean(sample(p2, n.equal[2]))
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+}
+
+mydata <- data.frame(estimate = c(equal, optim),
+  design = rep(c(paste("Equal ", "(", n.equal[1], ",", n.equal[2], ")", ", B = ", round(2*sd(equal), 1), sep = ""), paste("Optimum ", "(", n.optim[1], ",", n.optim[2], ")", ", B = ", round(2*sd(optim), 1), sep = "")), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate, fill = design)) + theme_minimal()
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.5)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.5)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = "Relative Frequency", colour = "Allocation", fill = "Allocation")
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.8, 0.8)) + noyaxis
+p <- p + geom_point(aes(x = mean(pop$y), y = 0), shape = 16, show.legend = FALSE)
+p <- p + scale_fill_manual(values = c("#E69F00", "#56B4E9"))
+p
+```
+
+## Comparison of Stratified and Simple Random Sampling
+
+How does stratified random sampling compare with simple random sampling with respect to the variance of the estimators? 
+
+### Analytical Results
+
+Let $V_{\tiny\mbox{Opt}}$ and $V_{\tiny\mbox{Prop}}$ represent the variance of the estimator $\hat\tau$ or $\hat\mu$ from a stratified random sampling design with optimum and proportional allocation, respectively. And let $V_{\tiny\mbox{SRS}}$ represent the variance of the estimator for a simple random sampling design. It can be shown that generally
+$$
+V_{\tiny\mbox{SRS}} \ge V_{\tiny\mbox{Prop}} \ge V_{\tiny\mbox{Opt}}.
+$$
+But *how* different are these variances?
+
+1. The difference between *proportional* and *optimum* allocation stratified random sampling designs is
+$$
+  V_{\tiny\mbox{Prop}} - V_{\tiny\mbox{Opt}} = 
+  \frac{1}{n}\sum_{j=1}^L\frac{N_j}{N}(\sigma_j - \bar{\sigma})^2, \ \ \ \text{where} \ \ \ \bar{\sigma} = \sum_{j=1}^L \frac{N_j}{N}\sigma_j.
+$$
+So when is optimum allocation substantially better than proportional allocation in stratified random sampling?
+
+\vspace{1cm}
+
+2. The difference between *simple random sampling* and *proportional allocation stratified random sampling* is
+$$
+    V_{\tiny\mbox{SRS}} - V_{\tiny\mbox{Prop}} \approx 
+    \frac{1}{n}\left(1 - \frac{n}{N}\right)\sum_{j=1}^L\frac{N_j}{N}(\mu_j - \mu)^2.
+$$
+So when is proportionally-allocated stratified random sampling substantially better than simple random sampling?
+
+\vspace{1cm}
+
+3. The difference between *simple random sampling* and *optimum-allocated stratified random sampling* is
+$$
+  V_{\tiny\mbox{SRS}} - V_{\tiny\mbox{Opt}} \approx
+  \frac{1}{n}\sum_{j=1}^L\frac{N_j}{N}(\sigma_j - \bar{\sigma})^2 + 
+  \frac{1}{n}\left(1 - \frac{n}{N}\right)\sum_{j=1}^L\frac{N_j}{N}(\mu_j - \mu)^2.
+$$
+So when is optimum-allocated stratified random sampling substantially better than simple random sampling?
+
+\vspace{1cm}
+
+### Simulation Results
+
+Strata have *same* means, *different* variance.
+```{r, fig.height = 3}
+set.seed(101)
+
+N1 <- 5000
+N2 <- 5000
+
+n <- 100
+
+p1 <- rbeta(N1, 1.1, 1.1) * 100
+p2 <- rbeta(N2, 60, 60) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.prop  <- n * c(N1,N2)/sum(c(N1,N2))
+n.optim <- n * c(N1,N2) * c(sd(p1),sd(p2)) / sum(c(N1,N2) * c(sd(p1),sd(p2)))
+N <- c(length(p1), length(p2)) 
+
+srs <- rep(NA, reps)
+prop <- rep(NA, reps)
+optim <- rep(NA, reps)
+
+for (i in 1:reps) {
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+  prop[i] <- N[1]/sum(N) * mean(sample(p1, n.prop[1])) + N[2]/sum(N) * mean(sample(p2, n.prop[2])) 
+  srs[i] <- mean(sample(c(p1,p2), n))
+}
+
+mydata <- data.frame(estimate = c(optim, prop, srs), design = rep(c("Optimum Stratified","Proportional Stratified","Simple Random Sampling"), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate)) + theme_minimal() + facet_wrap(~ design)
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.25)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.25)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = NULL, colour = "Allocation", fill = "Allocation")
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8)) + noyaxis
+p
+```
+
+```{r}
+d <- mydata %>% group_by(design) %>% 
+  summarize(V = round(var(estimate),2), SE = round(sd(estimate),2), B = round(2*SE,2))
+ktbl(d, align = c("lccc"))
+```
+
+Strata have *different* means, *same* variance.
+```{r, fig.height = 3}
+set.seed(101)
+
+N1 <- 5000
+N2 <- 5000
+
+n <- 100
+
+p1 <- rbeta(N1, 2, 6) * 100
+p2 <- rbeta(N2, 6, 2) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.prop  <- n * c(N1,N2)/sum(c(N1,N2))
+n.optim <- n * c(N1,N2) * c(sd(p1),sd(p2)) / sum(c(N1,N2) * c(sd(p1),sd(p2)))
+N <- c(length(p1), length(p2)) 
+
+srs <- rep(NA, reps)
+prop <- rep(NA, reps)
+optim <- rep(NA, reps)
+
+for (i in 1:reps) {
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+  prop[i] <- N[1]/sum(N) * mean(sample(p1, n.prop[1])) + N[2]/sum(N) * mean(sample(p2, n.prop[2])) 
+  srs[i] <- mean(sample(c(p1,p2), n))
+}
+
+mydata <- data.frame(estimate = c(optim, prop, srs), design = rep(c("Optimum Stratified","Proportional Stratified","Simple Random Sampling"), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate)) + theme_minimal() + facet_wrap(~ design)
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.25)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.25)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = NULL, colour = "Allocation", fill = "Allocation")
+p <- p + scale_fill_manual(values = c("cyan","magenta","yellow"))
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8)) + noyaxis
+p
+```
+
+```{r}
+d <- mydata %>% group_by(design) %>% 
+  summarize(V = round(var(estimate),2), SE = round(sd(estimate),2), B = round(2*SE,2))
+ktbl(d, align = c("lccc"))
+```
+
+Strata have *different* means, *different* variance.
+```{r, fig.height = 3}
+set.seed(101)
+
+N1 <- 5000
+N2 <- 5000
+
+n <- 100
+
+p1 <- rbeta(N1, 2, 6) * 100
+p2 <- rbeta(N2, 60, 20) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.prop  <- n * c(N1,N2)/sum(c(N1,N2))
+n.optim <- n * c(N1,N2) * c(sd(p1),sd(p2)) / sum(c(N1,N2) * c(sd(p1),sd(p2)))
+N <- c(length(p1), length(p2)) 
+
+srs <- rep(NA, reps)
+prop <- rep(NA, reps)
+optim <- rep(NA, reps)
+
+for (i in 1:reps) {
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+  prop[i] <- N[1]/sum(N) * mean(sample(p1, n.prop[1])) + N[2]/sum(N) * mean(sample(p2, n.prop[2])) 
+  srs[i] <- mean(sample(c(p1,p2), n))
+}
+
+mydata <- data.frame(estimate = c(optim, prop, srs), design = rep(c("Optimum Stratified","Proportional Stratified","Simple Random Sampling"), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate)) + theme_minimal() + facet_wrap(~ design)
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.25)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.25)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = NULL, colour = "Allocation", fill = "Allocation")
+p <- p + scale_fill_manual(values = c("cyan","magenta","yellow"))
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8)) + noyaxis
+p
+```
+
+```{r}
+d <- mydata %>% group_by(design) %>% 
+  summarize(V = round(var(estimate),2), SE = round(sd(estimate),2), B = round(2*SE,2))
+ktbl(d, align = c("lccc"))
+```
+
+## Design Effect
+
+The **design effect** of a complex sampling design is defined as
+$$
+  D = \frac{V_{\small\text{C}}}{V_{\small\text{SRS}}} 
+$$
+where $V_{\small C}$ and $V_{\small\text{SRS}}$ are the variances of the estimators for a paramater under a complex sampling design (e.g., stratified random sampling) and simple random sampling, respectively. Clearly
+\begin{align*}
+D < 1 & \Leftrightarrow V_{\small\text{C}} < V_{\small\text{SRS}} \ \ (\text{i.e., complex is better}),\\
+D = 1 & \Leftrightarrow V_{\small\text{C}} = V_{\small\text{SRS}} \ \ (\text{i.e., same}),\\
+D > 1 & \Leftrightarrow V_{\small\text{C}} > V_{\small\text{SRS}} \ \ (\text{i.e., SRS is better}).
+\end{align*}
+The design effect can be computed a couple of ways.
+
+1. Hypothetical analysis (using equations or simulation).
+0. Estimated from a sample drawn using the complex sampling design. 
+
+**Example**: Recall the simulation with the strata with unequal means and variances.
+```{r, fig.height = 3}
+set.seed(101)
+
+N1 <- 5000
+N2 <- 5000
+
+n <- 100
+
+p1 <- rbeta(N1, 2, 6) * 100
+p2 <- rbeta(N2, 60, 20) * 100
+
+pop <- data.frame(y = c(p1, p2), population = rep(c("Stratum 1","Stratum 2"), c(length(p1), length(p2))))
+
+p <- ggplot(pop, aes(x = y))
+p <- p + geom_histogram(breaks = seq(0, 100, by = 2.5), fill = "white", color = "black") + facet_wrap(~ population) + theme_minimal()
+p <- p + xlab("y") + ylab("Frequency") + xlim(0,100)
+p
+
+reps <- 10000
+n.prop  <- n * c(N1,N2)/sum(c(N1,N2))
+n.optim <- n * c(N1,N2) * c(sd(p1),sd(p2)) / sum(c(N1,N2) * c(sd(p1),sd(p2)))
+N <- c(length(p1), length(p2)) 
+
+srs <- rep(NA, reps)
+prop <- rep(NA, reps)
+optim <- rep(NA, reps)
+
+for (i in 1:reps) {
+  optim[i] <- N[1]/sum(N) * mean(sample(p1, n.optim[1])) + N[2]/sum(N) * mean(sample(p2, n.optim[2])) 
+  prop[i] <- N[1]/sum(N) * mean(sample(p1, n.prop[1])) + N[2]/sum(N) * mean(sample(p2, n.prop[2])) 
+  srs[i] <- mean(sample(c(p1,p2), n))
+}
+
+mydata <- data.frame(estimate = c(optim, prop, srs), design = rep(c("Optimum Stratified","Proportional Stratified","Simple Random Sampling"), each = reps))
+
+p <- ggplot(mydata, aes(x = estimate)) + theme_minimal() + facet_wrap(~design)
+p <- p + geom_density(colour = NA, adjust = 3, alpha = 0.25)
+p <- p + geom_density(colour = "black", show.legend = FALSE, adjust = 3, alpha = 0.25)
+p <- p + labs(x = tex("$\\hat{\\mu}$"), y = NULL, colour = "Allocation", fill = "Allocation")
+p <- p + scale_fill_manual(values = c("cyan","magenta","yellow"))
+p <- p + theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8)) + noyaxis
+p
+```
+```{r}
+d <- mydata %>% group_by(design) %>% 
+  summarize(V = round(var(estimate),2), SE = round(sd(estimate),2), B = round(2*SE,2))
+ktbl(d, align = c("lccc"))
+```
+
+From this simulation we have that $V_{\tiny\mbox{Opt}} \approx `r round(var(optim),2)`$, $V_{\tiny\mbox{Prop}} \approx `r round(var(prop),2)`$, and $V_{\tiny\mbox{SRS}} \approx `r round(var(srs),2)`$. What are the design effects of the two stratified random sampling designs? 
+
+\vspace{2cm}
+
+## Effective Sample Size 
+
+The **effective sample size** of a complex sampling design is defined as
+$$
+	\text{ESS} = \frac{n}{D},
+$$
+and is interpreted as the sample size that a simple random sampling design would need for an estimator to have the same variance as that based on a complex sampling design. 
+
+**Example**: The sample size used in the simulation above is $n$ = 100. What is the *effective sample size* of the two stratified random sampling designs?
+
+<!-- We can informally drive ESS by assuming V_SRS \approx \sigma^2/n and then solving for n' in V_C = V_SRS * c = \sigma^2/n * n/n' to show that n' = n/D. -->
+
+
+
+

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Stratified Random Sampling Homework</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Stratified Random Sampling Homework</h1>
+
+</div>
+
+
+<p>You can also download a <a href="hw-stratified.pdf">PDF</a> copy of
+this document.</p>
+<div id="estimation-and-allocation" class="section level2">
+<h2>Estimation and Allocation</h2>
+Educational psychologists wanted to know the mean performance on a
+cognitive test for the 1000 students at a school. The test is expensive
+and time-consuming and so it was decided to administer the test to only
+a sample of students and to use these data to estimate the mean test
+score for all students at the school. A sample of 200 students was
+selected using stratified random sampling. The strata were defined by
+classifying the students as high-, medium-, or low-achieving students
+based on other test scores that were on record for all students at the
+school. The 200 sampled students were given administered the cognitive
+test. The table below shows the number of students in each stratum, the
+number of students sampled from each stratum, and the mean and standard
+deviation of the test scores of the students that were sampled from each
+stratum.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Level
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_j\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:center;">
+300
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Medium
+</td>
+<td style="text-align:center;">
+500
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+70
+</td>
+<td style="text-align:center;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use this information to answer the following questions.</p>
+<ol style="list-style-type: decimal">
+<li><p>Confirm that the estimate of the mean test score for all of the
+students at the school is 69, that the estimate of the variance of the
+estimator used to obtain this estimate is approximately 0.84, that the
+standard error is approximately 0.92, that the bound on the error of
+estimation is approximately 1.83, and so the confidence interval for the
+mean test score for all students at the school is approximately 69 <span
+class="math inline">\(\pm\)</span> 1.83.</p></li>
+<li><p>The survey described above was conducted several years ago. The
+educational psychologists are planning a new survey this year. The
+composition of the school has changed slightly. The school has grown to
+a total of 1300 students. Of these, 400 are classified as
+high-achieving, 600 are classified as medium-achieving, and 300 are
+classified as low-achieving students. Assume that it costs $20 to test
+one student, regardless of their achievement level. Confirm that the
+optimum allocation for a fixed bound on the error of estimation of one
+point (i.e., <span class="math inline">\(B\)</span> = 1) would be to
+sample approximately 106 high-achieving students, approximately 238
+medium-achieving students, and approximately 159 low-achieving
+students.</p></li>
+<li><p>It was determined that the allocation found in the previous
+problem was too expensive. In addition to a cost of $20 per tested
+student, there is an overhead cost of $2000 for the specialists
+administering the test. Confirm that the optimum allocation for a fixed
+total cost of $10000 would be to sample approximately 84 high-achieving
+students, approximately 189 medium-achieving students, and approximately
+126 low-achieving students.</p></li>
+</ol>
+<p>Forestry researchers conducted a survey to estimate the number of
+trees of a particular species in a region of forest. They used a
+stratified random sampling design. The region had been divided into 500
+units, each with an area of one hectare. Each unit had also been
+classified as either “low-elevation” or “high-elevation” based on the
+average elevation within each unit. A total of 400 units were classified
+as low-elevation, and 100 units were classified as high-elevation. The
+researchers selected 50 low-elevation units using simple random
+sampling, and sent teams out to count the number of trees in each
+sampled unit. The average number of trees per sampled low-elevation unit
+was 100 trees, and the standard deviation was 10 trees. The researchers
+also selected 50 high-elevation units using simple random sampling, and
+sent teams out to count the number of trees in each of these sampled
+units. The average number of trees per sampled high-elevation unit was
+25 trees, and the standard deviation was 5 trees.</p>
+<ol style="list-style-type: decimal">
+<li><p>Confirm that the estimate of the total number of trees in the
+region is 42500 trees, that the estimate of the variance of the
+estimator used to obtain this estimate is 282500, that the standard
+error is approximately 532 trees, that the bound on the error of
+estimation is approximately 1063 trees, and that the confidence interval
+for the total number of trees in the region is approximately 42500 <span
+class="math inline">\(\pm\)</span> 1063 trees.</p></li>
+<li><p>The forestry researchers are planning another survey in a similar
+forest region using stratified random sampling. This region has a total
+of 1000 one-hectare units, of which 300 are low-elevation and 700 are
+high-elevation. They estimate that the cost to survey a low-elevation
+unit is $20 and the cost to survey a high-elevation unit is $10
+(high-elevation units are cheaper despite being less accessible because
+they tend to be more sparse with respect to flora and so faster to
+survey). Confirm that the optimum allocation for a fixed bound on the
+error of estimation of 1000 trees is to sample approximately 55
+low-elevation units and approximately 91 high-elevation units.</p></li>
+<li><p>Consider the previous problem where the forestry researchers are
+planning a new survey. Assume that the researchers can spend $5000 on
+the survey, but they only need to pay for surveying the units so there
+is no overhead cost (any overhead cost will be paid for out of a
+separate budget). Confirm that the optimum allocation for a fixed total
+cost of $5000 is to sample approximately 137 low-elevation units and
+approximately 226 high-elevation units.</p></li>
+</ol>
+</div>
+<div id="design-effect-and-effective-sample-size"
+class="section level2">
+<h2>Design Effect and Effective Sample Size</h2>
+<p>Consider the problem of estimating the parameter <span
+class="math inline">\(\mu\)</span> using one of three designs: simple
+random sampling, stratified random sampling, and cluster sampling (which
+we will talk about later in the course). Each are based on a total
+sample size of <span class="math inline">\(n\)</span> = 1000 elements.
+Assume we can compute (or at least estimate) the variance of the
+estimator of <span class="math inline">\(\mu\)</span> for each of the
+three designs. The variances of the estimator under simple random
+sampling, stratified random sampling, and cluster sampling are <span
+class="math inline">\(V_{\tiny\mbox{srs}}(\hat\mu)\)</span> = 10, <span
+class="math inline">\(V_{\tiny\mbox{strat}}(\hat\mu)\)</span> = 8, and
+<span class="math inline">\(V_{\tiny\mbox{clus}}(\hat\mu)\)</span> = 16,
+respectively. The stratified and cluster sampling designs are the
+<em>complex</em> sampling designs. Confirm that the <em>design
+effects</em> of the stratified and cluster sampling designs are 0.8 and
+1.6, respectively. Also confirm that the <em>effective sample sizes</em>
+of the stratified and cluster sampling designs are 1250 and 625,
+respectively.</p>
+</div>
+<div id="double-sampling" class="section level2">
+<h2>Double Sampling</h2>
+Consider the previous example where educational psychologists wanted to
+know the mean performance on a cognitive test for the 1000 students at a
+school. In that example they had used the students’ scores on other
+tests to stratify them into high-, medium-, and low-achieving students.
+To avoid confusion such a test will be referred to as the
+<em>stratifying test</em> as opposed to the <em>cognitive test</em>
+which is the focus of the survey. But now suppose that the educational
+psychologists did not have the scores on a stratifying test. This might
+be because they had not taken such a test, or because the students had
+taken such a test but the scores were not easily obtainable because they
+were in separate files and so would require excessive effort to obtain
+for all students at the school. So the researchers use a double sampling
+design. In the first phase of sampling a sample of 500 students was
+selected using simple random sampling. Stratifying test scores were then
+obtained for these students (either by testing these students or by
+going through their files) to classify them as high-, medium-, and
+low-achieving students. In that sample 145 students were classified as
+high-achieving, 246 were classified as medium-achieving, and 109 were
+classified as low-achieving. Then a stratified random sampling design
+was applied to the sample of 500 students, using approximate
+proportional allocation. The results of this survey are summarized in
+the table below.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Level
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_j\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+78
+</td>
+<td style="text-align:center;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Medium
+</td>
+<td style="text-align:center;">
+98
+</td>
+<td style="text-align:center;">
+72
+</td>
+<td style="text-align:center;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low
+</td>
+<td style="text-align:center;">
+44
+</td>
+<td style="text-align:center;">
+55
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+</tbody>
+</table>
+<p>Confirm that the estimate of the mean score on the cognitive test of
+all students at the school is approximately 70.</p>
+<p>Consider the previous example were forestry researchers were
+conducting a survey to estimate the number of trees of a particular
+species in a region of forest divided into a total of 500 units. Recall
+that they used elevation to stratify the units of forest. Now suppose
+that the elevation data were not available, so the researchers used a
+double sampling design to observe the elevation data in the field. First
+a simple random sample of 100 units was selected and field crews were
+sent to each unit to quickly inspect it and classify it as low-elevation
+or high-elevation. They classified 77 units as low-elevation and 23 as
+high-elevation. They then obtained a stratified random sample of these
+sampled units by obtaining a simple random sample of 40 of the
+low-elevation units, and a simple random sample of 20 of the
+high-elevation units. For these 60 sampled units field crews counted the
+number of trees. The mean number of trees per unit was 96 trees in the
+low-elevation units, and 28 trees in the high-elevation units. Confirm
+that the estimate of the total number of trees in the region is then
+40180 trees.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

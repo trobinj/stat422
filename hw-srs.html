@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Simple Random Sampling Homework</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Simple Random Sampling Homework</h1>
+
+</div>
+
+
+<p>You can also download a <a href="hw-srs.pdf">PDF</a> copy of this
+document.</p>
+<div id="sampling-distributions" class="section level2">
+<h2>Sampling Distributions</h2>
+<p>One night Fedegar, Frodo, Merry, Pippin, and Sam were drinking at the
+Green Dragon Inn. Frodo drank 2 pints of ale, Merry drank 3 pints,
+Pippin drank 4 pints, Sam drank 2 pints, and Fredegar (the designated
+wagon driver) drank 0 pints. If we define this as our population, the
+Hobbits as the elements, and the number of pints consumed as the target
+variable, then we can see that <span class="math inline">\(\tau\)</span>
+= 11 and <span class="math inline">\(\mu\)</span> = 2.2. It also can be
+shown that <span class="math inline">\(\sigma^2\)</span> = 2.2. You may
+want to confirm for yourself how <span
+class="math inline">\(\tau\)</span>, <span
+class="math inline">\(\mu\)</span>, and <span
+class="math inline">\(\sigma^2\)</span> were computed.</p>
+<p>Rose Cotton wanted to know the total number of pints of ale consumed
+by the five Hobbits, and also the mean number of pints per Hobbit
+consumed, but she only had time to interview four of them. She used a
+simple random sampling design to survey the Hobbits.</p>
+<ol style="list-style-type: decimal">
+<li><p>Confirm that the number of possible samples is 5, the probability
+of each sample is 0.2, and the inclusion probability of each element is
+0.8.</p></li>
+<li><p>List all possible samples in the sampling space. For example, one
+of those is <span class="math inline">\(\mathcal{S} =
+\{\)</span>Fredegar, Frodo, Merry, Pippin<span
+class="math inline">\(\}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\tau\)</span> be the total number
+of pints of ale consumed by the five Hobbits. Using the sample space
+from the previous problem and the known values of <span
+class="math inline">\(y_i\)</span> for all elements in the population,
+confirm that the sampling distribution of <span
+class="math inline">\(\hat\tau\)</span> is as shown in the table</p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<p><span class="math inline">\(\hat\tau\)</span></p>
+</th>
+<th style="text-align:center;">
+<p><span class="math inline">\(P(\hat\tau)\)</span></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<p>8.75</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>10</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>11.25</p>
+</td>
+<td style="text-align:center;">
+<p>0.4</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>13.75</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>We know that <span class="math inline">\(E(\hat\tau) =
+\tau\)</span> and that <span class="math inline">\(\tau\)</span> = 11.
+But confirm this by computing the mean of <span
+class="math inline">\(\hat\tau\)</span> using the sampling distribution
+shown in the previous problem. Remember that the mean of a discrete
+random variable <span class="math inline">\(X\)</span> can be computed
+using the formula <span class="math inline">\(E(X) = \sum_x
+xP(x)\)</span>.</p></li>
+<li><p>Confirm that the variance of <span
+class="math inline">\(\hat\tau\)</span> is <span
+class="math inline">\(V(\hat\tau)\)</span> = 2.75 <em>two ways</em>.
+First using the fact that the variance of a discrete random variable
+<span class="math inline">\(X\)</span> can be computed as <span
+class="math inline">\(\text{V}(X) = \sum_x [x - E(X)]^2P(x)\)</span>,
+and second using the “short cut” formula which is a function of <span
+class="math inline">\(n\)</span>, <span
+class="math inline">\(N\)</span>, and <span
+class="math inline">\(\sigma^2\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\mu\)</span> be the mean number
+of pints of ale consumed by the five Hobbits. Repeat problems 3-5 above
+for the estimator <span class="math inline">\(\hat\mu\)</span>. You
+should find that the sampling distribution is</p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<p><span class="math inline">\(\hat\mu\)</span></p>
+</th>
+<th style="text-align:center;">
+<p><span class="math inline">\(P(\hat\mu)\)</span></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<p>1.75</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>2</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>2.25</p>
+</td>
+<td style="text-align:center;">
+<p>0.4</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>2.75</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>You should also find that <span
+class="math inline">\(E(\hat\mu)\)</span> = 2.2 and that <span
+class="math inline">\(V(\hat\mu)\)</span> = 0.11.</p></li>
+<li><p>Now suppose the sample size was decreased to <span
+class="math inline">\(n\)</span> = 2. Confirm that the number of
+possible samples is now 10, the probability of each sample is 0.1, and
+the inclusion probability of each element is 0.4. Also confirm that the
+sampling distributions of <span class="math inline">\(\hat\tau\)</span>
+and <span class="math inline">\(\mu\)</span> would be as given in the
+following table.</p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<p><span class="math inline">\(\hat\tau\)</span></p>
+</th>
+<th style="text-align:center;">
+<p><span class="math inline">\(\bar{y}\)</span></p>
+</th>
+<th style="text-align:center;">
+<p>Probability</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<p>5</p>
+</td>
+<td style="text-align:center;">
+<p>1.0</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>7.5</p>
+</td>
+<td style="text-align:center;">
+<p>1.5</p>
+</td>
+<td style="text-align:center;">
+<p>0.1</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>10</p>
+</td>
+<td style="text-align:center;">
+<p>2.0</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>12.5</p>
+</td>
+<td style="text-align:center;">
+<p>2.5</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>15</p>
+</td>
+<td style="text-align:center;">
+<p>3.0</p>
+</td>
+<td style="text-align:center;">
+<p>0.2</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<p>17.5</p>
+</td>
+<td style="text-align:center;">
+<p>3.5</p>
+</td>
+<td style="text-align:center;">
+<p>0.1</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Hint: First write down all samples in the sample space and then
+compute <span class="math inline">\(\hat\tau\)</span> and <span
+class="math inline">\(\bar{y}\)</span> for each sample.</p></li>
+<li><p><span class="math inline">\(E(\hat\tau)\)</span> and <span
+class="math inline">\(E(\hat\mu)\)</span> do not depend on <span
+class="math inline">\(n\)</span>, but the variances of the estimators do
+depend on <span class="math inline">\(n\)</span>. For the sample size of
+<span class="math inline">\(n\)</span> = 2 confirm that <span
+class="math inline">\(V(\hat\tau)\)</span> = 16.5 and <span
+class="math inline">\(V(\hat\mu)\)</span> = 0.66 using the “short cut”
+formulas that are functions of <span class="math inline">\(n\)</span>,
+<span class="math inline">\(N\)</span>, and <span
+class="math inline">\(\sigma^2\)</span>.</p></li>
+</ol>
+</div>
+<div id="bounds-on-the-error-of-estimation" class="section level2">
+<h2>Bounds on the Error of Estimation</h2>
+<p>Another evening the Green Dragon Inn served 200 Hobbits. Rosie wanted
+to estimate the total number of pints of ale consumed by these Hobbits,
+as well as the mean number of pints of ale consumed per Hobbit. Assume
+that <span class="math inline">\(\tau\)</span> = 600 pints, and thus
+<span class="math inline">\(\mu\)</span> = <span
+class="math inline">\(\tau\)</span> / 200 = 3 pints, and <span
+class="math inline">\(\sigma\)</span> = 3 pints. But these parameters
+are unknown to Rosie as she does not have the time to interview all 200
+Hobbits so that she can compute them, so instead she relies on a simple
+random sampling design with <span class="math inline">\(n\)</span> = 20.
+From this sample she computes <span
+class="math inline">\(\bar{y}\)</span> = 3.5 pints and <span
+class="math inline">\(s\)</span> = 2.5 pints.</p>
+<ol style="list-style-type: decimal">
+<li><p>First consider estimation of <span
+class="math inline">\(\tau\)</span> (i.e., the total number of pints
+consumed by all 200 Hobbits). Using <span
+class="math inline">\(\sigma^2\)</span> confirm that the variance of
+<span class="math inline">\(\hat\tau\)</span> is <span
+class="math inline">\(V(\hat\tau)\)</span> = 16200, the standard error
+of <span class="math inline">\(\hat\tau\)</span> is 127.2792, and the
+bound on the error of estimation is 254.5584. Confirm that Rosie’s
+estimate of <span class="math inline">\(\hat\tau\)</span> is <span
+class="math inline">\(\hat\tau\)</span> = 700 pints. Rosie would not
+know <span class="math inline">\(\sigma^2\)</span>, so she could not
+compute the variance of <span class="math inline">\(\hat\tau\)</span>,
+the standard error, or the bound on the error of estimation. But she
+could use <span class="math inline">\(s^2\)</span> to estimate <span
+class="math inline">\(\sigma^2\)</span> to obtain estimates of these
+three quantities. Confirm that the estimated variance of <span
+class="math inline">\(\hat\tau\)</span> is <span
+class="math inline">\(\hat{V}(\hat\tau)\)</span> = 11250, the estimated
+standard error of <span class="math inline">\(\hat\tau\)</span> is
+approximately 106.066, and the estimated bound on the error of
+estimation for estimating <span class="math inline">\(\tau\)</span> with
+<span class="math inline">\(\hat\tau\)</span> is approximately 212.132.
+Finally confirm that the Rosie’s confidence interval for <span
+class="math inline">\(\tau\)</span> is therefore 700 <span
+class="math inline">\(\pm\)</span> 212.132 pints based on using the
+estimated bound on the error of estimation.</p></li>
+<li><p>Now consider estimation of <span
+class="math inline">\(\mu\)</span> (i.e., the mean number of pints
+consumed per Hobbit for all 200 Hobbits). Confirm that the variance of
+<span class="math inline">\(\bar{y}\)</span> is <span
+class="math inline">\(V(\bar{y})\)</span> = 0.405, that the estimated
+variance of <span class="math inline">\(\bar{y}\)</span> is <span
+class="math inline">\(\hat{V}(\bar{y})\)</span> = 0.281, that the
+estimated standard error of <span class="math inline">\(\bar{y}\)</span>
+is approximately 0.53, and that the estimated bound on the error of
+estimation for estimating <span class="math inline">\(\mu\)</span> with
+<span class="math inline">\(\bar{y}\)</span> is approximately 1.06.
+Finally confirm that the confidence interval for <span
+class="math inline">\(\mu\)</span> is 3.5 <span
+class="math inline">\(\pm\)</span> 1.06 pints based on the estimated
+bound on the error of estimation.</p></li>
+<li><p>Consider the distribution of the error of estimation for
+estimating <span class="math inline">\(\mu\)</span> with <span
+class="math inline">\(\bar{y}\)</span> — i.e., <span
+class="math inline">\(|\bar{y} - \mu|\)</span>. Using <span
+class="math inline">\(V(\bar{y})\)</span>, not its estimate, verify that
+the mean of this distribution is approximately 0.508 pints and that the
+median of this distribution is approximately 0.429 pints.</p></li>
+</ol>
+</div>
+<div id="domain-estimation" class="section level2">
+<h2>Domain Estimation</h2>
+<ol style="list-style-type: decimal">
+<li><p>Suppose a fisheries researchers have 1000 consecutive five-minute
+segments of video recording of fish passing through a fish ladder. The
+researchers are interested in the number of fish that moved through the
+ladder during that 5000 minutes of time, but does not have the resources
+to watch and count the number of fish in all 1000 video segments. So
+instead a simple random sampling design was used to select a sample of
+100 video segments. The mean number of fish passing through the ladder
+in the sample is 24.62 fish. From this we can find that the estimate of
+<span class="math inline">\(\tau\)</span> (i.e., the total number of
+fish passing through the ladder in all 1000 segments) is <span
+class="math inline">\(\hat\tau\)</span> = 24620 fish (you might want to
+check this yourself). But suppose the researchers decided that they
+wanted to estimate the number of fish that passed through the ladder
+only when there was overcast. Let this parameter be <span
+class="math inline">\(\tau_d\)</span>. In the sample of 100 segments, it
+was found that 22 segments were during overcast, and that the mean
+number of fish passing through the ladder during these 22 segments was
+23.68. Confirm that if the researchers <em>know</em> that a total of 200
+of the 1000 segments in the population were during overcast that their
+estimate would be <span class="math inline">\(\hat\tau_d\)</span> = 4736
+fish, but if they <em>did not know</em> that a total of 200 of the 1000
+segments were during overcast that their estimate would be <span
+class="math inline">\(\hat\tau_d\)</span> = 5209.6 fish.</p></li>
+<li><p>Suppose marketing researchers are interested in estimating the
+total sales of a particular product at 500 stores. Using a simple random
+sampling design they select a sample of 50 stores and find that the mean
+sales of this product at those stores was $221.86. This yields an
+estimate of the total sales of <span
+class="math inline">\(\hat\tau\)</span> = $110930. The researchers would
+also like to estimate the total sales for only those stores that had
+adopted an aggressive marketing campaign for the product. They found
+that in their sample 36 stores had adopted the marketing campaign, and
+that the mean sales in just those stores was $211.53. Confirm that based
+only the information given above that the estimate of the total sales
+for only those stores that had adopted the marketing campaign is
+$76150.8.</p></li>
+</ol>
+</div>
+<div id="sample-size-selection" class="section level2">
+<h2>Sample Size Selection</h2>
+<ol style="list-style-type: decimal">
+<li><p>Suppose you were designing a simple random sampling design with a
+population of <span class="math inline">\(N\)</span> = 500 elements, and
+you assume that <span class="math inline">\(\sigma^2\)</span> <span
+class="math inline">\(\approx\)</span> 10. Confirm that to achieve a
+bound on the error of estimation of <span
+class="math inline">\(B\)</span> = 1 for estimating <span
+class="math inline">\(\mu\)</span> with <span
+class="math inline">\(\bar{y}\)</span> you would need a sample size of
+about <span class="math inline">\(n\)</span> = 37. Also confirm that to
+achieve a bound on the error of estimation of <span
+class="math inline">\(B\)</span> = 500 for estimating <span
+class="math inline">\(\tau\)</span> with <span
+class="math inline">\(\hat{\tau}\)</span> you would also need a sample
+size of about <span class="math inline">\(n\)</span> = 37.</p></li>
+<li><p>You are planning a survey using a simple random sampling design
+to estimate the proportion of Hobbits in a population of <span
+class="math inline">\(N\)</span> = 10000 that have foot lice. Based on
+other information you believe that about 10% of the population is
+infected. Use this information to confirm that an appropriate sample
+size for a bound on the error of estimation of <span
+class="math inline">\(B\)</span> = 0.01 is about <span
+class="math inline">\(n\)</span> = 2647, but that if you wanted to be
+sure that you had a large enough sample size for a bound on the error of
+estimation no larger than <span class="math inline">\(B\)</span> = 0.01
+to estimate <em>any</em> value of the proportion of infected Hobbits in
+the population, the necessary sample size would be no larger than <span
+class="math inline">\(n\)</span> = 5000.</p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

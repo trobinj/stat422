@@ -1,0 +1,227 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-13-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+<!-- A couple of points to note here: (1) under SRS the sample mean is like the post-stratification estimator for $\mu$ except we replace $N_j/N$ with $n_j/n$, and (2) stratified random sampling will be even more better than post-stratification if not all $\sigma_j$ are approximately equal if we use optimum (Neyman) allocation. -->
+
+## Post-Stratification
+
+Post-stratification is when stratification is *not* used in the design but *is* used in estimation. 
+
+1. Obtain a sample of size using a *simple random sampling*, *not* stratified random sampling.
+0. Estimate the parameter (e.g., $\mu$ or $\tau$) using the *estimator for stratified random sampling*. 
+
+Why post-stratification rather than stratified random sampling?
+
+1. Stratification was an afterthought. 
+0. Stratified sampling was not possible.
+
+The estimators for $\mu$ and $\tau$ for post-stratification are the same as those for stratified random sampling. They are
+$$
+  \hat\mu = \frac{N_1}{N}\bar{y}_1 + \frac{N_2}{N}\bar{y}_2 + \cdots + \frac{N_L}{N}\bar{y}_L = \sum_{j=1}^L \frac{N_j}{N}\bar{y}_j,
+$$
+and 
+$$
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L = \sum_{j=1}^LN_j\bar{y}_j.
+$$
+But the variances for these estimators are *not* the same under post-stratification and stratified random sampling. The variance of $\hat\mu$ when using simple random sampling with post-stratification is
+$$
+	V(\hat\mu) \approx \underbrace{\frac{1}{N^2}
+	\sum_{j=1}^LN_j^2\left(1-\frac{n_j}{N}\right)\frac{\sigma_j^2}{n_j}}_a + \underbrace{\frac{1}{n^2}\left(\frac{N-n}{N-1}\right)\sum_{j=1}^L\left(1-\frac{N_j}{N}\right)\sigma_j^2}_b,
+$$
+where $n_j = nN_i/N$ (proportional allocation). Recall that the variance of $\hat\tau$ is $V(\hat\tau) = N^2V(\hat\mu)$. 
+
+1. The term $a$ is the variance of $\hat\mu$ when using stratified random sampling with proportional allocation.
+
+2. The term $b$ is the extra variability due to random $n_1, n_2, \dots, n_L$. 
+
+What does this imply about how stratified random sampling compares with post-stratification? And how does simple random sampling without post-stratification compare with simple random sampling with post-stratification? 
+
+Simulation results with three strata with $n$ = 15.
+```{r, fig.height = 3, warning = FALSE}
+set.seed(123)
+Ni <- c(1000,1000,1000)
+ai <- c(8,4,2)
+bi <- c(2,4,8)
+ni <- c(10,10,10)/2
+
+pop <- data.frame(stratum = rep(1:3, Ni), a = rep(ai, Ni), b = rep(bi, Ni))
+pop <- pop %>% mutate(y = round(rbeta(nrow(pop), a, b) * 100)) %>% select(stratum, y) %>% group_by(stratum) %>%
+  mutate(a = n()) %>% ungroup() %>% mutate(a = a/n())
+
+rep <- 1000
+
+est.srs <- rep(NA, rep)
+est.pst <- rep(NA, rep)
+est.str <- rep(NA, rep)
+
+for (i in 1:rep) {
+  smp <- pop %>% sample_n(sum(ni))
+  est.srs[i] <- with(smp, mean(y))
+  
+  est.pst[i] <- as.numeric(smp %>% group_by(stratum) %>% summarize(ya = mean(a*y)) %>% summarize(sum(ya)))
+  
+  smp <- pop %>% group_by(stratum) %>% mutate(n = case_when(stratum == 1 ~ ni[1], stratum == 2 ~ ni[2], stratum == 3 ~ ni[3])) %>%
+    mutate(index = sample(1:n())) %>% filter(index <= n) %>% select(stratum, y, a)
+  
+  est.str[i] <- as.numeric(smp %>% group_by(stratum) %>% summarize(ya = mean(a * y)) %>% summarize(sum(ya)))
+}
+
+d <- data.frame(estimate = c(est.srs, est.pst, est.str), method = rep(c("Simple Random Sampling","Post-Stratification","Stratified Random Sampling"), each = rep))
+d$method <- reorder(d$method, d$estimate, sd)
+
+p <- ggplot(d, aes(x = estimate, y = ..density..)) + theme_minimal()
+p <- p + geom_histogram(breaks = seq(30, 70, by = 1)) + facet_wrap(~ method)
+p <- p + labs(x = "Estimate", y = "Relative Frequency")
+plot(p)
+
+d %>% rename(Method = method) %>% group_by(Method) %>% summarize(Variance = round(sd(estimate),2)) %>% ktbl(align = c("l","c"))
+```
+
+Simulation results with three strata with $n$ = 30.
+```{r, fig.height = 3, warning = FALSE}
+set.seed(123)
+Ni <- c(1000,1000,1000)
+ai <- c(8,4,2)
+bi <- c(2,4,8)
+ni <- c(10,10,10)
+
+pop <- data.frame(stratum = rep(1:3, Ni), a = rep(ai, Ni), b = rep(bi, Ni))
+pop <- pop %>% mutate(y = round(rbeta(nrow(pop), a, b) * 100)) %>% select(stratum, y) %>% group_by(stratum) %>%
+  mutate(a = n()) %>% ungroup() %>% mutate(a = a/n())
+
+rep <- 1000
+
+est.srs <- rep(NA, rep)
+est.pst <- rep(NA, rep)
+est.str <- rep(NA, rep)
+
+for (i in 1:rep) {
+  smp <- pop %>% sample_n(sum(ni))
+  est.srs[i] <- with(smp, mean(y))
+  
+  est.pst[i] <- as.numeric(smp %>% group_by(stratum) %>% summarize(ya = mean(a*y)) %>% summarize(sum(ya)))
+  
+  smp <- pop %>% group_by(stratum) %>% mutate(n = case_when(stratum == 1 ~ ni[1], stratum == 2 ~ ni[2], stratum == 3 ~ ni[3])) %>%
+    mutate(index = sample(1:n())) %>% filter(index <= n) %>% select(stratum, y, a)
+  
+  est.str[i] <- as.numeric(smp %>% group_by(stratum) %>% summarize(ya = mean(a * y)) %>% summarize(sum(ya)))
+}
+
+d <- data.frame(estimate = c(est.srs, est.pst, est.str), method = rep(c("Simple Random Sampling","Post-Stratification","Stratified Random Sampling"), each = rep))
+d$method <- reorder(d$method, d$estimate, sd)
+
+p <- ggplot(d, aes(x = estimate, y = ..density..)) + theme_minimal()
+p <- p + geom_histogram(breaks = seq(30, 70, by = 1)) + facet_wrap(~ method)
+p <- p + labs(x = "Estimate", y = "Relative Frequency")
+plot(p)
+
+d %>% rename(Method = method) %>% group_by(Method) %>% summarize(Variance = round(sd(estimate),2)) %>% ktbl(align = c("l","c"))
+```
+
+## Survey Weights
+
+Recall that for a simple random sampling design, an estimator of $\tau$ is
+$$
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}}y_i,
+$$
+which we can also write as $\hat\tau = N\bar{y}$. We can also write this as
+$$
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+$$
+where $w_i = N/n$. Furthermore it can be shown that $N = \sum_{i \in \mathcal{S}} w_i$.[^sumweights] So the estimator of $\mu$ (i.e., $\bar{y} = \hat\mu$) can be written as
+$$
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} w_i y_i}{\sum_{i \in \mathcal{S}}w_i}.
+$$
+Every element has a **survey weight** $w_i$. More specifically, these are called **design weights** because they are determined by the sampling design. The design weights can be interpreted as the effective number of elements in the population "represented" by the $i$-th sampled element.
+
+**Example**: For a simple random sampling design with a population of $N$ = 100 elements and a sample of $n$ = 20 elements, what are the weights for each element in the sample?
+
+\vspace{1cm}
+
+[^sumweights]: As there are $n$ elements in the sample, the sum of the weights, $\sum_{i \in \mathcal{S}}\frac{N}{n}$, is equivalent to multiplying $N/n$ by $n$ which gives $N$. 
+
+Now consider a stratified random sampling design. Here the estimator of $\tau$ can be written as
+$$
+  \hat\tau = \hat\tau_1 + \hat\tau_2 + \cdots + \hat\tau_L,
+$$
+where 
+$$
+  \hat\tau_j = \frac{N_j}{n_j}\sum_{i \in \mathcal{S}_j} y_i,
+$$
+where $\mathcal{S}_j$ is the sample obtained using simple random sampling form the $j$-th stratum, so we can write
+$$
+  \hat\tau_j = \sum_{i \in \mathcal{S}_j}w_iy_i,
+$$
+where $w_i = N_j/n_j$. So the estimator of $\tau$ can also be written as
+$$
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+$$
+but now where $w_i = N_j/n_j$ if the $i$-th element in the $j$-th stratum.[^doublesum] As before, we can write the estimator $\hat\mu$ as
+$$
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}}w_iy_i}{\sum_{i \in \mathcal{S}}w_i}.
+$$
+
+[^doublesum]: Another way to write this would be to use a sum within a sum as
+$$
+  \hat\tau = \sum_{j=1}^L\sum_{i \in \mathcal{S}_j} w_{ij}y_i,
+$$
+where $w_{ij} = N_j/n_j$. 
+
+**Example**: For a stratified random sampling design with two strata of sizes $N_1$ = 200 and $N_2$ = 100, and sample sizes of $n_1$ = 10 and $n_2$ = 10, what are the weights of the sampled elements?
+
+\vspace{1cm}
+
+The weights depend on the design.
+
+1. For simple random sampling, all observations have identical weights of $N/n$. 
+0. For stratified random sampling, all observations *within* a stratum $j$ have identical weights of $N_j/n_j$. But weights are *not* necessarily the same *across* strata.
+
+## Re-Weighting
+
+For various reasons we may decide to *change* the weights. This is called **re-weighting**. 
+
+Post-stratification can be viewed as re-weighting. If we use a simple random sampling design we *could* use the estimator
+$$
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+$$
+where $w_i = N/n$. But when using post-stratification we use our knowledge of the stratification of the elements to *re-weight* by replacing these weights with those from a stratified random sampling design where now $w_i = N_j/n_j$ if the $i$-th element is known to be within the $j$-th stratum. 
+

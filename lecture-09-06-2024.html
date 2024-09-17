@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Sep 6</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Sep 6</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-06-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="optimum-allocation" class="section level2">
+<h2>Optimum Allocation</h2>
+<p>Recall that <em>allocation</em> concerns specifying the sample sizes
+in a stratified sampling design with <span
+class="math inline">\(L\)</span> strata — i.e., <span
+class="math inline">\(n_1, n_2, \dots, n_L\)</span>. A couple of things
+we can take into consideration are (a) the <em>bound</em> of the error
+of estimation and (b) the <em>cost</em> of the survey.</p>
+<p>Recall that under stratified random sampling the variances of <span
+class="math inline">\(\hat\mu\)</span> and <span
+class="math inline">\(\hat\tau\)</span> are <span
+class="math display">\[
+  V(\hat\mu) = \frac{1}{N^2}\sum_{j=1}^L
+N_j^2\left(1-\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j} \ \ \
+\text{and} \ \ \
+  V(\hat\tau) = \sum_{j=1}^L
+N_j^2\left(1-\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j},
+\]</span> respectively, where <span
+class="math inline">\(\sigma_j^2\)</span> is the variance of the
+observations of the elements in the <span
+class="math inline">\(i\)</span>-th stratum. The bounds on the error of
+estimation for <span class="math inline">\(\hat\mu\)</span> and <span
+class="math inline">\(\hat\tau\)</span> are then <span
+class="math display">\[
+  B = 2\sqrt{V(\hat\mu)} \ \ \ \text{and} \ \ \ B = 2\sqrt{V(\hat\tau)},
+\]</span> respectively.</p>
+<p>Assume that the <em>cost</em> of the survey can be computed using
+<span class="math display">\[
+  C = c_0 + \sum_{j=1}^L n_j c_j,
+\]</span> where <span class="math inline">\(c_0\)</span> is the
+<em>overhead cost</em> and <span class="math inline">\(c_j\)</span> is
+the <em>cost-per-element</em> in the <span
+class="math inline">\(j\)</span>-th stratum.</p>
+<p>We will consider two different approaches to optimum allocation which
+depend on our objective.</p>
+<ol style="list-style-type: decimal">
+<li><p>For a fixed <em>bound</em>, how do we allocate to minimize the
+<em>cost</em>?</p></li>
+<li><p>For a fixed <em>cost</em>, how do we allocate to minimize the
+<em>bound</em>?</p></li>
+</ol>
+<p>These are <em>constrained optimization</em> problems, but the
+solutions are (relatively) simple as these kinds of problems go.</p>
+<div style="page-break-after: always;"></div>
+<div id="step-1" class="section level3">
+<h3>Step 1</h3>
+<p>First we determine how to divide <span
+class="math inline">\(n\)</span> into <span class="math inline">\(n_1,
+n_2, \dots, n_L\)</span>. Regardless of which goal we have, it can be
+shown that <span class="math display">\[
+  n_j = n\left(\frac{N_j\sigma_j/\sqrt{c_j}}{N_1\sigma_1/\sqrt{c_1} +
+N_2\sigma_2/\sqrt{c}_2 + \cdots + N_L\sigma_L/\sqrt{c_L}}\right) =
+  n\left(\frac{N_j\sigma_j/\sqrt{c_j}}{\sum_{k=1}^LN_k\sigma_k/\sqrt{c_k}}\right).
+\]</span> Note that in practice we need a good guess of <span
+class="math inline">\(\sigma_1, \sigma_2, \dots, \sigma_L\)</span>. Also
+note that this does not yet give us <span
+class="math inline">\(n\)</span> or <span class="math inline">\(n_1,
+n_2, \dots, n_L\)</span>. It only tells us the <em>proportion</em> of
+the total sample size that should be allocated to each stratum because
+<span class="math display">\[
+  \frac{n_j}{n} = \frac{N_j\sigma_j/\sqrt{c_j}}{N_1\sigma_1/\sqrt{c_1} +
+N_2\sigma_2/\sqrt{c}_2 + \cdots + N_L\sigma_L/\sqrt{c_L}} =
+  \frac{N_j\sigma_j/\sqrt{c_j}}{\sum_{k=1}^LN_k\sigma_k/\sqrt{c_k}}.
+\]</span></p>
+<strong>Example</strong>: Recall the sword fern survey.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Stratum
+</th>
+<th style="text-align:center;">
+Region
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_j\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Forest
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+287
+</td>
+<td style="text-align:center;">
+149.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+Prairie
+</td>
+<td style="text-align:center;">
+87
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+11.3
+</td>
+<td style="text-align:center;">
+16.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+117
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we were doing this survey again at the same location, we might use
+<span class="math inline">\(s_1\)</span> and <span
+class="math inline">\(s_2\)</span> as guesses of <span
+class="math inline">\(\sigma_1\)</span> and <span
+class="math inline">\(\sigma_2\)</span>, respectively. Assume that <span
+class="math inline">\(c_1\)</span> = 4 and <span
+class="math inline">\(c_2\)</span> = 1. What would be <span
+class="math inline">\(n_1/n\)</span> and <span
+class="math inline">\(n_2/n\)</span>?</p>
+<p>Observe that <span class="math inline">\(n_j\)</span> is
+<em>proportional to</em> <span
+class="math inline">\(N_j\sigma_j/\sqrt{c_j}\)</span>. What does this
+tell us about the relationship between <span
+class="math inline">\(n_j\)</span> and <span
+class="math inline">\(N_j\)</span>, <span
+class="math inline">\(n_j\)</span> and <span
+class="math inline">\(\sigma_j\)</span>, and <span
+class="math inline">\(n_j\)</span> and <span
+class="math inline">\(c_j\)</span>? To which strata do we allocate large
+sample sizes?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="step-2" class="section level3">
+<h3>Step 2</h3>
+<p>Second we compute <span class="math inline">\(n\)</span>. How we do
+this depends on our goal.</p>
+<ol style="list-style-type: decimal">
+<li><p>If our goal is to <em>minimize cost</em> for a <em>fixed
+bound</em> on the error of estimation, then we compute <span
+class="math display">\[
+  n = \frac{\left(\sum_{j=1}^L
+N_j\sigma_j/\sqrt{c_j}\right)\left(\sum_{j=1}^L
+N_j\sigma_j\sqrt{c_j}\right)}{N^2V + \sum_{j=1}^LN_j\sigma_j^2},
+\]</span> where <span class="math inline">\(V = B^2/4\)</span> if we are
+estimating <span class="math inline">\(\mu\)</span>, and <span
+class="math inline">\(V = B^2/(4N^2)\)</span> if we are estimating <span
+class="math inline">\(\tau\)</span>.</p>
+<p><strong>Example</strong>: Suppose we are estimating <span
+class="math inline">\(\mu\)</span> and we want a bound on the error of
+estimation of <span class="math inline">\(B\)</span> = 20 <span
+class="math inline">\(g/m^2\)</span>. What is the <span
+class="math inline">\(n\)</span> that will give us the least expensive
+survey with that bound on the error of estimation? Similarly what would
+we use for <span class="math inline">\(n\)</span> if we wanted to
+estimate <span class="math inline">\(\tau\)</span> with a bound on the
+error of estimation of <span class="math inline">\(B\)</span> = 2000
+<span class="math inline">\(g/m^2\)</span>?</p></li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>If our goal is to <em>minimize the bound</em> of estimation for a
+<em>fixed cost</em>, then we compute <span class="math display">\[
+  n = \frac{(C-c_0)\sum_{j=1}^LN_j\sigma_j/\sqrt{c_j}}{\sum_{j=1}^L
+N_j\sigma_j\sqrt{c_j}}.
+\]</span> Comment: A related goal is to <em>minimize the bound</em> for
+a <em>fixed total sample size</em> <span
+class="math inline">\(n\)</span>. This can be viewed as a special case
+where we set <span class="math inline">\(C = n\)</span>, <span
+class="math inline">\(c_0\)</span> = 0, and all <span
+class="math inline">\(c_j\)</span> = 1. In that case <span
+class="math inline">\(n\)</span> will necessarily equal <span
+class="math inline">\(C\)</span> which equals <span
+class="math inline">\(n\)</span>. So we do not need to do the above
+calculation and we can just proceed to the third step!</li>
+</ol>
+<p><strong>Example</strong>: Suppose we want to minimize the bound on
+the error of estimation subject to a total cost of <span
+class="math inline">\(C\)</span> = 100 and an overhead cost of <span
+class="math inline">\(c_0\)</span> = 20. What is <span
+class="math inline">\(n\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="step-3" class="section level3">
+<h3>Step 3</h3>
+<p>Finally we combine our results from the first two steps to compute
+for each stratum <span class="math display">\[
+  n_j = n\left(\frac{N_j\sigma_j/\sqrt{c_j}}{\sum_{k=1}^L
+N_k\sigma_k/\sqrt{c_k}}\right).
+\]</span> <strong>Example</strong>: Given the results from the earlier
+examples, if we are estimating <span class="math inline">\(\mu\)</span>
+what are <span class="math inline">\(n_1\)</span> and <span
+class="math inline">\(n_2\)</span> if we want to minimize cost for a
+bound on the error of estimation of <span
+class="math inline">\(B\)</span> = 20 <span
+class="math inline">\(g/m^2\)</span>. What if we want to minimize the
+bound for a fixed cost with <span class="math inline">\(C\)</span> = 100
+and <span class="math inline">\(c_0\)</span> = 20 when estimating <span
+class="math inline">\(\mu\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="summary-of-optimum-allocation" class="section level2">
+<h2>Summary of Optimum Allocation</h2>
+<ol style="list-style-type: decimal">
+<li><p>Compute the allocation fraction <span class="math display">\[
+  \frac{N_j\sigma_j/\sqrt{c_j}}{\sum_{k=1}^L N_k\sigma_k/\sqrt{c_k}}
+\]</span> for <em>each</em> stratum.</p></li>
+<li><p>Decide if you want to minimize cost for a fixed bound, or
+minimize the bound for a fixed cost, and then use the appropriate
+formula to compute <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(n_1, n_2, \dots, n_L\)</span>
+using the allocation fractions and <span
+class="math inline">\(n\)</span> you computed in the previous two steps
+as <span class="math display">\[
+  n_j = n\left(\frac{N_j\sigma_j/\sqrt{c_j}}{\sum_{k=1}^L
+N_k\sigma_k/\sqrt{c_k}}\right).
+\]</span></p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="special-cases" class="section level2">
+<h2>Special Cases</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Neyman allocation</strong> is a special case where the
+<em>cost-per-element is the same for all strata</em> (i.e., all <span
+class="math inline">\(c_j\)</span> are <em>equal</em>). In this case we
+have that in the first step <span class="math display">\[
+\frac{n_j}{n} = \frac{N_j\sigma_j}{\sum_{k=1}^LN_k\sigma_k},
+\]</span> and if we are want to minimize the cost for a fixed bound then
+the calculation of the <span class="math inline">\(n\)</span> simplifies
+to <span class="math display">\[
+  n = \frac{\left(\sum_{j=1}^L N_j\sigma_j\right)^2}{N^2V +
+\sum_{j=1}^LN_j\sigma_j^2}.
+\]</span> <strong>Example</strong>: Assume that the cost-per-square is
+the same regardless of whether a square is forest or prairie. What are
+<span class="math inline">\(n\)</span>, <span
+class="math inline">\(n_1\)</span>, and <span
+class="math inline">\(n_2\)</span> if we want to estimate <span
+class="math inline">\(\mu\)</span> with a bound on the error of
+estimation of <span class="math inline">\(B\)</span> = 20 <span
+class="math inline">\(g/m^2\)</span>?</li>
+</ol>
+<div style="page-break-after: always;"></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p><strong>Proportional allocation</strong> is a special case where
+the fraction of sampled elements in each stratum equals the fraction of
+population elements in that stratum. That is <span
+class="math display">\[
+  \frac{n_j}{n} = \frac{N_j}{N},
+\]</span> which implies that <span class="math inline">\(n_j =
+nN_j/N\)</span>. Proportional allocation is an optimum allocation if the
+cost-per-element is the same for all elements <em>and</em> all <span
+class="math inline">\(\sigma_j^2\)</span> are equal. In practice we
+might have approximate proportional allocation where <span
+class="math inline">\(n_j/n \approx N_j/n\)</span>.</p>
+<p><strong>Example</strong>: What would <span
+class="math inline">\(n_1/n\)</span> and <span
+class="math inline">\(n_2/n\)</span> be for the sword fern survey using
+proportional allocation?</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="restrictions-on-optimum-allocation" class="section level2">
+<h2>Restrictions on Optimum Allocation</h2>
+<p>There are some practical restrictions on an optimum allocation.</p>
+<ol style="list-style-type: decimal">
+<li><p>Optimum <span class="math inline">\(n\)</span> and <span
+class="math inline">\(n_j\)</span> must be non-negative integers, so
+usually the optimum allocation is approximate.</p></li>
+<li><p>An optimum allocation may produce <span class="math inline">\(n_j
+= 0\)</span> or <span class="math inline">\(n_j = 1\)</span>. But to
+estimate <span class="math inline">\(\sigma_j^2\)</span> we need all
+<span class="math inline">\(n_j \ge 2\)</span>.</p></li>
+<li><p>It is possible to have an optimum allocation of <span
+class="math inline">\(n_j &gt; N_j\)</span>, which is an impossible
+design.</p></li>
+</ol>
+<p>For the latter two cases, we can find an optimum allocation subject
+to the constraint that all <span class="math inline">\(2 \le n_j \le
+N_j\)</span> if we find that some <span class="math inline">\(n_j &lt;
+2\)</span> or <span class="math inline">\(n_j &gt; N_j\)</span> using
+the method above, but how this would be done is beyond the scope of this
+lecture (although see below if you are curious).</p>
+<p>The formulas given above are an <em>analytical</em> solution to the
+optimum allocation problem. These are <em>derived</em> using the
+necessary mathematics (namely calculus and what are called Lagrange
+multipliers). But the optimum allocation problem can also be solved
+<em>numerically</em> by using computing power instead. I have created a
+short <a href="allocation-numerical.html">demonstration</a> of how to do
+this in R. You do not need to know how to do this for this course, but I
+have included it for any students that might be interested.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

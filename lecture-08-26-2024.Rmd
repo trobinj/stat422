@@ -1,0 +1,279 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "08-26-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Sampling With Replacement
+
+A variation on simple random sampling is a design where we sample *with replacement* where every possible sample of $n$ elements has the same probability of being selected, but where the elements need not be distinct.
+
+**Example**: Suppose we have $N$ = 4 and $n$ = 2 as in previous example. The sampling design for a simple random sampling design when sampling *without replacement* is shown below.
+```{r}
+e <- paste("\\mathcal{E}_", 1:4, sep = "")
+e <- paste("$", e, "$", sep = "")
+d <- srs(1:4, 2, labels = e)
+d$stat <- "1/6"
+names(d) <- c("Sample","Probability")
+ktbl(d)
+```
+But if we sample *with replacement* then the sampling design is as shown below.
+```{r}
+e <- paste("\\mathcal{E}_", 1:4, sep = "")
+e <- paste("$", e, "$", sep = "")
+d <- cbind(rep(e, each = 4), rep(e, 4))
+d <- apply(d, 1, function(z) paste(z, collapse = ", "))
+d <- as.data.frame(d)
+d$stat <- "1/16"
+names(d) <- c("Sample","Probability")
+ktbl(d)
+```
+Sampling *with replacement* changes the properties of the design as well as the sampling distributions of $\bar{y}$ and $\hat\tau$. 
+
+1. The number of possible samples is $N^n$, which is larger than the number of possible samples when sampling *without replacement* unless $n$ = 1. For example, with a population of $N$ = 4 elements and a sample size of $n$ = 2, the number of possible samples is 16 when sampling *with replacement* as opposed to 6 when sampling *without replacement*. 
+
+0. The inclusion probabilities when sampling *with replacement* are $\pi_i = 1 - (1 - 1/N)^n$ as opposed to $\pi_i = n/N$ when sampling *without replacement*. We will discuss why and how this might be used later in the course.
+
+0. The variance of $\bar{y}$ and $\hat\tau$ do not include the finite population correction term so the formulas become
+$$
+  \text{V}(\bar{y}) = \frac{\sigma^2}{n} \ \ \ \text{and} \ \ \ 
+  \text{V}(\hat\tau) = N^2\frac{\sigma^2}{n}.
+$$
+So how do the variances of $\bar{y}$ and $\hat\tau$ when sampling *with replacement* compare to that when sampling *without replacement*? 
+
+\vspace{3cm}
+
+## Central Limit Theorem
+
+What can we say about the *shape* of the sampling distribution of $\bar{y}$ or $\hat\tau$? 
+The **central limit theorem** for simple random sampling states that as $n$, $N$, and $N-n$ increase, and assuming some other rather technical but usually applicable conditions, the sampling distribution of $\bar{y}$ "approaches" a normal distribution. This implies the same behavior for the sampling distribution of $\hat\tau$.
+
+**Example**: Consider simple random sampling design with a population of $N$ = 50 elements and a sample size of $n$ = 5. The values of the target variable in the population were selected randomly from the integers from 0 to 100, but the values were "shifted" so that $\mu = 50$. The figure below shows the exact discrete sampling distribution of $\bar{y}$.
+```{r, cache = TRUE, fig.height = 3, cache = TRUE}
+set.seed(123)
+pop <- sample(0:100, 50, replace = TRUE)
+pop <- (pop - mean(pop)) + 50
+
+N <- length(pop)
+n <- 5
+
+m <- apply(combn(pop, n), 2, mean)
+
+d <- data.frame(m = m) %>% group_by(m) %>% 
+  summarize(f = n()) %>% mutate(p = f/sum(f)) %>% select(m, p)
+
+p <- ggplot(d, aes(x = m, y = p)) + theme_minimal()
+p <- p + geom_segment(aes(xend = m, yend = 0), alpha = 0.5)
+p <- p + labs(x = "Estimate", y = "Probability")
+plot(p)
+```
+
+\pagebreak
+
+## Interpreting a Normal Sampling Distribution
+
+Let $\theta$ denote a parameter (e.g., $\mu$ or $\tau$) and let $\hat\theta$ denote an estimator (e.g., $\bar{y}$ or $\hat\tau$). Assume that the sampling distribution of $\hat\theta$ is (approximately) normal in shape (by the central limit theorem) with a mean of $\theta$ (i.e., the estimator is *unbiased*) and a variance of $\mbox{V}(\hat\theta)$. What do we know about this sampling distribution?
+
+1. There is a simple relationship between the mode and inflection points of the probability distribution function and the mean and variance of $\hat\theta$. 
+```{r, fig.height = 4}
+d <- data.frame(x = seq(-3.5, 3.5, length = 1000)) %>% mutate(y = dnorm(x))
+l <- c(tex("$\\theta - \\sqrt{V(\\hat{\\theta})}$"), tex("$\\theta$"), tex("$\\theta + \\sqrt{V(\\hat{\\theta})}$"))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_line()
+p <- p + labs(x = tex("$\\hat{\\theta}$"), y = NULL)
+p <- p + scale_x_continuous(breaks = -1:1, labels = l , minor_breaks = NULL)
+p <- p + scale_y_continuous(breaks = dnorm(1), labels = "inflection\n point")
+p <- p + geom_hline(yintercept = 0, alpha = 0.5)
+plot(p)
+```
+2. The distribution of the *distance* between $\hat\theta$ and $\theta$ --- i.e., $|\hat\theta - \theta|$ --- is a [half-normal distribution](https://en.wikipedia.org/wiki/Half-normal_distribution) with a mean of approximately $0.798\sqrt{\text{V}(\hat\theta)}$ and a median of approximately $0.674\sqrt{\text{V}(\hat\theta)}$.[^halfnormal] These two points are denoted as *a* and *b* in the figure below.
+```{r, fig.height = 4}
+d <- data.frame(x = seq(0, 3.5, length = 1000)) %>% mutate(y = fdrtool::dhalfnorm(x))
+l <- c(0, "b", "a", tex("$\\sqrt{V(\\hat{\\theta})}$"))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_line()
+p <- p + labs(x = tex("$| \\hat{\\theta} - \\theta |$"), y = NULL)
+p <- p + scale_x_continuous(breaks = c(0, 0.674, 0.798, 1), labels = l , minor_breaks = NULL)
+p <- p + scale_y_continuous(breaks = dnorm(1)/0.5, labels = "inflection\n point")
+p <- p + geom_hline(yintercept = 0, alpha = 0.5)
+plot(p)
+```
+
+[^halfnormal]: The mean is $\sqrt{2\text{V}(\hat\theta)/\pi}$ and the median is $\sqrt{2\text{V}(\hat\theta)\text{erf}^{-1}(0.5)}$ where $\text{erf}^{-1}$ is the inverse of the [error function](https://en.wikipedia.org/wiki/Error_function).
+
+3. The 95th percentile of the *distance* between $\hat\theta$ and $\theta$ is approximately $2\sqrt{\text{V}(\hat\theta)}$.[^percentile]
+```{r, fig.height = 4}
+d <- data.frame(x = seq(0, 3.5, length = 1000)) %>% mutate(y = fdrtool::dhalfnorm(x))
+l <- c(0, tex("$2\\sqrt{V(\\hat{\\theta})}$"))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_line()
+p <- p + labs(x = tex("$| \\hat{\\theta} - \\theta |$"), y = NULL)
+p <- p + scale_x_continuous(breaks = c(0, 2), labels = l , minor_breaks = NULL)
+p <- p + scale_y_continuous(breaks = NULL)
+p <- p + geom_hline(yintercept = 0, alpha = 0.5)
+plot(p)
+```
+This implies that there is approximately a 95% chance that a survey will result in an estimate $\hat\theta$ that is within about $2\sqrt{\text{V}(\hat\theta)}$ of the parameter $\theta$.
+```{r, fig.height = 4}
+d <- data.frame(x = seq(-3.5, 3.5, length = 1000)) %>% mutate(y = dnorm(x))
+l <- c(tex("$\\theta - 2\\sqrt{V(\\hat{\\theta})}$"), tex("$\\theta$"), tex("$\\theta + 2\\sqrt{V(\\hat{\\theta})}$"))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_line()
+p <- p + labs(x = tex("$\\hat{\\theta}$"), y = NULL)
+p <- p + scale_x_continuous(breaks = c(-2,0,2), labels = l , minor_breaks = NULL)
+p <- p + scale_y_continuous(breaks = NULL)
+p <- p + geom_hline(yintercept = 0, alpha = 0.5)
+plot(p)
+```
+
+**Example**: Considered the earlier example with a population of $N$ = 50 elements and a simple random sampling design of $n$ = 5 elements. The mean and variance for the population are $\mu$ = 50 and $\sigma^2$ $\approx$ 900, respectively. What can we conclude about the sampling distribution of $\bar{y}$?
+
+\pagebreak
+
+## The Standard Error and the Bound on the Error of Estimation
+
+The term $\sqrt{\text{V}(\hat\theta)}$ is the **standard error** of $\hat\theta$. It is simply the standard deviation of $\hat\theta$. Under simple random sampling the standard errors of $\bar{y}$ and $\hat\tau$ are simply
+$$
+  \text{SE}(\bar{y}) = \sqrt{\text{V}(\bar{y})} = \sqrt{\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}} \ \ \ \text{and} \ \ \ 
+  \text{SE}(\hat\tau) = \sqrt{\text{V}(\hat\tau)} = \sqrt{N^2\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}},
+$$
+respectively. Note that as shown in the previous section many quantities of interest concerning the "accuracy" of an estimator are proportional to the standard error. 
+
+The term $2\sqrt{\text{V}(\hat\theta)}$ is called the **bound on the error of estimation** (also sometimes the **margin of error**). It can be viewed as an kind of upper bound on the distance between $\hat\theta$ and $\theta$ in the sense that there is about a 95% chance that a survey will not exceed this error. That is
+$$
+  P\left(\theta - 2\sqrt{\text{V}(\hat\theta)} < \hat\theta < \theta + 2\sqrt{\text{V}(\hat\theta)}\right) \approx 0.95.
+$$
+Under simple random sampling the bounds on the error of estimation for $\bar{y}$ and $\hat\tau$ are 
+$$
+  2\sqrt{\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}} \ \ \ \text{and} \ \ \ 
+  2\sqrt{N^2\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}},
+$$
+respectively. It is important to note that this result requires that the sampling distribution is normal. In practice it only is true approximately.[^chebyshev]
+
+[^chebyshev]: A more general statement can be made that is true for *any* type of sampling distribution for an unbiased estimator. There is a result called [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev%27s_inequality) that implies that
+$$
+  P\left(\theta - k\sqrt{V(\hat\theta)} < \hat\theta < \theta + k\sqrt{V(\hat\theta)}\right) > \frac{1}{k^2}
+$$
+for any $k > 0$. That is, the probability that $\hat\theta$ is within $k$ standard errors of $\theta$ is at least $1/k^2$. If we let $k = \delta/\sqrt{V(\hat\theta)}$ then we can say that
+$$
+  P(\theta - \delta < \hat\theta < \theta + \delta) > \frac{V(\hat\theta)}{\delta^2}.
+$$
+Thus the lower bound on the probability that $\hat\theta$ is within $\delta$ of $\theta$ is proportion to $V(\hat\theta)$. So regardless of the shape of the sampling distribution the variability of the sampling distribution plays an important role in how close $\hat\theta$ might be to $\theta$. 
+
+## Confidence Intervals
+
+The bound on the error of estimation can be used to construct a **confidence interval** which is an "interval estimate" of a parameter (as opposed to a "point estimate") that has a known probability of being correct. This is because
+$$
+  P\left(\theta - 2\sqrt{\text{V}(\hat\theta)} < \hat\theta < \theta + 2\sqrt{\text{V}(\hat\theta)}\right) \approx 0.95
+$$
+implies that 
+$$
+  P\left(\hat\theta - 2\sqrt{\text{V}(\hat\theta)} < \theta < \hat\theta + 2\sqrt{\text{V}(\hat\theta)}\right) \approx 0.95.
+$$
+The confidence interval can be written as
+$$
+  \hat\theta \pm 2\sqrt{\text{V}(\hat\theta)} \Leftrightarrow \left(\hat\theta - 2\sqrt{\text{V}(\hat\theta)}, \hat\theta + 2\sqrt{\text{V}(\hat\theta)}\right).
+$$
+The probability of 95% is the **confidence level** of the confidence interval. It represents the expected percent of confidence intervals that would correctly estimate the parameter, and the probability that a survey will produce an estimate with an error less than the bound on the error of estimation. 
+```{r, fig.height = 10, fig.width = 9}
+set.seed(123)
+d <- data.frame(x = seq(-3.5, 3.5, length = 1000)) %>% mutate(y = dnorm(x))
+l <- c(tex("$\\theta - 2\\sqrt{V(\\hat{\\theta})}$"), tex("$\\theta$"), tex("$\\theta + 2\\sqrt{V(\\hat{\\theta})}$"))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_line()
+p <- p + labs(x = tex("$\\hat{\\theta}$"), y = NULL)
+p <- p + scale_x_continuous(breaks = c(-2,0,2), labels = l , minor_breaks = NULL, limits = 1.6*c(-3.5, 3.5))
+p <- p + scale_y_continuous(breaks = NULL)
+p <- p + geom_hline(yintercept = 0, alpha = 0.5)
+p1 <- p
+
+set.seed(107)
+
+r <- 100
+d <- data.frame(x = rnorm(r), r = 1:r) %>% mutate(hit = abs(x) < 2)
+
+p <- ggplot(d, aes(x = x, y = r, color = factor(hit))) + theme_minimal()
+p <- p + geom_segment(aes(x = x - 2, xend = x + 2, yend = r), alpha = 0.5)
+p <- p + geom_point() + scale_color_manual(values = c("red","black"))
+p <- p + scale_x_continuous(breaks = c(-2,0,2), labels = l , minor_breaks = NULL, limits = 1.6*c(-3.5,3.5))
+p <- p + scale_y_continuous(breaks = NULL) + guides(color = "none")
+p <- p + labs(x = NULL, y = NULL)
+p2 <- p
+
+cowplot::plot_grid(p1, p2, ncol = 1, rel_heights = c(1,4), align = "h")
+```
+
+```{r}
+smp <- sample(pop, 5)
+```
+
+**Example**: Consider the previous example. If we obtain a sample and compute sample mean of $\bar{y}$ = `r mean(smp)`, what is the *confidence interval* for estimating $\mu$? What is the confidence interval for estimating $\tau$? 
+
+\pagebreak
+
+## Variance Estimation
+
+We do not typically know $\sigma^2$ (i.e., the variance of the target variable for the population), although we might use an educated guess if necessary (more on that later). But we can **estimate** it after a survey has been conducted, and use that to estimate the variance of an estimator. An unbiased estimator is the *sample variance*
+$$
+  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}} (y_i - \bar{y})^2.
+$$
+Then the estimators of the variance of $\bar{y}$ and $\hat\tau$ are
+$$
+  \widehat{\text{V}(\bar{y})} = \left(1 - \frac{n}{N}\right)\frac{s^2}{n} \ \ \ \text{and} \ \ \ 
+  \widehat{\text{V}(\hat\tau)} = N^2\left(1 - \frac{n}{N}\right)\frac{s^2}{n}.
+$$
+The problem of *estimating the variance of an estimator* is called **variance estimation** in survey sampling.
+
+**Example**: The sample from the previous example yields a sample variance of $s^2$ = `r var(smp)`. The sample is `r vecprnt(smp)`. How would we use this to compute (a) the bound on the error of estimation for estimating $\mu$ with $\bar{y}$ and (b) a confidence interval for estimating $\mu$?
+
+\pagebreak
+
+[^percentile]: The actual percentile is closer to $1.96\sqrt{\text{V}(\hat\theta)}$. This can be computed as $\sqrt{2\text{V}(\hat\theta)\text{erf}^{-1}(p/100)}$ where $p$ is the desired percentile (e.g., $p$ = 95 for the 95th percentile or $p$ = 50 for the 50th percentile and median). Note that any percentile can be computed this way. In survey sampling it is customary to use $2\sqrt{\text{V}(\hat\theta)}$ rather than $1.96\sqrt{\text{V}(\hat\theta)}$ for simplicity. 
+
+
+
+
+
+

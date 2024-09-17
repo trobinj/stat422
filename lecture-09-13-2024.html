@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Sep 13</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Sep 13</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-13-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<!-- A couple of points to note here: (1) under SRS the sample mean is like the post-stratification estimator for $\mu$ except we replace $N_j/N$ with $n_j/n$, and (2) stratified random sampling will be even more better than post-stratification if not all $\sigma_j$ are approximately equal if we use optimum (Neyman) allocation. -->
+<div id="post-stratification" class="section level2">
+<h2>Post-Stratification</h2>
+<p>Post-stratification is when stratification is <em>not</em> used in
+the design but <em>is</em> used in estimation.</p>
+<ol style="list-style-type: decimal">
+<li>Obtain a sample of size using a <em>simple random sampling</em>,
+<em>not</em> stratified random sampling.</li>
+<li>Estimate the parameter (e.g., <span
+class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span>) using the <em>estimator for
+stratified random sampling</em>.</li>
+</ol>
+<p>Why post-stratification rather than stratified random sampling?</p>
+<ol style="list-style-type: decimal">
+<li>Stratification was an afterthought.</li>
+<li>Stratified sampling was not possible.</li>
+</ol>
+<p>The estimators for <span class="math inline">\(\mu\)</span> and <span
+class="math inline">\(\tau\)</span> for post-stratification are the same
+as those for stratified random sampling. They are <span
+class="math display">\[
+  \hat\mu = \frac{N_1}{N}\bar{y}_1 + \frac{N_2}{N}\bar{y}_2 + \cdots +
+\frac{N_L}{N}\bar{y}_L = \sum_{j=1}^L \frac{N_j}{N}\bar{y}_j,
+\]</span> and <span class="math display">\[
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L =
+\sum_{j=1}^LN_j\bar{y}_j.
+\]</span> But the variances for these estimators are <em>not</em> the
+same under post-stratification and stratified random sampling. The
+variance of <span class="math inline">\(\hat\mu\)</span> when using
+simple random sampling with post-stratification is <span
+class="math display">\[
+    V(\hat\mu) \approx \underbrace{\frac{1}{N^2}
+    \sum_{j=1}^LN_j^2\left(1-\frac{n_j}{N}\right)\frac{\sigma_j^2}{n_j}}_a
++
+\underbrace{\frac{1}{n^2}\left(\frac{N-n}{N-1}\right)\sum_{j=1}^L\left(1-\frac{N_j}{N}\right)\sigma_j^2}_b,
+\]</span> where <span class="math inline">\(n_j = nN_i/N\)</span>
+(proportional allocation). Recall that the variance of <span
+class="math inline">\(\hat\tau\)</span> is <span
+class="math inline">\(V(\hat\tau) = N^2V(\hat\mu)\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p>The term <span class="math inline">\(a\)</span> is the variance
+of <span class="math inline">\(\hat\mu\)</span> when using stratified
+random sampling with proportional allocation.</p></li>
+<li><p>The term <span class="math inline">\(b\)</span> is the extra
+variability due to random <span class="math inline">\(n_1, n_2, \dots,
+n_L\)</span>.</p></li>
+</ol>
+<p>What does this imply about how stratified random sampling compares
+with post-stratification? And how does simple random sampling without
+post-stratification compare with simple random sampling with
+post-stratification?</p>
+Simulation results with three strata with <span
+class="math inline">\(n\)</span> = 15.
+<img src="lecture-09-13-2024_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Method
+</th>
+<th style="text-align:center;">
+Variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Stratified Random Sampling
+</td>
+<td style="text-align:center;">
+3.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Post-Stratification
+</td>
+<td style="text-align:center;">
+4.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Simple Random Sampling
+</td>
+<td style="text-align:center;">
+7.33
+</td>
+</tr>
+</tbody>
+</table>
+Simulation results with three strata with <span
+class="math inline">\(n\)</span> = 30.
+<img src="lecture-09-13-2024_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Method
+</th>
+<th style="text-align:center;">
+Variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Stratified Random Sampling
+</td>
+<td style="text-align:center;">
+2.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Post-Stratification
+</td>
+<td style="text-align:center;">
+2.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Simple Random Sampling
+</td>
+<td style="text-align:center;">
+5.13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="survey-weights" class="section level2">
+<h2>Survey Weights</h2>
+<p>Recall that for a simple random sampling design, an estimator of
+<span class="math inline">\(\tau\)</span> is <span
+class="math display">\[
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}}y_i,
+\]</span> which we can also write as <span
+class="math inline">\(\hat\tau = N\bar{y}\)</span>. We can also write
+this as <span class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+\]</span> where <span class="math inline">\(w_i = N/n\)</span>.
+Furthermore it can be shown that <span class="math inline">\(N = \sum_{i
+\in \mathcal{S}} w_i\)</span>.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a> So the estimator of <span
+class="math inline">\(\mu\)</span> (i.e., <span
+class="math inline">\(\bar{y} = \hat\mu\)</span>) can be written as
+<span class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} w_i y_i}{\sum_{i \in
+\mathcal{S}}w_i}.
+\]</span> Every element has a <strong>survey weight</strong> <span
+class="math inline">\(w_i\)</span>. More specifically, these are called
+<strong>design weights</strong> because they are determined by the
+sampling design. The design weights can be interpreted as the effective
+number of elements in the population “represented” by the <span
+class="math inline">\(i\)</span>-th sampled element.</p>
+<p><strong>Example</strong>: For a simple random sampling design with a
+population of <span class="math inline">\(N\)</span> = 100 elements and
+a sample of <span class="math inline">\(n\)</span> = 20 elements, what
+are the weights for each element in the sample?</p>
+<p>Now consider a stratified random sampling design. Here the estimator
+of <span class="math inline">\(\tau\)</span> can be written as <span
+class="math display">\[
+  \hat\tau = \hat\tau_1 + \hat\tau_2 + \cdots + \hat\tau_L,
+\]</span> where <span class="math display">\[
+  \hat\tau_j = \frac{N_j}{n_j}\sum_{i \in \mathcal{S}_j} y_i,
+\]</span> where <span class="math inline">\(\mathcal{S}_j\)</span> is
+the sample obtained using simple random sampling form the <span
+class="math inline">\(j\)</span>-th stratum, so we can write <span
+class="math display">\[
+  \hat\tau_j = \sum_{i \in \mathcal{S}_j}w_iy_i,
+\]</span> where <span class="math inline">\(w_i = N_j/n_j\)</span>. So
+the estimator of <span class="math inline">\(\tau\)</span> can also be
+written as <span class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+\]</span> but now where <span class="math inline">\(w_i =
+N_j/n_j\)</span> if the <span class="math inline">\(i\)</span>-th
+element in the <span class="math inline">\(j\)</span>-th stratum.<a
+href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> As before,
+we can write the estimator <span class="math inline">\(\hat\mu\)</span>
+as <span class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}}w_iy_i}{\sum_{i \in
+\mathcal{S}}w_i}.
+\]</span></p>
+<p><strong>Example</strong>: For a stratified random sampling design
+with two strata of sizes <span class="math inline">\(N_1\)</span> = 200
+and <span class="math inline">\(N_2\)</span> = 100, and sample sizes of
+<span class="math inline">\(n_1\)</span> = 10 and <span
+class="math inline">\(n_2\)</span> = 10, what are the weights of the
+sampled elements?</p>
+<p>The weights depend on the design.</p>
+<ol style="list-style-type: decimal">
+<li>For simple random sampling, all observations have identical weights
+of <span class="math inline">\(N/n\)</span>.</li>
+<li>For stratified random sampling, all observations <em>within</em> a
+stratum <span class="math inline">\(j\)</span> have identical weights of
+<span class="math inline">\(N_j/n_j\)</span>. But weights are
+<em>not</em> necessarily the same <em>across</em> strata.</li>
+</ol>
+</div>
+<div id="re-weighting" class="section level2">
+<h2>Re-Weighting</h2>
+<p>For various reasons we may decide to <em>change</em> the weights.
+This is called <strong>re-weighting</strong>.</p>
+<p>Post-stratification can be viewed as re-weighting. If we use a simple
+random sampling design we <em>could</em> use the estimator <span
+class="math display">\[
+  \hat\tau = \sum_{i \in \mathcal{S}} w_iy_i,
+\]</span> where <span class="math inline">\(w_i = N/n\)</span>. But when
+using post-stratification we use our knowledge of the stratification of
+the elements to <em>re-weight</em> by replacing these weights with those
+from a stratified random sampling design where now <span
+class="math inline">\(w_i = N_j/n_j\)</span> if the <span
+class="math inline">\(i\)</span>-th element is known to be within the
+<span class="math inline">\(j\)</span>-th stratum.</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>As there are <span class="math inline">\(n\)</span>
+elements in the sample, the sum of the weights, <span
+class="math inline">\(\sum_{i \in \mathcal{S}}\frac{N}{n}\)</span>, is
+equivalent to multiplying <span class="math inline">\(N/n\)</span> by
+<span class="math inline">\(n\)</span> which gives <span
+class="math inline">\(N\)</span>.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Another way to write this would be to use a sum within a
+sum as <span class="math display">\[
+  \hat\tau = \sum_{j=1}^L\sum_{i \in \mathcal{S}_j} w_{ij}y_i,
+\]</span> where <span class="math inline">\(w_{ij} = N_j/n_j\)</span>.<a
+href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

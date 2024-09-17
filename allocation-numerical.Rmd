@@ -1,0 +1,158 @@
+---
+title: Numerical Optimum Allocation
+output:
+  html_document: 
+    theme: readable
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"), comment = "")
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+In class we discussed formulas for computing the sample sizes for optimum allocation for a stratified random sampling design. These formulas can be derived *analytically* using calculus and what are called Lagrange multipliers. Another approach is to solve the optimum allocation problem *numerically* by computer. This has a couple of advantages. One is that it lets us avoid having to do mathematical derivations which can be difficult, time-consuming, and error-prone. Of course, we do not need to re-do the derivations for optimum allocation for the cases we discussed in class since we already have the equations, but we would if we were to (a) consider a different estimator with a different variance or (b) a different cost function. Another advantage is that the numerical approach allows us to find a solution where the sample sizes are constrained such that $2 \le n_j \le N_j$. 
+
+Optimum allocation is a constrained optimization problem. There are several R packages available for solving such problems. Here I will demonstrate using the package **Rsolnp**. First we need to install and load the package.
+```{r, eval = FALSE}
+install.packages("Rsolnp")
+library(Rsolnp)
+```
+```{r, echo = FALSE}
+library(Rsolnp)
+```
+Note that you only need to install the package via `install.packages` once per installation of R on a given computer. This downloads the package and installs it. But the `library` command needs to be used each time you restart R to make its contents available (namely the `solnp` function we will be using below).
+
+## Functions for Computing Bounds and Cost
+
+Next we need to program functions functions to compute the variance of an estimator, the cost of the survey (if we want to have a fixed cost), and/or the bound on the error of estimation (if we want to have a fixed bound). Recall that the variance of $\hat\mu$ is
+$$
+  V(\hat\mu) = \frac{1}{N^2}\sum_{j=1}^L N_j^2\left(1 - \frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j}.
+$$
+We can program a function `vf` to compute the variance of $\hat\mu$. 
+```{r}
+vf <- function(nj, Nj, sj, c0, cj) {
+  1 / sum(Nj)^2 * sum(Nj^2 * (1 - nj / Nj) * sj^2 / nj)
+}
+```
+Here `nj`, `Nj`, and `sj` represent the $n_j$, $N_j$, and $\sigma_j$ for the $L$ strata, respectively. But what might be confusing is that each of these variables represent the quantities for *all* strata --- i.e., the `nj` represents $n_1, n_2, \dots, n_L$. These are what are sometimes called vectors or (one-dimensional) arrays. R supports "vectorized" calculations where we can effectively program calculations on sets of values at once. Something else that may be confusing is that I have included as arguments to the function `c0` and `cj` which represent what we called $c_0$ and $c_j$ for the cost of the survey. The variance is not a function of either of these quantities, but they are included here because the function we will use for the constrained optimization requires that every function passed to it has the same arguments.
+
+Recall that we defined the cost of a survey as
+$$
+  C = c_0 + \sum_{j=1}^L n_j c_j.
+$$
+We can program this as follows.
+```{r}
+cf <- function(nj, Nj, sj, c0, cj) {
+  c0 + sum(nj * cj)
+}
+```
+Finally the bound on the error of estimation is 
+$$
+B = 2\sqrt{V(\hat\mu)}
+$$
+which we can program as follows using the `vf` function to compute $V(\hat\mu)$.
+```{r}
+bf <- function(nj, Nj, sj, c0, cj) {
+  2 * sqrt(vf(nj, Nj, sj, c0, cj))
+}
+```
+Now we are ready for the constrained optimization to compute optimum allocations. Here I will replicate the examples from lecture for the sword fern survey using the following data.
+```{r, echo = FALSE}
+d <- data.frame(Stratum = 1:2, Region = c("Forest","Prairie"), Ni = c(30,87), ni = c(8,5),
+  mi = c(287,11.3), si = c(149.1,16.8))
+d$Region <- as.character(d$Region)
+d <- rbind(d, c("","",117,13,"",""))
+names(d)[3:6] <- c("$N_j$","$n_j$","$\\bar{y}_j$","$s_j$")
+ktbl(d)
+```
+
+## Minimizing Cost for a Fixed Bound
+
+First consider the problem of minimizing the cost of the survey for a fixed bound on the error of estimation of $B$ = 20 $g/m^2$. We can find the solution as follows using the function `solnp` from the **Rsolnp** package.
+```{r}
+tmp <- solnp(pars = c(5,5), fun = cf, eqfun = bf, eqB = 20,
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))
+tmp$par
+```
+This may require a bit of explanation. The first argument `par` are "starting values" for the two sample sizes. These need not be the actual sample sizes for the optimum allocation. They are just "rough guesses" to get the algorithm started. The argument `fun` is the function for what we are minimizing, which is the cost of the survey. The argument `eqfun` is the function for what we want to fix (an equality constraint), which is the bound on the error of estimation. The argument `eqB` is the value we want to fix (here the bound on the error of estimation). The arguments `Nj`, `sj`, `cj`, and `c0` pass some necessary information to these functions. And finally `LB` and `UB` are the lower-bound and upper-bound to the sample sizes for the optimum allocation. These are not needed here since the sample sizes for the optimum allocation are both between two and the strata sizes, but this is how those constraints would be included. Notice that the solution shown using `tmp$par` is within rounding error of what was found in lecture.
+
+## Minimizing the Bound for a Fixed Cost
+
+Now consider the problem of minimizing the bound on the error of estimation for a fixed total cost of $C$ = 100 and an overhead cost of $c_0$ = 20. This can be done as follows.
+```{r}
+tmp <- solnp(pars = c(5,5), fun = bf, eqfun = cf, eqB = 100,
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))
+tmp$par
+```
+Note that all that has changed is the function defining what we are minimizing (`bf`), the function for what we are fixing (`cf`), and the value we are fixing (`eqB`). Again, the solution is within rounding error of what we found in lecture. 
+
+## Other Optimum Allocation Problems
+
+The numerical approach is useful in that it can be applied to other optimum allocation problems. Suppose we want to minimize the cost of the survey but subject to *two* restrictions: (1) the bound on the error of estimation for $\mu$ must be no larger than 20 $g/m^2$, and the bound on the error of estimation for $\mu_f$ (i.e., the mean for the forest stratum) must be no larger than 50 $g/m^2$. To do this first we program a function to compute *both* bounds which are returned as a vector of two numbers.
+```{r}
+bf <- function(nj, Nj, sj, c0, cj) {
+  bfor <- 2 * sqrt((1 - nj[1]/Nj[1]) * sj[1]^2 / nj[1])  
+  ball <- 2 * sqrt(vf(nj, Nj, sj, c0, cj))
+  c(bfor, ball)
+}
+```
+Next we use the `ineqfun` argument of `solnp` instead of the `eqfun` argument, and specify the upper bound and lower bound on the bounds on the errors of estimation using the `ineqLB` and `ineqUB` arguments.
+```{r}
+tmp <- solnp(pars = c(5,5), fun = cf, ineqfun = bf, 
+  ineqLB = c(0, 0), ineqUB = c(50,20),
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))
+tmp$par
+```
+Note that if we remove the upper bound on the bound on the error of estimation of $\mu_f$ by setting it to $\infty$ we get what we had before.
+```{r}
+tmp <- solnp(pars = c(5,5), fun = cf, ineqfun = bf, 
+  ineqLB = c(0, 0), ineqUB = c(Inf,20),
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))
+tmp$par
+```
+Here is another example. Suppose we also planned to make inferences about a *second* target variable from the same survey (i.e., from the same sampled quadrats). Perhaps it is the biomass of another species of plant. And assume that we guess that the stratum standard deviations for this variable are 20 and 40 in the forest and prairie strata, respectively. Finally assume that we want to design a survey that will estimate these parameters with bounds on the error of estimation no larger than 20 for the mean biomass for sword fern, and 10 for the mean biomass for the other plant species. We can write a function to compute both of these bounds as follows.
+```{r}
+bf <- function(nj, Nj, sj1, sj2, c0, cj) {
+  b1 <- 2 * sqrt(vf(nj, Nj, sj1, c0, cj))  
+  b2 <- 2 * sqrt(vf(nj, Nj, sj2, c0, cj))
+  c(b1, b2)
+}
+```
+Note that we needed to add an extra argument since we have two sets of standard deviations. The `solnp` function requires that all functions have the same set of arguments (even if they are not used by a given function) so we need to rewrite the cost function even though cost does not depend on the standard deviations.
+```{r}
+cf <- function(nj, Nj, sj1, sj2, c0, cj) {
+  c0 + sum(nj * cj)
+}
+```
+For this example we will assume the same costs, although we might imagine it could be higher given that we are observing the biomass of an extra species. Here is how we can numerically find the optimum allocation for this problem.
+```{r}
+tmp <- solnp(pars = c(5,5), fun = cf, ineqfun = bf, 
+  ineqLB = c(0, 0), ineqUB = c(20,10),
+  Nj = c(30,87), sj1 = c(149.1,16.8), sj2 = c(20,40), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))
+tmp$par
+```
+Note that if the costs were different for the different species we could incorporate that into cost function. We might use something like this.
+```{r}
+cf <- function(nj, Nj, sj1, sj2, c0, cj1, cj2) {
+  c0 + sum(nj * cj1) + sum(nj * cj2) 
+}
+```
+This assumes a cost function of the form
+$$
+  C = c_0 + \sum_{j=1}^L n_jc_{j1} + \sum_{j = 1}^L n_jc_{j2},
+$$
+where $c_{j1}$ and $c_{j2}$ is the cost per quadrat for the sword fern and the other plant species, respectively. 
+

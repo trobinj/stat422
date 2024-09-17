@@ -1,0 +1,45 @@
+---
+title: "Syllabus for Survey Sampling Methods (Stat 422)"
+subtitle: "Johnson, Fall 2024"
+output: 
+  html_document: 
+    theme: readable
+urlcolor: blue
+fontsize: 11pt
+header-includes:
+- \pagenumbering{gobble}
+---
+
+`r ifelse(knitr::is_html_output(), "You can also download a [PDF](syllabus.pdf) copy of this syllabus.", "")`
+
+\raggedright
+  
+**Instructor**: Dr.\ Timothy R. Johnson, Professor of Statistics, Department of Mathematics and Statistical Science. Email: <trjohns@uidaho.edu>. Office phone: 208-885-2928. Department phone: 208-885-6742. My office is [Brink 417](https://goo.gl/maps/zcpTXzbPCGWGj7tM9). Office hours are by appointment, but you are welcome to drop-in without an appointment. I can meet in person or over Zoom. 
+
+**Learning Outcomes**: The primary learning outcome for this course is a familiarity with design and inference for complex sampling designs. This includes but is not limited to simple, stratified, and cluster probability sampling designs, sample size selection and allocation, ratio and regression estimators, domain estimation, post-stratification, unequal probability sampling, double sampling, weighting and calibration, the use of auxiliary variables in sampling designs and estimation, and abundance estimation. The focus is largely on design-based methods, although model-based and model-assisted methods may also be discussed. Students will also be introduced to software procedures for implementing some of the sampling designs and statistical analyses discussed.
+
+**Prerequisites**: Stat 251 or Stat 301 with a grade of 'C' or better.
+
+**Textbook**: There is no textbook for this course. Lecture (notes) will be your primary source.
+
+**Software**: I will be using [R](https://www.r-project.org) with [RStudio](https://www.rstudio.com) for some demonstrations. Both software packages are free and available for download for a variety of operating systems. Prior experience with R and RStudio is not assumed.
+
+**Course Website**: Many course materials including lecture notes, homework assignments, study guides, this syllabus, and other materials can be found at [trobinj.github.io/stat422](https://trobinj.github.io/stat422). Note that this is separate from [Canvas](http://canvas.uidaho.edu), which will only be used for examination scores. Canvas does have a link to the course website.
+
+**Homework**: Homework assignments be made available periodically on the [course website](https://trobinj.github.io/stat422) (see the [lectures](https://trobinj.github.io/stat422/lectures) section). Homework assignments will not be collected or graded. Some computational problems in the examinations are based on homework problems (although the numbers may be changed in some cases) so it is highly recommended that you have worked through the homework problems before each examination and have your solutions handy as well as an understanding of how to arrive at those solutions.
+
+**Examinations**: There are four examinations. The first three examinations will be administered on 9/20, 10/21, and 11/22 during the normal lecture time. These dates may be postponed if unforeseen circumstances delay progression through the material in lecture. A fourth comprehensive final examination will be administered during the final examination time of Friday, December 13, from 12:45 to 2:45. The fourth and final examination may not be taken at another time unless, as according to university policy, you have more than two final examinations on that day, or a conflict with a documented university sanctioned event. Notice of a missed examination due to a foreseeable absence must be given *at least one week before* the scheduled day of the examination. Notice of a missed examination due to unforeseeable absence must be made *before the end of the day* for which the examination was scheduled. If I contact you to schedule a make-up a examination you must respond *promptly* (i.e., the same day) or you may not be able to make up the examination. You will have the full class session (50 minutes) for the first three examinations, and two hours for the fourth examination. The format of the examinations will be a mixture of short answer and multiple choice questions. Study guides will be provided for each examination in the [lectures](https://trobinj.github.io/stat422/lectures) section of the course website. The examinations are open-notes (print only, no computer access will be allowed during the examinations), and a calculator is recommended. Note that while the examinations are open-notes, you should not count on having enough time to look everything up so be sure to be adequately prepared for the examinations. **Please note that the third examination is on the Friday before fall recess, and the final examination is on the Friday of the week of finals so plan accordingly**. 
+
+**Grading**: Your grade in this course is based on the four examinations. Each examination is weighted equally regardless of the number of points on the examination. Final grades will be assigned according to the following rubric: A (87.5%-100%), B (75%-87.5%), C (62.5%-75%), D (50%-62.5%), F (less than 50%). Any changes to this grading system will not result in lower scores/grades for any students. 
+
+**Statistics Assistance Center**: Please **do not** request assistance from the [Statistics Assistance Center (SAC)](https://www.uidaho.edu/sci/stat/about/sac) for this course. The SAC is **not** designed or funded to support Stat 422. 
+
+**Academic Honesty**: You are responsible for being aware of the policies of the University of Idaho on academic honesty. See Section A-1 of Article II of the [Student Code of Conduct](http://www.uidaho.edu/student-affairs/dean-of-students/student-conduct/student-code-of-conduct). This includes but is not limited to cheating, facilitation of cheating, and furnishing false information or false representation. Breaches of academic honesty will not be tolerated, and will result in a F for the course and referral to the Dean of Students for further disciplinary action.
+
+**Disability Access and Resources**: University of Idaho is committed to ensuring an accessible learning environment where course or instructional content are usable by all students and faculty. If you believe that you require disability-related academic adjustments for this class (including pregnancy-related disabilities), please contact Center for Disability Access and Resources (CDAR) to discuss eligibility. A current accommodation letter from CDAR is required before any modifications, above and beyond what is otherwise available for all other students in this class will be provided. Please be advised that disability-related academic adjustments are not retroactive. CDAR is located at the Bruce Pitman Building, Suite 127. Phone is 208-885-6307 and e-mail is <cdar@uidaho.edu>. For a complete listing of services and current business hours visit [www.uidaho.edu/current-students/cdar](https://www.uidaho.edu/current-students/cdar).
+
+**Title IX**: University of Idaho is committed to creating a safe learning environment for all students. Consistent with this, UI policy and Title IX prohibit sexual misconduct, which includes sex or gender based harassment, sexual assault, intimate partner violence, stalking, and retaliation. If you have experienced any form of sexual misconduct, know that help and support are available. Please be aware that all University of Idaho employees are mandatory reporters and are required to report any information they receive about sexual misconduct to the university’s Title IX Coordinator within 24 hours (Idaho State Board Policy, Section I, I.T.). Visit [www.uidaho.edu/ocri/title-nine/resources](http://www.uidaho.edu/ocri/title-nine/resources) to learn more about which resources on campus and within our community are confidential. If you would like to report an incident, you may do so anonymously by visiting [www.uidaho.edu/vandalcare](https://www.uidaho.edu/vandalcare) or you can directly contact the Office of Civil Rights and Investigations at 208-885-4285 or <ocri@uidaho.edu>. 
+
+
+
+

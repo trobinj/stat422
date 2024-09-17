@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Aug 23</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Aug 23</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-08-23-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="sampling-distributions-continued" class="section level2">
+<h2>Sampling Distributions — Continued</h2>
+<strong>Example</strong>: Suppose we have a population of <span
+class="math inline">\(N\)</span> = 4 elements where the target variable
+values are 1, 2, 2, and 7. The table below shows the <strong>sample
+space</strong> for a simple random sampling design with <span
+class="math inline">\(n\)</span> = 2 as well as the values of the
+estimators. <span class="math inline">\(\hat\tau\)</span> and <span
+class="math inline">\(\bar{y}\)</span> for each sample.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Sample
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\hat\tau\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2}\}\)</span>
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{3}\}\)</span>
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{4}\}\)</span>
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+4.0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\{\mathcal{E}_{2},\mathcal{E}_{3}\}\)</span>
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+2.0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\{\mathcal{E}_{2},\mathcal{E}_{4}\}\)</span>
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+4.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\{\mathcal{E}_{3},\mathcal{E}_{4}\}\)</span>
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+4.5
+</td>
+</tr>
+</tbody>
+</table>
+Note that a <strong>sample space</strong> is simply the set of all
+possible samples. Here there are 6 samples in the sample space. The
+table below shows the <em>sampling distributions</em> of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span>.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\hat\tau\)</span>
+</th>
+<th style="text-align:center;">
+Probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1/3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2.0
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.0
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.5
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+1/3
+</td>
+</tr>
+</tbody>
+</table>
+<p>The figures below show the sampling distributions of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span>.
+<img src="lecture-08-23-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<strong>Example</strong>: Suppose now we have a population of <span
+class="math inline">\(N\)</span> = 10 elements where the target variable
+values are 2, 3, 3, 4, 5, 6, 6, 9, 10, and 10. The table below shows the
+(abbreviated) <strong>sample space</strong> for a simple random sampling
+design with <span class="math inline">\(n\)</span> = 4 as well as the
+values of the estimators <span class="math inline">\(\hat\tau\)</span>
+and <span class="math inline">\(\bar{y}\)</span> for each sample.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Sample
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\hat\tau\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{4}\}\)</span>
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{5}\}\)</span>
+</td>
+<td style="text-align:center;">
+32.5
+</td>
+<td style="text-align:center;">
+3.25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{6}\}\)</span>
+</td>
+<td style="text-align:center;">
+35
+</td>
+<td style="text-align:center;">
+3.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{7}\}\)</span>
+</td>
+<td style="text-align:center;">
+35
+</td>
+<td style="text-align:center;">
+3.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{8}\}\)</span>
+</td>
+<td style="text-align:center;">
+42.5
+</td>
+<td style="text-align:center;">
+4.25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{9}\}\)</span>
+</td>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:center;">
+4.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{3},\mathcal{E}_{10}\}\)</span>
+</td>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:center;">
+4.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{1},\mathcal{E}_{2},\mathcal{E}_{4},\mathcal{E}_{5}\}\)</span>
+</td>
+<td style="text-align:center;">
+35
+</td>
+<td style="text-align:center;">
+3.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span
+class="math inline">\(\{\mathcal{E}_{7},\mathcal{E}_{8},\mathcal{E}_{9},\mathcal{E}_{10}\}\)</span>
+</td>
+<td style="text-align:center;">
+87.5
+</td>
+<td style="text-align:center;">
+8.75
+</td>
+</tr>
+</tbody>
+</table>
+Here there are 210 samples in the sample space. The table below shows
+the <em>sampling distributions</em> of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span>.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\hat\tau\)</span>
+</th>
+<th style="text-align:center;">
+Probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+3.00
+</td>
+<td style="text-align:center;">
+30.0
+</td>
+<td style="text-align:center;">
+0.0047619
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3.25
+</td>
+<td style="text-align:center;">
+32.5
+</td>
+<td style="text-align:center;">
+0.0047619
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3.50
+</td>
+<td style="text-align:center;">
+35.0
+</td>
+<td style="text-align:center;">
+0.0190476
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3.75
+</td>
+<td style="text-align:center;">
+37.5
+</td>
+<td style="text-align:center;">
+0.0238095
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.00
+</td>
+<td style="text-align:center;">
+40.0
+</td>
+<td style="text-align:center;">
+0.0285714
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.25
+</td>
+<td style="text-align:center;">
+42.5
+</td>
+<td style="text-align:center;">
+0.0333333
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.50
+</td>
+<td style="text-align:center;">
+45.0
+</td>
+<td style="text-align:center;">
+0.0476190
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4.75
+</td>
+<td style="text-align:center;">
+47.5
+</td>
+<td style="text-align:center;">
+0.0476190
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.00
+</td>
+<td style="text-align:center;">
+50.0
+</td>
+<td style="text-align:center;">
+0.0666667
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.25
+</td>
+<td style="text-align:center;">
+52.5
+</td>
+<td style="text-align:center;">
+0.0904762
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.50
+</td>
+<td style="text-align:center;">
+55.0
+</td>
+<td style="text-align:center;">
+0.0857143
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5.75
+</td>
+<td style="text-align:center;">
+57.5
+</td>
+<td style="text-align:center;">
+0.0809524
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6.00
+</td>
+<td style="text-align:center;">
+60.0
+</td>
+<td style="text-align:center;">
+0.0857143
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6.25
+</td>
+<td style="text-align:center;">
+62.5
+</td>
+<td style="text-align:center;">
+0.0714286
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6.50
+</td>
+<td style="text-align:center;">
+65.0
+</td>
+<td style="text-align:center;">
+0.0523810
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6.75
+</td>
+<td style="text-align:center;">
+67.5
+</td>
+<td style="text-align:center;">
+0.0619048
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7.00
+</td>
+<td style="text-align:center;">
+70.0
+</td>
+<td style="text-align:center;">
+0.0666667
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7.25
+</td>
+<td style="text-align:center;">
+72.5
+</td>
+<td style="text-align:center;">
+0.0428571
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7.50
+</td>
+<td style="text-align:center;">
+75.0
+</td>
+<td style="text-align:center;">
+0.0285714
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7.75
+</td>
+<td style="text-align:center;">
+77.5
+</td>
+<td style="text-align:center;">
+0.0238095
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8.00
+</td>
+<td style="text-align:center;">
+80.0
+</td>
+<td style="text-align:center;">
+0.0142857
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8.25
+</td>
+<td style="text-align:center;">
+82.5
+</td>
+<td style="text-align:center;">
+0.0047619
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8.50
+</td>
+<td style="text-align:center;">
+85.0
+</td>
+<td style="text-align:center;">
+0.0047619
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8.75
+</td>
+<td style="text-align:center;">
+87.5
+</td>
+<td style="text-align:center;">
+0.0095238
+</td>
+</tr>
+</tbody>
+</table>
+<p>The figures below show the sampling distributions of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span>.
+<img src="lecture-08-23-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="means-and-variances-of-random-variables"
+class="section level2">
+<h2>Means and Variances of Random Variables</h2>
+<p>If we have a <em>discrete</em> random variable <span
+class="math inline">\(X\)</span>, then the <strong>mean</strong> of that
+random variable (also called its <em>expectation</em> or <em>expected
+value</em>) is <span class="math display">\[
+  E(X) = \sum_x xP(x),
+\]</span> where the <span class="math inline">\(x\)</span> below <span
+class="math inline">\(\sum\)</span> indicates that we sum over all
+values of <span class="math inline">\(x\)</span>.</p>
+<p><strong>Example</strong>: We can easily confirm that based on the
+sampling distributions for the smaller population above that <span
+class="math inline">\(E(\bar{y}) =\)</span> 3 and <span
+class="math inline">\(E(\hat\tau) =\)</span> 12.</p>
+<p>But there is a shortcut if we use simple random sampling. For
+<em>any</em> simple random sampling design, <em>it can be shown
+that</em> <span class="math inline">\(E(\bar{y}) = \mu\)</span> and
+<span class="math inline">\(E(\hat\tau) = \tau\)</span>. When the mean
+of an estimator equals what is being estimated, then we say that the
+estimator is an <strong>unbiased</strong> estimator (otherwise the
+estimator is a <strong>biased</strong> estimator).<a href="#fn1"
+class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><strong>Warning</strong>: We have discussed <em>two</em> distinct
+means here: the population mean (<span
+class="math inline">\(\mu\)</span>), and the mean of an estimator —
+e.g., <span class="math inline">\(E(\bar{y})\)</span> and <span
+class="math inline">\(E(\hat\tau)\)</span>. Don’t confuse them!</p>
+<div style="page-break-after: always;"></div>
+<p>If we have a discrete random variable <span
+class="math inline">\(X\)</span>, then the <strong>variance</strong> of
+that random variable is <span class="math display">\[
+  \text{V}(X) = \sum_x [x - E(X)]^2P(x).
+\]</span> <strong>Example</strong>: We can easily confirm that based on
+the sampling distributions for the smaller population above that <span
+class="math inline">\(\text{V}(\bar{y}) \approx\)</span> 1.83 and <span
+class="math inline">\(\text{V}(\hat\tau) \approx\)</span> 29.33.</p>
+<p>It can be shown that <em>under simple random sampling</em> that the
+variances can be computed as <span class="math display">\[
+  \text{V}(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n} \ \
+\ \text{and} \ \ \
+  \text{V}(\hat\tau) = N^2\left(1 -
+\frac{n}{N}\right)\frac{\sigma^2}{n},
+\]</span> where <span class="math inline">\(\sigma^2\)</span> is the
+<em>population variance</em> <span class="math display">\[
+  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i - \mu)^2,
+\]</span> and where <span class="math inline">\(\mu\)</span> is the
+population mean.<a href="#fn2" class="footnote-ref"
+id="fnref2"><sup>2</sup></a></p>
+<p><strong>Example</strong>: For the smaller population above <span
+class="math inline">\(\sigma^2 =\)</span> 7.33, and for the larger
+population <span class="math inline">\(\sigma^2 \approx\)</span> 8.84.
+What are <span class="math inline">\(\text{V}(\bar{y})\)</span> and
+<span class="math inline">\(\text{V}(\hat\tau)\)</span> for each
+design?</p>
+<p><strong>Warning</strong>: We’ve discussed <em>two</em> distinct
+variances here: the <em>population variance</em> (<span
+class="math inline">\(\sigma^2\)</span>) and the <em>variance of an
+estimator</em> — e.g., <span
+class="math inline">\(\text{V}(\bar{y})\)</span> and <span
+class="math inline">\(\text{V}(\hat\tau)\)</span>. Don’t confuse
+them!</p>
+<div style="page-break-after: always;"></div>
+<p>How do <span class="math inline">\(n\)</span> and <span
+class="math inline">\(N\)</span> affect the variance of these
+estimators?
+<img src="lecture-08-23-2024_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The <strong>finite population correction</strong> (FPC) is the term
+<span class="math inline">\(1 - n/N\)</span> in <span
+class="math display">\[
+  \text{V}(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n} \ \
+\ \text{and} \ \ \
+  \text{V}(\hat\tau) = N^2\left(1 -
+\frac{n}{N}\right)\frac{\sigma^2}{n}.
+\]</span> The term <span class="math inline">\(n/N\)</span> is the
+<strong>sampling fraction</strong> (i.e., the fraction of elements in
+the population that are in the sample).</p>
+<ol style="list-style-type: decimal">
+<li><p>When is the finite population correction largely “irrelevant” to
+the variance of <span class="math inline">\(\bar{y}\)</span> or <span
+class="math inline">\(\hat\tau\)</span>?</p></li>
+<li><p>A <strong>census</strong> is when every element in the population
+is included within the sample so that <span class="math inline">\(n =
+N\)</span>. What happens to the variance of our estimators in a
+census?</p></li>
+<li><p>In practice we sometimes do not know <span
+class="math inline">\(N\)</span>. What can we do in these
+situations?</p></li>
+</ol>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>The proof that <span
+class="math inline">\(\hat\tau\)</span> is unbiased is not very
+complicated. We need to show that <span
+class="math inline">\(E(\hat\tau) = \tau\)</span>. Note that we can
+write <span class="math inline">\(\hat\tau\)</span> a different way as
+<span class="math display">\[
+\hat\tau = \frac{N}{n}\sum_{i=1}^N Z_iy_i
+\]</span> where <span class="math inline">\(Z_i = 1\)</span> if the
+<span class="math inline">\(i\)</span>-th element in the population is
+<em>included</em> in the sample, and <span class="math inline">\(Z_i =
+0\)</span> otherwise. Now we need to show that <span
+class="math display">\[
+E(\hat\tau) = E\left(\frac{N}{n}\sum_{i=1}^NZ_iy_i\right).
+\]</span> From the properties of expectations we can write this as <span
+class="math display">\[
+E(\hat\tau) = \frac{N}{n}\sum_{i=1}^NE(Z_i)y_i.
+\]</span> Now <span class="math inline">\(Z_i\)</span> has what is
+sometimes called a <a
+href="https://en.wikipedia.org/wiki/Bernoulli_distribution">Bernoulli
+distribution</a>, and it can be shown that <span
+class="math inline">\(E(Z_i) = P(Z_i = 1)\)</span> which we know is the
+inclusion probability, <span class="math inline">\(n/N\)</span>, since
+<span class="math inline">\(Z_i = 1\)</span> if and only if the <span
+class="math inline">\(i\)</span>-th element is included in the sample.
+So we have <span class="math display">\[
+E(\hat\tau) = \frac{N}{n}\sum_{i=1}^N\frac{n}{N}y_i = \sum_{i=1}^N y_i =
+\tau.
+\]</span> Note that <span class="math inline">\(\sum_{i=1}^N \frac{n}{N}
+y_i = \frac{n}{N}\sum_{i=1}^N y_i\)</span>. Also it can be shown that
+this result implies that <span class="math inline">\(E(\bar{y}) =
+\mu\)</span>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>The proof that these are the variances of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span> are a bit more involved than
+that of the unbiasedness of <span class="math inline">\(\bar{y}\)</span>
+and <span class="math inline">\(\hat\tau\)</span>, but I can show them
+to you if you are interested. Some textbooks will define <span
+class="math inline">\(\sigma^2\)</span> by dividing by <span
+class="math inline">\(N\)</span> instead of <span
+class="math inline">\(N-1\)</span>. This can be done but it changes the
+formulas for <span class="math inline">\(V(\bar{y})\)</span> and <span
+class="math inline">\(V(\hat\tau)\)</span> in a way that I find awkward
+for later developments. In terms of our interpretation of <span
+class="math inline">\(\sigma^2\)</span> this is inconsequential since we
+rarely care about <span class="math inline">\(\sigma^2\)</span> in
+isolation and the difference between <span
+class="math inline">\(N\)</span> and <span
+class="math inline">\(N-1\)</span> is very small when <span
+class="math inline">\(N\)</span> is large which is frequently the case
+in survey sampling.<a href="#fnref2"
+class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

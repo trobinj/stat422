@@ -1,0 +1,151 @@
+---
+title: "Lectures"
+output: 
+  html_document: 
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, message = FALSE}
+library(lubridate)
+d <- dmy("19-08-2024","21-08-2024","23-08-2024") + rep(7 * c(0:17), each = 3)
+d <- paste(wday(d, label = TRUE, abbr = TRUE), ", ", month(d, label = TRUE), " ", day(d), ".", sep = "")
+i <- 0
+```
+
+&nbsp;
+
+`r i <- i + 1; d[i]` [Introduction, fundamental concepts: elements, sampling units, populations, samples, sampling designs](lecture-08-19-2024.html).
+
+`r i <- i + 1; d[i]` [Simple random sampling, inferences for population totals and means when using simple random sampling, sampling distributions](lecture-08-21-2024.html). 
+
+`r i <- i + 1; d[i]` [Sampling distributions --- continued, sampling distributions $\bar{y}$ and $\hat\tau$ under SRS](lecture-08-23-2024.html). A [homework assignment on simple random sampling](hw-srs.html) is now available. After today's lecture you should be able to do the first section titled "Sampling Distributions". 
+ 
+***
+
+`r i <- i + 1; d[i]` [Sampling with replacement, interpreting sampling distributions, margin of error, confidence intervals, variance estimation](lecture-08-26-2024.html).
+
+`r i <- i + 1; d[i]` [Simulation studies, categorical target variables, and domain estimators](lecture-08-28-2024.html).
+
+`r i <- i + 1; d[i]` [Sample size selection, summary of SRS](lecture-08-30-2024.html).
+ 
+***
+
+`r i <- i + 1; d[i]` Labor Day.
+
+`r i <- i + 1; d[i]` [Introduction to stratified random sampling](lecture-09-04-2024.html). A [set of homework problems](hw-stratified.html) concerning stratified random sampling is now available. After today's lecture should be able to do the problems that ask you to compute estimates and bounds on the error of estimation after this lecture. 
+
+`r i <- i + 1; d[i]` [Optimum allocation for stratified random sampling](lecture-09-06-2024.html). The [study guide](e1-studyguide.html) for the first examination is also now available.
+ 
+***
+
+`r i <- i + 1; d[i]` [Optimum allocation -- continued, stratified versus simple random sampling, design effect and effective sample size](lecture-09-09-2024.html).
+
+`r i <- i + 1; d[i]` [Optimum stratification, double sampling with stratification](lecture-09-11-2024.html).
+
+`r i <- i + 1; d[i]` [Post-stratification, survey weights and reweighting](lecture-09-13-2024.html). 
+ 
+***
+
+`r i <- i + 1; d[i]` [Inferences concerning stratum parameters when using stratified random sampling](lecture-09-16-2024.html).
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` **First examination**. 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` **Second examination**.
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+ 
+`r i <- i + 1; d[i]` 
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` **Third examination**.
+ 
+***
+
+`r i <- i + 1; d[i]` Fall recess.
+ 
+`r i <- i + 1; d[i]` Fall recess. 
+
+`r i <- i + 1; d[i]` Fall recess.
+ 
+***
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+`r i <- i + 1; d[i]` 
+
+***
+
+Friday, Dec 15. **Final examination**, 12:45 to 2:45 PM.
+
+

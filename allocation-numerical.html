@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Numerical Optimum Allocation</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Numerical Optimum Allocation</h1>
+
+</div>
+
+
+<p>In class we discussed formulas for computing the sample sizes for
+optimum allocation for a stratified random sampling design. These
+formulas can be derived <em>analytically</em> using calculus and what
+are called Lagrange multipliers. Another approach is to solve the
+optimum allocation problem <em>numerically</em> by computer. This has a
+couple of advantages. One is that it lets us avoid having to do
+mathematical derivations which can be difficult, time-consuming, and
+error-prone. Of course, we do not need to re-do the derivations for
+optimum allocation for the cases we discussed in class since we already
+have the equations, but we would if we were to (a) consider a different
+estimator with a different variance or (b) a different cost function.
+Another advantage is that the numerical approach allows us to find a
+solution where the sample sizes are constrained such that <span
+class="math inline">\(2 \le n_j \le N_j\)</span>.</p>
+<p>Optimum allocation is a constrained optimization problem. There are
+several R packages available for solving such problems. Here I will
+demonstrate using the package <strong>Rsolnp</strong>. First we need to
+install and load the package.</p>
+<pre class="r"><code>install.packages(&quot;Rsolnp&quot;)
+library(Rsolnp)</code></pre>
+<p>Note that you only need to install the package via
+<code>install.packages</code> once per installation of R on a given
+computer. This downloads the package and installs it. But the
+<code>library</code> command needs to be used each time you restart R to
+make its contents available (namely the <code>solnp</code> function we
+will be using below).</p>
+<div id="functions-for-computing-bounds-and-cost"
+class="section level2">
+<h2>Functions for Computing Bounds and Cost</h2>
+<p>Next we need to program functions functions to compute the variance
+of an estimator, the cost of the survey (if we want to have a fixed
+cost), and/or the bound on the error of estimation (if we want to have a
+fixed bound). Recall that the variance of <span
+class="math inline">\(\hat\mu\)</span> is <span class="math display">\[
+  V(\hat\mu) = \frac{1}{N^2}\sum_{j=1}^L N_j^2\left(1 -
+\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j}.
+\]</span> We can program a function <code>vf</code> to compute the
+variance of <span class="math inline">\(\hat\mu\)</span>.</p>
+<pre class="r"><code>vf &lt;- function(nj, Nj, sj, c0, cj) {
+  1 / sum(Nj)^2 * sum(Nj^2 * (1 - nj / Nj) * sj^2 / nj)
+}</code></pre>
+<p>Here <code>nj</code>, <code>Nj</code>, and <code>sj</code> represent
+the <span class="math inline">\(n_j\)</span>, <span
+class="math inline">\(N_j\)</span>, and <span
+class="math inline">\(\sigma_j\)</span> for the <span
+class="math inline">\(L\)</span> strata, respectively. But what might be
+confusing is that each of these variables represent the quantities for
+<em>all</em> strata — i.e., the <code>nj</code> represents <span
+class="math inline">\(n_1, n_2, \dots, n_L\)</span>. These are what are
+sometimes called vectors or (one-dimensional) arrays. R supports
+“vectorized” calculations where we can effectively program calculations
+on sets of values at once. Something else that may be confusing is that
+I have included as arguments to the function <code>c0</code> and
+<code>cj</code> which represent what we called <span
+class="math inline">\(c_0\)</span> and <span
+class="math inline">\(c_j\)</span> for the cost of the survey. The
+variance is not a function of either of these quantities, but they are
+included here because the function we will use for the constrained
+optimization requires that every function passed to it has the same
+arguments.</p>
+<p>Recall that we defined the cost of a survey as <span
+class="math display">\[
+  C = c_0 + \sum_{j=1}^L n_j c_j.
+\]</span> We can program this as follows.</p>
+<pre class="r"><code>cf &lt;- function(nj, Nj, sj, c0, cj) {
+  c0 + sum(nj * cj)
+}</code></pre>
+<p>Finally the bound on the error of estimation is <span
+class="math display">\[
+B = 2\sqrt{V(\hat\mu)}
+\]</span> which we can program as follows using the <code>vf</code>
+function to compute <span class="math inline">\(V(\hat\mu)\)</span>.</p>
+<pre class="r"><code>bf &lt;- function(nj, Nj, sj, c0, cj) {
+  2 * sqrt(vf(nj, Nj, sj, c0, cj))
+}</code></pre>
+Now we are ready for the constrained optimization to compute optimum
+allocations. Here I will replicate the examples from lecture for the
+sword fern survey using the following data.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Stratum
+</th>
+<th style="text-align:center;">
+Region
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_j\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Forest
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+287
+</td>
+<td style="text-align:center;">
+149.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+Prairie
+</td>
+<td style="text-align:center;">
+87
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+11.3
+</td>
+<td style="text-align:center;">
+16.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+117
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="minimizing-cost-for-a-fixed-bound" class="section level2">
+<h2>Minimizing Cost for a Fixed Bound</h2>
+<p>First consider the problem of minimizing the cost of the survey for a
+fixed bound on the error of estimation of <span
+class="math inline">\(B\)</span> = 20 <span
+class="math inline">\(g/m^2\)</span>. We can find the solution as
+follows using the function <code>solnp</code> from the
+<strong>Rsolnp</strong> package.</p>
+<pre class="r"><code>tmp &lt;- solnp(pars = c(5,5), fun = cf, eqfun = bf, eqB = 20,
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))</code></pre>
+<pre><code>
+Iter: 1 fn: 60.0301  Pars:  8.63482 5.49076
+Iter: 2 fn: 70.4930  Pars:  10.84835  7.09957
+Iter: 3 fn: 72.5197  Pars:  11.28601  7.37569
+Iter: 4 fn: 72.5719  Pars:  11.29723  7.38298
+Iter: 5 fn: 72.5719  Pars:  11.29724  7.38298
+Iter: 6 fn: 72.5719  Pars:  11.29724  7.38298
+solnp--&gt; Completed in 6 iterations</code></pre>
+<pre class="r"><code>tmp$par</code></pre>
+<pre><code>[1] 11.297240  7.382985</code></pre>
+<p>This may require a bit of explanation. The first argument
+<code>par</code> are “starting values” for the two sample sizes. These
+need not be the actual sample sizes for the optimum allocation. They are
+just “rough guesses” to get the algorithm started. The argument
+<code>fun</code> is the function for what we are minimizing, which is
+the cost of the survey. The argument <code>eqfun</code> is the function
+for what we want to fix (an equality constraint), which is the bound on
+the error of estimation. The argument <code>eqB</code> is the value we
+want to fix (here the bound on the error of estimation). The arguments
+<code>Nj</code>, <code>sj</code>, <code>cj</code>, and <code>c0</code>
+pass some necessary information to these functions. And finally
+<code>LB</code> and <code>UB</code> are the lower-bound and upper-bound
+to the sample sizes for the optimum allocation. These are not needed
+here since the sample sizes for the optimum allocation are both between
+two and the strata sizes, but this is how those constraints would be
+included. Notice that the solution shown using <code>tmp$par</code> is
+within rounding error of what was found in lecture.</p>
+</div>
+<div id="minimizing-the-bound-for-a-fixed-cost" class="section level2">
+<h2>Minimizing the Bound for a Fixed Cost</h2>
+<p>Now consider the problem of minimizing the bound on the error of
+estimation for a fixed total cost of <span
+class="math inline">\(C\)</span> = 100 and an overhead cost of <span
+class="math inline">\(c_0\)</span> = 20. This can be done as
+follows.</p>
+<pre class="r"><code>tmp &lt;- solnp(pars = c(5,5), fun = bf, eqfun = cf, eqB = 100,
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))</code></pre>
+<pre><code>
+Iter: 1 fn: 13.9135  Pars:  17.19128 11.23487
+Iter: 2 fn: 13.9135  Pars:  17.19128 11.23487
+solnp--&gt; Completed in 2 iterations</code></pre>
+<pre class="r"><code>tmp$par</code></pre>
+<pre><code>[1] 17.19128 11.23487</code></pre>
+<p>Note that all that has changed is the function defining what we are
+minimizing (<code>bf</code>), the function for what we are fixing
+(<code>cf</code>), and the value we are fixing (<code>eqB</code>).
+Again, the solution is within rounding error of what we found in
+lecture.</p>
+</div>
+<div id="other-optimum-allocation-problems" class="section level2">
+<h2>Other Optimum Allocation Problems</h2>
+<p>The numerical approach is useful in that it can be applied to other
+optimum allocation problems. Suppose we want to minimize the cost of the
+survey but subject to <em>two</em> restrictions: (1) the bound on the
+error of estimation for <span class="math inline">\(\mu\)</span> must be
+no larger than 20 <span class="math inline">\(g/m^2\)</span>, and the
+bound on the error of estimation for <span
+class="math inline">\(\mu_f\)</span> (i.e., the mean for the forest
+stratum) must be no larger than 50 <span
+class="math inline">\(g/m^2\)</span>. To do this first we program a
+function to compute <em>both</em> bounds which are returned as a vector
+of two numbers.</p>
+<pre class="r"><code>bf &lt;- function(nj, Nj, sj, c0, cj) {
+  bfor &lt;- 2 * sqrt((1 - nj[1]/Nj[1]) * sj[1]^2 / nj[1])  
+  ball &lt;- 2 * sqrt(vf(nj, Nj, sj, c0, cj))
+  c(bfor, ball)
+}</code></pre>
+<p>Next we use the <code>ineqfun</code> argument of <code>solnp</code>
+instead of the <code>eqfun</code> argument, and specify the upper bound
+and lower bound on the bounds on the errors of estimation using the
+<code>ineqLB</code> and <code>ineqUB</code> arguments.</p>
+<pre class="r"><code>tmp &lt;- solnp(pars = c(5,5), fun = cf, ineqfun = bf, 
+  ineqLB = c(0, 0), ineqUB = c(50,20),
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))</code></pre>
+<pre><code>
+Iter: 1 fn: 65.2111  Pars:  9.91073 5.56818
+Iter: 2 fn: 81.8148  Pars:  14.62208  3.32651
+Iter: 3 fn: 87.0642  Pars:  16.18818  2.31150
+Iter: 4 fn: 87.6445  Pars:  16.27386  2.54904
+Iter: 5 fn: 87.6670  Pars:  16.27406  2.57071
+Iter: 6 fn: 87.6671  Pars:  16.27406  2.57087
+Iter: 7 fn: 87.6671  Pars:  16.27406  2.57087
+solnp--&gt; Completed in 7 iterations</code></pre>
+<pre class="r"><code>tmp$par</code></pre>
+<pre><code>[1] 16.274063  2.570867</code></pre>
+<p>Note that if we remove the upper bound on the bound on the error of
+estimation of <span class="math inline">\(\mu_f\)</span> by setting it
+to <span class="math inline">\(\infty\)</span> we get what we had
+before.</p>
+<pre class="r"><code>tmp &lt;- solnp(pars = c(5,5), fun = cf, ineqfun = bf, 
+  ineqLB = c(0, 0), ineqUB = c(Inf,20),
+  Nj = c(30,87), sj = c(149.1,16.8), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))</code></pre>
+<pre><code>
+Iter: 1 fn: 71.0980  Pars:   6.57210 24.80965
+Iter: 2 fn: 71.6839  Pars:   9.29049 14.52193
+Iter: 3 fn: 72.9552  Pars:  10.53017 10.83449
+Iter: 4 fn: 71.9678  Pars:  11.04156  7.80152
+Iter: 5 fn: 72.5300  Pars:  11.28917  7.37329
+Iter: 6 fn: 72.5719  Pars:  11.29727  7.38286
+Iter: 7 fn: 72.5719  Pars:  11.29724  7.38297
+Iter: 8 fn: 72.5719  Pars:  11.29724  7.38298
+solnp--&gt; Completed in 8 iterations</code></pre>
+<pre class="r"><code>tmp$par</code></pre>
+<pre><code>[1] 11.297240  7.382984</code></pre>
+<p>Here is another example. Suppose we also planned to make inferences
+about a <em>second</em> target variable from the same survey (i.e., from
+the same sampled quadrats). Perhaps it is the biomass of another species
+of plant. And assume that we guess that the stratum standard deviations
+for this variable are 20 and 40 in the forest and prairie strata,
+respectively. Finally assume that we want to design a survey that will
+estimate these parameters with bounds on the error of estimation no
+larger than 20 for the mean biomass for sword fern, and 10 for the mean
+biomass for the other plant species. We can write a function to compute
+both of these bounds as follows.</p>
+<pre class="r"><code>bf &lt;- function(nj, Nj, sj1, sj2, c0, cj) {
+  b1 &lt;- 2 * sqrt(vf(nj, Nj, sj1, c0, cj))  
+  b2 &lt;- 2 * sqrt(vf(nj, Nj, sj2, c0, cj))
+  c(b1, b2)
+}</code></pre>
+<p>Note that we needed to add an extra argument since we have two sets
+of standard deviations. The <code>solnp</code> function requires that
+all functions have the same set of arguments (even if they are not used
+by a given function) so we need to rewrite the cost function even though
+cost does not depend on the standard deviations.</p>
+<pre class="r"><code>cf &lt;- function(nj, Nj, sj1, sj2, c0, cj) {
+  c0 + sum(nj * cj)
+}</code></pre>
+<p>For this example we will assume the same costs, although we might
+imagine it could be higher given that we are observing the biomass of an
+extra species. Here is how we can numerically find the optimum
+allocation for this problem.</p>
+<pre class="r"><code>tmp &lt;- solnp(pars = c(5,5), fun = cf, ineqfun = bf, 
+  ineqLB = c(0, 0), ineqUB = c(20,10),
+  Nj = c(30,87), sj1 = c(149.1,16.8), sj2 = c(20,40), cj = c(4,1), c0 = 20,
+  LB = c(2,2), UB = c(30,87))</code></pre>
+<pre><code>
+Iter: 1 fn: 63.1206  Pars:   8.05885 10.88514
+Iter: 2 fn: 78.1108  Pars:   9.77870 18.99605
+Iter: 3 fn: 85.2743  Pars:  10.08816 24.92167
+Iter: 4 fn: 86.8187  Pars:  10.10637 26.39319
+Iter: 5 fn: 86.8804  Pars:  10.10684 26.45306
+Iter: 6 fn: 86.8805  Pars:  10.10684 26.45315
+Iter: 7 fn: 86.8805  Pars:  10.10684 26.45315
+solnp--&gt; Completed in 7 iterations</code></pre>
+<pre class="r"><code>tmp$par</code></pre>
+<pre><code>[1] 10.10684 26.45315</code></pre>
+<p>Note that if the costs were different for the different species we
+could incorporate that into cost function. We might use something like
+this.</p>
+<pre class="r"><code>cf &lt;- function(nj, Nj, sj1, sj2, c0, cj1, cj2) {
+  c0 + sum(nj * cj1) + sum(nj * cj2) 
+}</code></pre>
+<p>This assumes a cost function of the form <span
+class="math display">\[
+  C = c_0 + \sum_{j=1}^L n_jc_{j1} + \sum_{j = 1}^L n_jc_{j2},
+\]</span> where <span class="math inline">\(c_{j1}\)</span> and <span
+class="math inline">\(c_{j2}\)</span> is the cost per quadrat for the
+sword fern and the other plant species, respectively.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

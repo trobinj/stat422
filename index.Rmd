@@ -1,0 +1,20 @@
+---
+title: "Statistics 422 (Survey Sampling Methods)"
+output: 
+  html_document: 
+    theme: readable
+---
+
+This site contains materials for Dr. Tim Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho for the fall semester of 2024.
+
+***
+
+<center>
+
+![https://xkcd.com/552](http://imgs.xkcd.com/comics/correlation.png)
+</center>
+
+***
+
+The [Rmarkdown](https://rmarkdown.rstudio.com/) source files for everything on this website can be viewed at [https://github.com/trobinj/stat516/tree/gh-pages](https://github.com/trobinj/stat422/tree/gh-pages). These are the files with the .Rmd extension.
+

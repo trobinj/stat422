@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wednesday, Aug 21</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Wednesday, Aug 21</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-08-21-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<p>A <strong>simple random sampling</strong> design with a sample size
+of <span class="math inline">\(n\)</span> is one in which <em>every
+possible sample of <span class="math inline">\(n\)</span> distinct
+elements has the same probability of being selected</em>.</p>
+<p><strong>Example</strong>: Suppose we had the population <span
+class="math inline">\(\mathcal{P} =
+\left\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4\right\}\)</span>.
+What is the simple random sampling design if <span
+class="math inline">\(n\)</span> = 2?</p>
+<p><span class="math display">\[\begin{align*}
+\mathcal{S}_1 &amp; = \left\{\mathcal{E}_1,\mathcal{E}_2\right\}
+\hspace{1cm} P(\mathcal{S}_1) = 1/6 \\
+\mathcal{S}_2 &amp; = \left\{\mathcal{E}_1,\mathcal{E}_3\right\}
+\hspace{1cm} P(\mathcal{S}_2) = 1/6 \\
+\mathcal{S}_3 &amp; = \left\{\mathcal{E}_1,\mathcal{E}_4\right\}
+\hspace{1cm} P(\mathcal{S}_3) = 1/6 \\
+\mathcal{S}_4 &amp; = \left\{\mathcal{E}_2,\mathcal{E}_3\right\}
+\hspace{1cm} P(\mathcal{S}_4) = 1/6 \\
+\mathcal{S}_5 &amp; = \left\{\mathcal{E}_2,\mathcal{E}_4\right\}
+\hspace{1cm} P(\mathcal{S}_5) = 1/6 \\
+\mathcal{S}_6 &amp; = \left\{\mathcal{E}_3,\mathcal{E}_4\right\}
+\hspace{1cm} P(\mathcal{S}_6) = 1/6 \\
+\end{align*}\]</span></p>
+<p>What if <span class="math inline">\(n\)</span> = 3?</p>
+<p><span class="math display">\[\begin{align*}
+\mathcal{S}_1 &amp; =
+\left\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3\right\} \hspace{1cm}
+P(\mathcal{S}_1) = 1/4 \\
+\mathcal{S}_2 &amp; =
+\left\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_4\right\} \hspace{1cm}
+P(\mathcal{S}_2) = 1/4 \\
+\mathcal{S}_3 &amp; =
+\left\{\mathcal{E}_1,\mathcal{E}_3,\mathcal{E}_4\right\} \hspace{1cm}
+P(\mathcal{S}_3) = 1/4 \\
+\mathcal{S}_4 &amp; =
+\left\{\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4\right\} \hspace{1cm}
+P(\mathcal{S}_4) = 1/4 \\
+\end{align*}\]</span></p>
+<p>Why <em>simple</em> random sampling?</p>
+<ol style="list-style-type: decimal">
+<li>A good place to start for didactic purposes.</li>
+<li>A “baseline” sampling design against which to compare “complex”
+sampling designs.</li>
+<li>A “building block” for <em>complex</em> sampling designs.</li>
+</ol>
+<p>A <strong>complex sampling design</strong> is essentially any
+probability sampling design other than simple random sampling!</p>
+<div id="methods-of-selecting-a-simple-random-sample"
+class="section level3">
+<h3>Methods of Selecting a Simple Random Sample</h3>
+<ol style="list-style-type: decimal">
+<li><p>Complete enumeration. Create a table of all possible samples and
+select one at random. Impractical unless the number of possible samples
+is small.</p></li>
+<li><p>Draw-by-draw selection. Select this first element at random such
+that each element has a probability of <span
+class="math inline">\(1/N\)</span> of being selected. Then select the
+second element at random from the remaining <span
+class="math inline">\(N-1\)</span> elements such that each of these has
+a probability of <span class="math inline">\(1/(N-1)\)</span> of being
+selected. And so on.</p></li>
+<li><p>Random sort. Assign to each element a random number between, say,
+0 and 1. Sort the elements by the value of that random variable and
+select the <span class="math inline">\(n\)</span> elements with the
+largest (or smallest) value of that random variable.</p></li>
+</ol>
+<p>There are many others.</p>
+</div>
+<div id="properties-of-simple-random-sampling" class="section level3">
+<h3>Properties of Simple Random Sampling</h3>
+<ol style="list-style-type: decimal">
+<li><p>Let <span class="math inline">\(N\)</span> denote the number of
+sampling units (elements) in the population. For a simple random
+sampling design with sample size <span class="math inline">\(n\)</span>
+the number of possible samples is <span class="math display">\[
+  \binom{N}{n} = \frac{N!}{n!(N-n)!}.
+\]</span> This is the number of <a
+href="https://en.wikipedia.org/wiki/Combination">combinations</a>. The
+<a href="https://en.wikipedia.org/wiki/Factorial">factorial</a> is
+defined as <span class="math inline">\(x! = x \times (x-1) \times (x-2)
+\times \cdots \times 1\)</span> where <span
+class="math inline">\(x\)</span> is any positive integer, and <span
+class="math inline">\(0! = 1\)</span>.<a href="#fn1"
+class="footnote-ref" id="fnref1"><sup>1</sup></a></p></li>
+<li><p>The probability of each sample is <span class="math display">\[
+  P(\mathcal{S}_i) = \frac{1}{\binom{N}{n}}.
+\]</span> for every sample.</p></li>
+<li><p>Simple random sampling is a type of <strong>element
+sampling</strong> meaning that the sampling units are the elements so
+that <span class="math inline">\(\mathcal{U}_1 =
+\left\{\mathcal{E}_1\right\}, \mathcal{U}_2 =
+\left\{\mathcal{E}_2\right\}, \dots, \mathcal{U}_N =
+\left\{\mathcal{E}_N\right\}\)</span>.</p></li>
+<li><p>Sampling is done <em>without replacement</em> meaning that each
+element can only appear in the sample once. If it is possible for the
+same element to appear in the sample more than once then we are sampling
+<em>with replacement</em> (more on that later).</p></li>
+<li><p>Every element has the same <em>inclusion probability</em> of
+<span class="math inline">\(\pi_i = \frac{n}{N}\)</span>.<a href="#fn2"
+class="footnote-ref" id="fnref2"><sup>2</sup></a> The <strong>inclusion
+probability</strong> of an element, denoted as <span
+class="math inline">\(\pi_i\)</span>, is the <em>probability that the
+element will be included within the selected sample</em>.</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="inference-for-population-totals-and-means"
+class="section level2">
+<h2>Inference for Population Totals and Means</h2>
+<p>Assume simple random sampling design with a population of <span
+class="math inline">\(N\)</span> elements. Let <span
+class="math inline">\(y_1, y_2, \dots, y_N\)</span> be the values of the
+target variable for elements <span class="math inline">\(\mathcal{E}_1,
+\mathcal{E}_2, \dots, \mathcal{E}_N\)</span> respectively.</p>
+<p>The <em>population total</em> (<span
+class="math inline">\(\tau\)</span>) is <span class="math display">\[
+  \tau = y_1 + y_2 + \dots + y_N = \sum_{i=1}^N y_i,
+\]</span> and the <em>population mean</em> (<span
+class="math inline">\(\mu\)</span>) is <span class="math display">\[
+  \mu = \frac{y_1 + y_2 + \dots + y_N}{N} = \frac{1}{N}\sum_{i=1}^N y_i.
+\]</span> Clearly the two parameters are clearly related in that <span
+class="math inline">\(\mu = \tau/N\)</span> and <span
+class="math inline">\(\tau = N\mu\)</span>.</p>
+<p>Note: Quantities that directly describe the population of elements
+are sometimes called <strong>parameters</strong>.</p>
+<p>To estimate <span class="math inline">\(\mu\)</span> we
+<em>might</em> use the sample mean which can be written as <span
+class="math display">\[
+  \bar{y} = \frac{1}{n} \sum_{i \in \mathcal{S}} y_i,
+\]</span> where <span class="math inline">\(i \in \mathcal{S}\)</span>
+denotes the set of indices of the elements included in the sample
+(sometimes called an <em>index set</em>). An example might be <span
+class="math inline">\(\mathcal{S} = \{2,3,9\}\)</span> denoting the
+second, third, and ninth elements in the population.</p>
+<p>An alternative notation assumes that we rearrange the indices so that
+the first <span class="math inline">\(n\)</span> elements are the
+elements in the sample so that the values of the target variable for the
+sampled elements are <span class="math inline">\(y_1, y_2, \dots,
+y_n\)</span>. In the example above <span
+class="math inline">\(y_2\)</span> would become <span
+class="math inline">\(y_1\)</span>, <span
+class="math inline">\(y_3\)</span> would become <span
+class="math inline">\(y_2\)</span>, and <span
+class="math inline">\(y_9\)</span> would become <span
+class="math inline">\(y_3\)</span>. Then we can write the sample mean as
+<span class="math display">\[
+  \bar{y} = \frac{1}{n} \sum_{i=1}^n y_i.
+\]</span> In the example above the mean would then be computed as <span
+class="math display">\[
+  \bar{y} = \frac{1}{3}(y_1 + y_2 + y_3).
+\]</span></p>
+<p>An <em>estimator</em> of <span class="math inline">\(\tau\)</span> is
+<span class="math display">\[
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{or} \ \
+\
+  \hat\tau = \frac{N}{n}\sum_{i=1}^n y_i,
+\]</span> depending on what system of notation we are using. This is
+sometimes called the “expansion estimator” because we “expand” the sum
+for the sample to estimate the sum for the population.<a href="#fn3"
+class="footnote-ref" id="fnref3"><sup>3</sup></a> Note that because
+<span class="math display">\[
+  \bar{y} = \frac{1}{n} \sum_{i \in \mathcal{S}} y_i \ \ \ \text{or} \ \
+\
+  \bar{y} = \frac{1}{n} \sum_{i = 1}^n y_i,
+\]</span> then we can also write <span class="math inline">\(\hat\tau =
+N\bar{y}\)</span>. One way to motivate this estimator is to use the fact
+that <span class="math inline">\(\tau = N\mu\)</span> and replace <span
+class="math inline">\(\mu\)</span> with its estimator <span
+class="math inline">\(\bar{y}\)</span>.</p>
+<p>Note: Quantities computed from a sample of observations are sometimes
+called <strong>statistics</strong>.</p>
+<p>Note: It would make sense to write <span
+class="math inline">\(\hat\mu\)</span> for the estimator of <span
+class="math inline">\(\mu\)</span> rather than as <span
+class="math inline">\(\bar{y}\)</span> because we write <span
+class="math inline">\(\hat\tau\)</span> as the estimator for <span
+class="math inline">\(\tau\)</span>, but <span
+class="math inline">\(\bar{y}\)</span> is a common convention when the
+estimator for <span class="math inline">\(\mu\)</span> is the sample
+mean.</p>
+<p>Note: In statistics we make a distinction between an
+<strong>estimator</strong> and an <strong>estimate</strong>. The
+<em>estimator</em> is basically the formula like <span
+class="math inline">\(\hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}}
+y_i\)</span> whereas an <em>estimate</em> is a specific value based on a
+sample of observations such as <span
+class="math inline">\(\hat\tau\)</span> = 3.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="sampling-distributions" class="section level2">
+<h2>Sampling Distributions</h2>
+<p>The <strong>sampling distribution</strong> of an estimator is its
+probability distribution (i.e., the possible estimates produced by the
+estimator and their probabilities).</p>
+<p><strong>Example</strong>: Suppose <span
+class="math inline">\(\mathcal{P} =
+\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4\}\)</span>,
+<span class="math inline">\(y_1\)</span> = 1, <span
+class="math inline">\(y_2\)</span> = 2, <span
+class="math inline">\(y_3\)</span> = 2, and <span
+class="math inline">\(y_4\)</span> = 7, and assume a simple random
+sampling design with <span class="math inline">\(n\)</span> = 2. What is
+the sampling distribution of <span
+class="math inline">\(\hat\tau\)</span>? What if <span
+class="math inline">\(n\)</span> = 3?</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Many scientific calculators and computing programs
+include a function to compute the number of combinations. In R the
+function is <code>choose</code>. For example, the number of samples of
+size <span class="math inline">\(n\)</span> = 3 from a population of
+<span class="math inline">\(N\)</span> = 20 for a simple random sampling
+design is computed as <code>choose(20,3)</code> which gives 1140.<a
+href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>To see why consider that the number of samples that
+include the <span class="math inline">\(i\)</span>-th element equals the
+total number of samples minus the number of samples that
+<em>exclude</em> the <span class="math inline">\(i\)</span>-th element,
+which is <span class="math display">\[
+  \binom{N}{n} - \binom{N-1}{n}.
+\]</span> Each of these samples has a probability of <span
+class="math display">\[
+  \frac{1}{\binom{N}{n}},
+\]</span> and so the probability of observing any one of those samples
+is obtained by summing the probability of each of these samples across
+the samples that include the <span class="math inline">\(i\)</span>-th
+element, or simply multiplying the two terms above together since all
+samples have the same probability. Doing this and simplifying by writing
+out the factorials and canceling-out common factors gives <span
+class="math inline">\(n/N\)</span>.<a href="#fnref2"
+class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Note that we would expect the ratio of the sample and
+population totals to approximately equal the ratio of the number of
+elements contributing to the total, so that <span
+class="math display">\[
+  \frac{\sum_{i \in \mathcal{S}} y_i}{\tau} \approx \frac{n}{N}
+\Rightarrow
+  \tau \approx \frac{N}{n} \sum_{i \in \mathcal{S}} y_i,
+\]</span> and so we “expand” (i.e., or maybe “inflate”) the sample total
+by a factor of <span class="math inline">\(N/n\)</span> to attempt to
+(approximately) match the population total.<a href="#fnref3"
+class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

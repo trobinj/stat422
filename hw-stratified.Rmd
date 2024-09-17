@@ -1,0 +1,140 @@
+---
+title: "Stratified Random Sampling Homework"
+output:
+  html_document: 
+    theme: readable
+header-includes:
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r packages, message = FALSE}
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](hw-stratified.pdf) copy of this document.", sep = ""), "")`
+
+## Estimation and Allocation
+
+```{r}
+Nj <- c(300,500,200); N <- sum(Nj)
+nj <- c(50,100,50); n <- sum(nj)
+mj <- c(80,70,50)
+sj <- c(10,15,20)
+
+d <- data.frame(Level = c("High","Medium","Low"), Nj = Nj,
+  nj = nj, mj = mj, sj = sj)
+names(d)[2:5] <- c("$N_j$","$n_j$","$\\bar{y}_j$","$s_j$")
+```
+
+Educational psychologists wanted to know the mean performance on a cognitive test for the `r N` students at a school. The test is expensive and time-consuming and so it was decided to administer the test to only a sample of students and to use these data to estimate the mean test score for all students at the school. A sample of `r n` students was selected using stratified random sampling. The strata were defined by classifying the students as high-, medium-, or low-achieving students based on other test scores that were on record for all students at the school. The `r n` sampled students were given administered the cognitive test. The table below shows the number of students in each stratum, the number of students sampled from each stratum, and the mean and standard deviation of the test scores of the students that were sampled from each stratum.
+```{r}
+ktbl(d, align = c("l","c","c","c","c"))
+```
+Use this information to answer the following questions.
+
+```{r}
+mu <- sum(Nj/N * mj)
+vm <- sum((Nj/N)^2 * (1 - nj/Nj) * sj^2/nj)
+```
+
+1. Confirm that the estimate of the mean test score for all of the students at the school is `r sum(Nj/N * mj)`, that the estimate of the variance of the estimator used to obtain this estimate is `r rnd(vm,2)`, that the standard error is `r rnd(sqrt(vm),2)`, that the bound on the error of estimation is `r rnd(2*sqrt(vm),2)`, and so the confidence interval for the mean test score for all students at the school is approximately `r sum(Nj/N * mj)` $\pm$ `r round(2*sqrt(vm),2)`. 
+
+```{r}
+Nj <- c(400,600,300); N <- sum(Nj)
+cj <- c(20,20,20)
+
+aj <- Nj*sj/sqrt(cj) / sum(Nj*sj/sqrt(cj))
+B <- 1
+nj <- aj * sum(Nj*sj/sqrt(cj)) * sum(Nj*sj*sqrt(cj)) / (N^2 * B^2/4 + sum(Nj*sj^2))
+```
+
+0. The survey described above was conducted several years ago. The educational psychologists are planning a new survey this year. The composition of the school has changed slightly. The school has grown to a total of `r N` students. Of these, `r Nj[1]` are classified as high-achieving, `r Nj[2]` are classified as medium-achieving, and `r Nj[3]` are classified as low-achieving students. Assume that it costs \$`r cj[1]` to test one student, regardless of their achievement level. Confirm that the optimum allocation for a fixed bound on the error of estimation of one point (i.e., $B$ = 1) would be to sample `r rnd(nj[1])` high-achieving students, `r rnd(nj[2])` medium-achieving students, and `r rnd(nj[3])` low-achieving students.
+
+```{r}
+C <- 10000
+c0 <- 2000
+nj <- aj * (C - c0) * sum(Nj*sj/sqrt(cj)) / sum(Nj*sj*sqrt(cj))
+```
+
+0. It was determined that the allocation found in the previous problem was too expensive. In addition to a cost of \$`r cj[1]` per tested student, there is an overhead cost of \$`r c0` for the specialists administering the test. Confirm that the optimum allocation for a fixed total cost of \$`r format(C, scientific = FALSE)` would be to sample `r rnd(nj[1])` high-achieving students, `r rnd(nj[2])` medium-achieving students, and `r rnd(nj[3])` low-achieving students.
+
+```{r}
+Nj <- c(400,100); N <- sum(Nj)
+nj <- c(50,50); n <- sum(nj)
+mj <- c(100,25)
+sj <- c(10,5)
+```
+
+Forestry researchers conducted a survey to estimate the number of trees of a particular species in a region of forest. They used a stratified random sampling design. The region had been divided into `r N` units, each with an area of one hectare. Each unit had also been classified as either "low-elevation" or "high-elevation" based on the average elevation within each unit. A total of `r Nj[1]` units were classified as low-elevation, and `r Nj[2]` units were classified as high-elevation. The researchers selected `r nj[1]` low-elevation units using simple random sampling, and sent teams out to count the number of trees in each sampled unit. The average number of trees per sampled low-elevation unit was `r mj[1]` trees, and the standard deviation was `r sj[1]` trees. The researchers also selected `r nj[2]` high-elevation units using simple random sampling, and sent teams out to count the number of trees in each of these sampled units. The average number of trees per sampled high-elevation unit was `r mj[2]` trees, and the standard deviation was `r sj[2]` trees.
+
+```{r}
+mu <- sum(Nj * mj)
+vm <- sum(Nj^2 * (1 - nj/Nj) * sj^2/nj)
+```
+
+1. Confirm that the estimate of the total number of trees in the region is `r format(sum(Nj*mj), scientific = FALSE)` trees, that the estimate of the variance of the estimator used to obtain this estimate is `r format(rnd(vm), scientific = FALSE)`, that the standard error is `r rnd(sqrt(vm))` trees, that the bound on the error of estimation is `r rnd(2*sqrt(vm))` trees, and that the confidence interval for the total number of trees in the region is approximately `r format(sum(Nj*mj), scientific = FALSE)` $\pm$ `r round(2*sqrt(vm))` trees.
+
+```{r}
+Nj <- c(300,700); N <- sum(Nj)
+cj <- c(20,10)
+aj <- Nj*sj/sqrt(cj) / sum(Nj*sj/sqrt(cj))
+B <- 1000
+nj <- aj * sum(Nj*sj/sqrt(cj)) * sum(Nj*sj*sqrt(cj)) / (N^2 * B^2/(4*N^2) + sum(Nj*sj^2))
+```
+
+0. The forestry researchers are planning another survey in a similar forest region using stratified random sampling. This region has a total of `r N` one-hectare units, of which `r Nj[1]` are low-elevation and `r Nj[2]` are high-elevation. They estimate that the cost to survey a low-elevation unit is \$`r cj[1]` and the cost to survey a high-elevation unit is \$`r cj[2]` (high-elevation units are cheaper despite being less accessible because they tend to be more sparse with respect to flora and so faster to survey). Confirm that the optimum allocation for a fixed bound on the error of estimation of `r B` trees is to sample `r rnd(nj[1])` low-elevation units and `r rnd(nj[2])` high-elevation units.
+
+```{r}
+C <- 5000
+c0 <- 0
+nj <- aj * (C - c0) * sum(Nj*sj/sqrt(cj)) / sum(Nj*sj*sqrt(cj))
+```
+
+0. Consider the previous problem where the forestry researchers are planning a new survey. Assume that the researchers can spend \$`r C` on the survey, but they only need to pay for surveying the units so there is no overhead cost (any overhead cost will be paid for out of a separate budget). Confirm that the optimum allocation for a fixed total cost of \$`r C` is to sample `r rnd(nj[1])` low-elevation units and `r rnd(nj[2])` high-elevation units.
+
+## Design Effect and Effective Sample Size
+
+```{r}
+v.srs <- 10
+v.str <- 8
+v.cls <- 16
+n <- 1000
+```
+
+Consider the problem of estimating the parameter $\mu$ using one of three designs: simple random sampling, stratified random sampling, and cluster sampling (which we will talk about later in the course). Each are based on a total sample size of $n$ = `r n` elements. Assume we can compute (or at least estimate) the variance of the estimator of $\mu$ for each of the three designs. The variances of the estimator under simple random sampling, stratified random sampling, and cluster sampling are $V_{\tiny\mbox{srs}}(\hat\mu)$ = `r v.srs`, $V_{\tiny\mbox{strat}}(\hat\mu)$ = `r v.str`, and $V_{\tiny\mbox{clus}}(\hat\mu)$ = `r v.cls`, respectively. The stratified and cluster sampling designs are the *complex* sampling designs. Confirm that the *design effects* of the stratified and cluster sampling designs are `r v.str/v.srs` and `r v.cls/v.srs`, respectively. Also confirm that the *effective sample sizes* of the stratified and cluster sampling designs are `r n*v.srs/v.str` and `r n*v.srs/v.cls`, respectively. 
+
+## Double Sampling 
+
+```{r}
+n <- c(145,246,109)
+```
+
+Consider the previous example where educational psychologists wanted to know the mean performance on a cognitive test for the 1000 students at a school. In that example they had used the students' scores on other tests to stratify them into high-, medium-, and low-achieving students. To avoid confusion such a test will be referred to as the *stratifying test* as opposed to the *cognitive test* which is the focus of the survey. But now suppose that the educational psychologists did not have the scores on a stratifying test. This might be because they had not taken such a test, or because the students had taken such a test but the scores were not easily obtainable because they were in separate files and so would require excessive effort to obtain for all students at the school. So the researchers use a double sampling design. In the first phase of sampling a sample of `r sum(n)` students was selected using simple random sampling. Stratifying test scores were then obtained for these students (either by testing these students or by going through their files) to classify them as high-, medium-, and low-achieving students. In that sample `r n[1]` students were classified as high-achieving, `r n[2]` were classified as medium-achieving, and `r n[3]` were classified as low-achieving. Then a stratified random sampling design was applied to the sample of `r sum(n)` students, using approximate proportional allocation. The results of this survey are summarized in the table below.
+```{r}
+ni <- round(n/sum(n) * 200)
+mi <- c(78,72,55)
+si <- c(11,14,22)
+d <- data.frame(Level = c("High","Medium","Low"), ni = ni, mi = mi, si = si)
+names(d)[2:4] <- c("$n_j$","$\\bar{y}_j$","$s_j$")
+ktbl(d, align = c("l","c","c","c"))
+```
+Confirm that the estimate of the mean score on the cognitive test of all students at the school is `r rnd(crossprod(n/sum(n), mi)[1])`.
+
+```{r}
+N <- 500
+n <- c(77,23)
+ni <- c(40,20)
+mi <- c(96,28)
+si <- c(12,4)
+```
+
+Consider the previous example were forestry researchers were conducting a survey to estimate the number of trees of a particular species in a region of forest divided into a total of `r N` units. Recall that they used elevation to stratify the units of forest. Now suppose that the elevation data were not available, so the researchers used a double sampling design to observe the elevation data in the field. First a simple random sample of `r sum(n)` units was selected and field crews were sent to each unit to quickly inspect it and classify it as low-elevation or high-elevation. They classified `r n[1]` units as low-elevation and `r n[2]` as high-elevation. They then obtained a stratified random sample of these sampled units by obtaining a simple random sample of `r ni[1]` of the low-elevation units, and a simple random sample of `r ni[2]` of the high-elevation units. For these `r sum(ni)` sampled units field crews counted the number of trees. The mean number of trees per unit was `r mi[1]` trees in the low-elevation units, and `r mi[2]` trees in the high-elevation units. Confirm that the estimate of the total number of trees in the region is then `r rnd(N * crossprod(n/sum(n), mi)[1])` trees.

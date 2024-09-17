@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wednesday, Aug 28</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Wednesday, Aug 28</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-08-28-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="simulation-monte-carlo-studies" class="section level2">
+<h2>Simulation (Monte Carlo) Studies</h2>
+<p>Simulation studies can be used to study sampling distributions of
+estimators. They are an empirical “brute-force” approach that can be
+used when analytical results are difficult or impossible to obtain. They
+work by simulating a survey many times to generate an <em>empirical</em>
+distribution of the estimates that approximates the <em>theoretical</em>
+probability distribution.</p>
+<p><strong>Example</strong>: Consider a simple random sampling design
+with a population of <span class="math inline">\(N\)</span> = 3000
+elements/units (incarcerated men). The target variable is the length of
+the left middle finger in centimeters. The sample size is <span
+class="math inline">\(n\)</span> = 25. This population has a mean of
+<span class="math inline">\(\mu\)</span> <span
+class="math inline">\(\approx\)</span> 11.55 cm and a variance of <span
+class="math inline">\(\sigma^2\)</span> <span
+class="math inline">\(\approx\)</span> 0.3 cm. This implies that the
+sampling distribution of <span class="math inline">\(\bar{y}\)</span>
+has a mean of <span class="math display">\[
+E(\bar{y}) = \mu = 11.55 \ \text{cm}
+\]</span> and a standard deviation (i.e., standard error) of <span
+class="math display">\[
+  \sqrt{V(\bar{y})} = \sqrt{\left(1 -
+\frac{n}{N}\right)\frac{\sigma^2}{n}} = \sqrt{\left(1 -
+\frac{25}{3000}\right)\frac{0.3}{25}} \approx 0.11 \ \text{cm}.
+\]</span> Now suppose we <em>simulate</em> the survey 10000 times using
+the R code below.</p>
+<pre class="r"><code>set.seed(123)       # random number generator seed 
+library(SDaA)       # package that includes the data
+library(ggplot2)    # package for plotting
+n &lt;- 25             # desired sample size
+r &lt;- 10000          # number of samples to simulate
+ybar &lt;- rep(NA, r)  # vector/array to store the estimates
+for (i in 1:r) {    # repeatedly select samples using SRS and compute estimate
+  samp &lt;- sample(anthrop$finger, n) 
+  ybar[i] &lt;- mean(samp)  
+}
+mean(ybar) # mean of 10000 estimates</code></pre>
+<pre><code>[1] 11.54726</code></pre>
+<pre class="r"><code>sd(ybar)   # standard deviation of 10000 estimates</code></pre>
+<pre><code>[1] 0.1104406</code></pre>
+<pre class="r"><code>ggplot(data.frame(ybar), aes(x = ybar)) + theme_minimal() +
+  geom_histogram(color = &quot;black&quot;, fill = grey(0.8)) +
+  labs(x = &quot;Sample Mean&quot;, y = &quot;Frequency&quot;)</code></pre>
+<p><img src="lecture-08-28-2024_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
+The bound on the error of estimation is 0.22 cm. What proportion of the
+estimates from our simulation are within 0.22 cm of <span
+class="math inline">\(\mu\)</span>?</p>
+<pre class="r"><code>mean(abs(ybar - 11.5) &lt; 0.22)</code></pre>
+<pre><code>[1] 0.9289</code></pre>
+<div style="page-break-after: always;"></div>
+<p>Here is the distribution of the absolute error of estimation — i.e.,
+<span class="math inline">\(|\bar{y} - \mu|\)</span> from the
+simulation.</p>
+<pre class="r"><code>ggplot(data.frame(ybar), aes(x = abs(ybar - 11.5))) + theme_minimal() +
+  geom_histogram(color = &quot;black&quot;, fill = grey(0.8), boundary = 0) +
+  labs(x = &quot;Absolute Error&quot;, y = &quot;Frequency&quot;)</code></pre>
+<p><img src="lecture-08-28-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" />
+This distribution has a mean of approximately</p>
+<pre class="r"><code>mean(abs(ybar - 11.55))</code></pre>
+<pre><code>[1] 0.087728</code></pre>
+<p>and a 95th percentile of approximately</p>
+<pre class="r"><code>quantile(abs(ybar - 11.55), 0.95)</code></pre>
+<pre><code>  95% 
+0.218 </code></pre>
+<p>Theory tells us that the expected absolute error is about <span
+class="math display">\[
+  0.798\sqrt{V(\bar{y})} = 0.798 \times 0.11 \approx 0.089,
+\]</span> and the 95th percentile (i.e., the bound on the error of
+estimation) is <span class="math display">\[
+  2\sqrt{V(\bar{y})} = 2 \times 0.11 \approx 0.22.
+\]</span> Not too bad!</p>
+<p>Note: If you have never used R before and you’d like to try it, you
+can install R by downloading it from <a
+href="https://www.r-project.org">r-project.org</a>. I highly recommend
+that you use RStudio as your graphical user interface (GUI) to R. You
+can download it from <a href="https://www.rstudio.com">rstudio.com</a>.
+You will need to install the packages I used here. You can do that in R
+with the command:
+<code>install.packages(c("SDaA","ggplot2"))</code>.</p>
+</div>
+<div id="categorical-target-variables" class="section level2">
+<h2>Categorical Target Variables</h2>
+<p>In some cases the target variable is <em>categorical</em>. What can
+accommodate such variables through the use of <em>indicator
+variables</em>. We define <span class="math inline">\(y_i\)</span> as
+<span class="math display">\[
+  y_i =
+  \begin{cases}
+    1, &amp; \text{if the $i$-th element is in a category of interest},
+\\
+    0, &amp; \text{otherwise}.
+  \end{cases}
+\]</span> Note that <span class="math display">\[
+  \tau = \sum_{i=1}^N y_i = \text{the number of elements in population
+that are in the category},
+\]</span> and <span class="math display">\[
+  \mu = \frac{1}{N}\sum_{i=1}^N y_i = \text{the proportion of elements
+in population that are in the category}.
+\]</span> A useful result is that it can be shown that <span
+class="math inline">\(\sigma^2\)</span> is a simple function of <span
+class="math inline">\(\mu\)</span> when <span
+class="math inline">\(y_i\)</span> is an indicator variable because
+<span class="math display">\[
+  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N (y_i - \mu)^2 =
+\frac{N}{N-1}\mu(1-\mu).
+\]</span> In the sample it can be shown that <span
+class="math inline">\(\bar{y}\)</span> is the <em>proportion</em> of
+elements in the <em>sample</em> that are in the category of interest,
+and <span class="math display">\[
+  s^2 = \frac{n}{n-1}\bar{y}(1-\bar{y}).
+\]</span> To emphasize that <span class="math inline">\(\mu\)</span> and
+<span class="math inline">\(\bar{y}\)</span> are <em>proportions</em>
+they are sometimes written as <span class="math inline">\(p\)</span> and
+<span class="math inline">\(\hat{p}\)</span>, respectively.</p>
+<p><strong>Example</strong>: Suppose we wanted to estimate the
+<em>number</em> and <em>proportion</em> of students at a university of
+20000 students that own an Android mobile phone. To do this we use a
+simple random sampling design with a sample size of 100 students. In
+that sample 40 students report having an Android phone. What are our
+estimates of the number and proportion of the students at the university
+that own an Android phone, and what is the bound on the error of
+estimation for each estimator?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="domain-estimators" class="section level2">
+<h2>Domain Estimators</h2>
+<p>In survey sampling a <strong>domain</strong> is simply a subset of
+the population (i.e., a sub-population) of interest. Suppose we want to
+estimate the total (<span class="math inline">\(\tau_d\)</span>) or mean
+(<span class="math inline">\(\mu_d\)</span>) for a particular domain
+when using simple random sampling. Let <span
+class="math inline">\(N_d\)</span> be the number of the <span
+class="math inline">\(N\)</span> elements in the population are in the
+domain, and let <span class="math inline">\(n_d\)</span> be the number
+of elements in the sample of <span class="math inline">\(n\)</span>
+elements that are in the domain. Also let <span
+class="math inline">\(\bar{y}_d\)</span> be the mean for just those
+<span class="math inline">\(n_d\)</span> elements in the sample that are
+also in the domain. An estimator of <span
+class="math inline">\(\mu_d\)</span> is then simply <span
+class="math inline">\(\bar{y}_d\)</span>. But the choice of estimator of
+<span class="math inline">\(\tau_d\)</span> depends on if <em>whether or
+not we know <span class="math inline">\(N_d\)</span></em>.</p>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(N_d\)</span> is <em>known</em> then
+we can use <span class="math display">\[
+  \hat\tau_d = N_d\bar{y}_d.
+\]</span></li>
+<li>If <span class="math inline">\(N_d\)</span> is <em>unknown</em> we
+cannot use <span class="math inline">\(\hat\tau_d =
+N_d\bar{y}_d\)</span>. But we can use <span class="math display">\[
+  \hat\tau_d = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i&#39;,
+\]</span> where <span class="math inline">\(y_i&#39;\)</span> is defined
+as <span class="math display">\[
+  y_i&#39; =
+  \begin{cases}
+y_i, &amp; \text{if the $i$-th element is in the domain}, \\
+0, &amp; \text{otherwise}.
+  \end{cases}
+\]</span> We can also write this estimator as <span
+class="math display">\[
+  \hat\tau_d = \frac{N}{n}n_d\bar{y}_d
+\]</span> because <span class="math inline">\(\bar{y}_d =
+\frac{1}{n_d}\sum_{i \in \mathcal{S}} y_i&#39;\)</span>. The term <span
+class="math inline">\(\frac{N}{n}n_d\)</span> is effectively an
+<em>estimator</em> of <span class="math inline">\(N_d\)</span> (we will
+see why later when we talk about <em>ratio estimators</em>).</li>
+</ol>
+<p><strong>Example</strong>: Consider again the university of 20000
+students and suppose we define our domain as those students that own an
+Android phone. Again, using a simple random sampling design we select a
+sample of 100 students. Now suppose we want to estimate the total amount
+of money students in the domain spend on phone apps per year. In the
+sample of 100 students 40 of the students own Android phones, and we
+find that the mean amount of money those students spend on apps per year
+is 20 dollars.</p>
+<ol style="list-style-type: decimal">
+<li><p>What is our estimate of <span
+class="math inline">\(\tau_d\)</span> if we <em>know</em> that <span
+class="math inline">\(N_d\)</span> = 8600?</p></li>
+<li><p>What is our estimate of <span
+class="math inline">\(\tau_d\)</span> if we <em>do not know</em> <span
+class="math inline">\(N_d\)</span>?</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<p>How do these two estimators compare with respect to their sampling
+distributions? We could try to derive the standard errors and thus the
+bound on the error of estimation for each estimator, but instead
+consider a simulation study. Suppose we have a population of <span
+class="math inline">\(N\)</span> = 5000 elements, of which <span
+class="math inline">\(N_d\)</span> = 1000 elements are in a domain of
+interest. The total for the domain of interest is <span
+class="math inline">\(\tau_d\)</span> = 75011. We can simulate a simple
+random sampling design with a sample size of <span
+class="math inline">\(n\)</span> = 100 and estimates from two estimators
+of <span class="math inline">\(\tau_d\)</span>: <span
+class="math display">\[
+  \hat\tau_d = N_d\bar{y}_d \ \ \ \text{and} \ \ \ \hat\tau_d =
+\frac{N}{n}n_d\bar{y}_d.
+\]</span> The figure below shows the <em>empirical</em> distribution of
+the estimates from each estimator.</p>
+<p><img src="lecture-08-28-2024_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" />
+So, we have two estimators of <span
+class="math inline">\(\tau_d\)</span> when using simple random sampling?
+What are their <em>advantages</em> and <em>disadvantages</em> relative
+to each other? That is, why might we use one estimator over the
+other?</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

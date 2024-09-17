@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wednesday, Sep 4</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Wednesday, Sep 4</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-04-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="stratified-random-sampling-designs" class="section level2">
+<h2>Stratified (Random) Sampling Designs</h2>
+<p>A <strong>stratified random sampling design</strong> can be described
+as having two steps.</p>
+<ol style="list-style-type: decimal">
+<li><p>Partition the elements in the population into <span
+class="math inline">\(L\)</span> sub-populations (strata).</p></li>
+<li><p>Apply a simple random sampling design to <em>each</em>
+stratum.</p></li>
+</ol>
+<p>Stratified random sampling is a <em>complex</em> sampling design, but
+it uses simple random sampling. How?</p>
+<p><strong>Example</strong>: Suppose we have a population of <span
+class="math inline">\(N\)</span> = 5 elements: <span
+class="math inline">\(\mathcal{P} =
+\{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4,\mathcal{E}_5\}\)</span>.
+For a <em>simple</em> random sampling with <span
+class="math inline">\(n\)</span> = 3 there are <span
+class="math display">\[
+  \binom{5}{3} = 10
+\]</span> possible samples. The sample space is <span
+class="math display">\[\begin{align*}
+  \mathcal{S}_1 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3\},
+\\
+  \mathcal{S}_2 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_4\},
+\checkmark \\
+  \mathcal{S}_3 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_5\},
+\checkmark \\
+  \mathcal{S}_4 &amp; = \{\mathcal{E}_1,\mathcal{E}_3,\mathcal{E}_4\},
+\checkmark \\
+  \mathcal{S}_5 &amp; = \{\mathcal{E}_1,\mathcal{E}_3,\mathcal{E}_5\},
+\checkmark \\
+  \mathcal{S}_6 &amp; = \{\mathcal{E}_1,\mathcal{E}_4,\mathcal{E}_5\},
+\\
+  \mathcal{S}_7 &amp; = \{\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_4\},
+\checkmark \\
+  \mathcal{S}_8 &amp; = \{\mathcal{E}_2,\mathcal{E}_3,\mathcal{E}_5\},
+\checkmark \\
+  \mathcal{S}_9 &amp; = \{\mathcal{E}_2,\mathcal{E}_4,\mathcal{E}_5\},
+\\
+  \mathcal{S}_{10} &amp; =
+\{\mathcal{E}_3,\mathcal{E}_4,\mathcal{E}_5\}.
+\end{align*}\]</span> But suppose we divide these elements in the
+population into <span class="math inline">\(L\)</span> = 2 strata,
+defined as <span class="math display">\[\begin{align*}
+  \mathcal{P}_1 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3\},
+\\
+  \mathcal{P}_2 &amp; = \{\mathcal{E}_4,\mathcal{E}_5\}.
+\end{align*}\]</span> So <span class="math inline">\(N_1\)</span> = 3
+and <span class="math inline">\(N_2\)</span> = 2. For a stratified
+random sampling design with sample sizes of <span
+class="math inline">\(n_1\)</span> = 2 and <span
+class="math inline">\(n_2\)</span> = 1 (the same total number of
+elements sampled as in the simple random sampling design) there are
+<span class="math display">\[
+  \binom{3}{2} \times \binom{2}{1} = 6
+\]</span> possible samples (marked above with a <span
+class="math inline">\(\checkmark\)</span>). Note that stratified
+sampling is more <em>restrictive</em>. The sample space of a stratified
+random sampling design is a subset of that of a simple random sampling
+design with the same <span class="math inline">\(n\)</span>. Certain
+samples that are possible under simple random sampling are not possible
+under stratified random sampling, and that’s (usually) a good thing!</p>
+<p>Why use a stratified (rather than simple) random sampling design?</p>
+<ol style="list-style-type: decimal">
+<li><p>Administrative convenience.</p></li>
+<li><p>Greater control over cost.</p></li>
+<li><p>Interest in specific domains.</p></li>
+<li><p>More representative samples.</p></li>
+</ol>
+</div>
+<div id="properties-of-a-stratified-random-sampling-design"
+class="section level2">
+<h2>Properties of a Stratified Random Sampling Design</h2>
+<ol style="list-style-type: decimal">
+<li><p>Let <span class="math inline">\(N_j\)</span> be the number of
+elements in the <span class="math inline">\(j\)</span>-th stratum, and
+let <span class="math inline">\(n_j\)</span> be the number of elements
+sampled from the <span class="math inline">\(j\)</span>-th stratum. The
+number of possible samples is <span class="math display">\[
+  \binom{N_1}{n_1} \times \binom{N_2}{n_2} \times \cdots \times
+\binom{N_L}{n_L}.
+\]</span> This is <em>less</em> than the number of possible samples
+under simple random sampling when applied to the same population with
+the same (total) sample size of <span class="math inline">\(n = n_1 +
+n_2 + \dots + n_L\)</span>.</p></li>
+<li><p>Each sample in the sample space has a probability of <span
+class="math display">\[
+  \frac{1}{\binom{N_1}{n_1} \times \binom{N_2}{n_2} \times \cdots \times
+\binom{N_L}{n_L}}.
+\]</span> So like simple random sampling every possible sample is
+equally likely, but in stratified random sampling the set of possible
+samples (i.e., the sample space) is smaller.</p></li>
+<li><p>The inclusion probability of an element <em>depends on its
+stratum</em>. If the <span class="math inline">\(i\)</span>-th element
+is in the <span class="math inline">\(j\)</span>-th stratum, then its
+inclusion probability is <span
+class="math inline">\(n_j/N_j\)</span>.</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="data-and-notation-for-stratified-random-sampling"
+class="section level2">
+<h2>Data and Notation for Stratified Random Sampling</h2>
+<p><strong>Example</strong>: The following data are from a <a
+href="swordfern.png">survey of sword fern</a> that used a stratified
+random sampling design. The target variable is biomass of sword fern
+(grams per square meter).</p>
+<center>
+<p><img src="swordfern.png" /></p>
+</center>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Stratum
+</th>
+<th style="text-align:center;">
+Region
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_j\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+Forest
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+287
+</td>
+<td style="text-align:center;">
+149.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+Prairie
+</td>
+<td style="text-align:center;">
+87
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+11.3
+</td>
+<td style="text-align:center;">
+16.8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+117
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that we have <span class="math inline">\(L\)</span> = 2 strata,
+a total population size of <span class="math inline">\(N\)</span> = 117,
+and a total sample size of <span class="math inline">\(n\)</span> =
+13.</p>
+<strong>Example</strong>: The following data are from the 1988 National
+Maternal and Infant Health Survey. This survey used a stratified random
+sampling design. The target variable is mother’s age.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Stratum
+</th>
+<th style="text-align:center;">
+Race
+</th>
+<th style="text-align:center;">
+Weight
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_j\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\text{AA}\)</span>
+</td>
+<td style="text-align:center;">
+small
+</td>
+<td style="text-align:center;">
+18130
+</td>
+<td style="text-align:center;">
+1285
+</td>
+<td style="text-align:center;">
+24.64
+</td>
+<td style="text-align:center;">
+5.84
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\text{AA}\)</span>
+</td>
+<td style="text-align:center;">
+medium
+</td>
+<td style="text-align:center;">
+65670
+</td>
+<td style="text-align:center;">
+1194
+</td>
+<td style="text-align:center;">
+24.42
+</td>
+<td style="text-align:center;">
+5.76
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\text{AA}\)</span>
+</td>
+<td style="text-align:center;">
+large
+</td>
+<td style="text-align:center;">
+559124
+</td>
+<td style="text-align:center;">
+4948
+</td>
+<td style="text-align:center;">
+24.41
+</td>
+<td style="text-align:center;">
+5.68
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\overline{\text{AA}}\)</span>
+</td>
+<td style="text-align:center;">
+small
+</td>
+<td style="text-align:center;">
+27550
+</td>
+<td style="text-align:center;">
+950
+</td>
+<td style="text-align:center;">
+26.44
+</td>
+<td style="text-align:center;">
+5.88
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\overline{\text{AA}}\)</span>
+</td>
+<td style="text-align:center;">
+medium
+</td>
+<td style="text-align:center;">
+150080
+</td>
+<td style="text-align:center;">
+938
+</td>
+<td style="text-align:center;">
+26.11
+</td>
+<td style="text-align:center;">
+5.85
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\overline{\text{AA}}\)</span>
+</td>
+<td style="text-align:center;">
+large
+</td>
+<td style="text-align:center;">
+2944800
+</td>
+<td style="text-align:center;">
+4090
+</td>
+<td style="text-align:center;">
+26.7
+</td>
+<td style="text-align:center;">
+5.45
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+3765354
+</td>
+<td style="text-align:center;">
+13405
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that we have <span class="math inline">\(L\)</span> = 6 strata,
+a total population size of <span class="math inline">\(N\)</span> =
+3765354, and a total sample size of <span
+class="math inline">\(n\)</span> = 13405. Also note that strata can be
+defined in terms of <em>combinations</em> of two or more variables
+(e.g., race and birth weight).</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="estimators-of-mu-and-tau" class="section level2">
+<h2>Estimators of <span class="math inline">\(\mu\)</span> and <span
+class="math inline">\(\tau\)</span></h2>
+<p>The mean of <em>all</em> elements in the population (i.e., all strata
+combined) can be written as <span class="math display">\[
+  \mu = \frac{N_1}{N}\mu_1 + \frac{N_2}{N}\mu_2 + \cdots +
+\frac{N_L}{N}\mu_L = \sum_{j=1}^L \frac{N_j}{N}\mu_j,
+\]</span> where <span class="math inline">\(\mu_j\)</span> be the mean
+of the target variable for the <span class="math inline">\(N_j\)</span>
+elements in the <span class="math inline">\(j\)</span>-th stratum. Since
+we can estimate <span class="math inline">\(\mu_j\)</span> with <span
+class="math inline">\(\bar{y}_j\)</span>, this suggests we use the
+estimator <span class="math display">\[
+  \hat\mu = \frac{N_1}{N}\bar{y}_1 + \frac{N_2}{N}\bar{y}_2 + \cdots +
+\frac{N_L}{N}\bar{y}_L = \sum_{j=1}^L \frac{N_j}{N}\bar{y}_j
+\]</span> to estimate <span class="math inline">\(\mu\)</span>. Note
+that we can also write this as <span class="math display">\[
+  \hat\mu = \frac{1}{N}\sum_{j=1}^L N_j\bar{y}_j.
+\]</span></p>
+<p><strong>Example</strong>: What are the estimates of <span
+class="math inline">\(\mu\)</span> for the two surveys given
+earlier?</p>
+<div style="page-break-after: always;"></div>
+<p>Recall that <span class="math inline">\(\tau = N\mu\)</span>, so
+using the expression for <span class="math inline">\(\mu\)</span> above
+we can write <span class="math inline">\(\tau\)</span> as <span
+class="math display">\[
+  \tau = N_1\mu_1 + N_2\mu_2 + \cdots + N_L\mu_L = \sum_{j=1}^LN_j\mu_j.
+\]</span> This suggests the estimator <span class="math display">\[
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L =
+\sum_{i=1}^LN_j\bar{y}_j
+\]</span> to estimate <span class="math inline">\(\tau\)</span>.
+Alternatively we could write this as <span
+class="math inline">\(\hat\tau = \hat\tau_1 + \hat\tau_2 + \cdots +
+\hat\tau_L\)</span> where <span class="math inline">\(\hat\tau_j =
+N_j\bar{y}_j\)</span> is the estimator we used for simple random
+sampling.</p>
+<p><strong>Example</strong>: What is the estimate of <span
+class="math inline">\(\tau\)</span> for the sword fern survey?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="estimator-sampling-distributions" class="section level2">
+<h2>Estimator Sampling Distributions</h2>
+<p>Both estimators are <em>unbiased</em> under stratified random
+sampling, and the shape of the sampling distributions are approximately
+normal by the central limit theorem. But the <em>variances</em> of these
+estimators <strong>are not </strong> generally the same as those for the
+estimators under simple random sampling.</p>
+<p>The variance of <span class="math inline">\(\hat\mu\)</span> is <span
+class="math display">\[
+    V(\hat\mu) =
+  \left(\frac{N_1}{N}\right)^2 V(\bar{y}_1) +
+    \left(\frac{N_2}{N}\right)^2 V(\bar{y}_2) + \cdots +
+    \left(\frac{N_L}{N}\right)^2 V(\bar{y}_L),
+\]</span> where <span class="math display">\[
+  V(\bar{y}_j) = \left(1 - \frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j},
+\]</span> and <span class="math inline">\(\sigma_j^2\)</span> is defined
+here as the variance of all elements in the <span
+class="math inline">\(j\)</span>-th stratum. We can also write the
+variance of <span class="math inline">\(\hat\mu\)</span> as <span
+class="math display">\[
+  V(\hat\mu) = \frac{1}{N^2}\sum_{j=1}^L N_j^2\left(1 -
+\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j}.
+\]</span> If the <span class="math inline">\(\sigma_j^2\)</span> are
+unknown then they can be replaced with the <span
+class="math inline">\(s_j^2\)</span> to produce an estimated variance of
+<span class="math inline">\(\hat\mu\)</span>.</p>
+<p><strong>Example</strong>: What is the estimated variance of the
+estimator of <span class="math inline">\(\mu\)</span> based on the sword
+fern survey? What is the (estimated) bound on the error of
+estimation?</p>
+<div style="page-break-after: always;"></div>
+<p>The variance of <span class="math inline">\(\hat\tau\)</span> is
+<span class="math display">\[
+    V(\hat\tau) =
+  V(\hat\tau_1) +
+    V(\hat\tau_2) + \cdots +
+    V(\hat\tau_L),
+\]</span> where <span class="math display">\[
+  V(\hat\tau_j) = N_j^2\left(1 -
+\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j},
+\]</span> and <span class="math inline">\(\sigma_j^2\)</span> is defined
+here as the variance of all elements in the <span
+class="math inline">\(j\)</span>-th stratum. We can also write the
+variance of <span class="math inline">\(\hat\tau\)</span> as <span
+class="math display">\[
+  V(\hat\tau) = \sum_{j=1}^L N_j^2\left(1 -
+\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j}.
+\]</span> If the <span class="math inline">\(\sigma_j^2\)</span> are
+unknown then they can be replaced with the <span
+class="math inline">\(s_j^2\)</span> to produce an estimated variance of
+<span class="math inline">\(\hat\mu\)</span>.</p>
+<p><strong>Example</strong>: What is the estimated variance of the
+estimator of <span class="math inline">\(\tau\)</span> based on the
+sword fern survey? What is the (estimated) bound on the error of
+estimation?</p>
+<p>Note: <span class="math inline">\(V(\hat\mu)\)</span> and <span
+class="math inline">\(V(\hat\tau)\)</span> are related because <span
+class="math inline">\(V(\hat\tau) = N^2V(\hat\mu)\)</span>.</p>
+<p>Note: Standard errors, bounds on the error of estimation, and
+confidence intervals for estimating <span
+class="math inline">\(\mu\)</span> and <span
+class="math inline">\(\tau\)</span> under stratified random sampling are
+computed in the same way as they were under simple random sampling, just
+with a different variance expression.</p>
+</div>
+<div id="design-considerations" class="section level2">
+<h2>Design Considerations</h2>
+<p>There are two types of decisions to be made when designing a
+stratified random sampling design.</p>
+<ol style="list-style-type: decimal">
+<li><p><em>Stratification</em>. How should the elements be partitioned
+into strata?</p></li>
+<li><p><em>Allocation</em>. How should the total sample size be
+distributed over the <span class="math inline">\(L\)</span>
+strata?</p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

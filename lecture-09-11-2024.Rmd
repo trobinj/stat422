@@ -1,0 +1,215 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-11-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Optimum Stratification
+
+If we can assign elements to strata, how should this be done so as to minimize the variance of $\hat\mu$ or $\hat\tau$? Recall that the variance of $\hat\mu$ under stratified random sampling is
+$$
+  V(\hat\mu) = \frac{1}{N^2}\sum_{j=1}^L N_j^2\left(1-\frac{n_j}{N_j}\right)\frac{\sigma_j^2}{n_j}.
+$$
+Note: Since $V(\hat\tau) = N^2V(\hat\mu)$, any strategy that reduces $V(\hat\mu)$ will also reduce $V(\hat\tau)$. 
+
+**Question**: For a stratified sampling design, how should we *stratify* elements so as to make $V(\hat\mu)$ or $V(\hat\tau)$ small?
+
+<!-- It is important to point out here than by minimizing the within-stratum variances we will tend to maximize the between-strata variance. -->
+
+\vspace{3cm}
+
+Various algorithms exist for stratification based on one or more *auxiliary variables*. Here an **auxiliary variable** is a variable with the properties that (a) we know the value of the auxiliary variable(s) for *all* elements in the population and (b) the auxiliary variable(s) is/are associated (correlated) with the target variable.
+
+1. Stratification by a single quantitative auxiliary variable that is assumed to be correlated with the target variable (e.g., the "cumulative root frequency" method).
+
+```{r, fig.height = 3}
+stratify <- function (x, strata, breaks) 
+{
+  h <- hist(x, plot = FALSE, breaks = breaks)
+  g <- length(h$counts)
+  z <- data.frame(lower = rep(NA, g), upper = rep(NA, g), freq = h$counts, 
+    sqrtf = sqrt(h$counts), csqrtf = cumsum(sqrt(h$counts)), 
+    stratum = NA)
+  k <- 1:(strata - 1) * max(z$csqrtf)/strata
+  for (i in 1:g) {
+    z$lower[i] <- h$breaks[i]
+    z$upper[i] <- h$breaks[i + 1]
+  }
+  for (i in 1:(strata - 1)) {
+    tmp <- which(abs(z$csqrtf - k[i]) == min(abs(z$csqrtf - k[i])))
+    z$stratum[c(1:g) <= tmp & is.na(z$stratum)] <- i
+  }
+  z$stratum[is.na(z$stratum)] <- strata
+  return(list(output = z, cutpoints = k))
+}
+
+d <- rep(seq(2.5, 97.5, by = 5), c(3464, 2516, 2157, 1581, 1142, 746, 
+  512, 376, 265, 207, 126, 107, 82, 50, 39, 25, 16, 19, 2, 3))
+d <- stratify(d, strata = 5, breaks = seq(0, 100, by = 5))
+
+d <- d$output %>% mutate(midpoint = (lower + upper)/2)
+
+p <- ggplot(d, aes(x = midpoint, y = freq, fill = factor(stratum))) + theme_minimal()
+p <- p + geom_col(width = 5, color = "black")
+p <- p + labs(x = "Auxiliary Variable", y = "Frequency", fill = "Stratum")
+p <- p + theme(axis.text = element_text(color = "black"))
+plot(p)
+```
+
+2. Stratification by one or more categorical auxiliary variables (or quantitative auxiliary variables that have been turned into categories) that form many smaller "atomic strata" to be collapsed into fewer larger strata as needed.
+
+Comment: In principle, stratification improves with more strata (i.e., larger $L$), but there are diminishing returns. 
+
+## Stratified Random Sampling via Double Sampling
+
+Two requirements for stratified random sampling and inference that may not be met.
+
+1. The capability of sampling separately from each stratum (via simple random sampling). 
+
+0. Knowledge of the stratum sizes --- i.e., $N_1, N_2, \dots, N_L$ for use in computing the estimators
+$$
+  \hat\mu = \frac{N_1}{N}\bar{y}_1 + \frac{N_2}{N}\bar{y}_2 + \cdots + \frac{N_L}{N}\bar{y}_L = \sum_{i=j}^L \frac{N_j}{N}\bar{y}_j,
+$$
+and
+$$
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L = \sum_{j=1}^LN_j\bar{y}_j,
+$$
+respectively.
+
+What if these requirements are not met? Options?
+
+1. Use *simple random sampling*.
+
+0. Use *double sampling* if $N_1, N_2, \dots, N_L$ are unknown. 
+
+0. Use *post-stratification* if $N_1, N_2, \dots, N_L$ are known but SRS was used.
+
+**Double sampling** (aka "two-phase" sampling) is a general sampling technique for obtaining observations of an *auxiliary variable* that are needed for a design and/or needed to compute an estimator.[^twophase] Here this auxiliary variable is whatever we use to stratify the elements in the population.
+
+[^twophase]: The term "two-phase" should not be confused with the terms "two-stage" or "multi-stage" sampling, which are used to describe some kinds of cluster sampling designs that we will discuss later.
+
+1. Obtain a larger sample of size $n'$ using simple random sampling. Determine the stratum membership of each element. Count the number of elements in that sample that are members of each stratum ($n_1', n_2', \dots, n_L'$). 
+
+2. Apply stratified random sampling to the sample obtained in the first phase by applying simple random sampling to each of the sub-samples of elements from each stratum. Let $n_1, n_2, \dots, n_L$ denote the number of elements in the second phase sample that are members of each stratum. 
+
+We can estimate $N_j/N$ with $n_j'/n'$. The estimator of $\mu$ then becomes
+$$
+  \hat\mu = \frac{n_1'}{n'}\bar{y}_1 + \frac{n_2'}{n'}\bar{y}_2 + \cdots + \frac{n_L'}{n'}\bar{y}_L = \sum_{j=1}^L \frac{n_j'}{n'}\bar{y}_j,
+$$
+To estimate $\tau$ we can use
+$$
+  \hat\tau = N\frac{n_1'}{n'}\bar{y}_1 + N\frac{n_2'}{n'}\bar{y}_2 + \cdots + N\frac{n_L'}{n'}\bar{y}_L = N\sum_{j=1}^L \frac{n_j'}{n'}\bar{y}_j.
+$$
+The variances of these estimators can be written as
+$$
+  V(\hat\mu) = \text{a big mess} \ \ \ \text{and} \ \ \ V(\hat\tau) = N^2 \times \text{a big mess}.
+$$
+Typically these variances are *larger* than what they would be had we been able to use stratified random sampling *without* double sampling, but *smaller* than if we had used just simple random sampling.
+
+**Comment**: We can also seek to optimize the double sampling design by picking $n'$ (the number of elements in the first phase sample) and $n_1, n_2, \dots, n_L$ (the number of elements in the second phase sample that are members of each stratum) for a fixed cost. 
+
+**Example**: Suppose an survey is to be conducted at an organization of 1000 employees. We want to estimate the mean scores to questions where responses are likely related to the political affiliation of the employees. While ideally a stratified random sampling design would be applied using political affiliation, this information is unknown to the employer. Consider the following double sampling design. The sample obtained in the first phase via simple random sampling can be summarized as follows.
+```{r}
+d.pop <- data.frame(Politics = c("Liberal","Moderate","Conservative"), Number = c(50,30,20))
+names(d.pop)[2] <- "$n_j'$"
+ktbl(d.pop, align = c("l","c"))
+```
+And the sample obtained in the second stage using stratified random sampling can be summarized as follows.
+```{r}
+d.smp <- data.frame(Politics = c("Liberal","Moderate","Conservative"), n = c(20,20,10), m = c(5.5,4,2.25), s = c(0.9,2.1,1.1))
+names(d.smp)[2:4] <- c("$n_j$","$\\bar{y}_j$","$s_j$")
+ktbl(d.smp, align = c("l","c","c","c"))
+```
+What is the estimate of $\mu$?
+
+\vspace{2cm}
+
+<!-- A useful thing to note here is that the sample mean (i.e., the standard estimator from SRS) implicitly uses the sample sizes from the second phase sample to "estimate" the stratum proportions. -->
+
+## Comparison of Sampling Designs
+
+Consider a simulation study with a population with three strata where stratification would be beneficial. How do *simple random sampling*, *double sampling*, and *stratified random sampling* compare with respect to the sampling distribution of the estimator of $\mu$ = 50?
+
+```{r, fig.height = 3}
+set.seed(123)
+Ni <- c(1000,1000,1000)
+ai <- c(8,4,2)
+bi <- c(2,4,8)
+ni <- c(10,10,10)
+
+pop <- data.frame(stratum = rep(1:3, Ni), a = rep(ai, Ni), b = rep(bi, Ni))
+pop <- pop %>% mutate(y = round(rbeta(nrow(pop), a, b) * 100)) %>% select(stratum, y) %>% group_by(stratum) %>%
+  mutate(a = n()) %>% ungroup() %>% mutate(a = a/n())
+                
+rep <- 5000
+
+est.srs <- rep(NA, rep)
+est.dbl <- rep(NA, rep)
+est.str <- rep(NA, rep)
+
+for (i in 1:rep) {
+  smp <- pop %>% sample_n(sum(ni))
+  est.srs[i] <- with(smp, mean(y))
+  
+  smp <- pop %>% sample_n(sum(ni) * 10) %>% group_by(stratum) %>% mutate(a = n()) %>% ungroup() %>% mutate(a = a/n())
+  smp <- smp %>% group_by(stratum) %>% 
+    mutate(n = case_when(
+      stratum == 1 ~ ni[1], 
+      stratum == 2 ~ ni[2], 
+      stratum == 3 ~ ni[3])) %>%
+    mutate(index = sample(1:n())) %>% 
+    filter(index <= n) %>% select(stratum, y, a)
+  
+  est.dbl[i] <- as.numeric(smp %>% group_by(stratum) %>% summarize(ya = mean(a * y)) %>% summarize(sum(ya)))
+  
+  smp <- pop %>% group_by(stratum) %>% mutate(n = case_when(stratum == 1 ~ ni[1], stratum == 2 ~ ni[2], stratum == 3 ~ ni[3])) %>%
+    mutate(index = sample(1:n())) %>% filter(index <= n) %>% select(stratum, y, a)
+  
+  est.str[i] <- as.numeric(smp %>% group_by(stratum) %>% summarize(ya = mean(a * y)) %>% summarize(sum(ya)))
+}
+
+d <- data.frame(estimate = c(est.srs, est.dbl, est.str), method = rep(c("Simple Random Sampling","Double Sampling","Stratified Random Sampling"), each = rep))
+d$method <- reorder(d$method, d$estimate, sd)
+
+p <- ggplot(d, aes(x = estimate, y = after_stat(density))) + theme_minimal()
+p <- p + geom_histogram(breaks = seq(30, 70, by = 1)) + facet_wrap(~ method)
+p <- p + labs(x = "Estimate", y = "Relative Frequency")
+plot(p)
+```
+

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Aug 26</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Aug 26</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-08-26-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="sampling-with-replacement" class="section level2">
+<h2>Sampling With Replacement</h2>
+<p>A variation on simple random sampling is a design where we sample
+<em>with replacement</em> where every possible sample of <span
+class="math inline">\(n\)</span> elements has the same probability of
+being selected, but where the elements need not be distinct.</p>
+<strong>Example</strong>: Suppose we have <span
+class="math inline">\(N\)</span> = 4 and <span
+class="math inline">\(n\)</span> = 2 as in previous example. The
+sampling design for a simple random sampling design when sampling
+<em>without replacement</em> is shown below.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Sample
+</th>
+<th style="text-align:center;">
+Probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_2\)</span>
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>, <span
+class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_3\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/6
+</td>
+</tr>
+</tbody>
+</table>
+But if we sample <em>with replacement</em> then the sampling design is
+as shown below.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Sample
+</th>
+<th style="text-align:center;">
+Probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_1\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_2\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_1\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>, <span
+class="math inline">\(\mathcal{E}_1\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>, <span
+class="math inline">\(\mathcal{E}_2\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>, <span
+class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_2\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_3\)</span>, <span
+class="math inline">\(\mathcal{E}_1\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_3\)</span>, <span
+class="math inline">\(\mathcal{E}_2\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_3\)</span>, <span
+class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_3\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_4\)</span>, <span
+class="math inline">\(\mathcal{E}_1\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_4\)</span>, <span
+class="math inline">\(\mathcal{E}_2\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_4\)</span>, <span
+class="math inline">\(\mathcal{E}_3\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_4\)</span>, <span
+class="math inline">\(\mathcal{E}_4\)</span>
+</td>
+<td style="text-align:center;">
+1/16
+</td>
+</tr>
+</tbody>
+</table>
+<p>Sampling <em>with replacement</em> changes the properties of the
+design as well as the sampling distributions of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p>The number of possible samples is <span
+class="math inline">\(N^n\)</span>, which is larger than the number of
+possible samples when sampling <em>without replacement</em> unless <span
+class="math inline">\(n\)</span> = 1. For example, with a population of
+<span class="math inline">\(N\)</span> = 4 elements and a sample size of
+<span class="math inline">\(n\)</span> = 2, the number of possible
+samples is 16 when sampling <em>with replacement</em> as opposed to 6
+when sampling <em>without replacement</em>.</p></li>
+<li><p>The inclusion probabilities when sampling <em>with
+replacement</em> are <span class="math inline">\(\pi_i = 1 - (1 -
+1/N)^n\)</span> as opposed to <span class="math inline">\(\pi_i =
+n/N\)</span> when sampling <em>without replacement</em>. We will discuss
+why and how this might be used later in the course.</p></li>
+<li><p>The variance of <span class="math inline">\(\bar{y}\)</span> and
+<span class="math inline">\(\hat\tau\)</span> do not include the finite
+population correction term so the formulas become <span
+class="math display">\[
+  \text{V}(\bar{y}) = \frac{\sigma^2}{n} \ \ \ \text{and} \ \ \
+  \text{V}(\hat\tau) = N^2\frac{\sigma^2}{n}.
+\]</span> So how do the variances of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span> when sampling <em>with
+replacement</em> compare to that when sampling <em>without
+replacement</em>?</p></li>
+</ol>
+</div>
+<div id="central-limit-theorem" class="section level2">
+<h2>Central Limit Theorem</h2>
+<p>What can we say about the <em>shape</em> of the sampling distribution
+of <span class="math inline">\(\bar{y}\)</span> or <span
+class="math inline">\(\hat\tau\)</span>? The <strong>central limit
+theorem</strong> for simple random sampling states that as <span
+class="math inline">\(n\)</span>, <span
+class="math inline">\(N\)</span>, and <span
+class="math inline">\(N-n\)</span> increase, and assuming some other
+rather technical but usually applicable conditions, the sampling
+distribution of <span class="math inline">\(\bar{y}\)</span>
+“approaches” a normal distribution. This implies the same behavior for
+the sampling distribution of <span
+class="math inline">\(\hat\tau\)</span>.</p>
+<p><strong>Example</strong>: Consider simple random sampling design with
+a population of <span class="math inline">\(N\)</span> = 50 elements and
+a sample size of <span class="math inline">\(n\)</span> = 5. The values
+of the target variable in the population were selected randomly from the
+integers from 0 to 100, but the values were “shifted” so that <span
+class="math inline">\(\mu = 50\)</span>. The figure below shows the
+exact discrete sampling distribution of <span
+class="math inline">\(\bar{y}\)</span>.
+<img src="lecture-08-26-2024_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="interpreting-a-normal-sampling-distribution"
+class="section level2">
+<h2>Interpreting a Normal Sampling Distribution</h2>
+<p>Let <span class="math inline">\(\theta\)</span> denote a parameter
+(e.g., <span class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span>) and let <span
+class="math inline">\(\hat\theta\)</span> denote an estimator (e.g.,
+<span class="math inline">\(\bar{y}\)</span> or <span
+class="math inline">\(\hat\tau\)</span>). Assume that the sampling
+distribution of <span class="math inline">\(\hat\theta\)</span> is
+(approximately) normal in shape (by the central limit theorem) with a
+mean of <span class="math inline">\(\theta\)</span> (i.e., the estimator
+is <em>unbiased</em>) and a variance of <span
+class="math inline">\(\mbox{V}(\hat\theta)\)</span>. What do we know
+about this sampling distribution?</p>
+<ol style="list-style-type: decimal">
+<li>There is a simple relationship between the mode and inflection
+points of the probability distribution function and the mean and
+variance of <span class="math inline">\(\hat\theta\)</span>.
+<img src="lecture-08-26-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></li>
+<li>The distribution of the <em>distance</em> between <span
+class="math inline">\(\hat\theta\)</span> and <span
+class="math inline">\(\theta\)</span> — i.e., <span
+class="math inline">\(|\hat\theta - \theta|\)</span> — is a <a
+href="https://en.wikipedia.org/wiki/Half-normal_distribution">half-normal
+distribution</a> with a mean of approximately <span
+class="math inline">\(0.798\sqrt{\text{V}(\hat\theta)}\)</span> and a
+median of approximately <span
+class="math inline">\(0.674\sqrt{\text{V}(\hat\theta)}\)</span>.<a
+href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> These two
+points are denoted as <em>a</em> and <em>b</em> in the figure below.
+<img src="lecture-08-26-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>The 95th percentile of the <em>distance</em> between <span
+class="math inline">\(\hat\theta\)</span> and <span
+class="math inline">\(\theta\)</span> is approximately <span
+class="math inline">\(2\sqrt{\text{V}(\hat\theta)}\)</span>.<a
+href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+<img src="lecture-08-26-2024_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+This implies that there is approximately a 95% chance that a survey will
+result in an estimate <span class="math inline">\(\hat\theta\)</span>
+that is within about <span
+class="math inline">\(2\sqrt{\text{V}(\hat\theta)}\)</span> of the
+parameter <span class="math inline">\(\theta\)</span>.
+<img src="lecture-08-26-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></li>
+</ol>
+<p><strong>Example</strong>: Considered the earlier example with a
+population of <span class="math inline">\(N\)</span> = 50 elements and a
+simple random sampling design of <span class="math inline">\(n\)</span>
+= 5 elements. The mean and variance for the population are <span
+class="math inline">\(\mu\)</span> = 50 and <span
+class="math inline">\(\sigma^2\)</span> <span
+class="math inline">\(\approx\)</span> 900, respectively. What can we
+conclude about the sampling distribution of <span
+class="math inline">\(\bar{y}\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="the-standard-error-and-the-bound-on-the-error-of-estimation"
+class="section level2">
+<h2>The Standard Error and the Bound on the Error of Estimation</h2>
+<p>The term <span
+class="math inline">\(\sqrt{\text{V}(\hat\theta)}\)</span> is the
+<strong>standard error</strong> of <span
+class="math inline">\(\hat\theta\)</span>. It is simply the standard
+deviation of <span class="math inline">\(\hat\theta\)</span>. Under
+simple random sampling the standard errors of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span> are simply <span
+class="math display">\[
+  \text{SE}(\bar{y}) = \sqrt{\text{V}(\bar{y})} = \sqrt{\left(1 -
+\frac{n}{N}\right)\frac{\sigma^2}{n}} \ \ \ \text{and} \ \ \
+  \text{SE}(\hat\tau) = \sqrt{\text{V}(\hat\tau)} = \sqrt{N^2\left(1 -
+\frac{n}{N}\right)\frac{\sigma^2}{n}},
+\]</span> respectively. Note that as shown in the previous section many
+quantities of interest concerning the “accuracy” of an estimator are
+proportional to the standard error.</p>
+<p>The term <span
+class="math inline">\(2\sqrt{\text{V}(\hat\theta)}\)</span> is called
+the <strong>bound on the error of estimation</strong> (also sometimes
+the <strong>margin of error</strong>). It can be viewed as an kind of
+upper bound on the distance between <span
+class="math inline">\(\hat\theta\)</span> and <span
+class="math inline">\(\theta\)</span> in the sense that there is about a
+95% chance that a survey will not exceed this error. That is <span
+class="math display">\[
+  P\left(\theta - 2\sqrt{\text{V}(\hat\theta)} &lt; \hat\theta &lt;
+\theta + 2\sqrt{\text{V}(\hat\theta)}\right) \approx 0.95.
+\]</span> Under simple random sampling the bounds on the error of
+estimation for <span class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span> are <span
+class="math display">\[
+  2\sqrt{\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}} \ \ \
+\text{and} \ \ \
+  2\sqrt{N^2\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}},
+\]</span> respectively. It is important to note that this result
+requires that the sampling distribution is normal. In practice it only
+is true approximately.<a href="#fn3" class="footnote-ref"
+id="fnref3"><sup>3</sup></a></p>
+</div>
+<div id="confidence-intervals" class="section level2">
+<h2>Confidence Intervals</h2>
+<p>The bound on the error of estimation can be used to construct a
+<strong>confidence interval</strong> which is an “interval estimate” of
+a parameter (as opposed to a “point estimate”) that has a known
+probability of being correct. This is because <span
+class="math display">\[
+  P\left(\theta - 2\sqrt{\text{V}(\hat\theta)} &lt; \hat\theta &lt;
+\theta + 2\sqrt{\text{V}(\hat\theta)}\right) \approx 0.95
+\]</span> implies that <span class="math display">\[
+  P\left(\hat\theta - 2\sqrt{\text{V}(\hat\theta)} &lt; \theta &lt;
+\hat\theta + 2\sqrt{\text{V}(\hat\theta)}\right) \approx 0.95.
+\]</span> The confidence interval can be written as <span
+class="math display">\[
+  \hat\theta \pm 2\sqrt{\text{V}(\hat\theta)} \Leftrightarrow
+\left(\hat\theta - 2\sqrt{\text{V}(\hat\theta)}, \hat\theta +
+2\sqrt{\text{V}(\hat\theta)}\right).
+\]</span> The probability of 95% is the <strong>confidence
+level</strong> of the confidence interval. It represents the expected
+percent of confidence intervals that would correctly estimate the
+parameter, and the probability that a survey will produce an estimate
+with an error less than the bound on the error of estimation.
+<img src="lecture-08-26-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><strong>Example</strong>: Consider the previous example. If we obtain
+a sample and compute sample mean of <span
+class="math inline">\(\bar{y}\)</span> = 71.64, what is the
+<em>confidence interval</em> for estimating <span
+class="math inline">\(\mu\)</span>? What is the confidence interval for
+estimating <span class="math inline">\(\tau\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="variance-estimation" class="section level2">
+<h2>Variance Estimation</h2>
+<p>We do not typically know <span
+class="math inline">\(\sigma^2\)</span> (i.e., the variance of the
+target variable for the population), although we might use an educated
+guess if necessary (more on that later). But we can
+<strong>estimate</strong> it after a survey has been conducted, and use
+that to estimate the variance of an estimator. An unbiased estimator is
+the <em>sample variance</em> <span class="math display">\[
+  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}} (y_i - \bar{y})^2.
+\]</span> Then the estimators of the variance of <span
+class="math inline">\(\bar{y}\)</span> and <span
+class="math inline">\(\hat\tau\)</span> are <span
+class="math display">\[
+  \widehat{\text{V}(\bar{y})} = \left(1 -
+\frac{n}{N}\right)\frac{s^2}{n} \ \ \ \text{and} \ \ \
+  \widehat{\text{V}(\hat\tau)} = N^2\left(1 -
+\frac{n}{N}\right)\frac{s^2}{n}.
+\]</span> The problem of <em>estimating the variance of an
+estimator</em> is called <strong>variance estimation</strong> in survey
+sampling.</p>
+<p><strong>Example</strong>: The sample from the previous example yields
+a sample variance of <span class="math inline">\(s^2\)</span> = 616.7.
+The sample is 78.84, 29.84, 90.84, 88.84, and 69.84. How would we use
+this to compute (a) the bound on the error of estimation for estimating
+<span class="math inline">\(\mu\)</span> with <span
+class="math inline">\(\bar{y}\)</span> and (b) a confidence interval for
+estimating <span class="math inline">\(\mu\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>The mean is <span
+class="math inline">\(\sqrt{2\text{V}(\hat\theta)/\pi}\)</span> and the
+median is <span
+class="math inline">\(\sqrt{2\text{V}(\hat\theta)\text{erf}^{-1}(0.5)}\)</span>
+where <span class="math inline">\(\text{erf}^{-1}\)</span> is the
+inverse of the <a
+href="https://en.wikipedia.org/wiki/Error_function">error
+function</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>The actual percentile is closer to <span
+class="math inline">\(1.96\sqrt{\text{V}(\hat\theta)}\)</span>. This can
+be computed as <span
+class="math inline">\(\sqrt{2\text{V}(\hat\theta)\text{erf}^{-1}(p/100)}\)</span>
+where <span class="math inline">\(p\)</span> is the desired percentile
+(e.g., <span class="math inline">\(p\)</span> = 95 for the 95th
+percentile or <span class="math inline">\(p\)</span> = 50 for the 50th
+percentile and median). Note that any percentile can be computed this
+way. In survey sampling it is customary to use <span
+class="math inline">\(2\sqrt{\text{V}(\hat\theta)}\)</span> rather than
+<span class="math inline">\(1.96\sqrt{\text{V}(\hat\theta)}\)</span> for
+simplicity.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>A more general statement can be made that is true for
+<em>any</em> type of sampling distribution for an unbiased estimator.
+There is a result called <a
+href="https://en.wikipedia.org/wiki/Chebyshev%27s_inequality">Chebyshev’s
+inequality</a> that implies that <span class="math display">\[
+  P\left(\theta - k\sqrt{V(\hat\theta)} &lt; \hat\theta &lt; \theta +
+k\sqrt{V(\hat\theta)}\right) &gt; \frac{1}{k^2}
+\]</span> for any <span class="math inline">\(k &gt; 0\)</span>. That
+is, the probability that <span class="math inline">\(\hat\theta\)</span>
+is within <span class="math inline">\(k\)</span> standard errors of
+<span class="math inline">\(\theta\)</span> is at least <span
+class="math inline">\(1/k^2\)</span>. If we let <span
+class="math inline">\(k = \delta/\sqrt{V(\hat\theta)}\)</span> then we
+can say that <span class="math display">\[
+  P(\theta - \delta &lt; \hat\theta &lt; \theta + \delta) &gt;
+\frac{V(\hat\theta)}{\delta^2}.
+\]</span> Thus the lower bound on the probability that <span
+class="math inline">\(\hat\theta\)</span> is within <span
+class="math inline">\(\delta\)</span> of <span
+class="math inline">\(\theta\)</span> is proportion to <span
+class="math inline">\(V(\hat\theta)\)</span>. So regardless of the shape
+of the sampling distribution the variability of the sampling
+distribution plays an important role in how close <span
+class="math inline">\(\hat\theta\)</span> might be to <span
+class="math inline">\(\theta\)</span>.<a href="#fnref3"
+class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

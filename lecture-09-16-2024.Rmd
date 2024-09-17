@@ -1,0 +1,148 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-16-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+**Note**: Rather than creating extra homework problems on the topics from today's lecture, if there are any problems on the examination from today's lecture I will use the examples from this lecture (although I may change the numbers). 
+
+## Inferences Concerning Stratum Parameters
+
+When strata correspond to one or more domains of interest, additional inferences concerning those domains can easily be done when using stratified random sampling.
+
+1. Estimation of $\mu_i$ or $\tau_i$ in one stratum.
+0. Estimation of mean or total for several strata combined.
+0. Estimation of the difference in the mean or total between two strata.
+
+### Estimation of $\mu_i$ or $\tau_i$ for One Stratum
+
+With stratified random sampling, the sampling design for obtaining the sample from *each stratum* is *simple random sampling*. So inferences concerning a stratum mean or total use the results from simple random sampling. We have
+$$
+  \hat\mu_i = \bar{y}_i \ \ \ \text{and} \ \ \ V(\hat\mu_i) = \left(1 - \frac{n_i}{N_i}\right)\frac{\sigma_i^2}{n_i},
+$$
+and $\hat\tau_i = N_i\bar{y}_i$ and $V(\hat\tau_i) = N_i^2V(\hat\mu_i)$, noting that if we need to estimate the variance we replace $\sigma_i^2$ with $s_i^2$ and $V$ with $\hat{V}$. 
+
+**Example**: Suppose we have the following results from a survey that used stratified random sampling.
+```{r}
+d <- data.frame(Stratum = 1:3, Ni = c(1000,2000,3000), ni = c(100,200,300), 
+  mi = c(36,25,16), si = c(6,5,4))
+names(d)[1:5] <- c("$i$","$N_i$","$n_i$","$\\bar{y}_i$","$s_i$")
+ktbl(d, align = c("c","c","c","c"))
+```
+What is $\hat\mu_1$ as well as the estimates of the variances of that estimator? What is $\hat\tau_1$ as well as the estimates of the variances of that estimator?
+
+\pagebreak
+
+### Estimation of the Mean or Total for Several Combined Strata
+
+Suppose we want to estimate $\mu_{i,j}$, the mean of strata $i$ and $j$ *combined*. The estimator is
+$$
+  \hat\mu_{i,j} = \frac{N_i}{N_i+N_j}\bar{y}_i + \frac{N_j}{N_i+N_j}\bar{y}_j
+$$
+which has variance
+$$
+  V(\hat\mu_{i,j}) = \left(\frac{N_i}{N_i+N_j}\right)^2 V(\hat\mu_i) + 
+  \left(\frac{N_j}{N_i+N_j}\right)^2V(\hat\mu_j).
+$$
+To compute $\hat\tau_{i,j}$ we would use
+$$
+  \hat\tau_{i,j} = \hat\tau_i + \hat\tau_j = N_i\bar{y}_i + N_j\bar{y}_j,
+$$
+which has variance
+$$
+  V(\hat\tau_{i,j}) = V(\hat\tau_i) + V(\hat\tau_j) = N_i^2 V(\hat\mu_i) + N_j^2V(\hat\mu_j).
+$$
+**Example**: Suppose we have the following results from a survey that used stratified random sampling.
+```{r}
+d <- data.frame(Stratum = 1:3, Ni = c(1000,2000,3000), ni = c(100,200,300), 
+  mi = c(36,25,16), si = c(6,5,4))
+names(d)[1:5] <- c("$i$","$N_i$","$n_i$","$\\bar{y}_i$","$s_i$")
+ktbl(d, align = c("c","c","c","c"))
+```
+What is the estimate of $\mu_{2,3}$ and the variance of that estimator?
+
+\pagebreak
+
+More generally, we can do this for any number of strata. For example, to estimate to mean of strata $i$, $j$, and $k$ combined, we can use the estimator
+$$
+  \hat\mu_{i,j,k} = \frac{N_i}{N_i+N_j+N_k}\bar{y}_i + \frac{N_j}{N_i+N_j+N_k}\bar{y}_j + \frac{N_k}{N_i + N_j + N_k}\bar{y}_k,
+$$
+which as variance
+$$
+  V(\hat\mu_{i,j,k}) = \left(\frac{N_i}{N_i+N_j+N_k}\right)^2 V(\hat\mu_i) + 
+  \left(\frac{N_j}{N_i+N_j+N_k}\right)^2V(\hat\mu_j) + 
+  \left(\frac{N_k}{N_i+N_j+N_k}\right)^2V(\hat\mu_k).
+$$
+And the total for those strata combined, $\tau_{i,j,k}$, is estimated as
+$$
+  \hat\tau_{i,j,k} = \hat\tau_i + \hat\tau_j + \hat\tau_k
+$$
+which has variance
+$$
+  V(\hat\tau_{i,j,k}) = V(\hat\tau_i) + V(\hat\tau_j) + V(\hat\tau_j).
+$$
+
+### Estimation of a Difference Between Strata
+
+Suppose we want to estimate $\mu_i - \mu_j$. The estimator is simply
+$$
+  \hat\mu_i - \hat\mu_j = \bar{y}_i - \bar{y}_j,
+$$
+which has variance
+$$
+  V(\hat\mu_i - \hat\mu_j) = V(\hat\mu_i) + V(\hat\mu_j).
+$$
+Similarly if we want to estimate $\tau_i - \tau_j$ the estimator is
+$$
+  \hat\tau_i - \hat\tau_j = N_i\bar{y}_i - N_j\bar{y}_j,
+$$
+which has variance
+$$
+  V(\hat\tau_i - \hat\tau_j) = V(\hat\tau_i) + V(\hat\tau_j). 
+$$
+Note that although we are *subtracting* estimators, the variances are still *additive*.
+
+**Example**: Suppose we have the following results from a survey that used stratified random sampling.
+```{r}
+ktbl(d)
+```
+What is the estimate of $\mu_1 - \mu_3$ and what is the variance of the estimator $\hat\mu_1 - \hat\mu_3$?
+
+Note: We can also do these kinds of inferences with post-stratification, or for stratified random sampling where the domains of interest do not correspond to the strata. The estimators are the same but the variances are different.

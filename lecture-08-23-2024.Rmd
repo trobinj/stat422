@@ -1,0 +1,230 @@
+---
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "08-23-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Sampling Distributions --- Continued
+
+```{r}
+pop <- c(1,2,2,7)
+
+mu1 <- mean(pop)
+sigma1 <- var(pop)
+
+N <- length(pop)
+n <- 2
+
+m <- apply(combn(pop, n), 2, mean)
+t <- apply(combn(pop, n), 2, function(z) N/n * sum(z))
+
+elem <- paste("\\mathcal{E}_{", 1:N, "}", sep = "")
+space <- paste("$\\{", apply(combn(elem, n), 2, function(z) paste(z, collapse = ",")), "\\}$", sep = "")
+```
+
+**Example**: Suppose we have a population of $N$ = `r N` elements where the target variable values are `r vecprnt(pop)`. The table below shows the **sample space** for a simple random sampling design with $n$ = `r n` as well as the values of the estimators. $\hat\tau$ and $\bar{y}$ for each sample.
+```{r}
+d <- data.frame(Sample = space, tau = t, m = m)
+names(d) <- c("Sample", "$\\hat\\tau$", "$\\bar{y}$")
+ktbl(d)
+```
+Note that a **sample space** is simply the set of all possible samples. Here there are `r choose(N,n)` samples in the sample space. The table below shows the *sampling distributions* of $\bar{y}$ and $\hat\tau$. 
+```{r}
+d <- data.frame(m = m, t = t) %>% group_by(m,t) %>% 
+  summarize(f = n()) %>% ungroup() %>% mutate(p = f/sum(f)) %>% select(m, t, p)
+e1 <- with(d, sum(m * p))
+v1 <- with(d, sum((m - e1)^2 * p))
+dt <- d
+dt$p <- as.character(MASS::fractions(dt$p))
+names(dt) <- c("$\\bar{y}$","$\\hat\\tau$","Probability")
+ktbl(dt)
+```
+The figures below show the sampling distributions of $\bar{y}$ and $\hat\tau$.
+```{r, fig.height = 3}
+p <- ggplot(d, aes(x = m, y = p)) + theme_minimal()
+p <- p + geom_segment(aes(xend = m, yend = 0), alpha = 0.5) + geom_point()
+p <- p + labs(x = tex("$\\bar{y}$"), y = "Probability")
+p1 <- p
+p <- ggplot(d, aes(x = t, y = p)) + theme_minimal()
+p <- p + geom_segment(aes(xend = t, yend = 0), alpha = 0.5) + geom_point()
+p <- p + labs(x = tex("$\\hat{\\tau}$"), y = "Probability")
+p2 <- p
+cowplot::plot_grid(p1, p2)
+```
+
+```{r}
+set.seed(123)
+
+pop <- sort(sample(1:10, 10, replace = TRUE))
+
+mu2 <- mean(pop)
+sigma2 <- var(pop)
+
+N <- length(pop)
+n <- 4
+
+m <- apply(combn(pop, n), 2, mean)
+t <- apply(combn(pop, n), 2, function(z) N/n * sum(z))
+
+elem <- paste("\\mathcal{E}_{", 1:N, "}", sep = "")
+space <- paste("$\\{", apply(combn(elem, n), 2, function(z) paste(z, collapse = ",")), "\\}$", sep = "")
+```
+
+**Example**: Suppose now we have a population of $N$ = `r N` elements where the target variable values are `r vecprnt(pop)`. The table below shows the (abbreviated) **sample space** for a simple random sampling design with $n$ = `r n` as well as the values of the estimators $\hat\tau$ and $\bar{y}$ for each sample.
+```{r}
+d <- data.frame(Sample = space, tau = t, m = m)
+names(d) <- c("Sample", "$\\hat\\tau$", "$\\bar{y}$")
+ktbl(headtail(d, 8))
+```
+Here there are `r choose(N,n)` samples in the sample space. The table below shows the *sampling distributions* of $\bar{y}$ and $\hat\tau$. 
+```{r}
+d <- data.frame(m = m, t = t) %>% group_by(m,t) %>% 
+  summarize(f = n()) %>% ungroup() %>% mutate(p = f/sum(f)) %>% select(m, t, p)
+e2 <- with(d, sum(m * p))
+v2 <- with(d, sum((m - e1)^2 * p))
+dt <- d
+names(dt) <- c("$\\bar{y}$","$\\hat\\tau$","Probability")
+ktbl(dt)
+```
+The figures below show the sampling distributions of $\bar{y}$ and $\hat\tau$.
+```{r, fig.height = 3}
+p <- ggplot(d, aes(x = m, y = p)) + theme_minimal()
+p <- p + geom_segment(aes(xend = m, yend = 0), alpha = 0.5) + geom_point()
+p <- p + labs(x = tex("$\\bar{y}$"), y = "Probability")
+p1 <- p
+p <- ggplot(d, aes(x = t, y = p)) + theme_minimal()
+p <- p + geom_segment(aes(xend = t, yend = 0), alpha = 0.5) + geom_point()
+p <- p + labs(x = tex("$\\hat{\\tau}$"), y = "Probability")
+p2 <- p
+cowplot::plot_grid(p1, p2)
+```
+
+## Means and Variances of Random Variables
+
+If we have a *discrete* random variable $X$, then the **mean** of that random variable (also called its *expectation* or *expected value*) is 
+$$
+  E(X) = \sum_x xP(x),
+$$
+where the $x$ below $\sum$ indicates that we sum over all values of $x$. 
+
+**Example**: We can easily confirm that based on the sampling distributions for the smaller population above that $E(\bar{y}) =$ `r e1` and $E(\hat\tau) =$ `r e1*4`. 
+
+\vspace{7cm}
+
+But there is a shortcut if we use simple random sampling. For *any* simple random sampling design, *it can be shown that* $E(\bar{y}) = \mu$ and $E(\hat\tau) = \tau$. When the mean of an estimator equals what is being estimated, then we say that the estimator is an **unbiased** estimator (otherwise the estimator is a **biased** estimator).[^unbiased]
+
+**Warning**: We have discussed *two* distinct means here: the population mean ($\mu$), and the mean of an estimator --- e.g., $E(\bar{y})$ and $E(\hat\tau)$. Don't confuse them!
+
+\pagebreak
+
+If we have a discrete random variable $X$, then the **variance** of that random variable is 
+$$
+  \text{V}(X) = \sum_x [x - E(X)]^2P(x).
+$$
+**Example**: We can easily confirm that based on the sampling distributions for the smaller population above that $\text{V}(\bar{y}) \approx$ `r round(v1,2)` and $\text{V}(\hat\tau) \approx$ `r round(v1*4^2,2)`.
+
+\vspace{5cm}
+
+It can be shown that *under simple random sampling* that the variances can be computed as
+$$
+  \text{V}(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n} \ \ \ \text{and} \ \ \ 
+  \text{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n},
+$$
+where $\sigma^2$ is the *population variance*
+$$
+  \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i - \mu)^2, 
+$$
+and where $\mu$ is the population mean.[^denominator]
+
+[^denominator]: The proof that these are the variances of $\bar{y}$ and $\hat\tau$ are a bit more involved than that of the unbiasedness of $\bar{y}$ and $\hat\tau$, but I can show them to you if you are interested. Some textbooks will define $\sigma^2$ by dividing by $N$ instead of $N-1$. This can be done but it changes the formulas for $V(\bar{y})$ and $V(\hat\tau)$ in a way that I find awkward for later developments. In terms of our interpretation of $\sigma^2$ this is inconsequential since we rarely care about $\sigma^2$ in isolation and the difference between $N$ and $N-1$ is very small when $N$ is large which is frequently the case in survey sampling. 
+
+**Example**: For the smaller population above $\sigma^2 =$ `r round(sigma1,2)`, and for the larger population $\sigma^2 \approx$ `r round(sigma2,2)`. What are $\text{V}(\bar{y})$ and $\text{V}(\hat\tau)$ for each design?
+
+\vspace{5cm}
+
+**Warning**: We've discussed *two* distinct variances here: the *population variance* ($\sigma^2$) and the *variance of an estimator* --- e.g., $\text{V}(\bar{y})$ and $\text{V}(\hat\tau)$. Don't confuse them!
+
+\pagebreak
+
+How do $n$ and $N$ affect the variance of these estimators?
+```{r, fig.height = 3}
+d <- expand.grid(N = c(10,20,40,80,160), n = 1:80) %>% filter(n <= N) %>%
+  mutate(var = (1 - n/N)/n)
+
+p <- ggplot(d, aes(x = n, y = var, color = factor(N))) + theme_minimal()
+p <- p + geom_line() + scale_y_continuous(breaks = c(0, 0.25, 0.5, 0.75, 1), 
+  minor_breaks = NULL, labels = c("","","","",tex("$\\sigma^2$")))
+p <- p + labs(x = tex("$n$"), color = tex("$N$"), y = tex("$V(\\bar{y})$"))
+p <- p + scale_x_continuous(breaks = c(1, seq(10, 160, by = 10)))
+plot(p)
+```
+
+The **finite population correction** (FPC) is the term $1 - n/N$ in
+$$
+  \text{V}(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n} \ \ \ \text{and} \ \ \ 
+  \text{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{\sigma^2}{n}.
+$$
+The term $n/N$ is the **sampling fraction** (i.e., the fraction of elements in the population that are in the sample). 
+
+1. When is the finite population correction largely "irrelevant" to the variance of $\bar{y}$ or $\hat\tau$?
+
+0. A **census** is when every element in the population is included within the sample so that $n = N$. What happens to the variance of our estimators in a census?
+
+0. In practice we sometimes do not know $N$. What can we do in these situations? 
+
+[^unbiased]: The proof that $\hat\tau$ is unbiased is not very complicated. We need to show that $E(\hat\tau) = \tau$. Note that we can write $\hat\tau$ a different way as
+$$
+\hat\tau = \frac{N}{n}\sum_{i=1}^N Z_iy_i
+$$
+where $Z_i = 1$ if the $i$-th element in the population is *included* in the sample, and $Z_i = 0$ otherwise. Now we need to show that 
+$$
+E(\hat\tau) = E\left(\frac{N}{n}\sum_{i=1}^NZ_iy_i\right). 
+$$
+From the properties of expectations we can write this as
+$$
+E(\hat\tau) = \frac{N}{n}\sum_{i=1}^NE(Z_i)y_i. 
+$$
+Now $Z_i$ has what is sometimes called a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution), and it can be shown that $E(Z_i) = P(Z_i = 1)$ which we know is the inclusion probability, $n/N$, since $Z_i = 1$ if and only if the $i$-th element is included in the sample. So we have
+$$
+E(\hat\tau) = \frac{N}{n}\sum_{i=1}^N\frac{n}{N}y_i = \sum_{i=1}^N y_i = \tau. 
+$$
+Note that $\sum_{i=1}^N \frac{n}{N} y_i = \frac{n}{N}\sum_{i=1}^N y_i$. Also it can be shown that this result implies that $E(\bar{y}) = \mu$. 
+
+

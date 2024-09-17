@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Aug 30</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Aug 30</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-08-30-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="sample-size-selection" class="section level2">
+<h2>Sample Size Selection</h2>
+<p>Recall that when estimating <span class="math inline">\(\mu\)</span>
+with <span class="math inline">\(\bar{y}\)</span> under simple random
+sampling we have that <span class="math display">\[
+  V(\bar{y}) = \left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}.
+\]</span> and that the bound on the error of estimation is <span
+class="math display">\[
+  B = 2\sqrt{V(\bar{y})} =
+2\sqrt{\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}.
+\]</span> The known relationship between <span
+class="math inline">\(B\)</span> and <span
+class="math inline">\(n\)</span> can be used to select a <span
+class="math inline">\(n\)</span> for a desired <span
+class="math inline">\(B\)</span>.</p>
+<p><strong>Example</strong>: What <span class="math inline">\(n\)</span>
+would yield <span class="math inline">\(B\)</span> = 1 if <span
+class="math inline">\(N\)</span> = 1000 and <span
+class="math inline">\(\sigma^2\)</span> = 1, 4, 9, 16, or 25 when using
+a simple random sampling design?
+<img src="lecture-08-30-2024_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
+More generally, we have the approximate relationship <span
+class="math display">\[
+  n \approx \frac{4N\sigma^2}{B^2N + 4\sigma^2}.
+\]</span> <strong>Example</strong>: What sample size would yield <span
+class="math inline">\(B \approx\)</span> 1 if <span
+class="math inline">\(N\)</span> = 1000 and <span
+class="math inline">\(\sigma^2\)</span> = 25?</p>
+<p>Similarly if we are estimating <span
+class="math inline">\(\tau\)</span> with <span
+class="math inline">\(\hat\tau = N\bar{y}\)</span> then under simple
+random sampling we have that <span class="math display">\[
+  B = 2\sqrt{N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}
+\Leftrightarrow
+  n \approx \frac{4N\sigma^2}{B^2/N + 4\sigma^2}.
+\]</span> <strong>Example</strong>: What sample size would yield <span
+class="math inline">\(B \approx\)</span> 100 if <span
+class="math inline">\(N\)</span> = 1000 and <span
+class="math inline">\(\sigma^2\)</span> = 25?</p>
+<p>What is the impact of <span class="math inline">\(B\)</span> and
+<span class="math inline">\(\sigma^2\)</span> on <span
+class="math inline">\(n\)</span>?</p>
+</div>
+<div id="specification-of-sigma2" class="section level2">
+<h2>Specification of <span class="math inline">\(\sigma^2\)</span></h2>
+<p>How do we specify <span class="math inline">\(\sigma^2\)</span> when
+selecting <span class="math inline">\(n\)</span>?</p>
+<ol style="list-style-type: decimal">
+<li><p>Expert judgment.</p></li>
+<li><p>Pilot survey of the same population.</p></li>
+<li><p>Previous survey of a similar population.</p></li>
+<li><p>Statistical relationships involving <span
+class="math inline">\(\sigma^2\)</span>.</p></li>
+</ol>
+</div>
+<div id="statistical-relationships-involving-sigma2"
+class="section level2">
+<h2>Statistical Relationships Involving <span
+class="math inline">\(\sigma^2\)</span></h2>
+<ol style="list-style-type: decimal">
+<li><p>If the distribution of the target variable in the population is
+approximately normal/bell-shaped, then <span
+class="math inline">\(\sigma \approx\)</span> range/4 or <span
+class="math inline">\(\sigma \approx\)</span> range/6. The range is the
+distance between the largest and smallest values of the target variable
+(ignoring outliers).</p></li>
+<li><p>If the distribution of the target variable in the population is
+right-skewed then often <span class="math inline">\(\sigma^2\)</span> is
+approximately proportional to <span class="math inline">\(\mu\)</span>,
+or proportional to a power of <span class="math inline">\(\mu\)</span>
+(so larger <span class="math inline">\(\mu\)</span>’s imply larger <span
+class="math inline">\(\sigma^2\)</span>’s).</p></li>
+<li><p>If the target variable is an <em>indicator variable</em> so that
+<span class="math inline">\(\mu\)</span> is the <em>proportion</em> of
+elements in the population that are in a category, then we have that
+<span class="math display">\[
+  \sigma^2 = \frac{N}{N-1}\mu(1-\mu).
+\]</span> This reaches its maximum when <span
+class="math inline">\(\mu\)</span> = 0.5 so <span
+class="math display">\[
+  \sigma^2 \le 0.25N/(N-1) \approx 0.25
+\]</span> for all <span class="math inline">\(\mu\)</span>. Thus the
+bound on the error of estimation is at its maximum when <span
+class="math inline">\(\mu\)</span> = 0.5 as shown below.
+<img src="lecture-08-30-2024_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
+This suggests a strategy for computing an <em>upper bound</em> on <span
+class="math inline">\(n\)</span> by using <span
+class="math inline">\(\sigma^2\)</span> <span
+class="math inline">\(\approx\)</span> 0.25 when the target variable is
+categorical if we do not have a good guess of <span
+class="math inline">\(\mu\)</span>.</p></li>
+</ol>
+<p><strong>Example</strong>: Recall the survey using a simple random
+sampling design to estimate the proportion of students at a university
+of 20000 that own an Android mobile phone. If we wanted to estimate
+<span class="math inline">\(\mu\)</span> (the proportion of students at
+the university that own an Android mobile phone) with a bound on the
+error of estimation of <span class="math inline">\(B\)</span> = 0.01,
+what sample size would be needed if (a) we used a prior survey that
+estimated that <span class="math inline">\(\mu\)</span> is 0.4 and (b)
+if we wanted to use an upper bound on <span
+class="math inline">\(n\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="summary-of-simple-random-sampling-notation-and-formulas"
+class="section level2">
+<h2>Summary of Simple Random Sampling Notation and Formulas</h2>
+<div id="the-population" class="section level3">
+<h3>The Population</h3>
+<p>We have a <em>population</em> of <span
+class="math inline">\(N\)</span> units/elements. The mean (<span
+class="math inline">\(\mu\)</span>), total (<span
+class="math inline">\(\tau\)</span>), and variance (<span
+class="math inline">\(\sigma^2\)</span>) of the target variable for
+these <span class="math inline">\(N\)</span> units/elements are defined
+as <span class="math display">\[
+  \mu = \frac{1}{N}\sum_{i=1}^N y_i, \ \tau = \sum_{i=1}^N y_i, \
+\sigma^2 = \frac{1}{N-1}\sum_{i=1}^N (y_i-\mu)^2.
+\]</span></p>
+</div>
+<div id="the-sample" class="section level3">
+<h3>The Sample</h3>
+<p>We select a <em>sample</em> of <span class="math inline">\(n\)</span>
+units/elements using a <em>simple random sampling</em> design. The mean
+(<span class="math inline">\(\bar{y}\)</span>) and variance (<span
+class="math inline">\(s^2\)</span>) of the target variable for these
+<span class="math inline">\(n\)</span> units/elements are defined as
+<span class="math display">\[
+  \bar{y} = \frac{1}{n} \sum_{i \in \mathcal{S}} y_i, \ s^2 =
+\frac{1}{n-1}\sum_{i \in \mathcal{S}} (y_i - \bar{y})^2.
+\]</span></p>
+</div>
+<div id="the-estimators" class="section level3">
+<h3>The Estimators</h3>
+<p>An <em>estimator</em> of <span class="math inline">\(\mu\)</span> is
+<span class="math inline">\(\bar{y} = \frac{1}{n}\sum_{i \in
+\mathcal{S}} y_i\)</span>. An estimator of <span
+class="math inline">\(\tau\)</span> is <span class="math display">\[
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i,
+\]</span> which can also be written as <span
+class="math inline">\(\hat\tau = N\bar{y}\)</span>. We can also use
+<span class="math inline">\(s^2\)</span> as an estimator of <span
+class="math inline">\(\sigma^2\)</span> if necessary.</p>
+</div>
+<div id="the-sampling-distributions" class="section level3">
+<h3>The Sampling Distributions</h3>
+<p>Based on the <em>sampling distribution</em> of an estimator we can
+find its mean and variance, and several other useful quantities like the
+standard error and the bound on the error of estimation.</p>
+<div id="sampling-distribution-of-bary" class="section level4">
+<h4>Sampling Distribution of <span
+class="math inline">\(\bar{y}\)</span></h4>
+<p>The estimator <span class="math inline">\(\bar{y}\)</span> has a mean
+of <span class="math inline">\(\mu\)</span> and a variance of <span
+class="math display">\[
+  V(\bar{y}) = \left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}.
+\]</span> The <em>standard error</em> of <span
+class="math inline">\(\bar{y}\)</span> is its standard deviation and so
+simply the square root of the variance so that <span
+class="math display">\[
+  \sqrt{V(\bar{y})} =
+\sqrt{\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}.
+\]</span> The <em>bound on the error of estimation</em> of using <span
+class="math inline">\(\bar{y}\)</span> to estimate <span
+class="math inline">\(\mu\)</span> is twice the standard error of <span
+class="math inline">\(\bar{y}\)</span> so that <span
+class="math display">\[
+  B = 2\sqrt{V(\bar{y})} =
+2\sqrt{\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}.
+\]</span> The <em>confidence interval</em> for estimating <span
+class="math inline">\(\mu\)</span> using <span
+class="math inline">\(\bar{y}\)</span> is <span class="math display">\[
+  \bar{y} \pm 2\sqrt{\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}
+\Leftrightarrow \left(\bar{y} -
+2\sqrt{\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}, \bar{y} +
+2\sqrt{\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}} \right).
+\]</span></p>
+</div>
+<div id="the-sampling-distribution-of-hattau" class="section level4">
+<h4>The Sampling Distribution of <span
+class="math inline">\(\hat\tau\)</span></h4>
+<p>The estimator <span class="math inline">\(\hat\tau\)</span> has a
+mean of <span class="math inline">\(\tau\)</span> and a variance of
+<span class="math display">\[
+  V(\hat\tau) = N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}.
+\]</span> The <em>standard error</em> of <span
+class="math inline">\(\hat\tau\)</span> is its standard deviation and so
+simply the square root of the variance so that <span
+class="math display">\[
+  \sqrt{V(\hat\tau)} =
+\sqrt{N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}.
+\]</span> The <em>bound on the error of estimation</em> of using <span
+class="math inline">\(\hat\tau\)</span> to estimate <span
+class="math inline">\(\tau\)</span> is twice the standard error of <span
+class="math inline">\(\hat\tau\)</span> so that <span
+class="math display">\[
+  B = 2\sqrt{V(\hat\tau)} =
+2\sqrt{N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}.
+\]</span> The <em>confidence interval</em> for estimating <span
+class="math inline">\(\tau\)</span> using <span
+class="math inline">\(\hat\tau\)</span> is <span class="math display">\[
+  \hat\tau \pm 2\sqrt{N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}
+\Leftrightarrow \left(\hat\tau -
+2\sqrt{N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}}, \hat\tau +
+2\sqrt{N^2\left(1-\frac{n}{N}\right)\frac{\sigma^2}{n}} \right).
+\]</span> Note: The estimator of <span
+class="math inline">\(\tau\)</span>, its standard error, and its bound
+on the error of estimation are <span class="math inline">\(N\)</span>
+times the corresponding quantities for <span
+class="math inline">\(\mu\)</span>.</p>
+<p>Note: Sometimes we use the results of a survey to compute the
+<em>estimated</em> variance, standard error, bound on the error of
+estimation, or confidence interval. This is done by replacing <span
+class="math inline">\(\sigma^2\)</span> with <span
+class="math inline">\(s^2\)</span> in any formula using <span
+class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Sep 16</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Sep 16</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-16-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<p><strong>Note</strong>: Rather than creating extra homework problems
+on the topics from today’s lecture, if there are any problems on the
+examination from today’s lecture I will use the examples from this
+lecture (although I may change the numbers).</p>
+<div id="inferences-concerning-stratum-parameters"
+class="section level2">
+<h2>Inferences Concerning Stratum Parameters</h2>
+<p>When strata correspond to one or more domains of interest, additional
+inferences concerning those domains can easily be done when using
+stratified random sampling.</p>
+<ol style="list-style-type: decimal">
+<li>Estimation of <span class="math inline">\(\mu_i\)</span> or <span
+class="math inline">\(\tau_i\)</span> in one stratum.</li>
+<li>Estimation of mean or total for several strata combined.</li>
+<li>Estimation of the difference in the mean or total between two
+strata.</li>
+</ol>
+<div id="estimation-of-mu_i-or-tau_i-for-one-stratum"
+class="section level3">
+<h3>Estimation of <span class="math inline">\(\mu_i\)</span> or <span
+class="math inline">\(\tau_i\)</span> for One Stratum</h3>
+<p>With stratified random sampling, the sampling design for obtaining
+the sample from <em>each stratum</em> is <em>simple random
+sampling</em>. So inferences concerning a stratum mean or total use the
+results from simple random sampling. We have <span
+class="math display">\[
+  \hat\mu_i = \bar{y}_i \ \ \ \text{and} \ \ \ V(\hat\mu_i) = \left(1 -
+\frac{n_i}{N_i}\right)\frac{\sigma_i^2}{n_i},
+\]</span> and <span class="math inline">\(\hat\tau_i =
+N_i\bar{y}_i\)</span> and <span class="math inline">\(V(\hat\tau_i) =
+N_i^2V(\hat\mu_i)\)</span>, noting that if we need to estimate the
+variance we replace <span class="math inline">\(\sigma_i^2\)</span> with
+<span class="math inline">\(s_i^2\)</span> and <span
+class="math inline">\(V\)</span> with <span
+class="math inline">\(\hat{V}\)</span>.</p>
+<strong>Example</strong>: Suppose we have the following results from a
+survey that used stratified random sampling.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2000
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3000
+</td>
+<td style="text-align:center;">
+300
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is <span class="math inline">\(\hat\mu_1\)</span> as well as the
+estimates of the variances of that estimator? What is <span
+class="math inline">\(\hat\tau_1\)</span> as well as the estimates of
+the variances of that estimator?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="estimation-of-the-mean-or-total-for-several-combined-strata"
+class="section level3">
+<h3>Estimation of the Mean or Total for Several Combined Strata</h3>
+Suppose we want to estimate <span
+class="math inline">\(\mu_{i,j}\)</span>, the mean of strata <span
+class="math inline">\(i\)</span> and <span
+class="math inline">\(j\)</span> <em>combined</em>. The estimator is
+<span class="math display">\[
+  \hat\mu_{i,j} = \frac{N_i}{N_i+N_j}\bar{y}_i +
+\frac{N_j}{N_i+N_j}\bar{y}_j
+\]</span> which has variance <span class="math display">\[
+  V(\hat\mu_{i,j}) = \left(\frac{N_i}{N_i+N_j}\right)^2 V(\hat\mu_i) +
+  \left(\frac{N_j}{N_i+N_j}\right)^2V(\hat\mu_j).
+\]</span> To compute <span class="math inline">\(\hat\tau_{i,j}\)</span>
+we would use <span class="math display">\[
+  \hat\tau_{i,j} = \hat\tau_i + \hat\tau_j = N_i\bar{y}_i +
+N_j\bar{y}_j,
+\]</span> which has variance <span class="math display">\[
+  V(\hat\tau_{i,j}) = V(\hat\tau_i) + V(\hat\tau_j) = N_i^2 V(\hat\mu_i)
++ N_j^2V(\hat\mu_j).
+\]</span> <strong>Example</strong>: Suppose we have the following
+results from a survey that used stratified random sampling.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2000
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3000
+</td>
+<td style="text-align:center;">
+300
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the estimate of <span
+class="math inline">\(\mu_{2,3}\)</span> and the variance of that
+estimator?</p>
+<div style="page-break-after: always;"></div>
+<p>More generally, we can do this for any number of strata. For example,
+to estimate to mean of strata <span class="math inline">\(i\)</span>,
+<span class="math inline">\(j\)</span>, and <span
+class="math inline">\(k\)</span> combined, we can use the estimator
+<span class="math display">\[
+  \hat\mu_{i,j,k} = \frac{N_i}{N_i+N_j+N_k}\bar{y}_i +
+\frac{N_j}{N_i+N_j+N_k}\bar{y}_j + \frac{N_k}{N_i + N_j + N_k}\bar{y}_k,
+\]</span> which as variance <span class="math display">\[
+  V(\hat\mu_{i,j,k}) = \left(\frac{N_i}{N_i+N_j+N_k}\right)^2
+V(\hat\mu_i) +
+  \left(\frac{N_j}{N_i+N_j+N_k}\right)^2V(\hat\mu_j) +
+  \left(\frac{N_k}{N_i+N_j+N_k}\right)^2V(\hat\mu_k).
+\]</span> And the total for those strata combined, <span
+class="math inline">\(\tau_{i,j,k}\)</span>, is estimated as <span
+class="math display">\[
+  \hat\tau_{i,j,k} = \hat\tau_i + \hat\tau_j + \hat\tau_k
+\]</span> which has variance <span class="math display">\[
+  V(\hat\tau_{i,j,k}) = V(\hat\tau_i) + V(\hat\tau_j) + V(\hat\tau_j).
+\]</span></p>
+</div>
+<div id="estimation-of-a-difference-between-strata"
+class="section level3">
+<h3>Estimation of a Difference Between Strata</h3>
+<p>Suppose we want to estimate <span class="math inline">\(\mu_i -
+\mu_j\)</span>. The estimator is simply <span class="math display">\[
+  \hat\mu_i - \hat\mu_j = \bar{y}_i - \bar{y}_j,
+\]</span> which has variance <span class="math display">\[
+  V(\hat\mu_i - \hat\mu_j) = V(\hat\mu_i) + V(\hat\mu_j).
+\]</span> Similarly if we want to estimate <span
+class="math inline">\(\tau_i - \tau_j\)</span> the estimator is <span
+class="math display">\[
+  \hat\tau_i - \hat\tau_j = N_i\bar{y}_i - N_j\bar{y}_j,
+\]</span> which has variance <span class="math display">\[
+  V(\hat\tau_i - \hat\tau_j) = V(\hat\tau_i) + V(\hat\tau_j).
+\]</span> Note that although we are <em>subtracting</em> estimators, the
+variances are still <em>additive</em>.</p>
+<strong>Example</strong>: Suppose we have the following results from a
+survey that used stratified random sampling.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(s_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2000
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3000
+</td>
+<td style="text-align:center;">
+300
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the estimate of <span class="math inline">\(\mu_1 -
+\mu_3\)</span> and what is the variance of the estimator <span
+class="math inline">\(\hat\mu_1 - \hat\mu_3\)</span>?</p>
+<p>Note: We can also do these kinds of inferences with
+post-stratification, or for stratified random sampling where the domains
+of interest do not correspond to the strata. The estimators are the same
+but the variances are different.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
