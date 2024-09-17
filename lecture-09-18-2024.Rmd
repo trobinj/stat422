@@ -34,7 +34,7 @@ library(tidyverse)
 suppressWarnings(library(kableExtra))
 ```
 
-```{r utilities}
+```{r utilities, echo = FALSE}
 source("../../utilities.R")
 ```
 
