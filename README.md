@@ -1,2 +1,2 @@
 # stat422
-Statistics 422 course materials.
+Course materials for Stat 422.
