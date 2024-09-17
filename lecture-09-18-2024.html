@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wednesday, Sep 18</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Wednesday, Sep 18</h1>
+
+</div>
+
+
+<pre class="r"><code>source(&quot;../../utilities.R&quot;)</code></pre>
+<p>You can also download a <a href="lecture-09-18-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<p>In this lecture I will demonstrate how to implement some of the
+methods we have discussed using the <strong>survey</strong> package for
+R. To try this yourself you will need to install <a
+href="https://www.r-project.org">R</a>. It is highly recommended that
+you use the <a
+href="https://www.rstudio.com/products/rstudio">RStudio</a> integrated
+development environment (IDE) when using R. Note that both of these are
+free and available for a variety of operating systems.</p>
+<div id="set-up" class="section level2">
+<h2>Set-Up</h2>
+<p>We will be using the <strong>survey</strong> package and a data set
+included with the <strong>SDaA</strong> package. You can install these
+packages using the <code>install.packages</code> command.</p>
+<pre class="r"><code>install.packages(&quot;survey&quot;)
+install.packages(&quot;SDaA&quot;)</code></pre>
+<p>Note that <code>install.packages</code> only needs to be done once on
+a given installation of R. To access the contents of these packages we
+need to use the <code>library</code> command each time we start a R
+session.</p>
+<pre class="r"><code>library(survey)
+library(SDaA)</code></pre>
+<p>We will use the data set <code>otters</code> from the
+<strong>SDaA</strong> package for a few demonstrations. We can see the
+first few rows of this data set using <code>head</code>.</p>
+<pre class="r"><code>head(otters)</code></pre>
+<pre><code>  section habitat holts
+1       1       4     6
+2       3       2     0
+3       4       1     8
+4       8       1     0
+5      11       1     0
+6      19       2     0</code></pre>
+<p>These data were collected using stratified random sampling, where the
+strata are four habitat types (cliff, agricultural, peat, and non-peat).
+The elements are 5 km by 110 m sections along the coast. The target
+variable is the number of holts (otter dens).</p>
+<p>The next step is optional, but useful for keeping track of the
+strata. Here I change a new variable <code>habtype</code> from
+<code>habitat</code> with more clear labels.</p>
+<pre class="r"><code>otters$habtype &lt;- factor(otters$habitat, levels = 1:4, 
+  labels = c(&quot;cliffs&quot;,&quot;agricultural&quot;,&quot;peat&quot;,&quot;notpeat&quot;))
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype
+1       1       4     6      notpeat
+2       3       2     0 agricultural
+3       4       1     8       cliffs
+4       8       1     0       cliffs
+5      11       1     0       cliffs
+6      19       2     0 agricultural</code></pre>
+<p>Another optional step, but it might be nice to visualize the data
+using the <strong>ggplot2</strong> package.</p>
+<pre class="r"><code>library(ggplot2) # install this package with install.packages(&quot;ggplot2&quot;)
+p &lt;- ggplot(otters, aes(x = habtype, y = holts)) + theme_classic() +
+  geom_dotplot(binaxis = &quot;y&quot;, stackdir = &quot;center&quot;) + 
+  labs(x = &quot;Habitat (Stratum)&quot;, y = &quot;Number of Holts (Target Variable)&quot;)
+plot(p)</code></pre>
+<p><img src="lecture-09-18-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
+And yet another optional step would be to compute some basic descriptive
+statistics using the <strong>dplyr</strong> package.</p>
+<pre class="r"><code>library(dplyr) # install this package with install.packages(&quot;dplyr&quot;)
+otters %&gt;% group_by(habtype) %&gt;% summarize(mean = mean(holts), sd = sd(holts), n = n())</code></pre>
+<pre><code># A tibble: 4 × 4
+  habtype       mean    sd     n
+  &lt;fct&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+1 cliffs        1.74  2.33    19
+2 agricultural  1.75  2.61    20
+3 peat         13.3   7.67    22
+4 notpeat       4.10  3.95    21</code></pre>
+<p>This computes the sample mean (<span
+class="math inline">\(\bar{y}_j\)</span>), sample standard deviation
+(<span class="math inline">\(s_j\)</span>), and sample size (<span
+class="math inline">\(n_j\)</span>) for each sample from each
+stratum.</p>
+</div>
+<div id="simple-random-sampling" class="section level2">
+<h2>Simple Random Sampling</h2>
+<p>The <code>otters</code> data were collected using a
+<em>stratified</em> random sampling design, but for this example we will
+(incorrectly) assume that the data were collected using <em>simple</em>
+random sampling. Note that data do not know how they were collected. It
+is the responsibility of the survey researcher to correctly communicate
+the design to the software.</p>
+<p>The first step is to specify the <em>sampling design</em>. But before
+we do that we need to add more information to the data set. Namely we
+need to specify the <em>population size</em> (which is 237 sections).
+This is done by creating a new variable.</p>
+<pre class="r"><code>otters$N &lt;- 237
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype   N
+1       1       4     6      notpeat 237
+2       3       2     0 agricultural 237
+3       4       1     8       cliffs 237
+4       8       1     0       cliffs 237
+5      11       1     0       cliffs 237
+6      19       2     0 agricultural 237</code></pre>
+<p>Now the design can be specified using the <code>svydesign</code>
+function.</p>
+<pre class="r"><code>ottersrs &lt;- svydesign(id = ~1, data = otters, fpc = ~N)</code></pre>
+<p>The <code>id = ~1</code> is used to indicate a variable that
+identifies the <em>sampling unit</em> for cluster sampling designs (more
+on that later), but for element sampling we specify it as above. The
+<code>data</code> argument is the data frame containing sample data, and
+the <code>fpc</code> argument is used to indicate the variable that
+holds the population size(s). The object <code>ottersrs</code> now
+contains information necessary for any inference calculations
+<em>assuming a simple random sampling design</em>.</p>
+<p>Recall that an estimator of <span class="math inline">\(\mu\)</span>
+for simple random sampling is the sample mean, <span
+class="math display">\[
+  \bar{y} = \frac{1}{n}\sum_{i \in \mathcal{S}}y_i.
+\]</span> We can compute the estimate from this estimator using the
+<code>svymean</code> function.</p>
+<pre class="r"><code>svymean(~holts, design = ottersrs)</code></pre>
+<pre><code>       mean     SE
+holts 5.439 0.6031</code></pre>
+<p>The <code>SE</code> is the (estimated) <em>standard error</em>, which
+is simply the standard deviation of the estimator and thus the square
+root of the variance of the estimator. The (estimated) variance is
+computed as <span class="math display">\[
+  \widehat{V}(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{s^2}{n},
+\]</span> where <span class="math inline">\(s^2\)</span> is the variance
+of the observations in the sample, defined as <span
+class="math display">\[
+  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2.
+\]</span> It is being used here as an estimate of <span
+class="math inline">\(\sigma^2\)</span>. We have defined the <em>bound
+on the error of estimation</em> for <span
+class="math inline">\(\bar{y}\)</span> as (approximately) <span
+class="math inline">\(B = 2\sqrt{V(\bar{y})}\)</span>. So we could
+obtain the (estimated) bound on the error of estimation by simply
+doubling the standard error reported by <code>svymean</code>. The
+confidence interval for <span class="math inline">\(\mu\)</span> is
+<span class="math inline">\(\bar{y} \pm B\)</span>. We can compute this
+by passing the result of <code>svymean</code> to the
+<code>confint</code> function.</p>
+<pre class="r"><code>confint(svymean(~holts, design = ottersrs))</code></pre>
+<pre><code>         2.5 %   97.5 %
+holts 4.256935 6.621114</code></pre>
+<p>The <code>confint</code> function does not necessarily define the
+bound on the error of estimation as exactly twice the standard error as
+it tries to use a multiplier to come closer to a 95% confidence level,
+but in practice it’ll usually be close to two. You can also change the
+confidence level to a different value (e.g., 99%).</p>
+<pre class="r"><code>confint(svymean(~holts, design = ottersrs), level = 0.99)</code></pre>
+<pre><code>         0.5 %   99.5 %
+holts 3.885496 6.992553</code></pre>
+<p>Recall that an estimator of <span class="math inline">\(\tau\)</span>
+under simple random sampling is <span class="math display">\[
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}}y_i = N\bar{y},
+\]</span> and the (estimated) variance of <span
+class="math inline">\(\hat\tau\)</span> is <span class="math display">\[
+  \widehat{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{s^2}{n}.
+\]</span> We can use the <code>svytotal</code> function for inferences
+about <span class="math inline">\(\tau\)</span> based on this
+estimator.</p>
+<pre class="r"><code>svytotal(~holts, design = ottersrs)</code></pre>
+<pre><code>      total     SE
+holts  1289 142.94</code></pre>
+<pre class="r"><code>confint(svytotal(~holts, design = ottersrs))</code></pre>
+<pre><code>         2.5 %   97.5 %
+holts 1008.894 1569.204</code></pre>
+<div id="domain-estimation" class="section level3">
+<h3>Domain Estimation</h3>
+<p>To estimate domain means or totals, we can use the <code>svyby</code>
+function.</p>
+<pre class="r"><code>svyby(~holts, by = ~habtype, design = ottersrs, FUN = svymean)</code></pre>
+<pre><code>                  habtype     holts        se
+cliffs             cliffs  1.736842 0.4232673
+agricultural agricultural  1.750000 0.4634253
+peat                 peat 13.272727 1.2994362
+notpeat           notpeat  4.095238 0.6841975</code></pre>
+<pre class="r"><code>svyby(~holts, by = ~habtype, design = ottersrs, FUN = svytotal)</code></pre>
+<pre><code>                  habtype     holts        se
+cliffs             cliffs  95.37805  27.99661
+agricultural agricultural 101.15854  31.20485
+peat                 peat 843.95122 150.03694
+notpeat           notpeat 248.56098  56.33427</code></pre>
+<p>Recall that we discussed <em>two</em> ways to estimate a domain total
+(<span class="math inline">\(\hat\tau_d\)</span>) in the context of
+stratified random sampling, depending on whether or not we know the size
+of the domain (i.e., <span class="math inline">\(N_d\)</span>). Here
+<code>svyby</code> is using the estimator that does not require knowing
+the domain size, which is <span class="math display">\[
+  \hat\tau_d = \frac{N}{n}n_d\bar{y}_d.
+\]</span> If we did know the domain size we could estimate the domain
+total with the other estimator, which is <span class="math display">\[
+  \hat\tau_d = N_d\bar{y}_d.
+\]</span> A way to use this estimator is via post-stratification (see
+below). Confidence intervals for domain means or totals can be obtained
+by using <code>confint</code>.</p>
+<pre class="r"><code>confint(svyby(~holts, by = ~habtype, design = ottersrs, FUN = svytotal))</code></pre>
+<pre><code>                 2.5 %    97.5 %
+cliffs        40.50571  150.2504
+agricultural  39.99815  162.3189
+peat         549.88422 1138.0182
+notpeat      138.14783  358.9741</code></pre>
+</div>
+<div id="categorical-target-variable" class="section level3">
+<h3>Categorical Target Variable</h3>
+<p>Now suppose instead that target variable was the <em>habitat
+type</em> rather than the number of holts. We can estimate the
+<em>proportion</em> of each habitat type as follows.</p>
+<pre class="r"><code>svymean(~habtype, design = ottersrs)</code></pre>
+<pre><code>                       mean     SE
+habtypecliffs       0.23171 0.0379
+habtypeagricultural 0.24390 0.0386
+habtypepeat         0.26829 0.0398
+habtypenotpeat      0.25610 0.0392</code></pre>
+<p>We can also estimate the <em>number</em> of sections of each habitat
+type as follows.</p>
+<pre class="r"><code>svytotal(~habtype, design = ottersrs)</code></pre>
+<pre><code>                     total     SE
+habtypecliffs       54.915 8.9853
+habtypeagricultural 57.805 9.1452
+habtypepeat         63.585 9.4356
+habtypenotpeat      60.695 9.2952</code></pre>
+<p>Of course this would only be necessary if the researchers did not
+know how many sections there were of each type.</p>
+</div>
+</div>
+<div id="stratified-random-sampling" class="section level2">
+<h2>Stratified Random Sampling</h2>
+<p>As mentioned earlier, the <code>otters</code> data were collected
+using a <em>stratified sampling design</em>, not simple random sampling.
+Here we will see how to specify this design and make inferences assuming
+a stratified sampling design.</p>
+<p>For stratified random sampling we need to specify the size of
+<em>each</em> stratum.</p>
+<pre class="r"><code>otters$N[otters$habtype == &quot;cliffs&quot;] &lt;- 89
+otters$N[otters$habtype == &quot;agricultural&quot;] &lt;- 61
+otters$N[otters$habtype == &quot;peat&quot;] &lt;- 40
+otters$N[otters$habtype == &quot;notpeat&quot;] &lt;- 47
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype  N
+1       1       4     6      notpeat 47
+2       3       2     0 agricultural 61
+3       4       1     8       cliffs 89
+4       8       1     0       cliffs 89
+5      11       1     0       cliffs 89
+6      19       2     0 agricultural 61</code></pre>
+<p>Another way you can do this is with the <code>case_when</code>
+function from the <strong>dplyr</strong> package.</p>
+<pre class="r"><code>otters &lt;- otters %&gt;% mutate(N = case_when(
+  habtype == &quot;cliffs&quot; ~ 89,
+  habtype == &quot;agricultural&quot; ~ 61,
+  habtype == &quot;peat&quot; ~ 40,
+  habtype == &quot;notpeat&quot; ~ 47))
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype  N
+1       1       4     6      notpeat 47
+2       3       2     0 agricultural 61
+3       4       1     8       cliffs 89
+4       8       1     0       cliffs 89
+5      11       1     0       cliffs 89
+6      19       2     0 agricultural 61</code></pre>
+<p>Now we can specify the design using <code>svydesign</code>.</p>
+<pre class="r"><code>otterstrat &lt;- svydesign(id = ~1, strata = ~habtype, fpc = ~N, data = otters)</code></pre>
+<p>Inferences can be obtained using the same commands as earlier,
+although note that the results are not the same because the assumed
+design is different. Recall that an estimator of <span
+class="math inline">\(\mu\)</span> under stratified random sampling is
+<span class="math display">\[
+  \hat\mu = \frac{N_1}{N}\bar{y}_1 + \frac{N_2}{N}\bar{y}_2 + \cdots +
+\frac{N_L}{N}\bar{y}_L = \sum_{j=1}^L \frac{N_j}{N}\bar{y}_j,
+\]</span> which has an estimated variance of <span
+class="math display">\[
+  \widehat{V}(\hat\mu) = \frac{1}{N^2}\sum_{j=1}^L N_j^2\left(1 -
+\frac{n_j}{N_j}\right)\frac{s_j^2}{n_j}.
+\]</span> These formulas are used to obtain the following (recall that
+the standard error is the square root of the variance).</p>
+<pre class="r"><code>svymean(~holts, design = otterstrat)</code></pre>
+<pre><code>        mean     SE
+holts 4.1549 0.3119</code></pre>
+<p>An estimator of <span class="math inline">\(\tau\)</span> under
+stratified random sampling is <span class="math display">\[
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L =
+\sum_{i=1}^LN_j\bar{y}_j,
+\]</span> which has an estimated variance of <span
+class="math display">\[
+  \widehat{V}(\hat\tau) = \sum_{j=1}^L N_j^2\left(1 -
+\frac{n_j}{N_j}\right)\frac{s_j^2}{n_j}.
+\]</span> These formulas are used to obtain the following.</p>
+<pre class="r"><code>svytotal(~holts, design = otterstrat)</code></pre>
+<pre><code>       total     SE
+holts 984.71 73.921</code></pre>
+<p>Confidence intervals can be obtained in the same way as before.</p>
+<pre class="r"><code>confint(svytotal(~holts, design = otterstrat))</code></pre>
+<pre><code>         2.5 %   97.5 %
+holts 839.8317 1129.597</code></pre>
+<p>The optional argument <code>deff = TRUE</code> will estimate the
+<em>design effect</em> for the stratified sampling design.</p>
+<pre class="r"><code>svytotal(~holts, design = otterstrat, deff = TRUE)</code></pre>
+<pre><code>        total      SE   DEff
+holts 984.714  73.921 0.3572</code></pre>
+<p>The total sample size is <span class="math inline">\(n\)</span> = 82.
+So the effective sample size of this design is estimated to be 82/0.3572
+<span class="math inline">\(\approx\)</span> 230.</p>
+<p>Estimates of domain means and totals can be obtained as follows.</p>
+<pre class="r"><code>svyby(~holts, by = ~habtype, design = otterstrat, FUN = svymean)</code></pre>
+<pre><code>                  habtype     holts        se
+cliffs             cliffs  1.736842 0.4739725
+agricultural agricultural  1.750000 0.4790589
+peat                 peat 13.272727 1.0964954
+notpeat           notpeat  4.095238 0.6408521</code></pre>
+<pre class="r"><code>svyby(~holts, by = ~habtype, design = otterstrat, FUN = svytotal)</code></pre>
+<pre><code>                  habtype    holts       se
+cliffs             cliffs 154.5789 42.18355
+agricultural agricultural 106.7500 29.22259
+peat                 peat 530.9091 43.85982
+notpeat           notpeat 192.4762 30.12005</code></pre>
+<p>The estimator of <span class="math inline">\(\mu_d\)</span> is the
+same for simple random sampling and stratified random sampling (i.e.,
+<span class="math inline">\(\bar{y}_d\)</span>), but the standard errors
+are not because the design is different. Also here the estimator being
+used for <span class="math inline">\(\tau_d\)</span> is the estimator
+that uses a <em>known</em> <span class="math inline">\(N_d\)</span>,
+since the domains are the strata and the strata sizes are provided. The
+formulas for the (estimated) variances of the domain estimators are the
+same as those for simple random sampling <em>applied to each
+sample</em>.</p>
+<div id="further-inferences-concerning-strata" class="section level3">
+<h3>Further Inferences Concerning Strata</h3>
+<p>The above shows how to make inferences concerning individual strata
+parameters. We can also consider (a) how to make inferences about two or
+more strata <em>combined</em> and also (b) how to make inferences about
+<em>differences</em> between strata parameters.</p>
+<p>Suppose we wanted to make inferences about the total number of holts
+in non-agricultural sections (i.e., cliffs, peat, or not peat). There
+are a couple of ways this can be done. One is to use the
+<code>subset</code> function which communicates that we only want to
+make inferences about a particular sub-population.</p>
+<pre class="r"><code>notagg &lt;- subset(otterstrat, habtype %in% c(&quot;cliffs&quot;,&quot;peat&quot;,&quot;notpeat&quot;))
+svytotal(~holts, design = notagg)</code></pre>
+<pre><code>       total   SE
+holts 877.96 67.9</code></pre>
+<p>If there was a variable in the original data that identifies the
+non-agricultural sections we can use that instead.</p>
+<pre class="r"><code>otters &lt;- otters %&gt;% 
+  mutate(agricultural = ifelse(habtype %in% c(&quot;cliffs&quot;,&quot;peat&quot;,&quot;notpeat&quot;), &quot;no&quot;, &quot;yes&quot;))
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype  N agricultural
+1       1       4     6      notpeat 47           no
+2       3       2     0 agricultural 61          yes
+3       4       1     8       cliffs 89           no
+4       8       1     0       cliffs 89           no
+5      11       1     0       cliffs 89           no
+6      19       2     0 agricultural 61          yes</code></pre>
+<pre class="r"><code>otterstrat &lt;- svydesign(id = ~1, strata = ~habtype, fpc = ~N, data = otters)
+svyby(~holts, by = ~agricultural, design = otterstrat, FUN = svytotal)</code></pre>
+<pre><code>    agricultural    holts       se
+no            no 877.9642 67.89958
+yes          yes 106.7500 29.22259</code></pre>
+<p>This approach also works for simple random sampling.</p>
+<pre class="r"><code>notagg &lt;- subset(ottersrs, habtype %in% c(&quot;cliffs&quot;,&quot;peat&quot;,&quot;notpeat&quot;))
+svytotal(~holts, design = notagg)</code></pre>
+<pre><code>       total     SE
+holts 1187.9 146.28</code></pre>
+<p>The estimate is different here because <code>svytotal</code> is using
+the estimator that does not use the (in this case known) size of the
+domain. But you can use the estimator that does know the size of the
+domain if you use post-stratification (as shown below).</p>
+<p>Here is another approach using the <code>svycontrast</code> function
+which is quite general because it allows us to specify many different
+kinds of functions of stratum or domain means or totals. Here I will
+show how we can estimate the difference in the stratum means between the
+peat and non-peat strata.</p>
+<pre class="r"><code>tmp &lt;- svyby(~holts, by = ~habtype, design = otterstrat, FUN = svymean)
+tmp</code></pre>
+<pre><code>                  habtype     holts        se
+cliffs             cliffs  1.736842 0.4739725
+agricultural agricultural  1.750000 0.4790589
+peat                 peat 13.272727 1.0964954
+notpeat           notpeat  4.095238 0.6408521</code></pre>
+<pre class="r"><code>svycontrast(tmp, quote(peat - notpeat))</code></pre>
+<pre><code>          nlcon   SE
+contrast 9.1775 1.27</code></pre>
+<pre class="r"><code>confint(svycontrast(tmp, quote(peat - notpeat)))</code></pre>
+<pre><code>            2.5 %   97.5 %
+contrast 6.688263 11.66672</code></pre>
+</div>
+</div>
+<div id="post-stratification" class="section level2">
+<h2>Post-Stratification</h2>
+<p>Now assume that the sampling design was simple random sampling, but
+that we want to post-stratify based on the habitat auxiliary variable
+because we know how many sections are within each habitat. To do this we
+first need to create another data set that holds the known sizes of the
+strata.</p>
+<pre class="r"><code>habitatfreq &lt;- data.frame(habtype = c(&quot;cliffs&quot;,&quot;agricultural&quot;,&quot;peat&quot;,&quot;notpeat&quot;), 
+  Freq = c(89,61,40,47))
+habitatfreq</code></pre>
+<pre><code>       habtype Freq
+1       cliffs   89
+2 agricultural   61
+3         peat   40
+4      notpeat   47</code></pre>
+<p>This information can then be passed to the <code>postStratify</code>
+function which will effectively re-weight the observations.</p>
+<pre class="r"><code>otterpost &lt;- postStratify(design = ottersrs, strata = ~habtype, population = habitatfreq)</code></pre>
+<p>Now we can estimate <span class="math inline">\(\mu\)</span> and
+<span class="math inline">\(\tau\)</span> as well as the domain means
+and totals.</p>
+<pre class="r"><code>svymean(~holts, design = otterpost)</code></pre>
+<pre><code>        mean     SE
+holts 4.1549 0.3256</code></pre>
+<pre class="r"><code>svytotal(~holts, design = otterpost)</code></pre>
+<pre><code>       total     SE
+holts 984.71 77.162</code></pre>
+<pre class="r"><code>svyby(~holts, by = ~habtype, design = otterpost, FUN = svymean)</code></pre>
+<pre><code>                  habtype     holts        se
+cliffs             cliffs  1.736842 0.4232673
+agricultural agricultural  1.750000 0.4634253
+peat                 peat 13.272727 1.2994362
+notpeat           notpeat  4.095238 0.6841975</code></pre>
+<pre class="r"><code>svyby(~holts, by = ~habtype, design = otterpost, FUN = svytotal)</code></pre>
+<pre><code>                  habtype    holts       se
+cliffs             cliffs 154.5789 37.67079
+agricultural agricultural 106.7500 28.26895
+peat                 peat 530.9091 51.97745
+notpeat           notpeat 192.4762 32.15728</code></pre>
+<p>Note that the mean and total <em>estimates</em> are the same as those
+from stratified random sampling, but the standard errors are not. This
+is because the variances for estimators are not computed the same under
+post-stratification as they are under stratified random sampling. Note
+also that after post-stratification the estimator for a domain
+<em>total</em> uses the estimator that uses the known domain size. This
+also happens below where we estimate the number of holts in
+non-agricultural sections.</p>
+<pre class="r"><code>notagg &lt;- subset(otterpost, habtype %in% c(&quot;cliffs&quot;,&quot;peat&quot;,&quot;notpeat&quot;))
+svytotal(~holts, design = notagg)</code></pre>
+<pre><code>       total     SE
+holts 877.96 71.797</code></pre>
+<p>Note that the estimate is the same as when the design was specified
+as stratified random sampling, but the standard error is not.</p>
+<div id="sampling-weights" class="section level3">
+<h3>Sampling Weights</h3>
+<p>We can compute sampling weights using the <code>weights</code>
+function. For simple random sampling we know that all elements have a
+weight of <span class="math inline">\(N/n\)</span>.</p>
+<pre class="r"><code>otters$w &lt;- weights(ottersrs)
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype  N agricultural        w
+1       1       4     6      notpeat 47           no 2.890244
+2       3       2     0 agricultural 61          yes 2.890244
+3       4       1     8       cliffs 89           no 2.890244
+4       8       1     0       cliffs 89           no 2.890244
+5      11       1     0       cliffs 89           no 2.890244
+6      19       2     0 agricultural 61          yes 2.890244</code></pre>
+<p>Remember that we changed the variable <code>N</code> earlier for the
+stratified random sampling design. For the weights for simple random
+sampling <span class="math inline">\(N\)</span> = 237 and <span
+class="math inline">\(n\)</span> = 82. For stratified random sampling an
+element has a weight of <span class="math inline">\(N_j/n_j\)</span> if
+it is form the <span class="math inline">\(j\)</span>-th stratum.</p>
+<pre class="r"><code>otters$w &lt;- weights(otterstrat)
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype  N agricultural        w
+1       1       4     6      notpeat 47           no 2.238095
+2       3       2     0 agricultural 61          yes 3.050000
+3       4       1     8       cliffs 89           no 4.684211
+4       8       1     0       cliffs 89           no 4.684211
+5      11       1     0       cliffs 89           no 4.684211
+6      19       2     0 agricultural 61          yes 3.050000</code></pre>
+<p>When we use post-stratification we change the weights to match those
+for stratified random sampling.</p>
+<pre class="r"><code>otters$w &lt;- weights(otterpost)
+head(otters)</code></pre>
+<pre><code>  section habitat holts      habtype  N agricultural        w
+1       1       4     6      notpeat 47           no 2.238095
+2       3       2     0 agricultural 61          yes 3.050000
+3       4       1     8       cliffs 89           no 4.684211
+4       8       1     0       cliffs 89           no 4.684211
+5      11       1     0       cliffs 89           no 4.684211
+6      19       2     0 agricultural 61          yes 3.050000</code></pre>
+<p>A property of sampling weights (if they have not been modified) is
+that they sum to the number of elements in the population (for simple
+random sampling) and to the number of elements in each stratum (for
+stratified random sampling).</p>
+<pre class="r"><code>otters &lt;- otters %&gt;% 
+  mutate(srswghts = weights(ottersrs), stratwghts = weights(otterstrat))
+otters %&gt;% summarize(weightsum = sum(srswghts))</code></pre>
+<pre><code>  weightsum
+1       237</code></pre>
+<pre class="r"><code>otters %&gt;% group_by(habtype) %&gt;% summarize(weightsum = sum(stratwghts))</code></pre>
+<pre><code># A tibble: 4 × 2
+  habtype      weightsum
+  &lt;fct&gt;            &lt;dbl&gt;
+1 cliffs              89
+2 agricultural        61
+3 peat                40
+4 notpeat             47</code></pre>
+<p>There are useful ways that weights can be used that we will discuss
+later in the course.</p>
+</div>
+</div>
+<div id="double-sampling-two-phase-sampling" class="section level2">
+<h2>Double Sampling (Two-Phase Sampling)</h2>
+<p>I am going to use another data set to demonstrate double sampling for
+strata with unknown sizes. The data are in a the
+<strong>trtools</strong> package which can be installed using the
+following command, provided you have already installed the
+<strong>devtools</strong> package (which can be installed using
+<code>install.packages(devtools)</code>).</p>
+<pre class="r"><code>devtools::install_github(&quot;trobinj/trtools&quot;)</code></pre>
+<p>The data set is called <code>ismail</code>. The elements are
+veterans. They were evaluated quickly in the first phase to classify
+them as disabled or not. Those veterans sampled in the second phase
+where then assessed by psychiatrists to determine whether or not they
+had alcohol, sleep, or psychiatric disorders.</p>
+<pre class="r"><code>library(trtools)
+ismail$N &lt;- 53462
+head(ismail, 20)</code></pre>
+<pre><code>   disabled alcohol sleep psych     N
+1        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+2        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+3        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+4        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+5        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+6        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+7        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+8        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+9        no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+10       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+11      yes    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+12       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+13      yes      no   yes   yes 53462
+14       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+15       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+16       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+17      yes      no    no    no 53462
+18       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+19       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462
+20       no    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 53462</code></pre>
+<p>The variable <code>disabled</code> is the stratification variable.
+The target variables (all categorical) are <code>alcohol</code>,
+<code>sleep</code>, and <code>psych</code>. The missing values (the
+<code>&lt;NA&gt;</code>) are due to the double sampling. First we
+specify a two-phase sampling design using <code>twophase</code>. Note
+that many of the arguments have two parts, one for each phase.</p>
+<pre class="r"><code>ismail2phase &lt;- twophase(id = list(~1, ~1), strata = list(NULL, ~disabled),
+  fpc = list(~N, NULL), subset = ~!is.na(sleep), data = ismail)</code></pre>
+<p>Inferences can then be obtained the usual way. Note that here because
+<code>sleep</code> is categorical, totals are the estimated
+<em>number</em> of veterans in the population with sleep disorders, and
+the means are the estimated <em>proportions</em> of veterans in the
+population with sleep disorders.</p>
+<pre class="r"><code>svytotal(~sleep, design = ismail2phase)</code></pre>
+<pre><code>           total     SE
+sleepno  44145.8 1826.1
+sleepyes  9316.2 1826.1</code></pre>
+<pre class="r"><code>svymean(~sleep, design = ismail2phase)</code></pre>
+<pre><code>            mean     SE
+sleepno  0.82574 0.0342
+sleepyes 0.17426 0.0342</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
