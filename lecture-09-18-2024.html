@@ -304,7 +304,7 @@ strata are four habitat types (cliff, agricultural, peat, and non-peat).
 The elements are 5 km by 110 m sections along the coast. The target
 variable is the number of holts (otter dens).</p>
 <p>The next step is optional, but useful for keeping track of the
-strata. Here I change a new variable <code>habtype</code> from
+strata. Here I create a new variable <code>habtype</code> from
 <code>habitat</code> with more clear labels.</p>
 <pre class="r"><code>otters$habtype &lt;- factor(otters$habitat, levels = 1:4, 
   labels = c(&quot;cliffs&quot;,&quot;agricultural&quot;,&quot;peat&quot;,&quot;notpeat&quot;))
