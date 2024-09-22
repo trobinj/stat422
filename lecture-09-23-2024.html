@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Sep 23</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Sep 23</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-23-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="estimation-of-a-ratio-and-ratio-estimators"
+class="section level2">
+<h2>Estimation of a Ratio and Ratio Estimators</h2>
+<p>Confusingly, there are two somewhat related problems that we will
+consider involving “ratios” in estimation.</p>
+<ol style="list-style-type: decimal">
+<li><p>The estimation of a <em>ratio of totals</em> of two variables (an
+“estimator of a ratio”).</p></li>
+<li><p>Using an estimated ratio to estimate a population <em>mean</em>
+or <em>total</em> (a “ratio estimator”).</p></li>
+</ol>
+<p>Today’s lecture considers only the first problem — i.e., estimating a
+ratio of totals.</p>
+</div>
+<div id="estimation-of-a-ratio-of-totals" class="section level2">
+<h2>Estimation of a Ratio (of Totals)</h2>
+<p>Sometimes we are interested in estimating the <em>ratio</em> of the
+totals of <em>two</em> variables, defined as <span
+class="math display">\[
+  R = \frac{\tau_y}{\tau_x} = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i}.
+\]</span> Note that because <span class="math inline">\(\mu_y =
+\frac{1}{N}\sum_{i=1}^N y_i\)</span> and <span
+class="math inline">\(\mu_x = \frac{1}{N}\sum_{i=1}^N x_i\)</span>, then
+we can also write <span class="math inline">\(R =
+\mu_y/\mu_x\)</span>.</p>
+<p>Note that by convention <span class="math inline">\(y_i\)</span> will
+denote the value of the <em>numerator</em> variable and <span
+class="math inline">\(x_i\)</span> will denote the value of the
+<em>denominator</em> variable for element <span
+class="math inline">\(i\)</span>.</p>
+<p>Examples include the estimation of a <em>proportions</em>,
+<em>rates</em>, or <em>densities</em>.</p>
+<strong>Example</strong>: Consider the problem of estimating the
+<em>proportion</em> of trees that are of a particular species in a
+region of land divided into <span class="math inline">\(N\)</span>
+plots.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Quantity
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(y_i\)</span>
+</td>
+<td style="text-align:left;">
+number of trees of a particular species in plot <span
+class="math inline">\(i\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(x_i\)</span>
+</td>
+<td style="text-align:left;">
+number of trees in plot <span class="math inline">\(i\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(R\)</span>
+</td>
+<td style="text-align:left;">
+proportion of trees in the region that are of a particular species
+</td>
+</tr>
+</tbody>
+</table>
+<strong>Example</strong>: Consider the problem of estimating the birth
+<em>rate</em> in a population of <span class="math inline">\(N\)</span>
+villages.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Quantity
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(y_i\)</span>
+</td>
+<td style="text-align:left;">
+number of births in the past year in village <span
+class="math inline">\(i\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(x_i\)</span>
+</td>
+<td style="text-align:left;">
+number of people in village <span class="math inline">\(i\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(R\)</span>
+</td>
+<td style="text-align:left;">
+birth rate (number of births per person per year)
+</td>
+</tr>
+</tbody>
+</table>
+<strong>Example</strong>: Consider the problem of estimating the
+<em>density</em> of errors in a stream of data divided into <span
+class="math inline">\(N\)</span> chunks of varying size.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Quantity
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(y_i\)</span>
+</td>
+<td style="text-align:left;">
+number of errors in the chunk <span class="math inline">\(i\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(x_i\)</span>
+</td>
+<td style="text-align:left;">
+size of chunk <span class="math inline">\(i\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+<span class="math inline">\(R\)</span>
+</td>
+<td style="text-align:left;">
+error density (errors per unit size)
+</td>
+</tr>
+</tbody>
+</table>
+<p>We will also see that sometimes estimators of means will take the
+form of a ratio. Examples include the estimation of the means of
+<em>domains</em>, and the estimation of means when elements are
+<em>clustered</em>.</p>
+</div>
+<div id="estimator-for-a-ratio" class="section level2">
+<h2>Estimator for a Ratio</h2>
+<p>For a <em>simple random sampling</em> design, an estimator of <span
+class="math inline">\(R\)</span> is <span class="math display">\[
+  r = \frac{\hat\tau_y}{\hat\tau_x} = \frac{N\bar{y}}{N\bar{x}} =
+\frac{\bar{y}}{\bar{x}}.
+\]</span></p>
+<strong>Example</strong>: Consider a survey using a simple random
+sampling design with <span class="math inline">\(n\)</span> = 10
+villages to estimate birth rate, where <span
+class="math inline">\(y_i\)</span> is the number of births in the <span
+class="math inline">\(i\)</span>-th sampled village, and <span
+class="math inline">\(x_i\)</span> is the number of people in the <span
+class="math inline">\(i\)</span>-th sampled village.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+village
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+a
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+58
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+b
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+158
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+c
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+d
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+177
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+e
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+188
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+f
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+g
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+106
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+h
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+178
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+i
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+110
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+j
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+91
+</td>
+</tr>
+</tbody>
+</table>
+<p>We have that <span class="math inline">\(\bar{y}\)</span> = 5.4 and
+<span class="math inline">\(\bar{x}\)</span> = 115.7, so the estimated
+birth rate is then <span class="math inline">\(r\)</span> = 5.4/115.7
+<span class="math inline">\(\approx\)</span> 0.05 births per person.</p>
+<p>The estimated variance of the estimator <span
+class="math inline">\(r\)</span> under simple random sampling is <span
+class="math display">\[
+  \hat{V}(r) = \left(\frac{1}{\mu_x^2}\right)\left(1 -
+\frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 =
+\frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}.
+\]</span> Note: If <span class="math inline">\(\mu_x\)</span> is unknown
+it can be replaced with <span
+class="math inline">\(\bar{x}\)</span>.</p>
+<strong>Example</strong>: Returning to the birth rate problem, what is
+<span class="math inline">\(\hat{V}(r)\)</span> if <span
+class="math inline">\(N\)</span> = 100? And what is the bound on the
+error of estimation?
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+village
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i - rx_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\((y_i - rx_i)^2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+a
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+3.29
+</td>
+<td style="text-align:center;">
+10.84
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+b
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+158
+</td>
+<td style="text-align:center;">
+-0.37
+</td>
+<td style="text-align:center;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+c
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+82
+</td>
+<td style="text-align:center;">
+1.17
+</td>
+<td style="text-align:center;">
+1.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+d
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+177
+</td>
+<td style="text-align:center;">
+0.74
+</td>
+<td style="text-align:center;">
+0.55
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+e
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+188
+</td>
+<td style="text-align:center;">
+-2.77
+</td>
+<td style="text-align:center;">
+7.7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+f
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+0.58
+</td>
+<td style="text-align:center;">
+0.34
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+g
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+106
+</td>
+<td style="text-align:center;">
+-0.95
+</td>
+<td style="text-align:center;">
+0.9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+h
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+178
+</td>
+<td style="text-align:center;">
+-4.31
+</td>
+<td style="text-align:center;">
+18.56
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+i
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+110
+</td>
+<td style="text-align:center;">
+-1.13
+</td>
+<td style="text-align:center;">
+1.29
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+j
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+91
+</td>
+<td style="text-align:center;">
+3.75
+</td>
+<td style="text-align:center;">
+14.08
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+55.76
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that quantities shown in the table are rounded.</p>
+<div style="page-break-after: always;"></div>
+<p><img src="lecture-09-23-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+We can show that <span class="math inline">\(\hat{V}(r)\)</span> <span
+class="math inline">\(\approx\)</span> 0.00004165567, which gives a
+bound on the error of estimation of <span
+class="math inline">\(B\)</span> <span
+class="math inline">\(\approx\)</span> 0.013.</p>
+<div style="page-break-after: always;"></div>
+<p>How does the relationship between <span
+class="math inline">\(y_i\)</span> and <span
+class="math inline">\(x_i\)</span> affect the variance of <span
+class="math inline">\(r\)</span>?
+<img src="lecture-09-23-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
+Note that the lines in the figures below have intercepts of zero (i.e.,
+they pass through the origin) and slopes of <span
+class="math inline">\(r\)</span>.</p>
+<p><strong>Example</strong>: Consider a survey to estimate the
+proportion of households with televisions in Des Moines, Iowa, in 1951.
+The sampling units are <em>blocks</em> of households.</p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+block
+</th>
+<th style="text-align:center;">
+tv
+</th>
+<th style="text-align:center;">
+households
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+132
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>We can compute <span class="math inline">\(\bar{y} \approx\)</span>
+1.8 and <span class="math inline">\(\bar{x} \approx\)</span> 5.23. The
+estimate of the proportion of households with TVs is <span
+class="math inline">\(r \approx\)</span> 0.34.</p>
+<p><img src="lecture-09-23-2024_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>We have <span class="math inline">\(\sum_{i \in \mathcal{S}}(y_i -
+rx_i)^2 \approx\)</span> 210.63, and we know that <span
+class="math inline">\(N\)</span> = 9460 and that <span
+class="math inline">\(\tau_x\)</span> = 56296 households, so <span
+class="math inline">\(\mu_x\)</span> = 56296/9460 <span
+class="math inline">\(\approx\)</span> 5.95. We can show that <span
+class="math inline">\(\hat{V}(r)\)</span> <span
+class="math inline">\(\approx\)</span> 0.0003 and that the bound on the
+error of estimation is <span class="math inline">\(B\)</span> <span
+class="math inline">\(\approx\)</span> 0.04.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="estimation-of-a-mu-with-clusters-of-elements"
+class="section level2">
+<h2>Estimation of a <span class="math inline">\(\mu\)</span> With
+Clusters of Elements</h2>
+<strong>Example</strong>: Consider a sampling design where the elements
+are plot, <span class="math inline">\(y_i\)</span> is tree biomass in
+the <span class="math inline">\(i\)</span>-th plot, and <span
+class="math inline">\(x_i\)</span> is the number of trees in the <span
+class="math inline">\(i\)</span>-th plot. Here are the data for a simple
+random sampling design that selected <span
+class="math inline">\(n\)</span> = 10 plots.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Plot
+</th>
+<th style="text-align:center;">
+Biomass
+</th>
+<th style="text-align:center;">
+Trees
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+125
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+185
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+82
+</td>
+<td style="text-align:center;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+152
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+263
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+52
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+131
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+201
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+114
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+148
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that mean volume <em>per tree</em> (<span
+class="math inline">\(\mu\)</span>) is <span class="math display">\[
+  \mu = \frac{\sum_{i=1}^N y_i}{\sum_{i=1}^N x_i} =
+  \frac{\text{total biomass for all trees}}{\text{total number of
+trees}},
+\]</span> which can be estimated by the ratio <span
+class="math inline">\(r = \bar{y}/\bar{x}\)</span>. Here we have that
+<span class="math inline">\(\hat\mu\)</span> = <span
+class="math inline">\(r\)</span> = <span
+class="math inline">\(\bar{y}/\bar{x} \approx\)</span> 25.5 units of
+biomass <em>per tree</em>.</p>
+<p>Note: We will see this estimator again when we discuss <em>one-stage
+cluster sampling</em>.</p>
+</div>
+<div id="estimation-of-domain-means" class="section level2">
+<h2>Estimation of Domain Means</h2>
+<p>Under simple random sampling, the estimator of <span
+class="math inline">\(\mu_d\)</span> can be written as <span
+class="math display">\[
+  \bar{y}_d = \frac{\sum_{i \in \mathcal{S}} y_i&#39;}{\sum_{i \in
+\mathcal{S}} x_i},
+\]</span> where <span class="math display">\[
+  y_i&#39; =
+  \begin{cases}
+    y_i, &amp; \text{if the $i$-th element is in the domain}, \\
+    0,   &amp; \text{if the $i$-th element is not in the domain},
+  \end{cases}
+\]</span> and <span class="math display">\[
+  x_i =
+  \begin{cases}
+    1,   &amp; \text{if the $i$-th element is in the domain}, \\
+    0,   &amp; \text{if the $i$-th element is not in the domain}.
+  \end{cases}
+\]</span> Note that <span class="math inline">\(\sum_{i \in \mathcal{S}}
+x_i = n_d\)</span> (i.e., the number of elements in the sample that are
+in the domain).</p>
+<strong>Example</strong>: Here is how <span
+class="math inline">\(y_i&#39;\)</span> and <span
+class="math inline">\(x_i\)</span> would be defined for a sample of
+<span class="math inline">\(n\)</span> = 10.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Domain
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i&#39;\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+no
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+yes
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p>The variance of <span class="math inline">\(\bar{y}_d\)</span> under
+simple random sampling tends to be a bit larger than if we had used the
+domains in a stratified random sampling design because <span
+class="math inline">\(n_d\)</span> is <em>random</em> rather than
+<em>fixed by design</em>.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

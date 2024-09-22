@@ -58,7 +58,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Estimation of a ratio of totals](lecture-09-23-2024.html).
 
 `r i <- i + 1; d[i]` 
 

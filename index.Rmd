@@ -11,7 +11,7 @@ This site contains materials for Dr. Tim Johnson's *Survey Sampling Methods* cou
 
 <center>
 
-![https://xkcd.com/552](http://imgs.xkcd.com/comics/correlation.png)
+![https://xkcd.com/2576](https://imgs.xkcd.com/comics/control_group.png)
 </center>
 
 ***
