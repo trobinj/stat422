@@ -173,8 +173,7 @@ plot(p)
 ```
 Note that the lines in the figures below have intercepts of zero (i.e., they pass through the origin) and slopes of $r$. 
 
-**Example**: Consider a survey to estimate the proportion of households with televisions in Des Moines, Iowa, in 1951. The sampling units are *blocks* of households. 
-
+**Example**: Consider a survey to estimate the proportion of households with televisions in Des Moines, Iowa, in 1951. The sampling units are *blocks* of households. Here $y_i$ is the number of households with televisions in the $i$-th block, and $x_i$ is the number of households in the $i$-th block. 
 ```{r}
 d <- trtools::televisions %>% mutate(block = 1:n()) %>% 
   select(block, tv, households)
