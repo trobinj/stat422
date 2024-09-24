@@ -1,0 +1,448 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-25-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Comparison of Two Estimators of a Ratio of Totals
+
+Consider *two* estimators of $R = \tau_y/\tau_x$: 
+$$
+  r = \bar{y}/\bar{x} \ \ \ \text{and} \ \ \ r' = \bar{y}/\mu_x.
+$$
+The latter would be an option if $\mu_x$ is *known*. 
+
+**Example**: Consider the problem of estimating the density of larkspur in a region, where $y_i$ is the number of larkspur in the $i$-th plot, and $x_i$ is the area of the $i$-th plot. Here $\mu_x$ is the mean area of all plots. We may know this.
+
+**Example**: Consider the problem of estimating the number of televisions per household in a city, where $y_i$ is the number of televisions owned by households in the $i$-th block, and $x_i$ is the number of households in the $i$-th block. Here $\tau_x$ is the total number of households in the city, so $\mu_x = \tau_x/N$. We may know this. 
+
+Which estimator should we use? Under simple random sampling the estimated variances of these estimators are
+$$
+  \hat{V}(\bar{y}/\bar{x}) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{and} \ \ \
+  \hat{V}(\bar{y}/\mu_x) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s^2}{n},
+$$
+where 
+$$
+  s_r^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \ \ \ \text{and} \ \ \ 
+  s^2 = \frac{1}{n-1}\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2,
+$$  
+so the (estimated) relative efficiency depends only on $s_r^2$ and $s^2$. 
+
+### Approximately Proportional Variables
+
+```{r, fig.width = 9, fig.height = 4, warning = FALSE}
+set.seed(123)
+
+N <- 10000
+n <- 25
+r <- 10000
+
+d <- data.frame(x = rep(1:25, N/25)) %>% mutate(y = rpois(n(), x))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
+p1 <- p + ggtitle("Population")
+
+mux <- mean(d$x)
+
+u <- data.frame(e1 = rep(NA, r), e2 = rep(NA, r))
+
+for (i in 1:r) {
+  indx <- sample(1:N, n)
+  
+  ysmp <- d$y[indx]
+  xsmp <- d$x[indx]
+  
+  u$e1[i] <- mean(ysmp) / mux
+  u$e2[i] <- mean(ysmp) / mean(xsmp)
+}
+
+u <- u %>% pivot_longer(cols = c(e1, e2), names_to = "estimator", values_to = "estimate")
+
+p <- ggplot(u, aes(x = estimate, fill = estimator)) + theme_classic()
+p <- p + geom_density(adjust = 3, alpha = 0.5)
+p <- p + scale_fill_manual(values = c(grey(0.4), grey(0.75)))
+p <- p + scale_x_continuous(breaks = seq(0, 2, by = 0.1), limits = c(0.4, 1.4),
+  labels = c(seq(0, 0.9, by = 0.1), tex("$R$"), seq(1.1, 2, by = 0.1)))
+p <- p + theme(legend.position = c(0.25, 0.75))
+p <- p + labs(fill = "Estimator", x = "Estimate") + guides(fill = "none")
+p <- p + annotate("text", x = 0.4, y = 5.7, label = "Estimator", hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 5.2, label = tex("$\\bar{y} / \\mu_x$"), hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 4.7, label = tex("$\\bar{y} / \\bar{x}$"), hjust = 0)
+p <- p + annotate("point", x = 0.43, y = 5.2, shape = 22, fill = grey(0.40), size = 7, alpha = 0.5)
+p <- p + annotate("point", x = 0.43, y = 4.7, shape = 22, fill = grey(0.75), size = 7, alpha = 0.5)
+p2 <- p + ggtitle("Sampling Distributions") + noyaxis
+
+cowplot::plot_grid(p1, p2, ncol = 2, rel_widths = c(1,1))
+```
+
+### Unrelated Variables
+
+```{r, fig.width = 9, fig.height = 4, warning = FALSE}
+set.seed(123)
+
+N <- 10000
+n <- 25
+r <- 10000
+
+d <- data.frame(x = rep(1:25, N/25)) %>% mutate(y = rpois(n(), 13))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
+p1 <- p + ggtitle("Population")
+
+mux <- mean(d$x)
+
+u <- data.frame(e1 = rep(NA, r), e2 = rep(NA, r))
+
+for (i in 1:r) {
+  indx <- sample(1:N, n)
+  
+  ysmp <- d$y[indx]
+  xsmp <- d$x[indx]
+  
+  u$e1[i] <- mean(ysmp) / mux
+  u$e2[i] <- mean(ysmp) / mean(xsmp)
+}
+
+u <- u %>% pivot_longer(cols = c(e1, e2), names_to = "estimator", values_to = "estimate")
+
+p <- ggplot(u, aes(x = estimate, fill = estimator)) + theme_classic()
+p <- p + geom_density(adjust = 3, alpha = 0.5)
+p <- p + scale_fill_manual(values = c(grey(0.4), grey(0.75)))
+p <- p + scale_x_continuous(breaks = seq(0, 2, by = 0.1), limits = c(0.4, 1.4),
+  labels = c(seq(0, 0.9, by = 0.1), tex("$R$"), seq(1.1, 2, by = 0.1)))
+p <- p + theme(legend.position = c(0.25, 0.75))
+p <- p + labs(fill = "Estimator", x = "Estimate") + guides(fill = "none")
+p <- p + annotate("text", x = 0.4, y = 5.7, label = "Estimator", hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 5.2, label = tex("$\\bar{y} / \\mu_x$"), hjust = 0)
+p <- p + annotate("text", x = 0.47, y = 4.7, label = tex("$\\bar{y} / \\bar{x}$"), hjust = 0)
+p <- p + annotate("point", x = 0.43, y = 5.2, shape = 22, fill = grey(0.40), size = 7, alpha = 0.5)
+p <- p + annotate("point", x = 0.43, y = 4.7, shape = 22, fill = grey(0.75), size = 7, alpha = 0.5)
+p2 <- p + ggtitle("Sampling Distributions") + noyaxis
+
+cowplot::plot_grid(p1, p2, ncol = 2, rel_widths = c(1,1))
+```
+**Question**: Assuming we know $\mu_x$, when should we use the estimator $r = \bar{y}/\bar{x}$ and when should we use the estimator $r' = \bar{y}/\mu_x$?
+
+\pagebreak
+
+## Auxiliary Variables
+
+An **auxiliary variable** is a variable ($x_i$) that varies over elements or sampling units. Auxiliary variables can be used in a variety of ways. 
+
+Two common uses of auxiliary variables:
+
+1. In specifying a *sampling design*.
+0. In defining an *estimator*. 
+
+For example, stratified random sampling uses an auxiliary variable for stratification, and post-stratification uses an auxiliary variable (i.e., the strata membership) in the estimator. 
+*Ratio estimators* are an example of using an auxiliary variable *in an estimator*.
+
+## Ratio Estimators
+
+Consider that for a simple random sampling design
+$$
+  \frac{\mu_y}{\mu_x} \approx \frac{\bar{y}}{\bar{x}} \Rightarrow \mu_y \approx \frac{\bar{y}}{\bar{x}}\mu_x,
+$$
+so we could define an estimator of $\mu_y$ as
+$$
+  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x.
+$$
+Multiplying this estimator would give us an estimator of $\tau_y$ since $\tau_y = N\mu_y$, so that would be
+$$
+  \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x. 
+$$
+The **ratio estimators** of $\tau_y$ and $\mu_y$ for a simple random sampling design are
+$$
+  \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x \ \ \ \ \ \text{and} \ \ \ \ \  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x,
+$$
+respectively, where $y$ denotes the *target variable* and $x$ denotes an *auxiliary variable*. These are alternatives to the estimators,
+$$
+  \hat\tau_y = N\bar{y} \ \ \ \ \ \text{and} \ \ \ \ \  \hat\mu_y = \bar{y},
+$$
+which do not use an auxiliary variable.
+
+Note: There is a connection between a *ratio estimator* and the *estimator of a ratio* ($r = \bar{y}/\bar{x}$) since we can write the ratio estimators as $\hat\mu_y = r\mu_x$ and $\hat\tau_y = r\tau_x$.
+
+\pagebreak
+
+**Example**: Consider a survey to estimate the proportion of households with televisions in Des Moines, Iowa, in 1951. The sampling units are *blocks* of households, selected using simple random sampling from a population of $N$ = 9460 blocks. 
+
+```{r}
+d <- trtools::televisions %>% mutate(block = 1:n()) %>% 
+  select(block, tv, households)
+ktbl(headtail(d, 5))
+
+r <- with(d, mean(tv)/mean(households))
+e2sum <- with(d, sum((tv - r*households)^2))
+```
+Let $y_i$ and $x_i$ denote the number of televisions and the number of households, respectively, for the $i$-th block. We can compute $\bar{y} \approx$ `r round(mean(d$tv),2)` and $\bar{x} \approx$ `r round(mean(d$households),2)`. We also know that the total number of households for all 9460 blocks is $\tau_x$ = 46296. What are our estimates of the total number of televisions in Des Moines using the two estimators we have?
+
+\pagebreak
+
+**Example**: The area of each of 744 leaves from a shining gum (*Eucalyptus nitens*) was crudely approximated by multiplying leaf length and width. The area of each leaf of a simple random sample of 20 leaves was measured accurately. 
+```{r}
+d <- trtools::leafarea %>% mutate(leaf = 1:n()) %>% select(leaf, area, lengthwidth) %>% rename("$i$" = leaf, "Area" = area, "Length $\\times$ Width" = lengthwidth)
+ktbl(headtail(d, 5))
+d <- trtools::leafarea
+```
+The mean crude area approximation of all 744 leaves was 76.97 square cm. For the sample of 20 leaves, the mean of the accurate area measurements was `r mean(d$area)` square cm, and the mean of the crude area measurements was `r round(mean(d$lengthwidth),2)` square cm. What is the estimate of the mean area of all the leaves using the two estimators?
+
+\pagebreak
+
+## The (Estimated) Variance of Ratio Estimators
+
+We have two estimators of $\mu_y$ and two estimators of $\tau_y$ under simple random sampling. How do they compare? 
+
+Let $\mu_y = \mu_x\bar{y}/\bar{x}$ be the ratio estimator of $\mu_y$. Under simple random sampling, the estimated variance of $\hat\mu_y$ is
+$$
+  \hat{V}(\hat\mu_y) = \left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1},
+$$
+where $r = \bar{y}/\bar{x}$. Note that the estimated variance of $\mu_y$ is very close related to that of $r$. This isn't surprising since we can write the ratio estimator as $\hat\mu_y = r\mu_x$. The $\mu_x$ cancels out the term $1/\mu_x^2$ in the variance of $r$ to create the variance of $\mu_y$.  
+
+```{r}
+d <- trtools::leafarea
+r <- with(d, mean(area)/mean(lengthwidth))
+e2sum <- with(d, sum((area - r*lengthwidth)^2))
+```
+**Example**: Recall the survey of shining gum leaves. We have that $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum,2)`. What is the bound on the error of estimation of the ratio estimator of the mean leaf area?
+
+\pagebreak
+
+Let $\hat\tau_y = \tau_x\bar{x}/\bar{y}$ be the ratio estimator of $\tau_y$ under simple random sampling. The estimated variance of $\hat\tau_y$ is
+$$
+  \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1},
+$$
+where $r = \bar{y}/\bar{x}$. 
+
+```{r}
+d <- trtools::televisions %>% mutate(block = 1:n()) %>% 
+  select(block, tv, households)
+
+r <- with(d, mean(tv)/mean(households))
+e2sum <- with(d, sum((tv - r*households)^2))
+```
+
+**Example**: Recall the television survey. There $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum,2)`. What is the bound on the error of estimation for the ratio estimator for the total number of televisions?
+
+\pagebreak
+
+## Relative Efficiency of Ratio Estimators
+
+Under simple random sampling the estimator $\hat\mu_y = \bar{y}$ has the (estimated) variance
+$$
+  \hat{V}(\hat\mu_y) = \left(1 - \frac{n}{N}\right)\frac{s^2}{n} \ \ \ \text{where} \ \ \ s^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - \bar{y})^2}{n-1},
+$$
+while the ratio estimator $\hat\mu_y = \mu_x\bar{y}/\bar{x}$ has an (estimated) variance of 
+$$
+  \hat{V}(\hat\mu_y) = \left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}.
+$$
+The (estimated) *relative efficiency* of the ratio estimator when compared to $\bar{y}$ is
+$$
+  \frac{\hat{V}(\bar{y})}{\hat{V}(\mu_x\bar{y}/\bar{x})} = \frac{\sum_{i \in \mathcal{S}} (y_i - \bar{y})^2}{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}.
+$$
+So a relative efficiency greater than one favors the ratio estimator, whereas a relative efficiency less than one favors $\bar{y}$. 
+
+Note: We can also compute an *effective sample size* of the ratio estimator (relative to $\bar{y}$) as the sample size times the relative efficiency.
+
+```{r}
+d <- trtools::leafarea
+r <- with(d, mean(area)/mean(lengthwidth))
+e2sum1 <- with(d, sum((area - r*lengthwidth)^2))
+e2sum2 <- with(d, sum((area - mean(area))^2))
+```
+
+**Example**: Recall the survey of leaf area. We have $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum1,2)` and $\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2 \approx$ `r format(round(e2sum2,2), scientific = FALSE)`. This gives us a relative efficiency of approximately `r round(e2sum2/e2sum1, 2)`.
+
+```{r, fig.height = 4}
+d <- trtools::leafarea
+r <- with(d, mean(area) / mean(lengthwidth))
+d$yhat <- r * d$lengthwidth
+
+p <- ggplot(d, aes(x = lengthwidth, y = area)) + theme_classic()
+p <- p + geom_abline(intercept = 0, slope = r, alpha = 0.25)
+p <- p + geom_segment(aes(xend = lengthwidth, yend = yhat), alpha = 0.25)
+p <- p + geom_point() + labs(x = "Length Times Width (cm squared)", y = "Area (cm squared)")
+p <- p + ylim(0, 150) + xlim(0, 200)
+p1 <- p
+
+p <- ggplot(d, aes(x = lengthwidth, y = area)) + theme_classic()
+p <- p + geom_abline(intercept = mean(d$area), slope = 0, alpha = 0.25)
+p <- p + geom_segment(aes(xend = lengthwidth, yend = mean(area)), alpha = 0.25)
+p <- p + geom_point() + labs(x = "Length Times Width (cm squared)", y = "Area (cm squared)")
+p <- p + ylim(0, 150) + xlim(0, 200)
+
+p2 <- p
+
+cowplot::plot_grid(p1, p2, ncol = 2)
+```
+
+**Example**: Consider the observations of a target variable (left middle finger length) and an auxiliary variable (height) for a population of `r nrow(SDaA::anthrop)` elements.
+```{r, fig.height = 4}
+r <- with(SDaA::anthrop, mean(finger)/mean(height))
+d <- SDaA::anthrop %>% group_by(finger, height) %>% summarize(n = n())
+
+p <- ggplot(d, aes(x = height, y = finger)) + theme_classic()
+p <- p + geom_point(aes(size = n), fill = "white", pch = 21) + scale_size_area()
+p <- p + xlab("Height (in)") + ylab("Left Middle Finger Length (cm)")
+p <- p + guides(size = "none")
+p
+```
+Let's simulate the sampling distributions of two estimators of $\mu_y$ under simple random sampling with $n$ = 25: the sample mean $\bar{y}$ and the ratio estimator $\mu_x\bar{y}/\bar{x}$. Note that the value of $\mu_y$ is approximately `r round(mean(SDaA::anthrop$finger),2)` cm.
+```{r, fig.height = 4}
+set.seed(123)
+
+pop <- SDaA::anthrop
+
+reps <- 10000
+
+est.avg <- rep(NA, reps)
+est.rat <- rep(NA, reps)
+
+mx <- mean(pop$height)
+
+n <- 25
+N <- nrow(pop)
+
+for (i in 1:reps) {
+  samp <- pop[sample(1:N, n),]
+  est.avg[i] <- mean(samp$finger)
+  est.rat[i] <- mx * est.avg[i] / mean(samp$height)
+}
+
+d <- data.frame(estimate = c(est.avg, est.rat), estimator = rep(c("Sample Mean","Ratio Estimator"), each = reps))
+
+p <- ggplot(d, aes(x = estimate)) + theme_minimal() + facet_wrap(~ estimator)
+p <- p + geom_histogram() + labs(x = "Estimate", y = NULL) + noyaxis
+plot(p)
+```
+We have $\hat{V}(\bar{y}) \approx$ `r round(var(est.avg),3)` and $\hat{V}(\mu_x\bar{y}/\bar{x}) \approx$ `r round(var(est.rat),3)`. 
+
+\pagebreak
+
+**Example**: Consider a population of red oaks. 
+```{r, fig.height = 4}
+d <- trtools::redoak %>% mutate(area = pi * (dbh/2)^2)
+p <- ggplot(d, aes(x = area, y = volume)) + theme_classic()
+p <- p + geom_point(alpha = 0.25)
+p <- p + guides(size = "none")
+p <- p + labs(x = "Trunk Slice Area (square in)", y = "Volume (cubic ft)")
+plot(p)
+```
+Let's simulate the sampling distributions of two estimators of $\tau_y$ under simple random sampling with $n$ = 20: the estimator $N\bar{y}$ (i.e., the "expansion estimator") and the ratio estimator $\tau_x\bar{y}/\bar{x}$. Note that the value of $\tau_y$ is `r sum(d$volume)` cubic feet.
+```{r, fig.height = 4}
+set.seed(123)
+
+pop <- d
+
+reps <- 10000
+
+est.avg <- rep(NA, reps)
+est.rat <- rep(NA, reps)
+
+tx <- sum(pop$area)
+
+n <- 20
+N <- nrow(pop)
+
+for (i in 1:reps) {
+  samp <- pop[sample(1:N, n),]
+  est.avg[i] <- N * mean(samp$volume)
+  est.rat[i] <- tx * est.avg[i] / N / mean(samp$area)
+}
+
+d <- data.frame(estimate = c(est.avg, est.rat), estimator = rep(c("Expansion Estimator","Ratio Estimator"), each = reps))
+
+p <- ggplot(d, aes(x = estimate)) + theme_minimal() + facet_wrap(~ estimator)
+p <- p + geom_histogram() + labs(x = "Estimate", y = NULL) + noyaxis
+plot(p)
+```
+We have $\hat{V}(N\bar{y}) \approx$ `r format(round(var(est.avg),1), scientific = FALSE)` and $\hat{V}(\tau_x\bar{y}/\bar{x}) \approx$ `r format(round(var(est.rat),3), scientific = FALSE)`.
+
+**Question**: Could the ratio estimator for $\tau_y$ or $\mu_y$ have a *larger* variance than the "non-ratio" estimators $\hat\tau_y = N\bar{y}$ and $\hat\mu_y = \bar{y}$, respectively, and thus *lower* relative efficiency? *When* would this happen?
+
+\pagebreak
+
+## Unknown $N$
+
+One estimator of $\tau_y$ under simple random sampling is 
+$$
+  \hat\tau_y = N\bar{y},
+$$
+which is clearly useless if $N$ is *unknown*. But we could use the ratio estimator
+$$
+  \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+$$
+if we know $\tau_x$. Recall that $\tau_x = \sum_{i=1}^N x_i$. So one way to compute $\tau_x$ is to get $x_i$ for *all* elements in the population, but if we could do that we'd know $N$. But in some cases there are other ways to find $\tau_x$.
+
+**Example**: Suppose we have a load of an unknown number of oranges. Let $y_i$ be the sugar content of the $i$-th orange and let $x_i$ be the weight of the $i$-th orange. The ratio estimator of the total sugar content of the load of oranges (assuming a simple random sampling design) is 
+$$
+  \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+$$
+where $\tau_x$ is the total weight of all the oranges in the load.
+
+**Example**: The following data are from hauls of Ventura Marsh, Iowa, in October of 1953 for Northern Pike (*Esox lucius*) after 1146 pike had been caught, tagged, and released. 
+```{r}
+d <- trtools::pike %>% mutate(Haul = 1:n()) %>% select(Haul, catch, tagged) %>% rename("Catch" = catch, "Tagged" = tagged) 
+ktbl(headtail(d, 5))
+d <- trtools::pike
+```
+The mean catch size was `r round(mean(d$catch),2)` pike and the mean number of tagged pike per haul was `r mean(d$tagged)`. If we regard these hauls as a sample from a simple random sampling design, then an estimate of the total number of Northern Pike is
+$$
+  \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+$$
+where $\bar{y}$ and $\bar{x}$ are the average number of caught and tagged fish in the sample of hauls, respectively, and $\tau_x$ is the total number of tagged fish.
+
+<!-- Note: If $N$ is unknown we cannot compute the estimated variance of the ratio estimator, but if we can assume that $1 - n/N \approx 1$ (or we can omit the term $1-n/N$ due to sampling *with replacement*), then we can estimate $N$ with $\tau_x/\bar{x}$ (since $\tau_x$ can be estimated as $N\bar{x}$ and so $\tau_x \approx N\bar{x} \Rightarrow N \approx \tau_x/\bar{x}$) and the estimated variance  -->
+<!-- $$ -->
+<!--   \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}, -->
+<!-- $$ -->
+<!-- becomes -->
+<!-- $$ -->
+<!--   \hat{V}(\hat\tau_y) = \frac{\tau_x^2}{\bar{x}^2}\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}. -->
+<!-- $$ -->
+
+\pagebreak
+
+## Advantages of Ratio Estimators
+
+In the context of a simple random sampling design, what *two* advantages do we see for ratio estimators relative to the estimators that do not use an auxiliary variable?
+
