@@ -62,7 +62,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Comparison of two estimators of a ratio of totals, introduction to ratio estimators](lecture-09-25-2024.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Ratio estimators --- continued](lecture-09-27-2024.html).
  
 ***
 

@@ -1,0 +1,302 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-27-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Two Estimators of a Domain Total Revisited
+
+We saw that for a simple random sampling design there are two estimators of $\tau_d$:
+$$
+  \hat\tau_d = N_d\bar{y}_d \ \ \ \text{and} \ \ \ \hat\tau_d = \frac{N}{n}n_d\bar{y}_d.
+$$
+The first has smaller variance, although it requires knowing $N_d$. How can we explain the difference in variance using what we know about ratio estimators?
+
+Consider that
+$$
+  \bar{y}_d = \frac{\sum_{i \in \mathcal{S}} y_i'}{\sum_{i \in \mathcal{S}} x_i},
+$$
+where 
+$$
+  y_i' = 
+  \begin{cases}
+    y_i, & \text{if the $i$-th element is from the domain,} \\
+    0,   & \text{otherwise},
+  \end{cases}
+$$
+and
+$$
+  x_i = 
+  \begin{cases}
+    1, & \text{if the $i$-th element is from the domain,} \\
+    0, & \text{otherwise}.
+  \end{cases}
+$$
+Also note that $N_d = \tau_x = \sum_{i = 1}^N x_i$ and $n_d = \sum_{i \in \mathcal{S}} x_i$. So we can write these estimators as
+$$
+  N_d\bar{y}_d = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i'}{\sum_{i \in \mathcal{S}} x_i} = \tau_x\frac{\frac{1}{n}\sum_{i \in \mathcal{S}} y_i'}{\frac{1}{n}\sum_{i \in \mathcal{S}} x_i} = \tau_x\frac{\bar{y}'}{\bar{x}} 
+$$
+and
+$$
+\frac{N}{n}n_d\bar{y}_d = \frac{N}{n}n_d\frac{\sum_{i \in \mathcal{S}} y_i'}{\sum_{i \in \mathcal{S}} x_i} = \frac{N}{n}n_d\frac{\sum_{i \in \mathcal{S}} y_i'}{n_d} = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i' = N\bar{y}'.
+$$
+And note that $y_i'$ is "approximately proportional" to $x_i$ since $y_i'$ = 0 if $x_i$ = 0. So now why does the estimator $N_d\bar{y}_d$ tend to have a smaller variance than the estimator $(N/n)n_d\bar{y}_d$?
+
+## Ratio Estimators as Adjusted Estimators
+
+Consider two estimators of $\mu_y$: 
+$$
+  \hat\mu_y = \bar{y} \ \ \ \text{and} \ \ \ \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x.
+$$
+Writing the ratio estimator as
+$$
+  \hat\mu_y = \frac{\mu_x}{\bar{x}}\bar{y}
+$$
+shows more clearly that the ratio estimator "adjusts" $\bar{y}$ by a factor of $\mu_x/\bar{x}$. 
+\begin{align*}
+\bar{x} < \mu_x & \Rightarrow \frac{\mu_x}{\bar{x}}>1 \Rightarrow \frac{\mu_x}{\bar{x}}\bar{y} > \bar{y} \ \ (\text{i.e., adjust estimate up}) \\ 
+\bar{x} = \mu_x & \Rightarrow \frac{\mu_x}{\bar{x}}=1 \Rightarrow \frac{\mu_x}{\bar{x}}\bar{y} = \bar{y} \ \ (\text{i.e., no adjustment}) \\ 
+\bar{x} > \mu_x & \Rightarrow \frac{\mu_x}{\bar{x}}<1 \Rightarrow \frac{\mu_x}{\bar{x}}\bar{y} < \bar{y} \ \ (\text{i.e., adjust estimate down})
+\end{align*}
+The factor of $\mu_x/\bar{x}$ tells us if $\mu_x$ is *underestimated* or *overestimated* by $\bar{x}$. This gives us some idea that *might* have underestimated or overestimated $\mu_y$ as well, so we might then adjust our estimate. 
+
+**Example**: Here $\mu_x$ is *underestimated* by $\bar{x}$. 
+```{r}
+trees <- read.table(header = FALSE, text = "
+1 .3000000119 6
+2 .5 9
+3 .400000006 7
+4 .8999999762 19
+5 .6999999881 15
+6 .200000003 5
+7 .6000000238 12
+8 .5 9
+9 .8000000119 20
+10 .400000006 9
+11 .8000000119 18
+12 .6000000238 13")
+names(trees) <- c("tree","area","volume")
+
+xbar <- mean(trees$area)
+ybar <- mean(trees$volume)
+
+mux <- 0.85
+
+p <- ggplot(trees, aes(x = area, y = volume)) + theme_classic()
+p <- p + geom_abline(intercept = 0, slope = with(trees, mean(volume)/mean(area)))
+p <- p + geom_point() + coord_cartesian(xlim = c(0,1), ylim = c(0,20)) + labs(x = tex("$x_i$"), y = tex("$y_i$"))
+p <- p + annotate("segment", x = xbar, xend = xbar, y = ybar, yend = -1, linetype = 3)
+p <- p + annotate("segment", x = xbar, xend = -1, y = ybar, yend = ybar, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = mux, y = ybar*mux/xbar, yend = -1, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = -1, y = ybar*mux/xbar, yend = ybar*mux/xbar, linetype = 3)
+p <- p + scale_x_continuous(breaks = c(0, 0.2, 0.4, xbar, 0.6, 0.8, mux, 1), labels = c(0, 0.2, 0.4, tex("$\\bar{x}$"), 0.6, 0.8, tex("$\\mu_x$"), 1))
+p <- p + scale_y_continuous(breaks = c(0, 5, 10, ybar, 15, ybar*mux/xbar, 20), labels = c(0, 5, 10, tex("$\\bar{y}$"), 15, tex("$\\mu_x \\bar{y} / \\bar{x}$"), 20))
+plot(p)
+```
+**Example**: Here $\mu_x$ is *overestimated* by $\bar{x}$. 
+```{r}
+trees <- read.table(header = FALSE, text = "
+1 .3000000119 6
+2 .5 9
+3 .400000006 7
+4 .8999999762 19
+5 .6999999881 15
+6 .200000003 5
+7 .6000000238 12
+8 .5 9
+9 .8000000119 20
+10 .400000006 9
+11 .8000000119 18
+12 .6000000238 13")
+names(trees) <- c("tree","area","volume")
+
+xbar <- mean(trees$area)
+ybar <- mean(trees$volume)
+
+mux <- 0.35
+
+p <- ggplot(trees, aes(x = area, y = volume)) + theme_classic()
+p <- p + geom_abline(intercept = 0, slope = with(trees, mean(volume)/mean(area)))
+p <- p + geom_point() + coord_cartesian(xlim = c(0,1), ylim = c(0,20)) + labs(x = tex("$x_i$"), y = tex("$y_i$"))
+p <- p + annotate("segment", x = xbar, xend = xbar, y = ybar, yend = -1, linetype = 3)
+p <- p + annotate("segment", x = xbar, xend = -1, y = ybar, yend = ybar, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = mux, y = ybar*mux/xbar, yend = -1, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = -1, y = ybar*mux/xbar, yend = ybar*mux/xbar, linetype = 3)
+p <- p + scale_x_continuous(breaks = c(0, 0.2, mux, 0.4, xbar, 0.6, 0.8, 1), labels = c(0, 0.2, tex("$\\mu_x$"), 0.4, tex("$\\bar{x}$"), 0.6, 0.8, 1))
+p <- p + scale_y_continuous(breaks = c(0, 5, ybar*mux/xbar, 10, ybar, 15,  20), labels = c(0, 5, tex("$\\mu_x \\bar{y} / \\bar{x}$"), 10, tex("$\\bar{y}$"), 15, 20))
+plot(p)
+```
+
+## Performance of Ratio Estimators
+
+How does the relationship between the target and auxiliary variable affect the ratio estimator?
+
+**Example**: In each of the following populations $N$ = 1000 and $\mu_y$ = 300. 
+
+```{r, fig.height = 3, fig.width = 9}
+set.seed(123)
+r <- 1000
+N <- 1000
+x <- runif(r, 1, 20)
+
+p1 <- data.frame(x = x, y = 30*x + rnorm(length(x), 0, 0.1*x^2), pop = "A")
+p2 <- data.frame(x = x, y = 30*x + rnorm(length(x), 0, 0.2*x^2), pop = "B")
+p3 <- data.frame(x = x, y = 30*x + rnorm(length(x), 0, 0.4*x^2), pop = "C")
+
+p1$y <- p1$y/mean(p1$y)*300
+p2$y <- p2$y/mean(p2$y)*300
+p3$y <- p3$y/mean(p3$y)*300
+
+data <- rbind(p1, p2, p3)
+
+p <- ggplot(rbind(p1,p2,p3), aes(x = x, y = y))
+p <- p + geom_point(size = 0.5, alpha = 0.5) + facet_wrap(~ pop)
+p <- p + theme_minimal()
+p <- p + xlim(range(c(p1$x, p2$x, p3$x)))
+p
+```
+
+Consider the sampling distributions of the ratio estimator $\hat\mu_y = \mu_x\bar{y}/\bar{x}$ with $n$ = 25.
+
+```{r, fig.height = 3, fig.width = 9}
+set.seed(123)
+n <- 25
+reps <- 1000
+esta <- rep(NA, reps)
+estb <- rep(NA, reps)
+estc <- rep(NA, reps)
+for (i in 1:reps) {
+  samp <- p1[sample(1:N, n),]
+  esta[i] <- mean(p1$x) * mean(samp$y)/mean(samp$x)
+  samp <- p2[sample(1:N, n),]
+  estb[i] <- mean(p2$x) * mean(samp$y)/mean(samp$x)
+  samp <- p3[sample(1:N, n),]
+  estc[i] <- mean(p3$x) * mean(samp$y)/mean(samp$x)
+}
+data <- data.frame(estimate = c(esta, estb, estc),
+ pop = rep(LETTERS[1:3], each = reps))
+data$mu <- NA
+data$mu[data$pop == "A"] <- mean(p1$y)
+data$mu[data$pop == "B"] <- mean(p2$y)
+data$mu[data$pop == "C"] <- mean(p3$y)
+p <- ggplot(data, aes(x = estimate)) + theme_bw()
+p <- p + geom_density(adjust = 3, alpha = 0.5)
+p <- p + geom_point(aes(x = mu, y = 0), shape = 17, size = 2)
+p <- p + facet_wrap(~pop)
+p <- p + xlab("Estimate") + ylab("Probability Density")
+p <- p + theme_minimal() + noyaxis
+plot(p)
+```
+
+How does the relationship between the target and auxiliary variable affect the ratio estimator, and how does this compare to using the "non-ratio" estimator? Is a ratio estimator always better than a "non-ratio" estimator? Can a ratio estimator be *worse*?
+
+**Example**: Consider a population of $N$ = 3000 elements (prisoners) where the target variable is finger length, and three estimators of $\mu_y$:
+
+1. $\hat\mu_y = \bar{y}$ (i.e., the sample mean)
+2. $\hat\mu_y = \mu_h\bar{y}/\bar{h}$ (i.e., a ratio estimator using *height* as the auxiliary variable)
+3. $\hat\mu_y = \mu_a\bar{y}/\bar{a}$ (i.e., a ratio estimator using *age* as the auxiliary variable)
+
+The plots below show the distribution of finger length with height and with age in the *population*.
+```{r, fig.width = 9}
+set.seed(123)
+
+d <- SDaA::anthrop %>% mutate(age = round(rtrunc(rnorm, n(), 20, 70, mean = 35, sd = 10)))
+
+r <- with(SDaA::anthrop, mean(finger)/mean(height))
+b <- with(SDaA::anthrop, mean(finger))
+
+u <- d %>% pivot_longer(cols = c("height","age"), names_to = "variable", values_to = "x") %>%
+  group_by(variable, finger, x) %>% summarise(freq = n()) %>% 
+  mutate(y = ifelse(variable == "height", x*r, b)) %>%
+  mutate(variable = factor(variable, levels = c("height","age")))
+
+levels(u$variable) <- c("Height","Age")
+
+p <- ggplot(u, aes(x = x, y = finger))
+p <- p + geom_line(aes(y = y))
+p <- p + geom_point(aes(size = freq), pch = 21, fill = "white") + theme_minimal()
+p <- p + xlab("Auxiliary Variable Value") + ylab("Left Middle Finger Length (cm)")
+p <- p + facet_grid(. ~ variable, scales = "free_x", space = "free_x") + guides(size = "none")
+p
+```
+The plots below show the *sampling distributions* of the three estimators based on a simple random sampling design with $n$ = 25.
+```{r, fig.height = 3, fig.width = 9}
+n <- 100
+r <- 10000
+
+ybar <- rep(NA, r)
+rath <- rep(NA, r)
+rata <- rep(NA, r)
+
+mh <- mean(d$height)
+ma <- mean(d$age)
+
+for (i in 1:r) {
+  samp <- d[sample(1:nrow(d), n),]
+  ybar[i] <- mean(samp$finger)
+  rath[i] <- mean(samp$finger) * mh / mean(samp$height) 
+  rata[i] <- mean(samp$finger) * ma / mean(samp$age)
+}
+
+data <- data.frame(estimate = c(ybar, rath, rata),
+  estimator = rep(c("Mean","Ratio Using Height","Ratio Using Age"), each = r)) %>%
+  mutate(estimator = factor(estimator)) %>% mutate(estimator = reorder(estimator, estimate, FUN = var))
+
+p <- ggplot(data, aes(x = estimate)) + theme_minimal()
+p <- p + geom_density(adjust = 3, alpha = 0.5)
+p <- p + labs(x = "Estimate", y = NULL)
+p <- p + facet_wrap(~ estimator)
+plot(p)
+
+data %>% group_by(estimator) %>% summarize(variance = round(var(estimate),5)) %>% mutate(B = round(2 * sqrt(variance),2)) %>% ktbl()
+```
+
+## Sources of Auxiliary Variables for Ratio Estimators
+
+1. What is *necessary* for a variable to be used as an auxiliary variable?
+0. What is *desirable* for a variable to be used as an auxiliary variable?
+
+What are some sources of auxiliary variables?
+
+1. *Rough approximations* to the target variable.
+0. Some measure of sampling unit *size*.
+0. Prior observations of the target variable from a *census*. 
+

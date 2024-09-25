@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Sep 27</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Sep 27</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-27-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="two-estimators-of-a-domain-total-revisited"
+class="section level2">
+<h2>Two Estimators of a Domain Total Revisited</h2>
+<p>We saw that for a simple random sampling design there are two
+estimators of <span class="math inline">\(\tau_d\)</span>: <span
+class="math display">\[
+  \hat\tau_d = N_d\bar{y}_d \ \ \ \text{and} \ \ \ \hat\tau_d =
+\frac{N}{n}n_d\bar{y}_d.
+\]</span> The first has smaller variance, although it requires knowing
+<span class="math inline">\(N_d\)</span>. How can we explain the
+difference in variance using what we know about ratio estimators?</p>
+<p>Consider that <span class="math display">\[
+  \bar{y}_d = \frac{\sum_{i \in \mathcal{S}} y_i&#39;}{\sum_{i \in
+\mathcal{S}} x_i},
+\]</span> where <span class="math display">\[
+  y_i&#39; =
+  \begin{cases}
+    y_i, &amp; \text{if the $i$-th element is from the domain,} \\
+    0,   &amp; \text{otherwise},
+  \end{cases}
+\]</span> and <span class="math display">\[
+  x_i =
+  \begin{cases}
+    1, &amp; \text{if the $i$-th element is from the domain,} \\
+    0, &amp; \text{otherwise}.
+  \end{cases}
+\]</span> Also note that <span class="math inline">\(N_d = \tau_x =
+\sum_{i = 1}^N x_i\)</span> and <span class="math inline">\(n_d =
+\sum_{i \in \mathcal{S}} x_i\)</span>. So we can write these estimators
+as <span class="math display">\[
+  N_d\bar{y}_d = \tau_x\frac{\sum_{i \in \mathcal{S}} y_i&#39;}{\sum_{i
+\in \mathcal{S}} x_i} = \tau_x\frac{\frac{1}{n}\sum_{i \in \mathcal{S}}
+y_i&#39;}{\frac{1}{n}\sum_{i \in \mathcal{S}} x_i} =
+\tau_x\frac{\bar{y}&#39;}{\bar{x}}
+\]</span> and <span class="math display">\[
+\frac{N}{n}n_d\bar{y}_d = \frac{N}{n}n_d\frac{\sum_{i \in \mathcal{S}}
+y_i&#39;}{\sum_{i \in \mathcal{S}} x_i} = \frac{N}{n}n_d\frac{\sum_{i
+\in \mathcal{S}} y_i&#39;}{n_d} = \frac{N}{n}\sum_{i \in \mathcal{S}}
+y_i&#39; = N\bar{y}&#39;.
+\]</span> And note that <span class="math inline">\(y_i&#39;\)</span> is
+“approximately proportional” to <span class="math inline">\(x_i\)</span>
+since <span class="math inline">\(y_i&#39;\)</span> = 0 if <span
+class="math inline">\(x_i\)</span> = 0. So now why does the estimator
+<span class="math inline">\(N_d\bar{y}_d\)</span> tend to have a smaller
+variance than the estimator <span
+class="math inline">\((N/n)n_d\bar{y}_d\)</span>?</p>
+</div>
+<div id="ratio-estimators-as-adjusted-estimators"
+class="section level2">
+<h2>Ratio Estimators as Adjusted Estimators</h2>
+<p>Consider two estimators of <span
+class="math inline">\(\mu_y\)</span>: <span class="math display">\[
+  \hat\mu_y = \bar{y} \ \ \ \text{and} \ \ \ \hat\mu_y =
+\frac{\bar{y}}{\bar{x}}\mu_x.
+\]</span> Writing the ratio estimator as <span class="math display">\[
+  \hat\mu_y = \frac{\mu_x}{\bar{x}}\bar{y}
+\]</span> shows more clearly that the ratio estimator “adjusts” <span
+class="math inline">\(\bar{y}\)</span> by a factor of <span
+class="math inline">\(\mu_x/\bar{x}\)</span>. <span
+class="math display">\[\begin{align*}
+\bar{x} &lt; \mu_x &amp; \Rightarrow \frac{\mu_x}{\bar{x}}&gt;1
+\Rightarrow \frac{\mu_x}{\bar{x}}\bar{y} &gt; \bar{y} \ \ (\text{i.e.,
+adjust estimate up}) \\
+\bar{x} = \mu_x &amp; \Rightarrow \frac{\mu_x}{\bar{x}}=1 \Rightarrow
+\frac{\mu_x}{\bar{x}}\bar{y} = \bar{y} \ \ (\text{i.e., no adjustment})
+\\
+\bar{x} &gt; \mu_x &amp; \Rightarrow \frac{\mu_x}{\bar{x}}&lt;1
+\Rightarrow \frac{\mu_x}{\bar{x}}\bar{y} &lt; \bar{y} \ \ (\text{i.e.,
+adjust estimate down})
+\end{align*}\]</span> The factor of <span
+class="math inline">\(\mu_x/\bar{x}\)</span> tells us if <span
+class="math inline">\(\mu_x\)</span> is <em>underestimated</em> or
+<em>overestimated</em> by <span class="math inline">\(\bar{x}\)</span>.
+This gives us some idea that <em>might</em> have underestimated or
+overestimated <span class="math inline">\(\mu_y\)</span> as well, so we
+might then adjust our estimate.</p>
+<p><strong>Example</strong>: Here <span
+class="math inline">\(\mu_x\)</span> is <em>underestimated</em> by <span
+class="math inline">\(\bar{x}\)</span>.
+<img src="lecture-09-27-2024_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
+<strong>Example</strong>: Here <span
+class="math inline">\(\mu_x\)</span> is <em>overestimated</em> by <span
+class="math inline">\(\bar{x}\)</span>.
+<img src="lecture-09-27-2024_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="performance-of-ratio-estimators" class="section level2">
+<h2>Performance of Ratio Estimators</h2>
+<p>How does the relationship between the target and auxiliary variable
+affect the ratio estimator?</p>
+<p><strong>Example</strong>: In each of the following populations <span
+class="math inline">\(N\)</span> = 1000 and <span
+class="math inline">\(\mu_y\)</span> = 300.</p>
+<p><img src="lecture-09-27-2024_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Consider the sampling distributions of the ratio estimator <span
+class="math inline">\(\hat\mu_y = \mu_x\bar{y}/\bar{x}\)</span> with
+<span class="math inline">\(n\)</span> = 25.</p>
+<p><img src="lecture-09-27-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>How does the relationship between the target and auxiliary variable
+affect the ratio estimator, and how does this compare to using the
+“non-ratio” estimator? Is a ratio estimator always better than a
+“non-ratio” estimator? Can a ratio estimator be <em>worse</em>?</p>
+<p><strong>Example</strong>: Consider a population of <span
+class="math inline">\(N\)</span> = 3000 elements (prisoners) where the
+target variable is finger length, and three estimators of <span
+class="math inline">\(\mu_y\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\hat\mu_y = \bar{y}\)</span> (i.e., the
+sample mean)</li>
+<li><span class="math inline">\(\hat\mu_y =
+\mu_h\bar{y}/\bar{h}\)</span> (i.e., a ratio estimator using
+<em>height</em> as the auxiliary variable)</li>
+<li><span class="math inline">\(\hat\mu_y =
+\mu_a\bar{y}/\bar{a}\)</span> (i.e., a ratio estimator using
+<em>age</em> as the auxiliary variable)</li>
+</ol>
+The plots below show the distribution of finger length with height and
+with age in the <em>population</em>.
+<img src="lecture-09-27-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
+The plots below show the <em>sampling distributions</em> of the three
+estimators based on a simple random sampling design with <span
+class="math inline">\(n\)</span> = 25.
+<img src="lecture-09-27-2024_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" />
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+estimator
+</th>
+<th style="text-align:center;">
+variance
+</th>
+<th style="text-align:center;">
+B
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Ratio Using Height
+</td>
+<td style="text-align:center;">
+0.00174
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Mean
+</td>
+<td style="text-align:center;">
+0.00292
+</td>
+<td style="text-align:center;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Ratio Using Age
+</td>
+<td style="text-align:center;">
+0.07795
+</td>
+<td style="text-align:center;">
+0.56
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sources-of-auxiliary-variables-for-ratio-estimators"
+class="section level2">
+<h2>Sources of Auxiliary Variables for Ratio Estimators</h2>
+<ol style="list-style-type: decimal">
+<li>What is <em>necessary</em> for a variable to be used as an auxiliary
+variable?</li>
+<li>What is <em>desirable</em> for a variable to be used as an auxiliary
+variable?</li>
+</ol>
+<p>What are some sources of auxiliary variables?</p>
+<ol style="list-style-type: decimal">
+<li><em>Rough approximations</em> to the target variable.</li>
+<li>Some measure of sampling unit <em>size</em>.</li>
+<li>Prior observations of the target variable from a
+<em>census</em>.</li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
