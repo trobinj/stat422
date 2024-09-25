@@ -51,7 +51,7 @@ The latter would be an option if $\mu_x$ is *known*.
 
 **Example**: Consider the problem of estimating the density of larkspur in a region, where $y_i$ is the number of larkspur in the $i$-th plot, and $x_i$ is the area of the $i$-th plot. Here $\mu_x$ is the mean area of all plots. We may know this.
 
-**Example**: Consider the problem of estimating the number of televisions per household in a city, where $y_i$ is the number of televisions owned by households in the $i$-th block, and $x_i$ is the number of households in the $i$-th block. Here $\tau_x$ is the total number of households in the city, so $\mu_x = \tau_x/N$. We may know this. 
+**Example**: Consider the problem of estimating the number of households with televisions, where $y_i$ is the number of households that own a television in the $i$-th block, and $x_i$ is the number of households in the $i$-th block. Here $\tau_x$ is the total number of households in the city, so $\mu_x = \tau_x/N$. We may know this. 
 
 Which estimator should we use? Under simple random sampling the estimated variances of these estimators are
 $$
