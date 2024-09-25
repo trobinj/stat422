@@ -214,7 +214,7 @@ ktbl(headtail(d, 5))
 r <- with(d, mean(tv)/mean(households))
 e2sum <- with(d, sum((tv - r*households)^2))
 ```
-Let $y_i$ and $x_i$ denote the number of televisions and the number of households, respectively, for the $i$-th block. We can compute $\bar{y} \approx$ `r round(mean(d$tv),2)` and $\bar{x} \approx$ `r round(mean(d$households),2)`. We also know that the total number of households for all 9460 blocks is $\tau_x$ = 46296. What are our estimates of the total number of televisions in Des Moines using the two estimators we have?
+Let $y_i$ and $x_i$ denote the number of households with televisions and the number of households, respectively, for the $i$-th block. We can compute $\bar{y} \approx$ `r round(mean(d$tv),2)` and $\bar{x} \approx$ `r round(mean(d$households),2)`. We also know that the total number of households for all 9460 blocks is $\tau_x$ = 46296. What are our estimates of the total number of households with televisions in Des Moines using the two estimators we have?
 
 \pagebreak
 
@@ -261,7 +261,7 @@ r <- with(d, mean(tv)/mean(households))
 e2sum <- with(d, sum((tv - r*households)^2))
 ```
 
-**Example**: Recall the television survey. There $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum,2)`. What is the bound on the error of estimation for the ratio estimator for the total number of televisions?
+**Example**: Recall the television survey. There $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2 \approx$ `r round(e2sum,2)`. What is the bound on the error of estimation for the ratio estimator for the total number of households with televisions?
 
 \pagebreak
 
