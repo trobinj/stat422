@@ -838,15 +838,8 @@ Northern Pike is <span class="math display">\[
 class="math inline">\(\bar{x}\)</span> are the average number of caught
 and tagged fish in the sample of hauls, respectively, and <span
 class="math inline">\(\tau_x\)</span> is the total number of tagged
-fish.</p>
-<!-- Note: If $N$ is unknown we cannot compute the estimated variance of the ratio estimator, but if we can assume that $1 - n/N \approx 1$ (or we can omit the term $1-n/N$ due to sampling *with replacement*), then we can estimate $N$ with $\tau_x/\bar{x}$ (since $\tau_x$ can be estimated as $N\bar{x}$ and so $\tau_x \approx N\bar{x} \Rightarrow N \approx \tau_x/\bar{x}$) and the estimated variance  -->
-<!-- $$ -->
-<!--   \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}, -->
-<!-- $$ -->
-<!-- becomes -->
-<!-- $$ -->
-<!--   \hat{V}(\hat\tau_y) = \frac{\tau_x^2}{\bar{x}^2}\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}. -->
-<!-- $$ -->
+fish.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></p>
 <div style="page-break-after: always;"></div>
 </div>
 <div id="advantages-of-ratio-estimators" class="section level2">
@@ -854,6 +847,29 @@ fish.</p>
 <p>In the context of a simple random sampling design, what <em>two</em>
 advantages do we see for ratio estimators relative to the estimators
 that do not use an auxiliary variable?</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>If <span class="math inline">\(N\)</span> is unknown we
+cannot compute the estimated variance of the ratio estimator, but if we
+can assume that <span class="math inline">\(1 - n/N \approx 1\)</span>
+(or we can omit the term <span class="math inline">\(1-n/N\)</span> due
+to sampling <em>with replacement</em>), then we can estimate <span
+class="math inline">\(N\)</span> with <span
+class="math inline">\(\tau_x/\bar{x}\)</span> (since <span
+class="math inline">\(\tau_x\)</span> can be estimated as <span
+class="math inline">\(N\bar{x}\)</span> and so <span
+class="math inline">\(\tau_x \approx N\bar{x} \Rightarrow N \approx
+\tau_x/\bar{x}\)</span>) and the estimated variance <span
+class="math display">\[
+  \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \
+\ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i -
+rx_i)^2}{n-1},
+\]</span> becomes <span class="math display">\[
+  \hat{V}(\hat\tau_y) = \frac{\tau_x^2s_r^2}{\bar{x}^2n}.
+\]</span><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

@@ -429,16 +429,16 @@ The mean catch size was `r round(mean(d$catch),2)` pike and the mean number of t
 $$
   \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
 $$
-where $\bar{y}$ and $\bar{x}$ are the average number of caught and tagged fish in the sample of hauls, respectively, and $\tau_x$ is the total number of tagged fish.
+where $\bar{y}$ and $\bar{x}$ are the average number of caught and tagged fish in the sample of hauls, respectively, and $\tau_x$ is the total number of tagged fish.[^varN]
 
-<!-- Note: If $N$ is unknown we cannot compute the estimated variance of the ratio estimator, but if we can assume that $1 - n/N \approx 1$ (or we can omit the term $1-n/N$ due to sampling *with replacement*), then we can estimate $N$ with $\tau_x/\bar{x}$ (since $\tau_x$ can be estimated as $N\bar{x}$ and so $\tau_x \approx N\bar{x} \Rightarrow N \approx \tau_x/\bar{x}$) and the estimated variance  -->
-<!-- $$ -->
-<!--   \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}, -->
-<!-- $$ -->
-<!-- becomes -->
-<!-- $$ -->
-<!--   \hat{V}(\hat\tau_y) = \frac{\tau_x^2}{\bar{x}^2}\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}. -->
-<!-- $$ -->
+[^varN]: If $N$ is unknown we cannot compute the estimated variance of the ratio estimator, but if we can assume that $1 - n/N \approx 1$ (or we can omit the term $1-n/N$ due to sampling *with replacement*), then we can estimate $N$ with $\tau_x/\bar{x}$ (since $\tau_x$ can be estimated as $N\bar{x}$ and so $\tau_x \approx N\bar{x} \Rightarrow N \approx \tau_x/\bar{x}$) and the estimated variance
+$$
+  \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1},
+$$
+becomes
+$$
+  \hat{V}(\hat\tau_y) = \frac{\tau_x^2s_r^2}{\bar{x}^2n}.
+$$
 
 \pagebreak
 
