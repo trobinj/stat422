@@ -1,0 +1,356 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "09-30-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Bias and Mean Squared Error of Ratio Estimators
+
+Ratio estimators are (usually) *biased*. 
+
+1. What does it mean to say that a ratio estimator is biased?
+0. When is the bias small for ratio estimators?
+0. Why do we usually tolerate bias in ratio estimators?
+
+Suppose that $\theta$ is a parameter and $\hat\theta$ is an estimator. An expression of the "imprecision" of $\hat\theta$ for estimating $\theta$ is the **mean squared error** (MSE) defined as
+$$
+  E[(\hat\theta - \theta)^2] = \sum_{j=1}^{J} (\hat\theta_j - \theta)^2 P(\mathcal{S}_j),
+$$
+for a sample space of $J$ samples, where the $j$-th sample is denoted as $\mathcal{S}_j$, and the estimate produced by that sample is denoted as $\hat\theta_j$.
+
+The mean squared error can be usefully decomposed into two terms as
+$$
+  E[(\hat\theta - \theta)^2] = [E(\hat\theta) - \theta]^2 + V(\hat\theta),
+$$
+where $E(\hat\theta) - \theta$ is the *bias* of the estimator, and $V(\hat\theta)$ is the *variance* of the estimator. Sometimes we can increase one while decreasing the other leading to a *bias-variance trade-off*.
+
+<!-- Note: The absolute bias divided by the sd of the estimator is less than or equal to the variance of xbar divided by mux, so the bias tends to be small if (a) the ratio estimator has small variance and (b) the variance of barx is small, which it will if n is large. Also mux has an effect but not one we can really control. See Cochran or Lohr for an expression.  -->
+
+\pagebreak
+
+
+## Double Sampling for Ratio Estimators
+
+Under simple random sampling the ratio estimators of $\mu_y$ and $\tau_y$ are
+$$
+  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x \ \ \ \text{and} \ \ \ \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+$$
+respectively. But we cannot use these estimators of the corresponding parameter for the auxiliary variable (i.e., $\mu_x$ or $\tau_x$) is *unknown*. One solution is to use **double sampling**.  
+
+1. Using simple random sampling, obtain a sample of size $n'$ and compute $\hat\mu_x = \bar{x}'$ or $\hat\tau_x = N\bar{x}'$, where $\bar{x}'$ is the mean of the auxiliary variable for the $n'$ sampled elements.
+
+2. Select a sample of size $n < n'$ from the first sample using simple random sampling and compute the ratio estimator
+$$
+  \hat\mu_y = \hat\mu_x\frac{\bar{y}}{\bar{x}} \ \ \ \text{or} \ \ \ 
+  \hat\tau_y = \hat\tau_x\frac{\bar{y}}{\bar{x}}.
+$$
+\pagebreak
+
+**Example**: Recall our example of the population of 744 leaves from a shining gum (*Eucalyptus nitens*). We had two measurements of leaf area: a precise calculation and a crude approximation using the produce of leaf length and width. But suppose that we had not measured the crude area approximation for all 744 leaves. Instead suppose we had used a double sampling design where the first sample was $n'$ = 20 leaves and the second sample was $n$ = 10 leaves.  
+```{r}
+set.seed(123)
+d <- trtools::leafarea %>% mutate(leaf = 1:n()) %>% select(leaf, area, lengthwidth) %>%
+  mutate(area = ifelse(sample(rep(0:1, each = 10)) == 1, area, NA))
+my2 <- with(d, mean(area, na.rm = TRUE))
+mx1 <- with(d, mean(lengthwidth))
+mx2 <- with(d, mean(lengthwidth[!is.na(area)]))
+
+d <- d %>% rename("$i$" = leaf, "Area" = area, "Length $\\times$ Width" = lengthwidth)
+options(knitr.kable.NA = '')
+ktbl(d)
+```
+The mean crude area approximation of the 20 leaves in the first sample is `r round(mx1,2)` square cm. the mean area of the 10 leaves in the second sample is `r round(my2,2)` square cm, and the mean crude area approximation for these 10 leaves is `r round(mx2, 2)` square cm. What is are the estimates of $\mu_y$ and $\tau_y$ using a ratio estimator?
+
+\pagebreak
+
+### Optimum Allocation for Double Sampling for Ratio Estimators
+
+How should we decide on the two sample sizes: $n'$ and $n$?
+
+The estimated variance of $\hat\mu_y$ here is
+$$
+	V(\hat\mu_y) \approx
+	\underbrace{\left(1 - \frac{n'}{N}\right)\frac{\sigma^2}{n'}}_a + 
+	\underbrace{\left(1 - \frac{n}{n'}\right)\frac{\sigma_r^2}{n}}_b,
+$$
+where 
+$$
+	\sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i-\mu_y)^2 \ \ \text{and} \ \ 
+	\sigma_r^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i-Rx_i)^2.
+$$
+Term $a$ is due to first phase sampling, and term $b$ is due to the second phase sampling.
+
+Assume a total cost of the survey of $C = c_xn' + c_yn$, where 
+\begin{align*}
+	c_x & = \text{cost per unit for observing $x_i$}, \\
+	c_y & = \text{cost per unit for observing $y_i$}.
+\end{align*}
+Note that we only need to observe the auxiliary variable ($x_i$) in the first phase, and the target variable ($y_i$) is only observed in the second phase. For a fixed total cost of $C$, the variance of $\hat\mu_y$ and $\hat\tau_y$ is minimized if
+$$
+	\frac{n}{n'} = \sqrt{\frac{c_x}{c_y}\left(\frac{1}{\sigma^2/\sigma_r^2-1}\right)},
+$$
+assuming $\sigma^2 > \sigma_r^2$. The optimum allocation is then
+$$
+	n' = C/(c_x + fc_y) \ \ \ \text{and} \ \ \ n = fC/(c_x + fc_y),
+$$
+where $f = n/n'$. 
+
+```{r}
+cx <- 0.5
+cy <- 1
+sr <- 4
+
+C <- 100
+
+f <- sqrt(cx/cy * (1/(sr - 1)))
+n1 <- C/(cx + f*cy)
+n2 <- f*C/(cx + f*cy)
+```
+
+**Example**: Suppose that the cost of observing the auxiliary variable is $c_x$ = `r 0.5`, the cost of observing the target variable is $c_y$ = `r cy`, and the relative efficiency is $\sigma^2/\sigma_r^2$ = `r sr`. For a fixed total cost of $C$ = `r C`, we can show that $f$ $\approx$ `r round(f,2)`, $n'$ $\approx$ `r round(n1)`, and $n$ $\approx$ `r round(n2)`.
+
+\vspace{3cm}
+
+Note that we must have $n' > n$ if we are to use double sampling. There are two limiting cases to consider.
+
+1. If $n' = n$ then double sampling reduces to a simple random sampling design where we just use the first phase sample and the estimators become $\hat\mu_y = \bar{y}$ and $\hat\tau_y = N\bar{y}$ (i.e., we are not using the ratio estimator).
+
+2. If $n' = N$ then double sampling reduces to a simple random sampling design where the first phase sample is a *census* and the estimators become the usual ratio estimators
+$$
+  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x \ \ \ \text{and} \ \ \ \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+$$
+as $\mu_x$ and $\tau_x$ will be *known* and need not be estimated. 
+
+When is using double sampling with a ratio estimator better than using simple random sampling without a ratio estimator?
+
+\pagebreak
+
+<!-- Maybe a better way to discuss this is to consider the limiting cases. For example, as c_x increases we have that n'/n goes to one, so we do just a SRS without a ratio estimator. But as c_x approaches zero we approach a design where we do a census of the population for the first phase sample (i.e., n' = N). We can do a similar kind of analysis for c_y and relative efficiency, noting that for the latter we can have a low enough relative efficiency such that n' = n and again we just use a SRS and no ratio estimator. We could maybe do without the figures or modify them. -->
+
+**Example**: Suppose that $C$ = 100, $c_y$ = 1, and $\sigma^2/\sigma_r^2 = 3$. What happens as we increase $c_x$ (i.e., the cost of observing the auxiliary variable)?
+```{r, fig.height = 4, warning = FALSE}
+cx <- seq(0.1, 2, length = 1000)
+cy <- 1
+sr <- 3
+
+C <- 100
+
+f <- sqrt(cx/cy * (1/(sr - 1)))
+n1 <- C/(cx + f*cy)
+n2 <- f*C/(cx + f*cy)
+
+d <- data.frame(n = c(n1, n2), phase = rep(c("Phase 1","Phase 2"), each = 1000))
+
+p <- ggplot(d, aes(x = rep(cx,2), y = n, linetype = phase)) + theme_classic()
+p <- p + geom_line() + xlim(0, 2.5)
+p <- p + labs(linetype = "Phase", x = "Cost of Observing Auxiliary Variable", y = "Sample Size")
+p <- p + theme(legend.position = c(0.8,0.7))
+p
+```
+
+\pagebreak
+
+**Example**: Suppose that $C$ = 100, $c_x$ = 1, and $\sigma^2/\sigma_r^2 = 3$. What happens as we increase $c_y$ (i.e., the cost of observing the target variable)?
+```{r, fig.height = 4}
+cy <- seq(0.01, 2, length = 1000)
+cx <- 1
+sr <- 3
+
+C <- 100
+
+f <- sqrt(cx/cy * (1/(sr - 1)))
+n1 <- C/(cx + f*cy)
+n2 <- f*C/(cx + f*cy)
+
+d <- data.frame(x = rep(cy, 2), n = c(n1, n2), phase = rep(c("Phase 1","Phase 2"), each = 1000))
+d <- subset(d, n1 > n2)
+
+p <- ggplot(d, aes(x = x, y = n, linetype = phase)) + theme_classic()
+p <- p + geom_line()
+p <- p + labs(linetype = "Phase", x = "Cost of Observing Target Variable", y = "Sample Size")
+p <- p + theme(legend.position = c(0.2,0.3)) + xlim(0, 2) + ylim(0, 80)
+plot(p)
+```
+
+\pagebreak
+
+**Example**: Suppose that $C$ = 100, $c_y$ = 1, and $c_x$ = 1. What happens as we increase $\sigma^2/\sigma_r^2$ (i.e., the relative efficiency of the ratio estimator)? 
+```{r, fig.height = 4}
+xlab <- "Relative Efficiency"
+
+cy <- 1
+cx <- 1
+sr <- seq(1, 8, length = 1000)
+
+C <- 100
+
+f <- sqrt(cx/cy * (1/(sr - 1)))
+n1 <- C/(cx + f*cy)
+n2 <- f*C/(cx + f*cy)
+
+d <- data.frame(x = rep(sr, 2), n = c(n1, n2), phase = rep(c("Phase 1","Phase 2"), each = 1000))
+d <- subset(d, n1 > n2)
+
+p <- ggplot(d, aes(x = x, y = n, linetype = phase)) + theme_classic()
+p <- p + geom_line()
+p <- p + labs(linetype = "Phase", x = xlab, y = "Sample Size")
+p <- p + theme(legend.position = c(0.2,0.3)) + xlim(1,8) + ylim(0, 75)
+plot(p)
+```
+
+\pagebreak
+
+## Ratio Estimators Under Stratified Random Sampling
+
+There are a couple of different ways to use a ratio estimator with stratified random sampling.
+
+### The Separate Ratio Estimator
+
+Estimate the mean or total of each stratum *separately* using a ratio estimator.
+
+1. Estimate $\mu_{y,j}$ or $\tau_{y,j}$ *separately* for each stratum using a ratio estimator so that
+$$
+  \hat\mu_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\mu_{x,j} \ \ \ \text{or} \ \ \ 
+  \hat\tau_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\tau_{x,j},
+$$
+respectively. 
+
+2. Estimate $\mu_y$ or $\tau_y$ using
+$$
+  \hat\mu_y = \sum_{j=1}^L\frac{N_j}{N}\hat\mu_{y,j} \ \ \ \text{and} \ \ \ 
+  \hat\tau_y = \sum_{j=1}^L \hat\tau_{y,j},
+$$
+respectively.
+
+### The Combined Ratio Estimator
+
+Use one ratio estimator based on sample means that *combine* the means from the strata.
+
+1. Compute
+$$
+  \bar{y}_{st} = \sum_{j=1}^L\frac{N_i}{N}\bar{y}_j \ \ \ \text{and} \ \ \
+  \bar{x}_{st} =\sum_{j=1}^L\frac{N_i}{N}\bar{x}_j.
+$$
+2. Estimate $\mu_y$ or $\tau_y$ using the ratio estimators
+$$
+  \hat\mu_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\mu_x \ \ \ \text{or} \ \ \ 
+  \hat\tau_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\tau_x,
+$$
+respectively.
+
+**Example**: Consider the following summary from a stratified random sampling design.
+```{r}
+d <- data.frame(Stratum = 1:3, N = c(500,400,100), n = c(100,50,25),
+  y = c(90,80,70), x = c(50,45,40), m = c(95,78,72))
+d %>% rename("$N_j$" = N, "$n_j$" = n, "$\\bar{y}_j$" = y,
+  "$\\bar{x}_j$" = x, "$\\mu_{x,j}$" = m) %>% ktbl()
+Ni <- d$N
+mx <- d$m
+N <- sum(Ni)
+y <- d$y
+x <- d$x
+```
+Also $\mu_x$ = `r sum(Ni*mx/N)`. The *separate* ratio estimator of $\mu_y$ is
+$$
+  \hat\mu_y = \frac{`r Ni[1]`}{`r N`}\underbrace{\left[\left(\frac{`r y[1]`}{`r x[1]`}\right)`r mx[1]`\right]}_{\hat\mu_{y,1}} + 
+  \frac{`r Ni[2]`}{`r N`}\underbrace{\left[\left(\frac{`r y[2]`}{`r x[2]`}\right)`r mx[2]`\right]}_{\hat\mu_{y,2}} +
+  \frac{`r Ni[3]`}{`r N`}\underbrace{\left[\left(\frac{`r y[3]`}{`r x[3]`}\right)`r mx[3]`\right]}_{\hat\mu_{y,3}}.
+$$
+The *combined* ratio estimator is 
+$$
+\hat\mu_y = \frac{\overbrace{\left(\frac{`r Ni[1]`}{`r N`}\right)`r y[1]` + \left(\frac{`r Ni[2]`}{`r N`}\right)`r y[2]` + \left(\frac{`r Ni[3]`}{`r N`}\right)`r y[3]`}^{\bar{y}_{st}}}{\underbrace{\left(\frac{`r Ni[1]`}{`r N`}\right)`r x[1]` + \left(\frac{`r Ni[2]`}{`r N`}\right)`r x[2]` + \left(\frac{`r Ni[3]`}{`r N`}\right)`r x[3]`}_{\bar{x}_{st}}}`r sum(Ni*mx/N)`.
+$$
+Which one should we use? It depends on a couple of factors. 
+
+1. If the slope of the "line of proportionality" varies over strata.
+0. The sample sizes for the strata (i.e., $n_1, n_2, \dots, n_L$). 
+
+<!-- If some of the sample sizes are small, the separate ratio estimator will have more bias, so the combined estimator should be preferred. -->
+
+```{r, fig.height = 3}
+r <- c(1,2,3)
+m <- c(-5, 0, 5)
+
+data <- expand.grid(x = seq(10, 20, length = 100), stratum = 1:3)
+data$y <- NA
+data$mx <- NA
+data$my <- NA
+for (i in 1:max(data$stratum)) {
+  data$x[data$stratum == i] <- data$x[data$stratum == i] + m[i]
+  data$y[data$stratum == i] <- r[i]*data$x[data$stratum == i] + rnorm(sum(data$stratum == i), 0, data$x[data$stratum == i]/10)
+  data$mx[data$stratum == i] <- mean(data$x[data$stratum == i])
+  data$my[data$stratum == i] <- mean(data$y[data$stratum == i])
+  data$r[data$stratum == i] <- data$my[data$stratum == i]/data$mx[data$stratum == i]
+}
+
+#data$stratum <- factor(data$stratum, labels = letters[1:max(data$stratum)])
+
+p <- ggplot(data, aes(x = x, y = y))
+p <- p + geom_point(shape = 21, fill = "white") + facet_wrap(~ stratum) + theme_minimal()
+p <- p + geom_abline(aes(intercept = 0, slope = r))
+p <- p + xlab("x") + ylab("y")
+plot(p)
+```
+
+```{r, fig.height = 3}
+r <- c(2,2,2)
+m <- c(-5, 0, 5)
+
+data <- expand.grid(x = seq(10, 20, length = 100), stratum = 1:3)
+data$y <- NA
+data$mx <- NA
+data$my <- NA
+for (i in 1:max(data$stratum)) {
+  data$x[data$stratum == i] <- data$x[data$stratum == i] + m[i]
+  data$y[data$stratum == i] <- r[i]*data$x[data$stratum == i] + rnorm(sum(data$stratum == i), 0, data$x[data$stratum == i]/10)
+  data$mx[data$stratum == i] <- mean(data$x[data$stratum == i])
+  data$my[data$stratum == i] <- mean(data$y[data$stratum == i])
+  data$r[data$stratum == i] <- data$my[data$stratum == i]/data$mx[data$stratum == i]
+}
+
+#data$stratum <- factor(data$stratum, labels = letters[1:max(data$stratum)])
+
+p <- ggplot(data, aes(x = x, y = y))
+p <- p + geom_point(shape = 21, fill = "white") + facet_wrap(~ stratum) + theme_minimal()
+p <- p + geom_abline(aes(intercept = 0, slope = r))
+p <- p + xlab("x") + ylab("y")
+plot(p)
+```

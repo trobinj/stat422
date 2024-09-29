@@ -66,7 +66,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Mean squared error, double sampling for ratio estimators, optimum allocation for double sampling for ratio estimators, ratio estimators with stratified random sampling](lecture-09-30-2024.html). A set of [homework questions](hw-ratio.html) on ratio estimators and related topics is now available. 
 
 `r i <- i + 1; d[i]` 
 

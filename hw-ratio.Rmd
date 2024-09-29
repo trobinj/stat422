@@ -1,0 +1,289 @@
+---
+title: "Ratio and Regression Estimators"
+output:
+  html_document: 
+    theme: readable
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, comment = "", dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, message = FALSE}
+library(tidyverse)
+library(kableExtra)
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](hw-ratio.pdf) copy of this document.", sep = ""), "")`
+
+```{r larkspur}
+d <- trtools::larkspur
+N <- 150
+n <- nrow(d)
+ybar <- round(mean(d$plants), 2)
+xbar <- round(mean(d$area), 2)
+tx <- 5897
+mx <- tx / N
+
+ssr <- with(d, sum((plants - ybar / xbar * area)^2))
+
+b.yx <- 2 * sqrt((1 - n/N) / mx^2 * ssr / (n - 1) / n)
+b.ty <- 2 * sqrt(N^2 * (1 - n/N) * ssr / (n - 1) / n)
+```
+  
+### Estimating Ratios and Ratio Estimators
+
+#### Larkspur Density and Abundance
+
+Conservation researchers conducted a survey to estimate the density and abundance of a species of "larkspur" (a flowering plant of the genus *Delphinium*) in an irregularly-shaped region. To survey the larkspur they divided the region into `r N` one-meter wide transects from north to south. But because of the irregular shape of the region the transects were not all of equal area. The total area of the region (and hence all of the transects) was `r tx` square meters. The researchers selected a sample of `r n` transects using simple random sampling. The mean area of these transects was `r xbar` square meters. The mean number of larkspur in these transects was `r ybar` plants. 
+
+1. The density of the larkspur in the region is the ratio of the total number of larkspur to the total area of the region. Confirm that an estimate of the larkspur density is `r rnd(ybar/xbar, 2)` larkspur per square meter.
+
+0. Confirm that the estimate of the total number of larkspur in the region using a ratio estimator with transect area as an auxiliary variable is `r rnd(tx*ybar/xbar)` larkspur. 
+
+0. The figure below shows a plot of the data from the sample.[^distinct] The line has an intercept of zero and a slope equal to the estimated density found earlier. 
+
+    ```{r, fig.height = 4}
+    library(ggplot2)
+    p <- ggplot(trtools::larkspur, aes(x = area, y = plants)) + theme_classic()
+    p <- p + geom_segment(aes(xend = area, yend = ybar / xbar * area), alpha = 0.5)
+    p <- p + geom_abline(slope = ybar/xbar, alpha = 0.5) + xlim(0, 50)
+    p <- p + geom_point() + labs(x = "Area (square meters)", y = "Number of Plants")
+    plot(p)
+    ```
+    
+    The sum of the squared lengths of the line segments is $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2$ = `r round(ssr,2)`. Use this to confirm that the bound on the error of estimation for the estimator of the density of larkspur is `r round(b.yx,2)` larkspur per square meter, and that the bound on the error of estimation of the ratio estimator for the total number of larkspur is `r round(b.ty)` larkspur. 
+    
+[^distinct]: Two observations are identical so only 19 distinct points can be seen. 
+
+```{r}
+set.seed(111)
+N <- 1000
+n <- 200
+s <- diag(2)
+s[1,2] <- 0.95
+s[2,1] <- 0.95
+d <- MASS::mvrnorm(n, c(0,0), s)
+d <- data.frame(x = d[,1]*6 + 55, y = d[,2]*6 + 55)
+d <- d %>% mutate(x = round(pnorm(x, 50, 10)*100), y = round(pnorm(y, 50, 10)*100)*0.9)
+
+xbar <- round(mean(d$x),1)
+ybar <- round(mean(d$y),1)
+
+mx <- 66.6
+
+ssrat <- round(sum((d$y - xbar / ybar * d$x)^2),1)
+ssavg <- round(sum((d$y - ybar)^2),1)
+
+brat <- 2 * sqrt((1 - n/N) * ssrat / (n - 1) / n)
+bavg <- 2 * sqrt((1 - n/N) * ssavg / (n - 1) / n)
+```
+
+#### Educational Testing
+
+Recall a problem from an earlier homework on stratified random sampling where researchers were interested in estimating the average score for the `r N` students at a school. Student test scores on another test that all students had already taken was used as an auxiliary variable to stratify the students into high, medium, and low achievement levels. Here we will consider an alternative approach where this auxiliary variable is used in estimation but not in the design. Suppose we want to estimate the mean test score on test *A* for all the students at the school based on a simple random sample of `r n` students. All the students at the school have already taken test *B*. The mean score on that test was `r mx`. For the sample of `r n` students the mean test score on test *A* was `r ybar`, and the mean test score on test *B* was `r xbar`. The figure below shows a scatter plot of the scores on the two tests for the sample of `r n` students. 
+
+```{r, fig.height = 4}
+p <- ggplot(d, aes(x = x, y = y)) + theme_classic()
+p <- p + geom_abline(slope = mean(d$y)/mean(d$x), alpha = 0.5)
+p <- p + geom_abline(intercept = mean(d$y), slope = 0, alpha = 0.5)
+p <- p + geom_point(alpha = 0.25)
+p <- p + labs(x = "Test Score A", y = "Test Score B")
+p <- p + scale_x_continuous(breaks = seq(0, 100, by = 25), limits = c(0,100))
+p <- p + scale_y_continuous(breaks = c(seq(0, 100, by = 25), ybar), limits = c(0,100))
+plot(p)
+```
+
+The horizontal line has an intercept of `r ybar` and a slope of zero, while the other line has an intercept of zero and a slope of `r ybar`/`r xbar`. The sum of the squared vertical distances of the points to the line with the positive slope is $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2$ = `r format(ssrat, scientific = FALSE)`. The sum of the squared vertical distances of the points to the flat line is $\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2$ = `r format(ssavg, scientific = FALSE)`.
+
+Use this information to answer the following questions.
+
+1. Confirm that the ratio estimator for the mean score on test *A* for all students at the school, using the test score on test *B* as an auxiliary variable, gives an estimate of `r rnd(mx * ybar / xbar, 1)`, and that the bound on the error of estimation for this estimator is `r rnd(brat, 1)`. 
+
+0. Another estimator of the mean score on test *A* is the sample mean, which gives an estimate of `r ybar`. Confirm that the bound on the error of estimation for this estimator is `r rnd(bavg, 1)`. 
+
+```{r}
+set.seed(123)
+d <- trtools::leafarea
+d$weight <- d$area / 50 + rnorm(nrow(d), 0, d$area/400)
+n <- 20
+N <- 744
+ybar <- round(mean(d$area), 2)
+xbar <- round(mean(d$weight), 2)
+taux <- round(sum(N, mean(d$weight), sd(d$weight)/sqrt(n)),2)
+```
+
+#### Leaf Area
+
+Recall the example from class where a crude approximation of leaf area was used as an auxiliary variable for estimating the mean area of a population of `r N` leaves from a shining gum tree. While the crude area approximation might be an effective auxiliary variable, it is still somewhat labor intensive. Perhaps an even less intensive approach would be to use leaf *weight* as an auxiliary variable. Weight can be very quickly measured, and it is only necessary to individually weigh the `r n` leaves in the sample because the total weight of all `r N` leaves can be measured at once by putting them together on a scale. The mean area of the leaves in the sample is `r ybar` square centimeters, and the mean weight of the leaves in the sample is `r xbar` grams. Confirm then that if the weight of all `r N` leaves together is `r taux` grams then the ratio estimator of the mean area of the `r N` leaves, using now leaf weight as the auxiliary variable, gives an estimate of `r rnd(taux / N * ybar / xbar, 2)` square centimeters. (Hint: To get $\mu_x$ from $\tau_x$ remember than $\mu_x = \tau_x/N$.)
+
+```{r}
+set.seed(123)
+n <- 10
+N <- 100
+
+d <- data.frame(People = runif(n, 0, 200))
+d <- d %>% mutate(People = round(People), Births = rpois(n, People/20), Village = 1:n) %>%
+  select(Village, Births, People)
+
+ybar <- mean(d$People)
+xbar <- mean(d$Births)
+
+tx <- sum(rpois(N, mean(d$Births)))
+```
+
+#### Population Size Estimation
+
+Recall an example from class where we used data from a sample of `r n` villages to estimate the birth rate for the population of `r N` villages in the past year. Here are the data again.
+```{r}
+ktbl(d)
+```
+Now consider a different problem. Suppose we wanted to estimate the total population of the `r N` villages. The number of people in a village is likely approximately proportional to the number of births, and the (approximate) number of births in each of the `r N` villages may be significantly more easy to obtain than the population as (most) births in the past year may be known to those at the village while the village population may not. Assume that the total number of known births for the `r N` villages is `r tx` births, and that for the sample of `r n` villages obtained using simple random sampling, the mean number of known births in the past year was `r xbar` and the mean number of people was `r ybar`. Use this information to confirm that using a ratio estimator with the number of births as the auxiliary variable, the estimate of the total population[^population] of the `r N` villages is `r rnd(tx * ybar / xbar)` people.[^france]
+
+[^france]: One of the [earliest known uses of a ratio estimator](https://en.wikipedia.org/wiki/Ratio_estimator#History) was to estimate the population of France where registered births was used as an auxiliary variable. Data on births was more easy to come by since France was largely Catholic and there were reliable records of infant baptisms. 
+
+[^population]: Note that we are using the term *population* in two ways here: to refer to the total number of elements (villages), which has a size of `r N`, and to refer to the total number of people in all `r N` villages, which is another "population size" that we are trying to estimate.
+
+```{r}
+d <- trtools::shorebirds
+N <- 2130
+n1 <- nrow(d)
+n2 <- sum(!is.na(d$intense))
+mux <- round(mean(d$rapid),1)
+ybar <- round(mean(d$intense, na.rm = TRUE),1)
+xbar <- round(mean(d$rapid[!is.na(d$intense)]),1)
+```
+
+### Double Sampling for Ratio Estimators
+
+#### Shorebirds Double Sampling
+
+Researchers wanted to estimate the abundance of nests along the shore in an area that had been divided into `r N` plots. Since an intense counting of the number of nests was not possible for all of these plots, they used a sampling design. They could use rapid and less accurate count of the number of nests in the plots as an auxiliary variable, but even this was too expensive to do for all `r N` plots. So the researchers used a double sampling design. The table below shows a portion of the data set.
+```{r}
+d <- d %>% mutate(plot = 1:n()) %>% select(plot, rapid, intense) %>% mutate(intense = ifelse(!is.na(intense), as.character(intense), ""))
+ktbl(headtail(d, 12))
+```
+The first phase sample of `r n1` plots was selected using simple random sampling, and the rapid count method was applied to these plots. The mean number of nests per plot in this sample of `r n1` plots was `r mux` nests. The second phase sample of `r n2` plots was then obtained by applying a simple random sampling design to the `r n1` plots selected for the first sample. In this second sample the mean number of nests per plot based on the rapid method was `r xbar` nests, and the mean number of nests per plot based on the intense method was `r ybar` nests. Confirm that a ratio estimator of the total number of nests in the `r N` plots, using the rapid count of nests as an auxiliary variable, gives an estimate of `r rnd(N * mux * ybar / xbar)` nests.
+
+#### Shorebirds Double Sampling Allocation
+
+```{r}
+s2 <- 10
+s2r <- 5
+
+sr <- s2/s2r
+
+cx <- 1
+cy <- 10
+C <- 1000
+
+f <- sqrt(cx/cy * (1/(sr - 1)))
+n1 <- C/(cx + f*cy)
+n2 <- f*C/(cx + f*cy)
+```
+
+Researchers are planning another survey like the one described in the previous problem, but in a different location. They want to determine the optimum allocation for the first and second phase sample sizes. The cost of observing the auxiliary variable (i.e., the rapid count) is `r cx` minute per plot, and the cost of observing the target variable (i.e., the intense count) is `r cy` minutes per plot. Based on experience, the researchers estimated the two variance parameters as $\sigma^2$ = `r s2` and $\sigma_r^2$ = `r s2r`. For a total fixed cost for the survey of `r C` minutes, confirm that the optimum allocation is `r rnd(n1)` plots for the first phase, and `r rnd(n2)` plots for the second phase. 
+
+```{r}
+set.seed(123)
+d <- trtools::leafarea
+d$weight <- d$area / 50 + rnorm(nrow(d), 0, d$area/400)
+n <- 20
+N <- 744
+ybar <- round(mean(d$area), 2)
+xbar <- round(mean(d$weight), 2)
+taux <- round(sum(N, mean(d$weight), sd(d$weight)/sqrt(n)),2)
+b <- round(cor(d$weight,d$area)*sd(d$area)/sd(d$weight),2)
+```
+
+### Regression Estimator for Leaf Area
+
+Consider again the leaf area problem where `r n` leaves were selected using simple random sampling from a population of `r N` leaves. The mean leaf area in the sample was `r ybar` square centimeters, and the mean leaf weight in the sample was `r xbar` grams. Now consider using *regression estimator* for the mean and total leaf area of all `r N` leaves. The slope of the regression line for predicting leaf area from leaf weight is `r b`. Confirm that using the appropriate regression estimator with leaf weight as the auxiliary variable, the estimate of the mean leaf area is `r rnd(ybar + b*(taux/N - xbar),2)`, and the estimate of the total leaf area is `r rnd(N*(ybar + b*(taux/N - xbar)),2)`. (Refer to the earlier leaf area problem for $\mu_x$ and $\tau_x$.)
+
+### Prediction
+
+```{r}
+N <- 10
+n <- 5
+
+set.seed(123)
+
+for (i in 1:1000) {
+
+  x <- sort(rpois(N,5))
+  y <- rpois(N,2*x)
+  
+  pop <- data.frame(y = y, x = x)
+  pop$y[sample(1:N,n)] <- NA
+
+  smp <- subset(pop, !is.na(y))
+
+  ybar <- mean(smp$y)
+  xbar <- mean(smp$x)
+  taux <- sum(x)
+    
+  if (ybar == round(ybar) & xbar == round(xbar)) {
+    break
+  }
+}
+
+b <- with(smp, cor(x,y)*sd(y)/sd(x))
+a <- ybar - b*xbar
+
+pop$yhat1 <- ybar
+pop$yhat2 <- pop$x * ybar / xbar
+pop$yhat3 <- a + b * pop$x
+
+pop$y <- as.character(pop$y)
+
+pop$yhat1 <- as.character(pop$yhat1)
+pop$yhat1[!is.na(pop$y)] <- ""
+
+pop$yhat2 <- as.character(pop$yhat2)
+pop$yhat2[!is.na(pop$y)] <- ""
+
+pop$yhat3 <- as.character(pop$yhat3)
+pop$yhat3[!is.na(pop$y)] <- ""
+
+pop$y[is.na(pop$y)] <- ""
+```
+Consider a simple random sampling design with a population of $N$ = `r N` elements and a sample of $n$ = `r n` elements. The table below shows the values of an auxiliary variable $x$ for all `r N` elements in the population, and the values of the target variable $y$ for just the `r n` elements in the sample. 
+```{r}
+pop <- pop[,c(2,1,3,4,5)]
+names(pop) <- c("$x_i$","$y_i$","Expansion","Ratio","Regression")
+ktbl(pop) %>% add_header_above(c(" ", " ", "Predicted Value" = 3))
+```
+The table also shows the *predicted values* (i.e., $\hat{y}_i$) for an estimator of the form
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} \hat{y}_i.
+$$
+The predicted values correspond to three different estimators: the "expansion estimator" $\hat\tau_y = N\bar{y}$, the ratio estimator $\hat\tau_y = \tau_x\bar{y}/\bar{x}$, and the regression estimator $\hat\tau_y = N\bar{y} + b(\hat\tau_x - N\bar{x})$. We discussed in class three different ways of computing predicted values leads to these three estimators. Confirm that the predicted values are correct by computing them yourself. For your calculations use the fact that the means of the target and auxiliary variable for the sample of `r n` elements are $\bar{y}$ = `r ybar` and $\bar{x}$ = `r xbar`, respectively, and the value of $b$ that would be computed for a regression estimator is $b$ = `r b`. The predicted values are given in the following table. (Hint: The parameter $\tau_x$ isn't given, but you can compute it! Remember that $\tau_x = \sum_{i=1}^N x_i$, so you can compute it by adding all $N$ = `r N` values of $x_i$ in the population.)
+
+### Reweighting and Calibration
+
+Recall that some estimators of $\tau_y$ can be written as
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} w_iy_i,
+$$
+where $w_i$ is the *survey weight* which can be computed as $w_i = d_ia_i$ where $d_i$ and $a_i$ are the *design weight* and *adjustment weight*, respectively. The table below shows the sample from the previous problem with the weights computed for each element in the sample and for each estimator (recall that this is a simple random sampling design).
+```{r}
+row.names(smp) <- NULL
+smp$a <- N/n
+smp$b <- N/n * taux/(N*xbar)
+smp$c <- round(N/n * (1 + (taux - N*xbar)*smp$x/(N/n * sum(smp$x^2))),2)
+smp <- smp[,c(2,1,3,4,5)]
+names(smp) <- c("$x_i$","$y_i$","Expansion","Ratio","Regression")
+ktbl(smp) %>% add_header_above(c(" ", " ", "Survey Weight" = 3))
+```
+Confirm the survey weights shown above by computing them yourself. 
+
+Recall that the sample is *calibrated* with certain weights if the estimate of $\tau_x$, computed as $\hat\tau_x = \sum_{i \in \mathcal{S}} w_ix_i$, *equals* $\tau_x$. We know that $\tau_x$ = `r taux`. Check each of the three sets of weights above. Determine which sets of weights calibrate the sample with respect to the auxiliary variable and which do not. You should find that only the weights corresponding to the ratio and regression estimators calibrate the sample with respect to the auxiliary variable (the sample may be only *approximately* calibrated due to rounding). 
+
+

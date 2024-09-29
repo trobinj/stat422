@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Ratio and Regression Estimators</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Ratio and Regression Estimators</h1>
+
+</div>
+
+
+<p>You can also download a <a href="hw-ratio.pdf">PDF</a> copy of this
+document.</p>
+<div id="estimating-ratios-and-ratio-estimators" class="section level3">
+<h3>Estimating Ratios and Ratio Estimators</h3>
+<div id="larkspur-density-and-abundance" class="section level4">
+<h4>Larkspur Density and Abundance</h4>
+<p>Conservation researchers conducted a survey to estimate the density
+and abundance of a species of “larkspur” (a flowering plant of the genus
+<em>Delphinium</em>) in an irregularly-shaped region. To survey the
+larkspur they divided the region into 150 one-meter wide transects from
+north to south. But because of the irregular shape of the region the
+transects were not all of equal area. The total area of the region (and
+hence all of the transects) was 5897 square meters. The researchers
+selected a sample of 20 transects using simple random sampling. The mean
+area of these transects was 28.4 square meters. The mean number of
+larkspur in these transects was 21.45 plants.</p>
+<ol style="list-style-type: decimal">
+<li><p>The density of the larkspur in the region is the ratio of the
+total number of larkspur to the total area of the region. Confirm that
+an estimate of the larkspur density is approximately 0.76 larkspur per
+square meter.</p></li>
+<li><p>Confirm that the estimate of the total number of larkspur in the
+region using a ratio estimator with transect area as an auxiliary
+variable is approximately 4454 larkspur.</p></li>
+<li><p>The figure below shows a plot of the data from the sample.<a
+href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The line
+has an intercept of zero and a slope equal to the estimated density
+found earlier.</p>
+<p><img src="hw-ratio_files/figure-html/unnamed-chunk-1-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The sum of the squared lengths of the line segments is <span
+class="math inline">\(\sum_{i \in \mathcal{S}}(y_i - rx_i)^2\)</span> =
+7908.88. Use this to confirm that the bound on the error of estimation
+for the estimator of the density of larkspur is 0.22 larkspur per square
+meter, and that the bound on the error of estimation of the ratio
+estimator for the total number of larkspur is 1274 larkspur.</p></li>
+</ol>
+</div>
+<div id="educational-testing" class="section level4">
+<h4>Educational Testing</h4>
+<p>Recall a problem from an earlier homework on stratified random
+sampling where researchers were interested in estimating the average
+score for the 1000 students at a school. Student test scores on another
+test that all students had already taken was used as an auxiliary
+variable to stratify the students into high, medium, and low achievement
+levels. Here we will consider an alternative approach where this
+auxiliary variable is used in estimation but not in the design. Suppose
+we want to estimate the mean test score on test <em>A</em> for all the
+students at the school based on a simple random sample of 200 students.
+All the students at the school have already taken test <em>B</em>. The
+mean score on that test was 66.6. For the sample of 200 students the
+mean test score on test <em>A</em> was 60, and the mean test score on
+test <em>B</em> was 66.1. The figure below shows a scatter plot of the
+scores on the two tests for the sample of 200 students.</p>
+<p><img src="hw-ratio_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The horizontal line has an intercept of 60 and a slope of zero, while
+the other line has an intercept of zero and a slope of 60/66.1. The sum
+of the squared vertical distances of the points to the line with the
+positive slope is <span class="math inline">\(\sum_{i \in
+\mathcal{S}}(y_i - rx_i)^2\)</span> = 43393.2. The sum of the squared
+vertical distances of the points to the flat line is <span
+class="math inline">\(\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2\)</span>
+= 61630.7.</p>
+<p>Use this information to answer the following questions.</p>
+<ol style="list-style-type: decimal">
+<li><p>Confirm that the ratio estimator for the mean score on test
+<em>A</em> for all students at the school, using the test score on test
+<em>B</em> as an auxiliary variable, gives an estimate of approximately
+60.5, and that the bound on the error of estimation for this estimator
+is approximately 1.9.</p></li>
+<li><p>Another estimator of the mean score on test <em>A</em> is the
+sample mean, which gives an estimate of 60. Confirm that the bound on
+the error of estimation for this estimator is approximately
+2.2.</p></li>
+</ol>
+</div>
+<div id="leaf-area" class="section level4">
+<h4>Leaf Area</h4>
+<p>Recall the example from class where a crude approximation of leaf
+area was used as an auxiliary variable for estimating the mean area of a
+population of 744 leaves from a shining gum tree. While the crude area
+approximation might be an effective auxiliary variable, it is still
+somewhat labor intensive. Perhaps an even less intensive approach would
+be to use leaf <em>weight</em> as an auxiliary variable. Weight can be
+very quickly measured, and it is only necessary to individually weigh
+the 20 leaves in the sample because the total weight of all 744 leaves
+can be measured at once by putting them together on a scale. The mean
+area of the leaves in the sample is 52.12 square centimeters, and the
+mean weight of the leaves in the sample is 1.06 grams. Confirm then that
+if the weight of all 744 leaves together is 745.2 grams then the ratio
+estimator of the mean area of the 744 leaves, using now leaf weight as
+the auxiliary variable, gives an estimate of approximately 49.25 square
+centimeters. (Hint: To get <span class="math inline">\(\mu_x\)</span>
+from <span class="math inline">\(\tau_x\)</span> remember than <span
+class="math inline">\(\mu_x = \tau_x/N\)</span>.)</p>
+</div>
+<div id="population-size-estimation" class="section level4">
+<h4>Population Size Estimation</h4>
+Recall an example from class where we used data from a sample of 10
+villages to estimate the birth rate for the population of 100 villages
+in the past year. Here are the data again.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Village
+</th>
+<th style="text-align:center;">
+Births
+</th>
+<th style="text-align:center;">
+People
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+58
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+158
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+177
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+188
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+106
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+178
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+110
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+91
+</td>
+</tr>
+</tbody>
+</table>
+<p>Now consider a different problem. Suppose we wanted to estimate the
+total population of the 100 villages. The number of people in a village
+is likely approximately proportional to the number of births, and the
+(approximate) number of births in each of the 100 villages may be
+significantly more easy to obtain than the population as (most) births
+in the past year may be known to those at the village while the village
+population may not. Assume that the total number of known births for the
+100 villages is 542 births, and that for the sample of 10 villages
+obtained using simple random sampling, the mean number of known births
+in the past year was 5.4 and the mean number of people was 115.7. Use
+this information to confirm that using a ratio estimator with the number
+of births as the auxiliary variable, the estimate of the total
+population<a href="#fn2" class="footnote-ref"
+id="fnref2"><sup>2</sup></a> of the 100 villages is approximately 11613
+people.<a href="#fn3" class="footnote-ref"
+id="fnref3"><sup>3</sup></a></p>
+</div>
+</div>
+<div id="double-sampling-for-ratio-estimators" class="section level3">
+<h3>Double Sampling for Ratio Estimators</h3>
+<div id="shorebirds-double-sampling" class="section level4">
+<h4>Shorebirds Double Sampling</h4>
+Researchers wanted to estimate the abundance of nests along the shore in
+an area that had been divided into 2130 plots. Since an intense counting
+of the number of nests was not possible for all of these plots, they
+used a sampling design. They could use rapid and less accurate count of
+the number of nests in the plots as an auxiliary variable, but even this
+was too expensive to do for all 2130 plots. So the researchers used a
+double sampling design. The table below shows a portion of the data set.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+plot
+</th>
+<th style="text-align:center;">
+rapid
+</th>
+<th style="text-align:center;">
+intense
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+22
+</td>
+<td style="text-align:center;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+24
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+30
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+33
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+34
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+33
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\vdots\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+201
+</td>
+<td style="text-align:center;">
+27
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>The first phase sample of 201 plots was selected using simple random
+sampling, and the rapid count method was applied to these plots. The
+mean number of nests per plot in this sample of 201 plots was 20.8
+nests. The second phase sample of 12 plots was then obtained by applying
+a simple random sampling design to the 201 plots selected for the first
+sample. In this second sample the mean number of nests per plot based on
+the rapid method was 16.3 nests, and the mean number of nests per plot
+based on the intense method was 20.6 nests. Confirm that a ratio
+estimator of the total number of nests in the 2130 plots, using the
+rapid count of nests as an auxiliary variable, gives an estimate of
+approximately 55992 nests.</p>
+</div>
+<div id="shorebirds-double-sampling-allocation" class="section level4">
+<h4>Shorebirds Double Sampling Allocation</h4>
+<p>Researchers are planning another survey like the one described in the
+previous problem, but in a different location. They want to determine
+the optimum allocation for the first and second phase sample sizes. The
+cost of observing the auxiliary variable (i.e., the rapid count) is 1
+minute per plot, and the cost of observing the target variable (i.e.,
+the intense count) is 10 minutes per plot. Based on experience, the
+researchers estimated the two variance parameters as <span
+class="math inline">\(\sigma^2\)</span> = 10 and <span
+class="math inline">\(\sigma_r^2\)</span> = 5. For a total fixed cost
+for the survey of 1000 minutes, confirm that the optimum allocation is
+approximately 240 plots for the first phase, and approximately 76 plots
+for the second phase.</p>
+</div>
+</div>
+<div id="regression-estimator-for-leaf-area" class="section level3">
+<h3>Regression Estimator for Leaf Area</h3>
+<p>Consider again the leaf area problem where 20 leaves were selected
+using simple random sampling from a population of 744 leaves. The mean
+leaf area in the sample was 52.12 square centimeters, and the mean leaf
+weight in the sample was 1.06 grams. Now consider using <em>regression
+estimator</em> for the mean and total leaf area of all 744 leaves. The
+slope of the regression line for predicting leaf area from leaf weight
+is 47.78. Confirm that using the appropriate regression estimator with
+leaf weight as the auxiliary variable, the estimate of the mean leaf
+area is approximately 49.33, and the estimate of the total leaf area is
+approximately 36701.72. (Refer to the earlier leaf area problem for
+<span class="math inline">\(\mu_x\)</span> and <span
+class="math inline">\(\tau_x\)</span>.)</p>
+</div>
+<div id="prediction" class="section level3">
+<h3>Prediction</h3>
+Consider a simple random sampling design with a population of <span
+class="math inline">\(N\)</span> = 10 elements and a sample of <span
+class="math inline">\(n\)</span> = 5 elements. The table below shows the
+values of an auxiliary variable <span class="math inline">\(x\)</span>
+for all 10 elements in the population, and the values of the target
+variable <span class="math inline">\(y\)</span> for just the 5 elements
+in the sample.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Predicted Value
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i\)</span>
+</th>
+<th style="text-align:center;">
+Expansion
+</th>
+<th style="text-align:center;">
+Ratio
+</th>
+<th style="text-align:center;">
+Regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+6.25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+7.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+7.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+8.75
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+</tbody>
+</table>
+<p>The table also shows the <em>predicted values</em> (i.e., <span
+class="math inline">\(\hat{y}_i\)</span>) for an estimator of the form
+<span class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in
+\mathcal{S}&#39;} \hat{y}_i.
+\]</span> The predicted values correspond to three different estimators:
+the “expansion estimator” <span class="math inline">\(\hat\tau_y =
+N\bar{y}\)</span>, the ratio estimator <span
+class="math inline">\(\hat\tau_y = \tau_x\bar{y}/\bar{x}\)</span>, and
+the regression estimator <span class="math inline">\(\hat\tau_y =
+N\bar{y} + b(\hat\tau_x - N\bar{x})\)</span>. We discussed in class
+three different ways of computing predicted values leads to these three
+estimators. Confirm that the predicted values are correct by computing
+them yourself. For your calculations use the fact that the means of the
+target and auxiliary variable for the sample of 5 elements are <span
+class="math inline">\(\bar{y}\)</span> = 10 and <span
+class="math inline">\(\bar{x}\)</span> = 5, respectively, and the value
+of <span class="math inline">\(b\)</span> that would be computed for a
+regression estimator is <span class="math inline">\(b\)</span> = 1.25.
+The predicted values are given in the following table. (Hint: The
+parameter <span class="math inline">\(\tau_x\)</span> isn’t given, but
+you can compute it! Remember that <span class="math inline">\(\tau_x =
+\sum_{i=1}^N x_i\)</span>, so you can compute it by adding all <span
+class="math inline">\(N\)</span> = 10 values of <span
+class="math inline">\(x_i\)</span> in the population.)</p>
+</div>
+<div id="reweighting-and-calibration" class="section level3">
+<h3>Reweighting and Calibration</h3>
+Recall that some estimators of <span
+class="math inline">\(\tau_y\)</span> can be written as <span
+class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} w_iy_i,
+\]</span> where <span class="math inline">\(w_i\)</span> is the
+<em>survey weight</em> which can be computed as <span
+class="math inline">\(w_i = d_ia_i\)</span> where <span
+class="math inline">\(d_i\)</span> and <span
+class="math inline">\(a_i\)</span> are the <em>design weight</em> and
+<em>adjustment weight</em>, respectively. The table below shows the
+sample from the previous problem with the weights computed for each
+element in the sample and for each estimator (recall that this is a
+simple random sampling design).
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Survey Weight
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x_i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y_i\)</span>
+</th>
+<th style="text-align:center;">
+Expansion
+</th>
+<th style="text-align:center;">
+Ratio
+</th>
+<th style="text-align:center;">
+Regression
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.68
+</td>
+<td style="text-align:center;">
+1.82
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.68
+</td>
+<td style="text-align:center;">
+1.76
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.68
+</td>
+<td style="text-align:center;">
+1.64
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.68
+</td>
+<td style="text-align:center;">
+1.64
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1.68
+</td>
+<td style="text-align:center;">
+1.64
+</td>
+</tr>
+</tbody>
+</table>
+<p>Confirm the survey weights shown above by computing them
+yourself.</p>
+<p>Recall that the sample is <em>calibrated</em> with certain weights if
+the estimate of <span class="math inline">\(\tau_x\)</span>, computed as
+<span class="math inline">\(\hat\tau_x = \sum_{i \in \mathcal{S}}
+w_ix_i\)</span>, <em>equals</em> <span
+class="math inline">\(\tau_x\)</span>. We know that <span
+class="math inline">\(\tau_x\)</span> = 42. Check each of the three sets
+of weights above. Determine which sets of weights calibrate the sample
+with respect to the auxiliary variable and which do not. You should find
+that only the weights corresponding to the ratio and regression
+estimators calibrate the sample with respect to the auxiliary variable
+(the sample may be only <em>approximately</em> calibrated due to
+rounding).</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Two observations are identical so only 19 distinct
+points can be seen.<a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Note that we are using the term <em>population</em> in
+two ways here: to refer to the total number of elements (villages),
+which has a size of 100, and to refer to the total number of people in
+all 100 villages, which is another “population size” that we are trying
+to estimate.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>One of the <a
+href="https://en.wikipedia.org/wiki/Ratio_estimator#History">earliest
+known uses of a ratio estimator</a> was to estimate the population of
+France where registered births was used as an auxiliary variable. Data
+on births was more easy to come by since France was largely Catholic and
+there were reliable records of infant baptisms.<a href="#fnref3"
+class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

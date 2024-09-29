@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Sep 30</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Sep 30</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-09-30-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="bias-and-mean-squared-error-of-ratio-estimators"
+class="section level2">
+<h2>Bias and Mean Squared Error of Ratio Estimators</h2>
+<p>Ratio estimators are (usually) <em>biased</em>.</p>
+<ol style="list-style-type: decimal">
+<li>What does it mean to say that a ratio estimator is biased?</li>
+<li>When is the bias small for ratio estimators?</li>
+<li>Why do we usually tolerate bias in ratio estimators?</li>
+</ol>
+<p>Suppose that <span class="math inline">\(\theta\)</span> is a
+parameter and <span class="math inline">\(\hat\theta\)</span> is an
+estimator. An expression of the “imprecision” of <span
+class="math inline">\(\hat\theta\)</span> for estimating <span
+class="math inline">\(\theta\)</span> is the <strong>mean squared
+error</strong> (MSE) defined as <span class="math display">\[
+  E[(\hat\theta - \theta)^2] = \sum_{j=1}^{J} (\hat\theta_j - \theta)^2
+P(\mathcal{S}_j),
+\]</span> for a sample space of <span class="math inline">\(J\)</span>
+samples, where the <span class="math inline">\(j\)</span>-th sample is
+denoted as <span class="math inline">\(\mathcal{S}_j\)</span>, and the
+estimate produced by that sample is denoted as <span
+class="math inline">\(\hat\theta_j\)</span>.</p>
+<p>The mean squared error can be usefully decomposed into two terms as
+<span class="math display">\[
+  E[(\hat\theta - \theta)^2] = [E(\hat\theta) - \theta]^2 +
+V(\hat\theta),
+\]</span> where <span class="math inline">\(E(\hat\theta) -
+\theta\)</span> is the <em>bias</em> of the estimator, and <span
+class="math inline">\(V(\hat\theta)\)</span> is the <em>variance</em> of
+the estimator. Sometimes we can increase one while decreasing the other
+leading to a <em>bias-variance trade-off</em>.</p>
+<!-- Note: The absolute bias divided by the sd of the estimator is less than or equal to the variance of xbar divided by mux, so the bias tends to be small if (a) the ratio estimator has small variance and (b) the variance of barx is small, which it will if n is large. Also mux has an effect but not one we can really control. See Cochran or Lohr for an expression.  -->
+<div style="page-break-after: always;"></div>
+</div>
+<div id="double-sampling-for-ratio-estimators" class="section level2">
+<h2>Double Sampling for Ratio Estimators</h2>
+<p>Under simple random sampling the ratio estimators of <span
+class="math inline">\(\mu_y\)</span> and <span
+class="math inline">\(\tau_y\)</span> are <span class="math display">\[
+  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x \ \ \ \text{and} \ \ \
+\hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+\]</span> respectively. But we cannot use these estimators of the
+corresponding parameter for the auxiliary variable (i.e., <span
+class="math inline">\(\mu_x\)</span> or <span
+class="math inline">\(\tau_x\)</span>) is <em>unknown</em>. One solution
+is to use <strong>double sampling</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Using simple random sampling, obtain a sample of size <span
+class="math inline">\(n&#39;\)</span> and compute <span
+class="math inline">\(\hat\mu_x = \bar{x}&#39;\)</span> or <span
+class="math inline">\(\hat\tau_x = N\bar{x}&#39;\)</span>, where <span
+class="math inline">\(\bar{x}&#39;\)</span> is the mean of the auxiliary
+variable for the <span class="math inline">\(n&#39;\)</span> sampled
+elements.</p></li>
+<li><p>Select a sample of size <span class="math inline">\(n &lt;
+n&#39;\)</span> from the first sample using simple random sampling and
+compute the ratio estimator <span class="math display">\[
+  \hat\mu_y = \hat\mu_x\frac{\bar{y}}{\bar{x}} \ \ \ \text{or} \ \ \
+  \hat\tau_y = \hat\tau_x\frac{\bar{y}}{\bar{x}}.
+\]</span> </p></li>
+</ol>
+<strong>Example</strong>: Recall our example of the population of 744
+leaves from a shining gum (<em>Eucalyptus nitens</em>). We had two
+measurements of leaf area: a precise calculation and a crude
+approximation using the produce of leaf length and width. But suppose
+that we had not measured the crude area approximation for all 744
+leaves. Instead suppose we had used a double sampling design where the
+first sample was <span class="math inline">\(n&#39;\)</span> = 20 leaves
+and the second sample was <span class="math inline">\(n\)</span> = 10
+leaves.<br />
+
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(i\)</span>
+</th>
+<th style="text-align:center;">
+Area
+</th>
+<th style="text-align:center;">
+Length <span class="math inline">\(\times\)</span> Width
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+80.7
+</td>
+<td style="text-align:center;">
+113.08
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+69.7
+</td>
+<td style="text-align:center;">
+98.40
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+66.1
+</td>
+<td style="text-align:center;">
+97.17
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+198.40
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+103.20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+55.10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+55.10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+31.5
+</td>
+<td style="text-align:center;">
+43.96
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+28.35
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+61.10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+28.5
+</td>
+<td style="text-align:center;">
+39.15
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+55.35
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+73.4
+</td>
+<td style="text-align:center;">
+101.43
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+14
+</td>
+<td style="text-align:center;">
+48.4
+</td>
+<td style="text-align:center;">
+58.80
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+74.1
+</td>
+<td style="text-align:center;">
+102.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+36.57
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+17
+</td>
+<td style="text-align:center;">
+16.7
+</td>
+<td style="text-align:center;">
+26.28
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+18
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+30.20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+19
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+143.63
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+20
+</td>
+<td style="text-align:center;">
+29.4
+</td>
+<td style="text-align:center;">
+40.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>The mean crude area approximation of the 20 leaves in the first
+sample is 74.39 square cm. the mean area of the 10 leaves in the second
+sample is 51.85 square cm, and the mean crude area approximation for
+these 10 leaves is 72.08 square cm. What is are the estimates of <span
+class="math inline">\(\mu_y\)</span> and <span
+class="math inline">\(\tau_y\)</span> using a ratio estimator?</p>
+<div style="page-break-after: always;"></div>
+<div id="optimum-allocation-for-double-sampling-for-ratio-estimators"
+class="section level3">
+<h3>Optimum Allocation for Double Sampling for Ratio Estimators</h3>
+<p>How should we decide on the two sample sizes: <span
+class="math inline">\(n&#39;\)</span> and <span
+class="math inline">\(n\)</span>?</p>
+<p>The estimated variance of <span
+class="math inline">\(\hat\mu_y\)</span> here is <span
+class="math display">\[
+    V(\hat\mu_y) \approx
+    \underbrace{\left(1 -
+\frac{n&#39;}{N}\right)\frac{\sigma^2}{n&#39;}}_a +
+    \underbrace{\left(1 -
+\frac{n}{n&#39;}\right)\frac{\sigma_r^2}{n}}_b,
+\]</span> where <span class="math display">\[
+    \sigma^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i-\mu_y)^2 \ \ \text{and} \ \
+    \sigma_r^2 = \frac{1}{N-1}\sum_{i=1}^N(y_i-Rx_i)^2.
+\]</span> Term <span class="math inline">\(a\)</span> is due to first
+phase sampling, and term <span class="math inline">\(b\)</span> is due
+to the second phase sampling.</p>
+<p>Assume a total cost of the survey of <span class="math inline">\(C =
+c_xn&#39; + c_yn\)</span>, where <span
+class="math display">\[\begin{align*}
+    c_x &amp; = \text{cost per unit for observing $x_i$}, \\
+    c_y &amp; = \text{cost per unit for observing $y_i$}.
+\end{align*}\]</span> Note that we only need to observe the auxiliary
+variable (<span class="math inline">\(x_i\)</span>) in the first phase,
+and the target variable (<span class="math inline">\(y_i\)</span>) is
+only observed in the second phase. For a fixed total cost of <span
+class="math inline">\(C\)</span>, the variance of <span
+class="math inline">\(\hat\mu_y\)</span> and <span
+class="math inline">\(\hat\tau_y\)</span> is minimized if <span
+class="math display">\[
+    \frac{n}{n&#39;} =
+\sqrt{\frac{c_x}{c_y}\left(\frac{1}{\sigma^2/\sigma_r^2-1}\right)},
+\]</span> assuming <span class="math inline">\(\sigma^2 &gt;
+\sigma_r^2\)</span>. The optimum allocation is then <span
+class="math display">\[
+    n&#39; = C/(c_x + fc_y) \ \ \ \text{and} \ \ \ n = fC/(c_x + fc_y),
+\]</span> where <span class="math inline">\(f = n/n&#39;\)</span>.</p>
+<p><strong>Example</strong>: Suppose that the cost of observing the
+auxiliary variable is <span class="math inline">\(c_x\)</span> = 0.5,
+the cost of observing the target variable is <span
+class="math inline">\(c_y\)</span> = 1, and the relative efficiency is
+<span class="math inline">\(\sigma^2/\sigma_r^2\)</span> = 4. For a
+fixed total cost of <span class="math inline">\(C\)</span> = 100, we can
+show that <span class="math inline">\(f\)</span> <span
+class="math inline">\(\approx\)</span> 0.41, <span
+class="math inline">\(n&#39;\)</span> <span
+class="math inline">\(\approx\)</span> 110, and <span
+class="math inline">\(n\)</span> <span
+class="math inline">\(\approx\)</span> 45.</p>
+<p>Note that we must have <span class="math inline">\(n&#39; &gt;
+n\)</span> if we are to use double sampling. There are two limiting
+cases to consider.</p>
+<ol style="list-style-type: decimal">
+<li><p>If <span class="math inline">\(n&#39; = n\)</span> then double
+sampling reduces to a simple random sampling design where we just use
+the first phase sample and the estimators become <span
+class="math inline">\(\hat\mu_y = \bar{y}\)</span> and <span
+class="math inline">\(\hat\tau_y = N\bar{y}\)</span> (i.e., we are not
+using the ratio estimator).</p></li>
+<li><p>If <span class="math inline">\(n&#39; = N\)</span> then double
+sampling reduces to a simple random sampling design where the first
+phase sample is a <em>census</em> and the estimators become the usual
+ratio estimators <span class="math display">\[
+  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x \ \ \ \text{and} \ \ \
+\hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x,
+\]</span> as <span class="math inline">\(\mu_x\)</span> and <span
+class="math inline">\(\tau_x\)</span> will be <em>known</em> and need
+not be estimated.</p></li>
+</ol>
+<p>When is using double sampling with a ratio estimator better than
+using simple random sampling without a ratio estimator?</p>
+<div style="page-break-after: always;"></div>
+<!-- Maybe a better way to discuss this is to consider the limiting cases. For example, as c_x increases we have that n'/n goes to one, so we do just a SRS without a ratio estimator. But as c_x approaches zero we approach a design where we do a census of the population for the first phase sample (i.e., n' = N). We can do a similar kind of analysis for c_y and relative efficiency, noting that for the latter we can have a low enough relative efficiency such that n' = n and again we just use a SRS and no ratio estimator. We could maybe do without the figures or modify them. -->
+<p><strong>Example</strong>: Suppose that <span
+class="math inline">\(C\)</span> = 100, <span
+class="math inline">\(c_y\)</span> = 1, and <span
+class="math inline">\(\sigma^2/\sigma_r^2 = 3\)</span>. What happens as
+we increase <span class="math inline">\(c_x\)</span> (i.e., the cost of
+observing the auxiliary variable)?
+<img src="lecture-09-30-2024_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong>Example</strong>: Suppose that <span
+class="math inline">\(C\)</span> = 100, <span
+class="math inline">\(c_x\)</span> = 1, and <span
+class="math inline">\(\sigma^2/\sigma_r^2 = 3\)</span>. What happens as
+we increase <span class="math inline">\(c_y\)</span> (i.e., the cost of
+observing the target variable)?
+<img src="lecture-09-30-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong>Example</strong>: Suppose that <span
+class="math inline">\(C\)</span> = 100, <span
+class="math inline">\(c_y\)</span> = 1, and <span
+class="math inline">\(c_x\)</span> = 1. What happens as we increase
+<span class="math inline">\(\sigma^2/\sigma_r^2\)</span> (i.e., the
+relative efficiency of the ratio estimator)?
+<img src="lecture-09-30-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="ratio-estimators-under-stratified-random-sampling"
+class="section level2">
+<h2>Ratio Estimators Under Stratified Random Sampling</h2>
+<p>There are a couple of different ways to use a ratio estimator with
+stratified random sampling.</p>
+<div id="the-separate-ratio-estimator" class="section level3">
+<h3>The Separate Ratio Estimator</h3>
+<p>Estimate the mean or total of each stratum <em>separately</em> using
+a ratio estimator.</p>
+<ol style="list-style-type: decimal">
+<li><p>Estimate <span class="math inline">\(\mu_{y,j}\)</span> or <span
+class="math inline">\(\tau_{y,j}\)</span> <em>separately</em> for each
+stratum using a ratio estimator so that <span class="math display">\[
+  \hat\mu_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\mu_{x,j} \ \ \ \text{or} \
+\ \
+  \hat\tau_{y,j} = \frac{\bar{y}_j}{\bar{x}_j}\tau_{x,j},
+\]</span> respectively.</p></li>
+<li><p>Estimate <span class="math inline">\(\mu_y\)</span> or <span
+class="math inline">\(\tau_y\)</span> using <span
+class="math display">\[
+  \hat\mu_y = \sum_{j=1}^L\frac{N_j}{N}\hat\mu_{y,j} \ \ \ \text{and} \
+\ \
+  \hat\tau_y = \sum_{j=1}^L \hat\tau_{y,j},
+\]</span> respectively.</p></li>
+</ol>
+</div>
+<div id="the-combined-ratio-estimator" class="section level3">
+<h3>The Combined Ratio Estimator</h3>
+<p>Use one ratio estimator based on sample means that <em>combine</em>
+the means from the strata.</p>
+<ol style="list-style-type: decimal">
+<li>Compute <span class="math display">\[
+  \bar{y}_{st} = \sum_{j=1}^L\frac{N_i}{N}\bar{y}_j \ \ \ \text{and} \ \
+\
+  \bar{x}_{st} =\sum_{j=1}^L\frac{N_i}{N}\bar{x}_j.
+\]</span></li>
+<li>Estimate <span class="math inline">\(\mu_y\)</span> or <span
+class="math inline">\(\tau_y\)</span> using the ratio estimators <span
+class="math display">\[
+  \hat\mu_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\mu_x \ \ \ \text{or} \ \
+\
+  \hat\tau_y = \frac{\bar{y}_{st}}{\bar{x}_{st}}\tau_x,
+\]</span> respectively.</li>
+</ol>
+<strong>Example</strong>: Consider the following summary from a
+stratified random sampling design.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Stratum
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(N_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{y}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\bar{x}_j\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mu_{x,j}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+500
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+90
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+95
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+400
+</td>
+<td style="text-align:center;">
+50
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:center;">
+78
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+25
+</td>
+<td style="text-align:center;">
+70
+</td>
+<td style="text-align:center;">
+40
+</td>
+<td style="text-align:center;">
+72
+</td>
+</tr>
+</tbody>
+</table>
+<p>Also <span class="math inline">\(\mu_x\)</span> = 85.9. The
+<em>separate</em> ratio estimator of <span
+class="math inline">\(\mu_y\)</span> is <span class="math display">\[
+  \hat\mu_y =
+\frac{500}{1000}\underbrace{\left[\left(\frac{90}{50}\right)95\right]}_{\hat\mu_{y,1}}
++
+  \frac{400}{1000}\underbrace{\left[\left(\frac{80}{45}\right)78\right]}_{\hat\mu_{y,2}}
++
+  \frac{100}{1000}\underbrace{\left[\left(\frac{70}{40}\right)72\right]}_{\hat\mu_{y,3}}.
+\]</span> The <em>combined</em> ratio estimator is <span
+class="math display">\[
+\hat\mu_y = \frac{\overbrace{\left(\frac{500}{1000}\right)90 +
+\left(\frac{400}{1000}\right)80 +
+\left(\frac{100}{1000}\right)70}^{\bar{y}_{st}}}{\underbrace{\left(\frac{500}{1000}\right)50
++ \left(\frac{400}{1000}\right)45 +
+\left(\frac{100}{1000}\right)40}_{\bar{x}_{st}}}85.9.
+\]</span> Which one should we use? It depends on a couple of
+factors.</p>
+<ol style="list-style-type: decimal">
+<li>If the slope of the “line of proportionality” varies over
+strata.</li>
+<li>The sample sizes for the strata (i.e., <span
+class="math inline">\(n_1, n_2, \dots, n_L\)</span>).</li>
+</ol>
+<!-- If some of the sample sizes are small, the separate ratio estimator will have more bias, so the combined estimator should be preferred. -->
+<p><img src="lecture-09-30-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-09-30-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
