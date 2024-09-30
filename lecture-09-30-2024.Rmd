@@ -79,8 +79,8 @@ respectively. But we cannot use these estimators of the corresponding parameter 
 
 2. Select a sample of size $n < n'$ from the first sample using simple random sampling and compute the ratio estimator
 $$
-  \hat\mu_y = \hat\mu_x\frac{\bar{y}}{\bar{x}} \ \ \ \text{or} \ \ \ 
-  \hat\tau_y = \hat\tau_x\frac{\bar{y}}{\bar{x}}.
+  \hat\mu_y = \frac{\bar{y}}{\bar{x}}\hat\mu_x \ \ \ \text{or} \ \ \ 
+  \hat\tau_y = \frac{\bar{y}}{\bar{x}}\hat\tau_x.
 $$
 \pagebreak
 
