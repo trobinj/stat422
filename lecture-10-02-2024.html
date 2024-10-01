@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wednesday, Oct 2</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Wednesday, Oct 2</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-02-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="regression-estimator" class="section level2">
+<h2>Regression Estimator</h2>
+<p>Assume a simple random sampling design. The <em>regression
+estimator</em> of <span class="math inline">\(\mu_y\)</span> is <span
+class="math display">\[
+  \hat\mu_y = \bar{y} + b(\mu_x - \bar{x}).
+\]</span> The regression estimator of <span
+class="math inline">\(\tau_y\)</span> is <span
+class="math inline">\(N\)</span> times this estimator: <span
+class="math display">\[
+  \hat\tau_y = N\bar{y} + b(\tau_x - N\bar{x}).
+\]</span> In both estimators <span class="math inline">\(b = \hat\rho
+s_y/s_x\)</span>, where <span class="math inline">\(\hat\rho\)</span> is
+the correlation between the target and auxiliary variable for the
+elements in the sample, <span class="math inline">\(s_y\)</span> is the
+standard deviation of the target variable for the elements in the
+sample, and <span class="math inline">\(s_x\)</span> is the standard
+deviation of the auxiliary variable for the elements in the sample.</p>
+<p>The regression estimator for <span
+class="math inline">\(\mu_y\)</span> can also be written as <span
+class="math display">\[
+  \hat\mu_y = \underbrace{\bar{y} - b\bar{x}}_a + b\mu_x = a + b\mu_x,
+\]</span> where <span class="math inline">\(a =
+\bar{y}-b\bar{x}\)</span> and <span class="math inline">\(b = \hat\rho
+s_y/s_x\)</span> are the intercept and slope, respectively, of a
+<em>regression line</em>. Contrast this with the <em>ratio
+estimator</em> for <span class="math inline">\(\mu_y\)</span> which can
+be written as <span class="math inline">\(\hat\mu_y = r\mu_x\)</span>,
+which is based on a different regression line that has an intercept of
+zero.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></p>
+<p><img src="lecture-10-02-2024_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estimated-variance-of-a-regression-estimator"
+class="section level2">
+<h2>Estimated Variance of a Regression Estimator</h2>
+<p>Assuming simple random sampling, the estimated variance of <span
+class="math inline">\(\hat\mu_y = \bar{y} + b(\mu_x - \bar{x})\)</span>
+can be written as <span class="math display">\[
+  \hat{V}(\hat\mu_y) = \left(1 - \frac{n}{N}\right)\frac{\sum_{i \in
+\mathcal{S}}(y_i - a - bx_i)^2/(n-2)}{n}.
+\]</span> The term <span class="math inline">\(\sum_{i \in \mathcal{S}}
+(y_i - a - bx_i)^2\)</span> can also be computed as <span
+class="math inline">\(\sum_{i \in \mathcal{S}} (y_i - a - bx_i)^2 =
+(n-1)s_y^2(1-\hat\rho^2)\)</span>, which shows that it gets smaller as
+the correlation gets larger (in absolute value).</p>
+<p>The estimated variance of <span class="math inline">\(\hat\tau_y =
+N\bar{y} + b(\tau_x - N\bar{x})\)</span> is then <span
+class="math display">\[
+  \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{\sum_{i \in
+\mathcal{S}}(y_i - a - bx_i)^2/(n-2)}{n}.
+\]</span></p>
+<div style="page-break-after: always;"></div>
+<p><strong>Example</strong>: The figure below show the values of the
+target and auxiliary variable for a sample of 20 from a population of
+size 100.
+<img src="lecture-10-02-2024_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" />
+We have the following summary statistics: <span
+class="math inline">\(\bar{y}\)</span> = 22.2, <span
+class="math inline">\(\bar{x}\)</span> = 2.5, <span
+class="math inline">\(\mu_x\)</span> = 3, <span
+class="math inline">\(s_y\)</span> = 8.2, <span
+class="math inline">\(s_x\)</span> = 1.6, and <span
+class="math inline">\(\hat\rho\)</span> = 0.8. The line shown above has
+intercept <span class="math inline">\(a = \bar{y}-b\bar{x}\)</span> and
+slope <span class="math inline">\(b = \hat\rho s_y/s_x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Assuming a simple random sampling design, what is the estimate and
+the bound on the error of estimation for estimating <span
+class="math inline">\(\mu_y\)</span> using the <em>regression
+estimator</em> if <span class="math inline">\(\sum_{i \in
+\mathcal{S}}(y_i - a - bx_i)^2\)</span> = 353.3.</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Assuming a simple random sampling design, what is the estimate and
+bound on the error of estimation using the <em>ratio estimator</em> if
+<span class="math inline">\(\sum_{i \in \mathcal{S}}(y_i -
+rx_i)^2\)</span> = 1258.9.</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>Assuming a simple random sampling design, what is the estimate and
+bound on the error of estimation using <span
+class="math inline">\(\bar{y}\)</span>?</li>
+</ol>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="a-comparison-of-three-estimators" class="section level2">
+<h2>A Comparison of Three Estimators</h2>
+<p>In general, how do we expect the regression estimator to perform
+relative to the other two estimators?</p>
+<p><strong>Example</strong>: Consider the following simulation study
+with three populations and three estimators — the sample mean <span
+class="math inline">\(\bar{y}\)</span>, the ratio estimator <span
+class="math inline">\(\mu_x\bar{y}/\bar{x}\)</span>, and the regression
+estimator <span class="math inline">\(\bar{y} + b(\mu_x -
+\bar{x})\)</span> — applied to a sample of size <span
+class="math inline">\(n\)</span> = 10 using simple random sampling.</p>
+<p><img src="lecture-10-02-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-10-02-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+population
+</th>
+<th style="text-align:left;">
+estimator
+</th>
+<th style="text-align:center;">
+bias
+</th>
+<th style="text-align:center;">
+variance
+</th>
+<th style="text-align:center;">
+mse
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:left;">
+Sample Mean
+</td>
+<td style="text-align:center;">
+0.86
+</td>
+<td style="text-align:center;">
+241.45
+</td>
+<td style="text-align:center;">
+241.96
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:left;">
+Ratio
+</td>
+<td style="text-align:center;">
+8.63
+</td>
+<td style="text-align:center;">
+2000.34
+</td>
+<td style="text-align:center;">
+2072.77
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:left;">
+Regression
+</td>
+<td style="text-align:center;">
+1.19
+</td>
+<td style="text-align:center;">
+279.27
+</td>
+<td style="text-align:center;">
+280.40
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:left;">
+Sample Mean
+</td>
+<td style="text-align:center;">
+-1.24
+</td>
+<td style="text-align:center;">
+1944.67
+</td>
+<td style="text-align:center;">
+1944.26
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:left;">
+Ratio
+</td>
+<td style="text-align:center;">
+-0.63
+</td>
+<td style="text-align:center;">
+391.13
+</td>
+<td style="text-align:center;">
+391.13
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:left;">
+Regression
+</td>
+<td style="text-align:center;">
+-0.45
+</td>
+<td style="text-align:center;">
+451.70
+</td>
+<td style="text-align:center;">
+451.45
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:left;">
+Sample Mean
+</td>
+<td style="text-align:center;">
+-1.24
+</td>
+<td style="text-align:center;">
+1737.24
+</td>
+<td style="text-align:center;">
+1737.05
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:left;">
+Ratio
+</td>
+<td style="text-align:center;">
+7.23
+</td>
+<td style="text-align:center;">
+2122.31
+</td>
+<td style="text-align:center;">
+2172.50
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:left;">
+Regression
+</td>
+<td style="text-align:center;">
+-0.72
+</td>
+<td style="text-align:center;">
+385.33
+</td>
+<td style="text-align:center;">
+385.46
+</td>
+</tr>
+</tbody>
+</table>
+<p>Which estimator would we prefer when?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="the-generalized-regression-greg-estimator"
+class="section level2">
+<h2>The Generalized Regression (GREG) Estimator</h2>
+<p>The generalized regression estimator of <span
+class="math inline">\(\mu_y\)</span> is <span class="math display">\[
+  \hat\mu_y = \bar{y} + b_1(\mu_{x_1} - \bar{x}_1) + b_2(\mu_{x_2} -
+\bar{x}_2) + \cdots + b_k(\mu_{x_k} - \bar{x}_k)
+\]</span> where <span class="math inline">\(\mu_{x_1}, \mu_{x_2}, \dots,
+\mu_{x_k}\)</span> are the population means of the <span
+class="math inline">\(k\)</span> auxiliary variables.</p>
+<p>The generalized regression estimator of <span
+class="math inline">\(\hat\tau_y\)</span> can be written as <span
+class="math display">\[
+  \hat\tau_y = N\bar{y} + b_1(\tau_{x_1} - N\bar{x}_1) + b_2(\tau_{x_2}
+- N\bar{x}_2) + \cdots + b_k(\tau_{x_k} - N\bar{x}_k),
+\]</span> where <span class="math inline">\(\tau_{x_1}, \tau_{x_2},
+\dots, \tau_{x_k}\)</span> are the population totals of the <span
+class="math inline">\(k\)</span> auxiliary variables. This can also be
+written as <span class="math display">\[
+  \hat\tau_y = N\bar{y} + b_1(\tau_{x_1} - \hat\tau_{x_1}) +
+b_2(\tau_{x_2} - \hat\tau_{x_2}) + \cdots + b_k(\tau_{x_k} -
+\hat\tau_{x_k}),
+\]</span> where <span class="math inline">\(\hat\tau_{x_1} = N\bar{x}_1,
+\hat\tau_{x_2} = N\bar{x}_2, \dots, \hat\tau_{x_k} =
+N\bar{x}_k\)</span>.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="the-prediction-perspective" class="section level2">
+<h2>The Prediction Perspective</h2>
+<p>We can write <span class="math inline">\(\tau_y\)</span> as <span
+class="math display">\[
+  \tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}&#39;}
+y_i,
+\]</span> where <span class="math inline">\(\mathcal{S}\)</span> denotes
+the set of elements <em>included in the sample</em> and <span
+class="math inline">\(\mathcal{S}&#39;\)</span> denotes the set of
+elements <em>excluded from the sample</em>.</p>
+<p>Some estimators of <span class="math inline">\(\tau_y\)</span> take
+the form <span class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in
+\mathcal{S}&#39;} \hat{y}_i,
+\]</span> where <span class="math inline">\(\hat{y}_i\)</span> denotes a
+<em>predicted value</em> of the target variable for an element that is
+not in the sample. Different estimators can be derived depending on how
+these predicted values are computed.</p>
+<ol style="list-style-type: decimal">
+<li><p>Let <span class="math inline">\(\hat{y}_i = \bar{y}\)</span>,
+where <span class="math inline">\(\bar{y}\)</span> is the mean of the
+target variable for the elements in the sample. Then it can be shown
+that <span class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in
+\mathcal{S}&#39;} \bar{y} = N\bar{y}.
+\]</span></p></li>
+<li><p>Let <span class="math inline">\(\hat{y}_i = rx_i\)</span> where
+<span class="math inline">\(r = \bar{y}/\bar{x}\)</span>. Then it can be
+shown that <span class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in
+\mathcal{S}&#39;} x_i\bar{y}/\bar{x} = \tau_x\bar{y}/\bar{x}.
+\]</span></p></li>
+<li><p>Let <span class="math inline">\(\hat{y}_i = a + bx_i\)</span>.
+Then it can be shown that <span class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in
+\mathcal{S}&#39;} (a + bx_i) = N\bar{y} + b(\tau_x - N\bar{x}).
+\]</span></p></li>
+</ol>
+<p><img src="lecture-10-02-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Note that the corresponding estimator of <span
+class="math inline">\(\mu_y\)</span> is then obtained as <span
+class="math inline">\(\hat\tau_y/N\)</span>. That is, <span
+class="math display">\[
+  \hat\mu_y = \frac{1}{N}\left(\sum_{i \in \mathcal{S}} y_i + \sum_{i
+\in \mathcal{S}&#39;} \hat{y}_i\right).
+\]</span></p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>The slope and intercept for the regression estimator can
+be found using standard software for ordinary least squares regression.
+But note that the slope of a line corresponding to a ratio estimator is
+<span class="math inline">\(\bar{y}/\bar{x}\)</span>. This is equivalent
+to the slope of a regression line <em>with no intercept</em> estimated
+using <em>weighted least squares</em> where the weights are the
+reciprocals of the auxiliary variable values. In R this would be
+something like
+<code>lm(y ~ -1 + x, weights = 1/x, data = mydata)</code>.<a
+href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

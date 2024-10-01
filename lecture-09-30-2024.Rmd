@@ -165,6 +165,8 @@ When is using double sampling with a ratio estimator better than using simple ra
 
 <!-- Maybe a better way to discuss this is to consider the limiting cases. For example, as c_x increases we have that n'/n goes to one, so we do just a SRS without a ratio estimator. But as c_x approaches zero we approach a design where we do a census of the population for the first phase sample (i.e., n' = N). We can do a similar kind of analysis for c_y and relative efficiency, noting that for the latter we can have a low enough relative efficiency such that n' = n and again we just use a SRS and no ratio estimator. We could maybe do without the figures or modify them. -->
 
+<!-- It would be useful to put an upper bound on n of N to show the edge case when n = N. It might also be useful to reduce the number of figures by one and model the effect of c_x/c_y.  -->
+
 **Example**: Suppose that $C$ = 100, $c_y$ = 1, and $\sigma^2/\sigma_r^2 = 3$. What happens as we increase $c_x$ (i.e., the cost of observing the auxiliary variable)?
 ```{r, fig.height = 4, warning = FALSE}
 cx <- seq(0.1, 2, length = 1000)

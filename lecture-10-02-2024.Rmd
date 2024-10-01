@@ -1,0 +1,366 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "10-02-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Regression Estimator
+
+Assume a simple random sampling design. The *regression estimator* of $\mu_y$ is
+$$
+  \hat\mu_y = \bar{y} + b(\mu_x - \bar{x}).
+$$
+The regression estimator of $\tau_y$ is $N$ times this estimator: 
+$$
+  \hat\tau_y = N\bar{y} + b(\tau_x - N\bar{x}).
+$$
+In both estimators $b = \hat\rho s_y/s_x$, where $\hat\rho$ is the correlation between the target and auxiliary variable for the elements in the sample, $s_y$ is the standard deviation of the target variable for the elements in the sample, and $s_x$ is the standard deviation of the auxiliary variable for the elements in the sample.
+
+The regression estimator for $\mu_y$ can also be written as
+$$
+  \hat\mu_y = \underbrace{\bar{y} - b\bar{x}}_a + b\mu_x = a + b\mu_x,
+$$
+where $a = \bar{y}-b\bar{x}$ and $b = \hat\rho s_y/s_x$ are the intercept and slope, respectively, of a *regression line*. Contrast this with the *ratio estimator* for $\mu_y$ which can be written as $\hat\mu_y = r\mu_x$, which is based on a different regression line that has an intercept of zero.[^wls]
+
+```{r}
+trees <- read.table(header = FALSE, text = "
+1 .3000000119 6
+2 .5 9
+3 .400000006 7
+4 .8999999762 19
+5 .6999999881 15
+6 .200000003 5
+7 .6000000238 12
+8 .5 9
+9 .8000000119 20
+10 .400000006 9
+11 .8000000119 18
+12 .6000000238 13")
+names(trees) <- c("tree","area","volume")
+
+trees$volume <- trees$volume + 5
+
+xbar <- mean(trees$area)
+ybar <- mean(trees$volume)
+
+m <- lm(volume ~ area, data = trees)
+a <- coef(m)[1]
+b <- coef(m)[2]
+
+mux <- 0.35
+
+p <- ggplot(trees, aes(x = area, y = volume)) + theme_classic()
+p <- p + geom_abline(intercept = 0, slope = ybar/xbar, color = grey(0.75))
+p <- p + geom_abline(intercept = a, slope = b)
+p <- p + geom_point() + coord_cartesian(xlim = c(0,0.8), ylim = c(0,20)) + labs(x = tex("$x_i$"), y = tex("$y_i$"))
+p <- p + annotate("segment", x = xbar, xend = xbar, y = ybar, yend = -1, linetype = 3)
+p <- p + annotate("segment", x = xbar, xend = -1, y = ybar, yend = ybar, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = mux, y = a+b*mux, yend = -1, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = -1, y = a+b*mux, yend = a+b*mux, linetype = 3)
+p <- p + annotate("segment", x = mux, xend = -1, y = mux*ybar/xbar, yend = mux*ybar/xbar, linetype = 3)
+p <- p + scale_x_continuous(breaks = c(0, 0.2, mux, 0.4, xbar, 0.6, 0.8, 1), labels = c(0, 0.2, tex("$\\mu_x$"), 0.4, tex("$\\bar{x}$"), 0.6, 0.8, 1))
+p <- p + scale_y_continuous(breaks = c(0, 5, a+b*mux, mux*ybar/xbar, ybar, 15,  20), labels = c(0, 5, tex("$\\bar{y} + b(\\mu_x-\\bar{x})$"), tex("$\\mu_x \\bar{y} / \\bar{x}$"), tex("$\\bar{y}$"), 15, 20))
+plot(p)
+```
+
+[^wls]: The slope and intercept for the regression estimator can be found using standard software for ordinary least squares regression. But note that the slope of a line corresponding to a ratio estimator is $\bar{y}/\bar{x}$. This is equivalent to the slope of a regression line *with no intercept* estimated using *weighted least squares* where the weights are the reciprocals of the auxiliary variable values. In R this would be something like `lm(y ~ -1 + x, weights = 1/x, data = mydata)`.
+
+## Estimated Variance of a Regression Estimator
+
+Assuming simple random sampling, the estimated variance of $\hat\mu_y = \bar{y} + b(\mu_x - \bar{x})$ can be written as
+$$
+  \hat{V}(\hat\mu_y) = \left(1 - \frac{n}{N}\right)\frac{\sum_{i \in \mathcal{S}}(y_i - a - bx_i)^2/(n-2)}{n}.
+$$
+The term $\sum_{i \in \mathcal{S}} (y_i - a - bx_i)^2$ can also be computed as 
+$\sum_{i \in \mathcal{S}} (y_i - a - bx_i)^2 = (n-1)s_y^2(1-\hat\rho^2)$, which shows that it gets smaller as the correlation gets larger (in absolute value).
+
+The estimated variance of $\hat\tau_y = N\bar{y} + b(\tau_x - N\bar{x})$ is then
+$$
+  \hat{V}(\hat\tau_y) = N^2\left(1 - \frac{n}{N}\right)\frac{\sum_{i \in \mathcal{S}}(y_i - a - bx_i)^2/(n-2)}{n}.
+$$
+```{r}
+set.seed(123)
+
+n <- 20
+N <- 100
+d <- data.frame(x = seq(0, 5, length = n))
+d$y <- rpois(n, 10 + 5*d$x)
+
+d$yhat1 <- mean(d$y)
+d$yhat2 <- d$x * mean(d$y) / mean(d$x)
+d$yhat3 <- predict(lm(y ~ x, data = d))
+```
+
+\pagebreak
+
+**Example**: The figure below show the values of the target and auxiliary variable for a sample of `r n` from a population of size `r N`. 
+```{r, fig.height = 4, fig.width = 9}
+p <- ggplot(d, aes(x = x, y = y)) + theme_classic()
+p <- p + geom_segment(aes(xend = x, yend = yhat1), alpha = 0.5, linetype = 3)
+p <- p + geom_point(size = 1)
+p <- p + geom_line(aes(y = yhat1), linetype = 3, alpha = 0.5)
+p <- p + geom_line(aes(y = yhat2), linetype = 2, alpha = 0.5)
+p <- p + geom_line(aes(y = yhat3), linetype = 1, alpha = 0.5)
+p <- p + xlim(0, 5) + ylim(0, max(c(d$yhat1,d$yhat2,d$yhat3)))
+p <- p + labs(x = "Auxiliary Variable (x)", y = "Target Variable (y)")
+p1 <- p + ggtitle("Sample Mean")
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_classic()
+p <- p + geom_segment(aes(xend = x, yend = yhat2), alpha = 0.5, linetype = 2)
+p <- p + geom_point(size = 1)
+p <- p + geom_line(aes(y = yhat1), linetype = 3, alpha = 0.5)
+p <- p + geom_line(aes(y = yhat2), linetype = 2, alpha = 0.5)
+p <- p + geom_line(aes(y = yhat3), linetype = 1, alpha = 0.5)
+p <- p + xlim(0, 5) + ylim(0, max(c(d$yhat1,d$yhat2,d$yhat3)))
+p <- p + labs(x = "Auxiliary Variable (x)", y = "Target Variable (y)")
+p2 <- p + ggtitle("Ratio Estimator")
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_classic()
+p <- p + geom_segment(aes(xend = x, yend = yhat3), alpha = 0.5, linetype = 1)
+p <- p + geom_point(size = 1)
+p <- p + geom_line(aes(y = yhat1), linetype = 3, alpha = 0.5)
+p <- p + geom_line(aes(y = yhat2), linetype = 2, alpha = 0.5)
+p <- p + geom_line(aes(y = yhat3), linetype = 1, alpha = 0.5)
+p <- p + xlim(0, 5) + ylim(0, max(c(d$yhat1,d$yhat2,d$yhat3)))
+p <- p + labs(x = "Auxiliary Variable (x)", y = "Target Variable (y)")
+p3 <- p + ggtitle("Regression Estimator")
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_classic()
+p <- p + geom_segment(aes(xend = x, yend = yhat3), alpha = 0.5, linetype = 1)
+p <- p + geom_point(size = 1)
+p <- p + geom_line(aes(y = yhat3), linetype = 1, alpha = 0.5)
+p <- p + xlim(0, 5) + ylim(0, max(c(d$yhat1,d$yhat2,d$yhat3)))
+p <- p + labs(x = "Auxiliary Variable (x)", y = "Target Variable (y)")
+p
+```
+We have the following summary statistics: $\bar{y}$ = `r round(mean(d$y),1)`, $\bar{x}$ = `r round(mean(d$x),1)`, $\mu_x$ = 3, $s_y$ = `r round(sd(d$y),1)`, $s_x$ = `r round(sd(d$x),1)`, and $\hat\rho$ = `r round(cor(d$x,d$y),1)`. The line shown above has intercept $a = \bar{y}-b\bar{x}$ and slope $b = \hat\rho s_y/s_x$.
+
+1. Assuming a simple random sampling design, what is the estimate and the bound on the error of estimation for estimating $\mu_y$ using the *regression estimator* if $\sum_{i \in \mathcal{S}}(y_i - a - bx_i)^2$ = `r round(sum(residuals(lm(y ~ x, data = d))^2),1)`.
+
+\vspace{3cm}
+
+2. Assuming a simple random sampling design, what is the estimate and bound on the error of estimation using the *ratio estimator* if $\sum_{i \in \mathcal{S}}(y_i - rx_i)^2$ = `r round(sum((d$y - mean(d$y)/mean(d$x)*d$x)^2),1)`.
+
+\vspace{3cm}
+
+3. Assuming a simple random sampling design, what is the estimate and bound on the error of estimation using $\bar{y}$? 
+
+\pagebreak
+
+## A Comparison of Three Estimators
+
+In general, how do we expect the regression estimator to perform relative to the other two estimators?
+
+**Example**: Consider the following simulation study with three populations and three estimators --- the sample mean $\bar{y}$, the ratio estimator $\mu_x\bar{y}/\bar{x}$, and the regression estimator $\bar{y} + b(\mu_x - \bar{x})$ --- applied to a sample of size $n$ = 10 using simple random sampling.
+
+```{r, fig.height = 4, fig.width = 9}
+set.seed(102)
+
+b0 <- c(200, 0, 200)
+b1 <- c(0, 4, 4)
+
+N <- 1000
+x.pop <- runif(N, 0, 110)
+y.srs <- rnorm(N, 0, 50) + b0[1]
+y.rat <- rnorm(N, 0, x.pop) + b1[2]*x.pop + b0[2]
+y.reg <- rnorm(N, 0, 60) + b1[3]*x.pop + b0[3]
+
+data <- data.frame(y = c(y.srs, y.rat, y.reg), 
+x = rep(x.pop, 3), case = rep(LETTERS[1:3], each = N))
+
+line <- data.frame(b0 = b0, b1 = b1, case = c("A","B","C"))
+
+p <- ggplot(data, aes(x = x, y = y)) + geom_point(alpha = 0.25) + theme_minimal()
+p <- p + facet_wrap(~ case, ncol = 3) + xlim(0, 110)
+p <- p + geom_abline(aes(intercept = b0, slope = b1), data = line)
+p.pop <- p
+
+plot(p.pop)
+```
+
+```{r, fig.height = 5, fig.width = 9}
+
+r <- 1000
+n <- 10
+data <- expand.grid(sample = 1:r, 
+  case = c("A","B","C"),
+  estimator = c("srs","rat","reg"), estimate = NA)
+
+for (i in 1:r) {
+  index <- sample(1:N, n)
+  
+  y.smp <- y.srs[index] 
+  estim <- mean(y.smp)
+  data$estimate[data$sample == i & data$case == "A" & data$estimator == "srs"] <- estim
+  y.smp <- y.rat[index] 
+  estim <- mean(y.smp)
+  data$estimate[data$sample == i & data$case == "B" & data$estimator == "srs"] <- estim
+  y.smp <- y.reg[index] 
+  estim <- mean(y.smp)
+  data$estimate[data$sample == i & data$case == "C" & data$estimator == "srs"] <- estim
+  
+  y.smp <- y.srs[index] 
+  x.smp <- x.pop[index]
+  estim <- mean(x.pop)*mean(y.smp)/mean(x.smp)
+  data$estimate[data$sample == i & data$case == "A" & data$estimator == "rat"] <- estim
+  y.smp <- y.rat[index] 
+  x.smp <- x.pop[index]
+  estim <- mean(x.pop)*mean(y.smp)/mean(x.smp)
+  data$estimate[data$sample == i & data$case == "B" & data$estimator == "rat"] <- estim
+  y.smp <- y.reg[index] 
+  x.smp <- x.pop[index]
+  estim <- mean(x.pop)*mean(y.smp)/mean(x.smp)
+  data$estimate[data$sample == i & data$case == "C" & data$estimator == "rat"] <- estim
+  
+  y.smp <- y.srs[index] 
+  x.smp <- x.pop[index]
+  estim <- mean(y.smp) + cor(y.smp,x.smp) * sd(y.smp)/sd(x.smp) * (mean(x.pop) - mean(x.smp)) 
+  data$estimate[data$sample == i & data$case == "A" & data$estimator == "reg"] <- estim
+  y.smp <- y.rat[index] 
+  x.smp <- x.pop[index]
+  estim <- mean(y.smp) + cor(y.smp,x.smp) * sd(y.smp)/sd(x.smp) * (mean(x.pop) - mean(x.smp)) 
+  data$estimate[data$sample == i & data$case == "B" & data$estimator == "reg"] <- estim
+  y.smp <- y.reg[index] 
+  x.smp <- x.pop[index]
+  estim <- mean(y.smp) + cor(y.smp,x.smp) * sd(y.smp)/sd(x.smp) * (mean(x.pop) - mean(x.smp)) 
+  data$estimate[data$sample == i & data$case == "C" & data$estimator == "reg"] <- estim
+}
+
+levels(data$estimator) <- c("Sample Mean","Ratio","Regression")
+
+p <- ggplot(data, aes(x = estimate))
+p <- p + geom_density(alpha = 0.5, adjust = 2) + theme_minimal()
+p <- p + labs(x = "Estimate", y = NULL) + noyaxis
+p <- p + facet_grid(estimator ~ case, scales = "free_x")
+p.sampdist <- p
+
+plot(p.sampdist)
+```
+
+```{r}
+data <- full_join(data, data.frame(case = LETTERS[1:3], parameter = c(mean(y.srs), mean(y.rat), mean(y.reg))))
+data %>% rename(population = case) %>% group_by(population, estimator) %>% summarize(bias = round(mean(estimate - parameter),2), variance = round(var(estimate),2), mse = round(mean((estimate - parameter)^2),2)) %>% ktbl(align = c("c","l","c","c","c"))
+```
+
+Which estimator would we prefer when?
+
+\pagebreak
+
+## The Generalized Regression (GREG) Estimator 
+
+The generalized regression estimator of $\mu_y$ is
+$$
+  \hat\mu_y = \bar{y} + b_1(\mu_{x_1} - \bar{x}_1) + b_2(\mu_{x_2} - \bar{x}_2) + \cdots + b_k(\mu_{x_k} - \bar{x}_k)
+$$
+where $\mu_{x_1}, \mu_{x_2}, \dots, \mu_{x_k}$ are the population means of the $k$ auxiliary variables.
+
+The generalized regression estimator of $\hat\tau_y$ can be written as
+$$
+  \hat\tau_y = N\bar{y} + b_1(\tau_{x_1} - N\bar{x}_1) + b_2(\tau_{x_2} - N\bar{x}_2) + \cdots + b_k(\tau_{x_k} - N\bar{x}_k),
+$$
+where $\tau_{x_1}, \tau_{x_2}, \dots, \tau_{x_k}$ are the population totals of the $k$ auxiliary variables. This can also be written as
+$$
+  \hat\tau_y = N\bar{y} + b_1(\tau_{x_1} - \hat\tau_{x_1}) + b_2(\tau_{x_2} - \hat\tau_{x_2}) + \cdots + b_k(\tau_{x_k} - \hat\tau_{x_k}),
+$$
+where $\hat\tau_{x_1} = N\bar{x}_1, \hat\tau_{x_2} = N\bar{x}_2, \dots, \hat\tau_{x_k} = N\bar{x}_k$. 
+
+\pagebreak
+
+## The Prediction Perspective
+
+We can write $\tau_y$ as
+$$
+  \tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} y_i,
+$$
+where $\mathcal{S}$ denotes the set of elements *included in the sample* and $\mathcal{S}'$ denotes the set of elements *excluded from the sample*.
+
+Some estimators of $\tau_y$ take the form
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} \hat{y}_i,
+$$
+where $\hat{y}_i$ denotes a *predicted value* of the target variable for an element that is not in the sample. Different estimators can be derived depending on how these predicted values are computed.
+
+1. Let $\hat{y}_i = \bar{y}$, where $\bar{y}$ is the mean of the target variable for the elements in the sample. Then it can be shown that
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} \bar{y} = N\bar{y}. 
+$$
+2. Let $\hat{y}_i = rx_i$ where $r = \bar{y}/\bar{x}$. Then it can be shown that
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} x_i\bar{y}/\bar{x} = \tau_x\bar{y}/\bar{x}. 
+$$
+
+3. Let $\hat{y}_i = a + bx_i$. Then it can be shown that
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} (a + bx_i) = N\bar{y} + b(\tau_x - N\bar{x}). 
+$$
+
+```{r, fig.height = 4, fig.width = 9, warning = FALSE}
+set.seed(111)
+N <- 50
+n <- 20
+d <- data.frame(x = seq(1, 10, length = N))
+d <- d %>% mutate(y = rnorm(N, 2*x, 2*sqrt(x)/2),
+  include = sample(rep(c("yes","no"), c(n, N - n)))) %>%
+  mutate(yhat = ifelse(include != "yes", mean(y)/mean(x) * x, NA))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_classic()
+p <- p + geom_abline(slope = mean(d$y)/mean(d$x), alpha = 0.5)
+p <- p + geom_segment(aes(yend = yhat, xend = x), alpha = 0.5)
+p <- p + geom_point(aes(color = include), pch = 16)
+p <- p + scale_color_manual(values = c(grey(0.75), grey(0)))
+p <- p + geom_point(aes(y = yhat), pch = 21, fill = "white")
+p <- p + guides(color = "none") + xlim(0,10) + ylim(0, 30)
+p <- p + labs(x = "Auxiliary Variable", y = "Target Variable", title = "Included, Excluded, and Predicted Values for a Ratio Estimator")
+p <- p + annotate("point", 0, 30-0.2, shape = 21, fill = "black", size = 2)
+p <- p + annotate("text", 0.5, 30, label = "included in sample", hjust = 0)
+p <- p + annotate("point", 0, 28-0.2, shape = 16, color = grey(0.75),size = 2)
+p <- p + annotate("text", 0.5, 28, label = "excluded from sample", hjust = 0)
+p <- p + annotate("point", 0, 26-0.2, shape = 21, fill = "white", size = 2)
+p <- p + annotate("text", 0.5, 26, label = "prediction", hjust = 0)
+plot(p)
+```
+
+Note that the corresponding estimator of $\mu_y$ is then obtained as $\hat\tau_y/N$. That is,
+$$
+  \hat\mu_y = \frac{1}{N}\left(\sum_{i \in \mathcal{S}} y_i + \sum_{i \in \mathcal{S}'} \hat{y}_i\right).
+$$
+
+
