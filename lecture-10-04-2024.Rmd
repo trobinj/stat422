@@ -1,0 +1,159 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "10-04-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Re-weighting Revisited
+
+Recall that estimators of $\tau_y$ can often be written as
+$$
+  \hat\tau_y = \sum_{i \in \mathcal{S}} w_iy_i,
+$$
+where $w_i$ is the *survey weight* for the $i$-th sampled element. Estimators of $\mu_y$ can be written as
+$$
+  \hat\mu_y = \frac{\sum_{i \in \mathcal{S}} w_iy_i}{\sum_{i \in \mathcal{S}} w_i},
+$$
+because $N = \sum_{i \in \mathcal{S}} w_i$. 
+
+In practice, survey weights usually depend on two things.
+
+1. The *sampling design* used. We have already seen examples of this. 
+
+    - For *simple random sampling*, $w_i = N/n$. 
+  
+    - For *stratified random sampling*, $w_i = N_j/n_j$ if the $i$-th element is in the $j$-th stratum.
+
+0. If and how information from *auxiliary variables* is incorporated into estimation.
+
+Dependence of weights on the *sampling design* and *auxiliary variables* can be done by defining the weights as
+$$
+  w_i = d_ia_i
+$$
+where $d_i$ is the *design weight* and $a_i$ is an *adjustment weight*.
+
+**Design weights** depend on the *sampling design*. Typically they are the reciprocal of the inclusion probability $\pi_i$ so that $d_i = 1/\pi_i$. 
+
+**Adjustment weights** depend on *other information* about the elements, such as auxiliary variables. 
+
+Different sampling designs can result in different design weights, and different estimators can result in different adjustment weights. 
+
+Suppose we have a simple random sampling design so that the *design weights* are $d_i = N/n$ for all sampled elements. What are the sampling weights ($w_i$) for different choices of adjustments weights ($a_i$), and what is the resulting estimator of $\tau_y$?
+
+1. Suppose we define $a_i = 1$ (i.e., no adjustment). Then $w_i = N/n$ and $\hat\tau_y = N\bar{y}$.
+
+2. Suppose we define $a_i = \frac{\tau_x}{N\bar{x}}$. Then $w_i = \frac{\tau_x}{n\bar{x}}$ and $\hat\tau_y = \tau_x\bar{y}/\bar{x}$. 
+
+3. Suppose we define $a_i$ as $$a_i = 1 + \frac{(\tau_x - \hat\tau_x)x_i}{\sum_{i \in \mathcal{S}} d_ix_i^2}$$ where $\hat\tau_x = N\bar{x}$. Then it can be shown that $\hat\tau_y = N\bar{y} + b(\tau_x - N\bar{y})$.  
+
+4. Suppose we define $a_i$ as 
+$$
+  a_i = \frac{N_jn}{Nn_j},
+$$
+if the $i$-th element is in the $j$-th stratum. Then
+$$
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L,
+$$
+which is the estimator we use for *post-stratification*. 
+
+## Calibration
+
+Suppose we have determined a set of weights ($w_i$) for the elements in a sample, and suppose we were to estimate $\tau_x$ using
+$$
+  \hat\tau_x = \sum_{i \in \mathcal{S}}w_ix_i.
+$$
+The sample is said to be *calibrated with respect to the auxiliary variable* if $\tau_x = \hat\tau_x$ (i.e., the sample produces a *perfect* estimate of $\tau_x$). To *calibrate* our sample means that we are finding/adjusting weights so that it is calibrated in some way. 
+
+**Example**: Suppose we use a ratio estimator for a simple random sampling design. It can be shown that $\tau_x = \hat\tau_x$ where
+$$
+  \hat\tau_x = \sum_{i \in \mathcal{S}}w_ix_i,
+$$
+and $w_i = \frac{\tau_x}{n\bar{x}}$.
+
+\vspace{3cm}
+
+**Example**: For post-stratification with a simple random sampling design, let $x_i$ be defined as
+$$
+  x_i = 
+  \begin{cases}
+  1, & \text{if the $i$-th element is in the first stratum}, \\
+  0, & \text{otherwise}. 
+  \end{cases}
+$$
+It can be shown that $\tau_x = \hat\tau_x$ where
+$$
+  \hat\tau_x = \sum_{i \in \mathcal{S}}w_ix_i, 
+$$
+and $w_i = N_j/n_j$ if the $i$-th element is in the $j$-th stratum. 
+
+\vspace{3cm}
+
+### General Approach to Calibration
+
+The objective is to select weights ($w_i)$ for the elements in the sample to meet the following criteria.
+
+1. The weights are close (in some sense) to the original design weights.
+0. The sample is calibrated with respect to the auxiliary variable(s). 
+
+Different approaches arise due to (a) the choice of auxiliary variable(s), and (b) what we mean by "close." This can be viewed as a [constrained optimization problem](calibration-as-optimization.html).
+
+### Raking
+
+**Raking** is a calibration method based on *marginal totals* of two or more categorical auxiliary variables. 
+
+**Example**: Suppose we can post-stratify the sample into 2 $\times$ 4 = 8 strata such that we know the following totals for a population of $N$ = 2000 elements. 
+```{r}
+Age <- c("Juvenile","Adult","Total")
+North <- c("?", "?", 200)
+South <- c("?", "?", 700)
+East <- c("?", "?", 800)
+West <- c("?", "?", 300)
+Total <- c(500, 1500, 2000)
+data.frame(Age, North, South, East, West, Total) %>% ktbl() %>% add_header_above(c(" " = 1, "Farthing" = 4, " " = 1))
+```
+If we knew the total number of elements in each of the eight *combinations* of age and farthing, we could use regular post-stratification with the eight strata. But here we only know the number of elements for the two stratification variables *separately* (i.e., the *marginal* totals). 
+
+The goal of raking is to adjust the weights of the elements in the sample so that when we sum them by Farthing we get to totals reported in the table above, *and* when we sum them by age we get the age totals reported in the table above. This goal is similar to what we do in post-stratification except here the totals are the marginal totals. 
+
+There is no direct way to compute the necessary weights to calibrate the sample with respect to the known totals, but the weights can be obtained using an algorithm.[^ipf] This is sometimes called **raking**. Raking can be generalized to more than two stratification variables.  
+
+[^ipf]: One simple algorithm that can do this is called *iterative proportional fitting*. It is a relatively simple algorithm and can even be done "by hand" with a simple calculator. 
+
+

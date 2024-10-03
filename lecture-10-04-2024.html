@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Oct 4</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Oct 4</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-04-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="re-weighting-revisited" class="section level2">
+<h2>Re-weighting Revisited</h2>
+<p>Recall that estimators of <span class="math inline">\(\tau_y\)</span>
+can often be written as <span class="math display">\[
+  \hat\tau_y = \sum_{i \in \mathcal{S}} w_iy_i,
+\]</span> where <span class="math inline">\(w_i\)</span> is the
+<em>survey weight</em> for the <span class="math inline">\(i\)</span>-th
+sampled element. Estimators of <span
+class="math inline">\(\mu_y\)</span> can be written as <span
+class="math display">\[
+  \hat\mu_y = \frac{\sum_{i \in \mathcal{S}} w_iy_i}{\sum_{i \in
+\mathcal{S}} w_i},
+\]</span> because <span class="math inline">\(N = \sum_{i \in
+\mathcal{S}} w_i\)</span>.</p>
+<p>In practice, survey weights usually depend on two things.</p>
+<ol style="list-style-type: decimal">
+<li><p>The <em>sampling design</em> used. We have already seen examples
+of this.</p>
+<ul>
+<li><p>For <em>simple random sampling</em>, <span
+class="math inline">\(w_i = N/n\)</span>.</p></li>
+<li><p>For <em>stratified random sampling</em>, <span
+class="math inline">\(w_i = N_j/n_j\)</span> if the <span
+class="math inline">\(i\)</span>-th element is in the <span
+class="math inline">\(j\)</span>-th stratum.</p></li>
+</ul></li>
+<li><p>If and how information from <em>auxiliary variables</em> is
+incorporated into estimation.</p></li>
+</ol>
+<p>Dependence of weights on the <em>sampling design</em> and
+<em>auxiliary variables</em> can be done by defining the weights as
+<span class="math display">\[
+  w_i = d_ia_i
+\]</span> where <span class="math inline">\(d_i\)</span> is the
+<em>design weight</em> and <span class="math inline">\(a_i\)</span> is
+an <em>adjustment weight</em>.</p>
+<p><strong>Design weights</strong> depend on the <em>sampling
+design</em>. Typically they are the reciprocal of the inclusion
+probability <span class="math inline">\(\pi_i\)</span> so that <span
+class="math inline">\(d_i = 1/\pi_i\)</span>.</p>
+<p><strong>Adjustment weights</strong> depend on <em>other
+information</em> about the elements, such as auxiliary variables.</p>
+<p>Different sampling designs can result in different design weights,
+and different estimators can result in different adjustment weights.</p>
+<p>Suppose we have a simple random sampling design so that the
+<em>design weights</em> are <span class="math inline">\(d_i =
+N/n\)</span> for all sampled elements. What are the sampling weights
+(<span class="math inline">\(w_i\)</span>) for different choices of
+adjustments weights (<span class="math inline">\(a_i\)</span>), and what
+is the resulting estimator of <span
+class="math inline">\(\tau_y\)</span>?</p>
+<ol style="list-style-type: decimal">
+<li><p>Suppose we define <span class="math inline">\(a_i = 1\)</span>
+(i.e., no adjustment). Then <span class="math inline">\(w_i =
+N/n\)</span> and <span class="math inline">\(\hat\tau_y =
+N\bar{y}\)</span>.</p></li>
+<li><p>Suppose we define <span class="math inline">\(a_i =
+\frac{\tau_x}{N\bar{x}}\)</span>. Then <span class="math inline">\(w_i =
+\frac{\tau_x}{n\bar{x}}\)</span> and <span
+class="math inline">\(\hat\tau_y =
+\tau_x\bar{y}/\bar{x}\)</span>.</p></li>
+<li><p>Suppose we define <span class="math inline">\(a_i\)</span> as
+<span class="math display">\[a_i = 1 + \frac{(\tau_x -
+\hat\tau_x)x_i}{\sum_{i \in \mathcal{S}} d_ix_i^2}\]</span> where <span
+class="math inline">\(\hat\tau_x = N\bar{x}\)</span>. Then it can be
+shown that <span class="math inline">\(\hat\tau_y = N\bar{y} + b(\tau_x
+- N\bar{y})\)</span>.</p></li>
+<li><p>Suppose we define <span class="math inline">\(a_i\)</span> as
+<span class="math display">\[
+  a_i = \frac{N_jn}{Nn_j},
+\]</span> if the <span class="math inline">\(i\)</span>-th element is in
+the <span class="math inline">\(j\)</span>-th stratum. Then <span
+class="math display">\[
+  \hat\tau = N_1\bar{y}_1 + N_2\bar{y}_2 + \cdots + N_L\bar{y}_L,
+\]</span> which is the estimator we use for
+<em>post-stratification</em>.</p></li>
+</ol>
+</div>
+<div id="calibration" class="section level2">
+<h2>Calibration</h2>
+<p>Suppose we have determined a set of weights (<span
+class="math inline">\(w_i\)</span>) for the elements in a sample, and
+suppose we were to estimate <span class="math inline">\(\tau_x\)</span>
+using <span class="math display">\[
+  \hat\tau_x = \sum_{i \in \mathcal{S}}w_ix_i.
+\]</span> The sample is said to be <em>calibrated with respect to the
+auxiliary variable</em> if <span class="math inline">\(\tau_x =
+\hat\tau_x\)</span> (i.e., the sample produces a <em>perfect</em>
+estimate of <span class="math inline">\(\tau_x\)</span>). To
+<em>calibrate</em> our sample means that we are finding/adjusting
+weights so that it is calibrated in some way.</p>
+<p><strong>Example</strong>: Suppose we use a ratio estimator for a
+simple random sampling design. It can be shown that <span
+class="math inline">\(\tau_x = \hat\tau_x\)</span> where <span
+class="math display">\[
+  \hat\tau_x = \sum_{i \in \mathcal{S}}w_ix_i,
+\]</span> and <span class="math inline">\(w_i =
+\frac{\tau_x}{n\bar{x}}\)</span>.</p>
+<p><strong>Example</strong>: For post-stratification with a simple
+random sampling design, let <span class="math inline">\(x_i\)</span> be
+defined as <span class="math display">\[
+  x_i =
+  \begin{cases}
+  1, &amp; \text{if the $i$-th element is in the first stratum}, \\
+  0, &amp; \text{otherwise}.
+  \end{cases}
+\]</span> It can be shown that <span class="math inline">\(\tau_x =
+\hat\tau_x\)</span> where <span class="math display">\[
+  \hat\tau_x = \sum_{i \in \mathcal{S}}w_ix_i,
+\]</span> and <span class="math inline">\(w_i = N_j/n_j\)</span> if the
+<span class="math inline">\(i\)</span>-th element is in the <span
+class="math inline">\(j\)</span>-th stratum.</p>
+<div id="general-approach-to-calibration" class="section level3">
+<h3>General Approach to Calibration</h3>
+<p>The objective is to select weights (<span
+class="math inline">\(w_i)\)</span> for the elements in the sample to
+meet the following criteria.</p>
+<ol style="list-style-type: decimal">
+<li>The weights are close (in some sense) to the original design
+weights.</li>
+<li>The sample is calibrated with respect to the auxiliary
+variable(s).</li>
+</ol>
+<p>Different approaches arise due to (a) the choice of auxiliary
+variable(s), and (b) what we mean by “close.” This can be viewed as a <a
+href="calibration-as-optimization.html">constrained optimization
+problem</a>.</p>
+</div>
+<div id="raking" class="section level3">
+<h3>Raking</h3>
+<p><strong>Raking</strong> is a calibration method based on <em>marginal
+totals</em> of two or more categorical auxiliary variables.</p>
+<strong>Example</strong>: Suppose we can post-stratify the sample into 2
+<span class="math inline">\(\times\)</span> 4 = 8 strata such that we
+know the following totals for a population of <span
+class="math inline">\(N\)</span> = 2000 elements.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Farthing
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Age
+</th>
+<th style="text-align:center;">
+North
+</th>
+<th style="text-align:center;">
+South
+</th>
+<th style="text-align:center;">
+East
+</th>
+<th style="text-align:center;">
+West
+</th>
+<th style="text-align:center;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+Juvenile
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+500
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Adult
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+?
+</td>
+<td style="text-align:center;">
+1500
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+Total
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+700
+</td>
+<td style="text-align:center;">
+800
+</td>
+<td style="text-align:center;">
+300
+</td>
+<td style="text-align:center;">
+2000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If we knew the total number of elements in each of the eight
+<em>combinations</em> of age and farthing, we could use regular
+post-stratification with the eight strata. But here we only know the
+number of elements for the two stratification variables
+<em>separately</em> (i.e., the <em>marginal</em> totals).</p>
+<p>The goal of raking is to adjust the weights of the elements in the
+sample so that when we sum them by Farthing we get to totals reported in
+the table above, <em>and</em> when we sum them by age we get the age
+totals reported in the table above. This goal is similar to what we do
+in post-stratification except here the totals are the marginal
+totals.</p>
+<p>There is no direct way to compute the necessary weights to calibrate
+the sample with respect to the known totals, but the weights can be
+obtained using an algorithm.<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a> This is sometimes called
+<strong>raking</strong>. Raking can be generalized to more than two
+stratification variables.</p>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>One simple algorithm that can do this is called
+<em>iterative proportional fitting</em>. It is a relatively simple
+algorithm and can even be done “by hand” with a simple calculator.<a
+href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

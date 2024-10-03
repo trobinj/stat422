@@ -62,10 +62,9 @@ $$
 $$
 where $E(\hat\theta) - \theta$ is the *bias* of the estimator, and $V(\hat\theta)$ is the *variance* of the estimator. Sometimes we can increase one while decreasing the other leading to a *bias-variance trade-off*.
 
-<!-- Note: The absolute bias divided by the sd of the estimator is less than or equal to the variance of xbar divided by mux, so the bias tends to be small if (a) the ratio estimator has small variance and (b) the variance of barx is small, which it will if n is large. Also mux has an effect but not one we can really control. See Cochran or Lohr for an expression.  -->
+<!-- We might view V(\hat\theta) as an *estimator* of the MSE. It will underestimate it when there is bias.  -->
 
 \pagebreak
-
 
 ## Double Sampling for Ratio Estimators
 
