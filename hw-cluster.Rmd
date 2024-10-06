@@ -1,0 +1,94 @@
+---
+title: "Cluster Sampling"
+output:
+  html_document: 
+    theme: readable
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, comment = "", dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, message = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](hw-cluster.pdf) copy of this document.", sep = ""), "")`
+
+### Bullying Behavior
+
+```{r}
+M <- 2000
+N <- 100
+n <- 5
+m <- c(16,20,19,18,22)
+y <- c(0,4,2,3,7)
+d <- m/M
+
+r <- sum(y)/sum(m)
+
+tau.unb <- N * mean(y)
+tau.rat <- M * sum(y) / sum(m)
+tau.pps <- mean(y/d)
+
+bnd.unb <- 2*sqrt(N^2 * (1 - n/N) * var(y) / n)
+bnd.rat <- 2*sqrt(N^2 * (1 - n/N) * sum((y - r*m)^2) / (n - 1) / n)
+bnd.pps <- 2*sqrt(M^2 / (n * (n - 1)) * sum((y/m - tau.pps/M)^2))
+```
+
+Consider a (one-stage) cluster sampling design using a population of `r M` second grade students in a school district. The researchers want to estimate the number of incidents of bullying behavior among these students during a school year. But because special training and protocols are necessary to help teachers recognize bullying behavior, the researchers decide to select a sample of students by selecting a sample `r n` classrooms from the `r N` classrooms of second grade students in the district (these are some lazy researchers). The teachers for the sampled classroom keep a record of the number of times each student exhibited bullying behavior. The table below shows the total number of incidents of bullying behavior for each classroom as well as the number of students in the classroom. 
+```{r}
+d <- data.frame(Classroom = 1:n, y = y, m = m)
+names(d)[2:3] <- c("Incidents","Students")
+ktbl(d)
+```
+Use these data for the following concerning the estimation of the total number of bullying incidents among second grade students in the school district for the school year.
+
+1. Assume that the researchers selected classrooms using *simple random sampling*. Confirm that estimate of the total number of incidents using the *unbiased* estimator is `r tau.unb`, and that the bound on the error of estimation of this estimator is `r rnd(bnd.unb)`.
+
+0. Assume that the researchers selected classrooms using *simple random sampling*. Confirm that estimate of the total number of incidents using the *ratio* estimator is `r rnd(tau.rat)`, and that the bound on the error of estimation of this estimator is `r rnd(bnd.rat)`.
+
+0. Assume that the researchers selected classrooms using *sampling with replacement* with *selection probabilities proportional to classroom size*. Confirm that the estimate of the total number of incidents using the Hansen-Hurwitz estimator is `r rnd(tau.pps)`, and that the bound on the error of estimation of this estimator is `r rnd(bnd.pps)`. 
+
+Note: The bounds on the error of estimation are quite large because the sample size is (probably unrealistically) small. 
+
+### Educational Testing
+
+```{r}
+M <- 2000
+N <- 100
+n <- 5
+m <- c(16,20,19,18,22)
+y <- c(70,80,75,72,88) * m
+
+mu.rat <- sum(y)/sum(m)
+bnd.rat <- 2*sqrt((1 - n/N) * (1/(M/N)^2) * sum((y - mu.rat * m)^2) / (n - 1) / n)
+
+mu.pps <- mean(y/m)
+bnd.pps <- 2*sqrt(1/(n*(n-1)) * sum((y/m - mu.pps)^2))
+```
+
+Consider a (one-stage) cluster sampling design using a population of `r M` second grade students in a school district. Researchers would like to estimate the average score of these students on a particular test based on a sample of students since the testing is expensive. They decide to use a cluster sampling design where they select a sample of `r n` classrooms of students out of the `r N` classrooms in the district (again, these are some lazy researchers). The table below shows the average test score and the number of students in each of the sampled classrooms. 
+```{r}
+d <- data.frame(Classroom = 1:n, y = y/m, m = m)
+names(d)[2:3] <- c("Mean Score","Students")
+ktbl(d)
+```
+Use these data to answer the following questions concerning the estimation of the mean test score for all second grade students in the district. (Hint: Many calculations for cluster sampling are expressed in terms of cluster *totals* rather than cluster *means*, but cluster totals can be found from cluster means by simply multiplying the mean by the number of elements in the cluster.)
+
+1. Assume that the researchers selected the classrooms using *simple random sampling*. Confirm that the estimate of the mean test score for all the second grade student in the district is `r rnd(mu.rat,2)`, with a bound on the error of estimation of `r rnd(bnd.rat,4)`. 
+
+0. Assume that the researchers selected the classrooms using *sampling with replacement* with *selection probabilities proportional to classroom size*. Confirm that the estimate of the mean test score using the Hansen-Hurwitz estimator is `r rnd(mu.pps,2)`, with a bound on the error of estimation of `r rnd(bnd.pps,4)`. 
+
+```{r}
+rm(list = ls())
+```
+

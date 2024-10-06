@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Oct 7</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Oct 7</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-07-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="cluster-sampling" class="section level2">
+<h2>Cluster Sampling</h2>
+<p>A <em>cluster sampling</em> design is one where some <em>sampling
+units</em> include <em>more than one element</em>.</p>
+<p>Steps of a cluster sampling design:</p>
+<ol style="list-style-type: decimal">
+<li>Partition the <span class="math inline">\(M\)</span> elements in the
+population into <span class="math inline">\(N\)</span> clusters.</li>
+<li>Select <span class="math inline">\(n\)</span> clusters using a
+probability sampling design (e.g., simple random sampling).</li>
+<li>Observe the target variable for <em>all</em> elements in the sampled
+clusters.</li>
+</ol>
+<p>Note: This is what is called <em>one-stage</em> cluster sampling.
+Later we will discuss <em>two-stage</em> and <em>multi-stage</em>
+cluster sampling. But until we discuss these designs, it will be implied
+that we are referring to a <em>one-stage</em> design.</p>
+<p><strong>Example</strong>: Consider the following sampling design. The
+population, sampling units, and their respective sizes are as follows.
+<span class="math display">\[
+    \mathcal{P} = \{ \underbrace{\mathcal{E}_1, \mathcal{E}_2,
+\mathcal{E}_3}_{\mathcal{U}_1}, \underbrace{\mathcal{E}_4,
+\mathcal{E}_5, \mathcal{E}_6, \mathcal{E}_7}_{\mathcal{U}_2},
+\underbrace{\mathcal{E}_8,\mathcal{E}_9,\mathcal{E}_{10},\mathcal{E}_{11},\mathcal{E}_{12}}_{\mathcal{U}_3}\},
+\ N=3, \ M=12
+\]</span> <span class="math display">\[\begin{align*}
+    \mathcal{U}_1 &amp; = \{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3\},
+\ m_1 = 3 \\
+    \mathcal{U}_2 &amp; =
+\{\mathcal{E}_4,\mathcal{E}_5,\mathcal{E}_6,\mathcal{E}_7\}, \ m_2 = 4
+\\
+    \mathcal{U}_3 &amp; =
+\{\mathcal{E}_8,\mathcal{E}_9,\mathcal{E}_{10},\mathcal{E}_{11},\mathcal{E}_{12}\},
+\ m_3 = 5
+\end{align*}\]</span> Note that <span class="math inline">\(m_i\)</span>
+denotes the number of elements in the <span
+class="math inline">\(i\)</span>-th sampling unit or
+<em>cluster</em>.</p>
+<p>If we were to apply simple random sampling to these sampling units to
+select <span class="math inline">\(n\)</span> = 2 clusters, the possible
+samples and their probabilities are as follows. <span
+class="math display">\[\begin{align*}
+  \mathcal{S}_1 &amp; = \{\mathcal{U}_1,\mathcal{U}_2\} =
+    \{\underbrace{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3}_{\mathcal{U}_1},\underbrace{\mathcal{E}_4,\mathcal{E}_5,\mathcal{E}_6,\mathcal{E}_7}_{\mathcal{U}_2}\},
+P(\mathcal{S}_1) = 1/3 \\
+  \mathcal{S}_2 &amp; = \{\mathcal{U}_1,\mathcal{U}_3\} =
+    \{\underbrace{\mathcal{E}_1,\mathcal{E}_2,\mathcal{E}_3}_{\mathcal{U}_1},\underbrace{\mathcal{E}_8,\mathcal{E}_9,\mathcal{E}_{10},\mathcal{E}_{11},\mathcal{E}_{12}}_{\mathcal{U}_3}\},
+P(\mathcal{S}_2) = 1/3 \\
+  \mathcal{S}_3 &amp; = \{\mathcal{U}_2,\mathcal{U}_3\} =
+    \{\underbrace{\mathcal{E}_4,\mathcal{E}_5,\mathcal{E}_6,\mathcal{E}_7}_{\mathcal{U}_2},\underbrace{\mathcal{E}_8,\mathcal{E}_9,\mathcal{E}_{10},\mathcal{E}_{11},\mathcal{E}_{12}}_{\mathcal{U}_3}\},
+P(\mathcal{S}_3) = 1/3.
+\end{align*}\]</span> This would be one possible cluster sampling
+design.</p>
+Examples of sampling units, elements, and target variables where cluster
+sampling might be used.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Sampling Unit
+</th>
+<th style="text-align:center;">
+Element
+</th>
+<th style="text-align:center;">
+Target Variable
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+box
+</td>
+<td style="text-align:center;">
+widget
+</td>
+<td style="text-align:center;">
+weight
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+block
+</td>
+<td style="text-align:center;">
+household
+</td>
+<td style="text-align:center;">
+income
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+county
+</td>
+<td style="text-align:center;">
+farm
+</td>
+<td style="text-align:center;">
+acres of wheat
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+classroom
+</td>
+<td style="text-align:center;">
+student
+</td>
+<td style="text-align:center;">
+test score
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+hour
+</td>
+<td style="text-align:center;">
+minute
+</td>
+<td style="text-align:center;">
+number of fish
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+plot
+</td>
+<td style="text-align:center;">
+tree
+</td>
+<td style="text-align:center;">
+volume
+</td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<p>What are the potential <em>advantages</em> of cluster sampling
+(relative to SRS)?</p>
+<p>What are the potential <em>disadvantages</em> of cluster sampling
+(relative to SRS)?</p>
+<p>How is cluster sampling <a
+href="stratified-versus-cluster.png">different</a> from
+<em>stratified</em> random sampling?<a href="#fn1" class="footnote-ref"
+id="fnref1"><sup>1</sup></a></p>
+<p>How could we view <em>simple random sampling</em> as a special case
+of cluster sampling?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="notation" class="section level2">
+<h2>Notation</h2>
+Let <span class="math inline">\(y_{ij}\)</span> be the value of the
+target variable for the <span class="math inline">\(j\)</span>-th
+element in the <span class="math inline">\(i\)</span>-th cluster, and
+let <span class="math inline">\(y_i\)</span> be the <em>sum</em> of the
+<span class="math inline">\(m_i\)</span> values of the target variable
+for all the elements in the <span class="math inline">\(i\)</span>-th
+cluster so that <span class="math display">\[
+  y_i = \sum_{j=1}^{m_i}y_{ij}.
+\]</span> <strong>Example</strong>: Suppose a population of <span
+class="math inline">\(M\)</span> = 12 elements are partitioned into
+<span class="math inline">\(N\)</span> = 3 clusters as follows.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(i\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(m_i\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y_{ij}\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y_i\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y_{11},y_{12},y_{13}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y_1 = y_{11} + y_{12} + y_{13}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y_{21},y_{22},y_{23},y_{24}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y_2 = y_{21} + y_{22} + y_{23} +
+y_{24}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y_{31},y_{32},y_{33},y_{34},y_{35}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(y_3 = y_{31} + y_{32} + y_{33} + y_{34} +
+y_{35}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the three clusters have <em>sizes</em> of <span
+class="math inline">\(m_1\)</span> = 3, <span
+class="math inline">\(m_2\)</span> = 4, and <span
+class="math inline">\(m_3\)</span> = 5.</p>
+<p>The mean and total of a target variable for all elements in the
+population can be computed as <span class="math display">\[
+  \mu = \frac{1}{M}\sum_{i=1}^N y_i \ \ \ \text{and} \ \ \ \tau =
+\sum_{i=1}^N y_i,
+\]</span> respectively, noting that <span class="math inline">\(M =
+\sum_{i=1}^N m_i\)</span> is the number of elements in the
+population.</p>
+<p>Note: Much of the estimation theory of cluster sampling (assuming
+simple random sampling of clusters) is essentially treating the
+<em>clusters</em> as <em>elements</em> where the cluster total <span
+class="math inline">\(y_i\)</span> is the target variable. But one key
+difference is that <span class="math inline">\(\mu = \tau/M\)</span> and
+not <span class="math inline">\(\mu = \tau/N\)</span>.</p>
+</div>
+<div id="estimation-of-mu" class="section level2">
+<h2>Estimation of <span class="math inline">\(\mu\)</span></h2>
+<p>Note that we can write <span class="math inline">\(\mu\)</span> as
+<span class="math display">\[
+  \mu = \frac{1}{M}\sum_{i=1}^N y_i = \frac{\sum_{i=1}^N
+y_i}{\sum_{i=1}^N m_i}.
+\]</span> We can also write this as <span class="math display">\[
+  \mu = \frac{\frac{1}{N}\sum_{i=1}^N y_i}{\frac{1}{N}\sum_{i=1}^N m_i}
+= \frac{\mu_y}{\mu_m},
+\]</span> where <span class="math inline">\(\mu_y\)</span> is the
+<em>mean cluster total across all clusters</em> (which is <em>not</em>
+necessarily the same as <span class="math inline">\(\mu\)</span>) and
+<span class="math inline">\(\mu_m\)</span> is the <em>mean cluster size
+across all clusters</em> (which is also called <span
+class="math inline">\(\bar{M}\)</span> and equals <span
+class="math inline">\(M/N\)</span>). Assuming simple random sampling of
+clusters, this suggests that we might estimate <span
+class="math inline">\(\mu\)</span> with <span class="math display">\[
+  \hat\mu = \frac{\bar{y}}{\bar{m}} = \frac{\frac{1}{n}\sum_{i \in
+\mathcal{S}} y_i}{\frac{1}{n}\sum_{i \in \mathcal{S}} m_i} =
+\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i},
+\]</span> (i.e., the ratio of the totals of the clusters totals and the
+cluster sizes <em>for the sampled clusters</em>). Where have we seen <a
+href="lecture-09-23-2024.html">this kind of estimator</a> before?</p>
+<p><strong>Example</strong>: A cluster sampling design selects <span
+class="math inline">\(n\)</span> = 3 boxes using simple random sampling
+of the boxes. The number of widgets in these boxes are <span
+class="math inline">\(m_1\)</span> = 3, <span
+class="math inline">\(m_2\)</span> = 4, and <span
+class="math inline">\(m_3\)</span> = 5. The total weight of the widgets
+in these boxes are <span class="math inline">\(y_1\)</span> = 6.2, <span
+class="math inline">\(y_2\)</span> = 7.5, and <span
+class="math inline">\(y_3\)</span> = 10.3. What is the estimate of <span
+class="math inline">\(\mu\)</span>?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="variance-of-the-estimator-of-mu" class="section level2">
+<h2>Variance of the Estimator of <span
+class="math inline">\(\mu\)</span></h2>
+<p>The estimated variance of the estimator <span class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}}
+m_i},
+\]</span> assuming simple random sampling of clusters, is <span
+class="math display">\[
+  \hat{V}(\hat\mu) = \frac{1}{\bar{M}^2}\left(1 - \frac{n}{N}\right)
+  \frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in
+\mathcal{S}}(y_i-\hat\mu m_i)^2}{n-1},
+\]</span> where <span class="math inline">\(\bar{m}\)</span> can be used
+in place of <span class="math inline">\(\bar{M}\)</span> if it is
+unknown.</p>
+<p><strong>Example</strong>: Assume that in the previous example that
+there are a total of 100 boxes, and that the total number of widgets in
+all those boxes is 425. What is the variance and bound on the error of
+estimation for <span class="math inline">\(\hat\mu\)</span>?</p>
+</div>
+<div id="an-alternative-estimator-of-mu" class="section level2">
+<h2>An Alternative Estimator of <span
+class="math inline">\(\mu\)</span>?</h2>
+<p>Recall that <span class="math display">\[
+  \mu = \frac{\mu_y}{\mu_m},
+\]</span> where <span class="math inline">\(\mu_y\)</span> is the
+<em>mean cluster total across all clusters</em> and <span
+class="math inline">\(\mu_m\)</span> is the <em>mean cluster size across
+all clusters</em>. If we <em>know</em> <span
+class="math inline">\(\mu_m\)</span> we might use it instead of <span
+class="math inline">\(\bar{m}\)</span> and therefore use the estimator
+<span class="math display">\[
+  \hat\mu = \frac{\bar{y}}{\mu_m}
+\]</span> instead of the estimator introduced earlier which can be
+written as <span class="math inline">\(\hat\mu =
+\bar{y}/\bar{m}\)</span>. These estimators are not equivalent <em>unless
+all clusters are of the same size</em> (in which case <span
+class="math inline">\(\mu_m = \bar{m}\)</span>). Should we use this
+alternative estimator? Probably not. Why? Consider our <a
+href="lecture-09-25-2024.html">discussion</a> of two estimators of a
+ratio of totals.</p>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Note: The symbol <span
+class="math inline">\(\bar{y}_U\)</span> in that diagram is the
+population mean (<span class="math inline">\(\mu\)</span>).<a
+href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

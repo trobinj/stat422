@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Second Examination Study Guide</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Second Examination Study Guide</h1>
+
+</div>
+
+
+<p>You can also download a <a href="e2-studyguide.pdf">PDF</a> copy of
+this lecture.</p>
+<ol style="list-style-type: decimal">
+<li><p>What are some situations where we would want to estimate a ?
+Note: Be sure you understand the difference between <em>estimating a
+ratio of totals</em> and <em>ratio estimators</em>.</p></li>
+<li><p>How does the relationship between <span
+class="math inline">\(y_i\)</span> and <span
+class="math inline">\(x_i\)</span> affect the estimator of a ratio of
+totals, and a ratio estimator of either <span
+class="math inline">\(\mu_y\)</span> or <span
+class="math inline">\(\tau_y\)</span>? When would the variance of these
+estimators tend to be small.</p></li>
+<li><p>In simple random sampling we use <span
+class="math inline">\(\bar{y}_d\)</span> to estimate a domain mean
+(i.e., <span class="math inline">\(\mu_d\)</span>), where <span
+class="math inline">\(\bar{y}_d\)</span> is the mean of the elements in
+the sample that are also in the domain. This estimator can be shown to
+be an estimator of a ratio of totals. What are the two variables
+involved (i.e., the numerator and denominator variables)? How are they
+defined?</p></li>
+<li><p>Understand the difference between a <em>target variable</em> and
+an <em>auxiliary variable</em> in the context of how they are used in
+ratio (and regression) estimators.</p></li>
+<li><p>We discussed <em>two</em> estimators of the ratio of totals:
+<span class="math inline">\(\bar{y}/\bar{x}\)</span> and <span
+class="math inline">\(\bar{y}/\mu_x\)</span>. Why/when might we choose
+one estimator over the other (aside from whether or not we know <span
+class="math inline">\(\mu_x\)</span>)?</p></li>
+<li><p>What are two advantages of ratio estimators? Note that one
+advantage only applies to the ratio estimator of <span
+class="math inline">\(\tau_y\)</span>.</p></li>
+<li><p>We considered again two estimators for a domain total: <span
+class="math inline">\(\hat\tau_d = N_d\bar{y}_d\)</span> and <span
+class="math inline">\(\hat\tau_d = (N/n)n_d\bar{y}_d\)</span>. Based on
+what we know about ratio estimators, what was our explanation of why the
+first estimator tends to have lower variance?</p></li>
+<li><p>In what sense does the ratio estimator of <span
+class="math inline">\(\mu_y\)</span> “adjust” the estimator <span
+class="math inline">\(\bar{y}\)</span> using <span
+class="math inline">\(\bar{x}\)</span> and <span
+class="math inline">\(\mu_x\)</span>?</p></li>
+<li><p>Consider two estimators of <span
+class="math inline">\(\mu_y\)</span>: <span
+class="math inline">\(\hat\mu_y = \bar{y}\)</span> and the ratio
+estimator <span class="math inline">\(\hat\mu_y =
+\mu_x\bar{y}/\bar{x}\)</span>. Is it possible for the ratio estimator to
+have a <em>larger</em> variance? When might this happen?</p></li>
+<li><p>Ratio estimators are usually biased. What does it mean to say an
+estimator is biased? When is the bias small for ratio estimators? Why do
+we usually tolerate the bias of ratio estimators?</p></li>
+<li><p>What is <em>necessary</em> and what is <em>desirable</em> when
+selecting an auxiliary variable to use in a ratio estimator.</p></li>
+<li><p>We discussed the use of <em>double sampling</em> to facilitate
+the use of a ratio estimator. When would it be necessary to use double
+sampling? How is it done?</p></li>
+<li><p>When considering optimum allocation for double sampling for a
+ratio estimator, double sampling is only worthwhile when the optimum
+size of the first phase sample (<span
+class="math inline">\(n&#39;\)</span>) is larger than the optimum size
+of the second phase sample (<span class="math inline">\(n\)</span>). In
+terms of (a) the cost of observing the auxiliary variable, (b) the cost
+of observing the target variable, and (c) the relative efficiency of the
+ratio estimator, when is this the case (generally speaking — i.e., for
+larger or smaller values of the cost or relative efficiency)?</p></li>
+<li><p>We discussed two versions of a ratio estimator for a stratified
+random sampling design: the “separate ratio estimator” and the “combined
+ratio estimator”. When might you prefer one estimator over the
+other?</p></li>
+<li><p>For a simple random sampling design we now have three estimators
+of <span class="math inline">\(\mu_y\)</span>: the sample mean, a ratio
+estimator, and a regression estimator. How does the relationship between
+the target and auxiliary variables influence these estimators and our
+decision as to which estimator we should use if we want to have an
+estimator with a small variance or mean squared error?</p></li>
+<li><p>What is a <em>generalized</em> regression estimator? How is it a
+generalization of a regression estimator?</p></li>
+<li><p>In the “prediction perspective” of survey sampling estimators,
+what are we predicting? How are the predicted values computed when
+estimating <span class="math inline">\(\tau_y\)</span> when using (a)
+the “expansion” estimator <span class="math inline">\(N\bar{y}\)</span>,
+(b) the ratio estimator, and (c) the regression estimator?</p></li>
+<li><p>What determines a <em>sampling weight</em> and what determines an
+<em>adjustment weight</em>?</p></li>
+<li><p>How do you compute the adjustment weights when using (a) no
+adjustment, (b) a ratio estimator, and (c) a regression
+estimator?</p></li>
+<li><p>What does it mean to say that a sample is <em>calibrated</em>
+with respect to an auxiliary variable for a particular choice of
+weights?</p></li>
+<li><p>What is the “general approach to calibration”? What is/are the
+objectives?</p></li>
+<li><p>When might we use <em>raking</em>?</p></li>
+<li><p>What is a cluster sampling design (i.e., how is it
+done)?</p></li>
+<li><p>Cluster sampling is a complex sampling design, but it may use
+simple random sampling as part of the design. In what sense can simple
+random sampling be a part of a cluster sampling design?</p></li>
+<li><p>What are the potential advantages and disadvantages of cluster
+sampling (relative to simple random sampling)?</p></li>
+<li><p>Both stratified random sampling and cluster sampling involve
+partitioning the elements in a population into subsets (i.e., strata or
+clusters). How then are the designs <em>different</em>?</p></li>
+<li><p>In what sense could we view simple random sampling as a special
+case of cluster sampling?</p></li>
+<li><p>We discussed two estimators of <span
+class="math inline">\(\mu\)</span> for a cluster sampling design with
+simple random sampling of clusters. These can be written as <span
+class="math inline">\(\hat\mu = \bar{y}/\bar{m}\)</span> and <span
+class="math inline">\(\hat\mu = \bar{y}/\mu_m\)</span>. Why do we not
+use the latter estimator?</p></li>
+<li><p>We discussed two estimators of <span
+class="math inline">\(\tau\)</span> for a cluster sampling design with a
+simple random sampling of clusters. What are the relative advantages and
+disadvantages of each estimator (i.e., why would you use one estimator
+over the other)?</p></li>
+<li><p>One of the estimators of <span
+class="math inline">\(\tau\)</span> for a cluster sampling design with a
+simple random sampling of clusters is effectively a ratio estimator.
+What then is the auxiliary variable?</p></li>
+<li><p>In terms of the <em>between cluster</em> and <em>within
+cluster</em> variability (as measured by mean squares), when is the
+variance of an estimator of <span class="math inline">\(\mu\)</span> or
+<span class="math inline">\(\tau\)</span> relatively high for a cluster
+sampling design? When is it relatively low?</p></li>
+<li><p>If we can decide how to cluster elements, how should we do this
+so as to reduce the variance of an estimator of <span
+class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span>?</p></li>
+<li><p>What are meant by <em>selection probabilities</em> when sampling
+with replacement? Be sure to understand the difference between
+<em>inclusion probabilities</em> and <em>selection
+probabilities</em>.</p></li>
+<li><p>When using sampling with replacement, the ideal selection
+probability is <span class="math inline">\(\delta_i =
+y_i/\tau_y\)</span>. Why? If we do not know <span
+class="math inline">\(\tau_y\)</span> how might we specify selection
+probabilities using an auxiliary variable? How should this auxiliary
+variable be related to the target variable? And how would you compute
+the selection probabilities using the auxiliary variable?</p></li>
+<li><p>What is meant by sampling with <em>probabilities proportional to
+size (PPS)</em> in cluster sampling?</p></li>
+<li><p>When using sampling with replacement for cluster sampling and
+probabilities proportional to cluster size, how are the selection
+probabilities computed? What is the auxiliary variable that is being
+used to compute the selection probabilities for the clusters?</p></li>
+<li><p>What is a <em>stratified cluster sampling design</em>?</p></li>
+<li><p>What is meant by <em>systematic sampling</em>? How is it related
+to cluster sampling?</p></li>
+<li><p>What is meant by 1-in-<em>k</em> ordered systematic
+sampling?</p></li>
+<li><p>What are the potential advantages of systematic
+sampling?</p></li>
+<li><p>How would we expect systematic sampling to perform relative to
+(a) simple random sampling, (b) cluster sampling with clusters of
+adjacent elements, and (c) stratified random sampling?</p></li>
+<li><p>Why must be be careful when using <em>ordered</em> systematic
+sampling with periodic target variables?</p></li>
+<li><p>Why is it not possible to estimate the variance of an estimator
+of <span class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span> using a sample obtained by a
+1-in-<em>k</em> systematic sampling design?</p></li>
+<li><p>What is meant by <em>repeated</em> systematic sampling? How is
+this related to the number of clusters?</p></li>
+<li><p>What is <em>ranked set sampling</em>? How is it done? Why/when
+might it be used?</p></li>
+<li><p>How does ranked set sampling compare to simple random
+sampling?</p></li>
+<li><p>What does it mean to have “multiple cycles” in ranked set
+sampling?</p></li>
+<li><p>For perfect rankings it would be best to have a larger set size
+(<span class="math inline">\(k\)</span>) rather than a larger number of
+cycles (<span class="math inline">\(m\)</span>). But this may not be a
+good idea in practice. Why?</p></li>
+<li><p>What is the effect of imperfect rankings in ranked set
+sampling?</p></li>
+<li><p>For a cluster sampling design, how do we determine the
+<em>inclusion probabilities</em> of elements when sampling clusters
+using (a) simple random sampling of clusters and (b) PPS sampling (i.e.,
+sampling with replacement with probabilities proportion to cluster
+size)?</p></li>
+</ol>
+<p>In addition to the above, be comfortable understanding the
+calculations used in the homework problems as well as all notation.</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

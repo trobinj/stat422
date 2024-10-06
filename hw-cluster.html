@@ -11,7 +11,7 @@
 
 
 
-<title>Statistics 422 (Survey Sampling Methods)</title>
+<title>Cluster Sampling</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,6 +32,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -260,29 +262,224 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Statistics 422 (Survey Sampling
-Methods)</h1>
+<h1 class="title toc-ignore">Cluster Sampling</h1>
 
 </div>
 
 
-<p>This site contains materials for Dr. Tim Johnson’s <em>Survey
-Sampling Methods</em> course (Stat 422) at the University of Idaho for
-the fall semester of 2024.</p>
-<hr />
-<center>
-<div class="float">
-<img src="https://imgs.xkcd.com/comics/dangerous_fields.png"
-alt="https://xkcd.com/2142" />
-<div class="figcaption"><a href="https://xkcd.com/2142"
-class="uri">https://xkcd.com/2142</a></div>
+<p>You can also download a <a href="hw-cluster.pdf">PDF</a> copy of this
+document.</p>
+<div id="bullying-behavior" class="section level3">
+<h3>Bullying Behavior</h3>
+Consider a (one-stage) cluster sampling design using a population of
+2000 second grade students in a school district. The researchers want to
+estimate the number of incidents of bullying behavior among these
+students during a school year. But because special training and
+protocols are necessary to help teachers recognize bullying behavior,
+the researchers decide to select a sample of students by selecting a
+sample 5 classrooms from the 100 classrooms of second grade students in
+the district (these are some lazy researchers). The teachers for the
+sampled classroom keep a record of the number of times each student
+exhibited bullying behavior. The table below shows the total number of
+incidents of bullying behavior for each classroom as well as the number
+of students in the classroom.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Classroom
+</th>
+<th style="text-align:center;">
+Incidents
+</th>
+<th style="text-align:center;">
+Students
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use these data for the following concerning the estimation of the
+total number of bullying incidents among second grade students in the
+school district for the school year.</p>
+<ol style="list-style-type: decimal">
+<li><p>Assume that the researchers selected classrooms using <em>simple
+random sampling</em>. Confirm that estimate of the total number of
+incidents using the <em>unbiased</em> estimator is 320, and that the
+bound on the error of estimation of this estimator is approximately
+226.</p></li>
+<li><p>Assume that the researchers selected classrooms using <em>simple
+random sampling</em>. Confirm that estimate of the total number of
+incidents using the <em>ratio</em> estimator is approximately 337, and
+that the bound on the error of estimation of this estimator is
+approximately 195.</p></li>
+<li><p>Assume that the researchers selected classrooms using
+<em>sampling with replacement</em> with <em>selection probabilities
+proportional to classroom size</em>. Confirm that the estimate of the
+total number of incidents using the Hansen-Hurwitz estimator is
+approximately 316, and that the bound on the error of estimation of this
+estimator is approximately 210.</p></li>
+</ol>
+<p>Note: The bounds on the error of estimation are quite large because
+the sample size is (probably unrealistically) small.</p>
 </div>
-</center>
-<hr />
-<p>The <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a> source
-files for everything on this website can be viewed at <a
-href="https://github.com/trobinj/stat422/tree/gh-pages">https://github.com/trobinj/stat516/tree/gh-pages</a>.
-These are the files with the .Rmd extension.</p>
+<div id="educational-testing" class="section level3">
+<h3>Educational Testing</h3>
+Consider a (one-stage) cluster sampling design using a population of
+2000 second grade students in a school district. Researchers would like
+to estimate the average score of these students on a particular test
+based on a sample of students since the testing is expensive. They
+decide to use a cluster sampling design where they select a sample of 5
+classrooms of students out of the 100 classrooms in the district (again,
+these are some lazy researchers). The table below shows the average test
+score and the number of students in each of the sampled classrooms.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Classroom
+</th>
+<th style="text-align:center;">
+Mean Score
+</th>
+<th style="text-align:center;">
+Students
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+70
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+75
+</td>
+<td style="text-align:center;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+72
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+88
+</td>
+<td style="text-align:center;">
+22
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use these data to answer the following questions concerning the
+estimation of the mean test score for all second grade students in the
+district. (Hint: Many calculations for cluster sampling are expressed in
+terms of cluster <em>totals</em> rather than cluster <em>means</em>, but
+cluster totals can be found from cluster means by simply multiplying the
+mean by the number of elements in the cluster.)</p>
+<ol style="list-style-type: decimal">
+<li><p>Assume that the researchers selected the classrooms using
+<em>simple random sampling</em>. Confirm that the estimate of the mean
+test score for all the second grade student in the district is
+approximately 77.65, with a bound on the error of estimation of
+approximately 6.2376.</p></li>
+<li><p>Assume that the researchers selected the classrooms using
+<em>sampling with replacement</em> with <em>selection probabilities
+proportional to classroom size</em>. Confirm that the estimate of the
+mean test score using the Hansen-Hurwitz estimator is 77, with a bound
+on the error of estimation of approximately 6.4498.</p></li>
+</ol>
+</div>
 
 
 
