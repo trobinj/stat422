@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Wednesday, Oct 9</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Wednesday, Oct 9</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-09-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<!-- Note: Discuss how the unbiased and ratio estimators are equivalent if all m are equal so that m = M/N. -->
+<div id="estimators-of-tau" class="section level2">
+<h2>Estimators of <span class="math inline">\(\tau\)</span></h2>
+<p>Recall for a cluster sampling design <span
+class="math inline">\(\tau\)</span> is <span class="math display">\[
+  \tau = \sum_{i=1}^N y_i,
+\]</span> where <span class="math display">\[
+  y_i = \sum_{j=1}^{m_i} y_{ij}
+\]</span> is the total of the target variable over the elements in the
+<span class="math inline">\(i\)</span>-th cluster. Assuming simple
+random sampling of clusters, there are <em>two</em> estimators of <span
+class="math inline">\(\tau\)</span> we might use: the “ratio estimator”
+and the “unbiased estimator”.</p>
+<div id="the-ratio-estimator" class="section level3">
+<h3>The “Ratio Estimator”</h3>
+<p>Recall that the estimator of <span class="math inline">\(\mu\)</span>
+is <span class="math display">\[
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}}
+m_i}.
+\]</span> Since <span class="math inline">\(\tau = M\mu\)</span> we
+might multiply this estimator by <span class="math inline">\(M\)</span>
+to get an estimator of <span class="math inline">\(\tau\)</span>: <span
+class="math display">\[
+  \hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in
+\mathcal{S}} m_i}.
+\]</span> Note that we can also write this as <span
+class="math display">\[
+  \hat\tau = M\frac{\bar{y}}{\bar{m}},
+\]</span> where <span class="math inline">\(\bar{y} = \frac{1}{n}\sum_{i
+\in \mathcal{S}} y_i\)</span> and <span class="math inline">\(\bar{m} =
+\frac{1}{n}\sum_{i \in \mathcal{S}} m_i\)</span>.</p>
+<p>If we think of the clusters as elements and <span
+class="math inline">\(y_i\)</span> as the target variable then this is
+effectively a <em>ratio estimator</em> for simple random sampling (of
+clusters). What then is the auxiliary variable?</p>
+<p><strong>Example</strong>: A cluster sampling design selects <span
+class="math inline">\(n\)</span> = 3 boxes using simple random sampling.
+The number of widgets in these boxes are <span
+class="math inline">\(m_1\)</span> = 3, <span
+class="math inline">\(m_2\)</span> = 4, and <span
+class="math inline">\(m_3\)</span> = 5. The total weight of the widgets
+in these boxes are <span class="math inline">\(y_1\)</span> = 6.2, <span
+class="math inline">\(y_2\)</span> = 7.5, and <span
+class="math inline">\(y_3\)</span> = 10.3. Assume that the population of
+425 widgets is contained in 100 boxes. What is the estimate of <span
+class="math inline">\(\tau\)</span> using this estimator?</p>
+<p>Since <span class="math inline">\(\hat\tau = M\hat\mu\)</span>, the
+estimated variance of <span class="math inline">\(\hat\tau\)</span> can
+be derived by multiplying the estimated variance of <span
+class="math inline">\(\hat\mu\)</span> by <span
+class="math inline">\(M^2\)</span> to get <span class="math display">\[
+  \hat{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \
+\ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}}(y_i-\hat\mu
+m_i)^2}{n-1},
+\]</span> and <span class="math inline">\(\hat\mu = \left. \sum_{i \in
+\mathcal{S}} y_i \middle/ \sum_{i \in \mathcal{S}} m_i \right.\)</span>
+is the usual estimator of <span class="math inline">\(\mu\)</span> for
+cluster sampling.</p>
+<p><strong>Example</strong>: For the example given earlier, what is the
+estimated variance of <span class="math inline">\(\hat\tau\)</span> and
+the bound on the error of estimation?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="the-unbiased-estimator" class="section level3">
+<h3>The “Unbiased Estimator”</h3>
+<p>Recall that we discussed an alternative estimator of <span
+class="math inline">\(\mu\)</span> under simple random sampling of
+clusters, <span class="math display">\[
+  \hat\mu = \frac{\bar{y}}{\mu_m}
+\]</span> where <span class="math display">\[
+  \bar{y} = \frac{1}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{and} \ \
+\ \mu_m = M/N.
+\]</span> Since <span class="math inline">\(\tau = M\mu\)</span> we
+might multiply this estimator by <span class="math inline">\(M\)</span>
+to get an estimator of <span class="math inline">\(\tau\)</span>: <span
+class="math display">\[
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i,
+\]</span> which can also be written as <span
+class="math inline">\(\hat\tau = N\bar{y}\)</span>. If we think of the
+clusters as elements and <span class="math inline">\(y_i\)</span> as the
+target variable, then this is effectively the traditional “expansion
+estimator” for simple random sampling.</p>
+<p><strong>Example</strong>: A cluster sampling design selects <span
+class="math inline">\(n\)</span> = 3 boxes using simple random sampling.
+The number of widgets in these boxes are <span
+class="math inline">\(m_1\)</span> = 3, <span
+class="math inline">\(m_2\)</span> = 4, and <span
+class="math inline">\(m_3\)</span> = 5. The total weight of the widgets
+in these boxes are <span class="math inline">\(y_1\)</span> = 6.2, <span
+class="math inline">\(y_2\)</span> = 7.5, and <span
+class="math inline">\(y_3\)</span> = 10.3. Assume that the population of
+425 widgets is contained in 100 boxes. What is the estimate of <span
+class="math inline">\(\tau\)</span> using this estimator?</p>
+<p>The estimated variance of this estimator is <span
+class="math display">\[
+  \hat{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{s^2}{n} \ \ \
+\text{where} \ \ \ s^2 = \frac{\sum_{i \in \mathcal{S}}(y_i -
+\bar{y})^2}{n-1}.
+\]</span> Note that this can be derived simply by regarding the clusters
+as elements with target variable <span
+class="math inline">\(y_i\)</span>.</p>
+<p><strong>Example</strong>: For the example given earlier, what is the
+estimated variance of <span class="math inline">\(\hat\tau\)</span> and
+the bound on the error of estimation?</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="comparison-of-two-estimators-of-tau" class="section level2">
+<h2>Comparison of Two Estimators of <span
+class="math inline">\(\tau\)</span></h2>
+<p>So we have <em>two</em> estimators of <span
+class="math inline">\(\tau\)</span> for a cluster sampling design when
+using a simple random sampling of clusters: <span
+class="math display">\[
+\hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}}
+m_i} \ \ \ \text{and} \ \ \
+\hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i.
+\]</span> The two estimators are equivalent if and only if all <span
+class="math inline">\(m_i\)</span> are equal (in which case <span
+class="math inline">\(m_i = M/N\)</span> for all clusters). What are the
+relative advantages and disadvantages of these two estimators?</p>
+<div id="simulation-study" class="section level3">
+<h3>Simulation Study</h3>
+<p>Consider three populations of <span class="math inline">\(M\)</span>
+= 300 clustered elements. The populations differ with respect to
+variation in the cluster sizes.</p>
+<img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" />
+Now suppose we simulate cluster sampling designs with simple random
+sampling of <span class="math inline">\(n\)</span> = 25 clusters and
+compute the two estimators of <span class="math inline">\(\tau\)</span>.
+<img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" />
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Case
+</th>
+<th style="text-align:left;">
+Estimator
+</th>
+<th style="text-align:center;">
+Variance
+</th>
+<th style="text-align:center;">
+B
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:left;">
+Ratio Estimator
+</td>
+<td style="text-align:center;">
+149217.4
+</td>
+<td style="text-align:center;">
+772.5733
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:left;">
+Unbiased Estimator
+</td>
+<td style="text-align:center;">
+149217.4
+</td>
+<td style="text-align:center;">
+772.5733
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:left;">
+Ratio Estimator
+</td>
+<td style="text-align:center;">
+181495.5
+</td>
+<td style="text-align:center;">
+852.0458
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:left;">
+Unbiased Estimator
+</td>
+<td style="text-align:center;">
+419719.0
+</td>
+<td style="text-align:center;">
+1295.7145
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:left;">
+Ratio Estimator
+</td>
+<td style="text-align:center;">
+168526.7
+</td>
+<td style="text-align:center;">
+821.0401
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:left;">
+Unbiased Estimator
+</td>
+<td style="text-align:center;">
+1394313.8
+</td>
+<td style="text-align:center;">
+2361.6213
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="design-effect-of-cluster-sampling" class="section level2">
+<h2>Design Effect of Cluster Sampling</h2>
+<p>Assume a cluster sampling design with <span
+class="math inline">\(N\)</span> clusters, simple random sampling of
+clusters, and all clusters are of the same size so that all <span
+class="math inline">\(m_i = m = M/N\)</span>.</p>
+<p>Define the <strong>mean square within clusters</strong> as <span
+class="math display">\[
+  \sigma_w^2 = \frac{1}{N}\sum_{i=1}^N s_i^2,
+\]</span> where <span class="math inline">\(s_i^2\)</span> is the
+standard deviation of the target variable for all the elements in the
+<span class="math inline">\(i\)</span>-th cluster.</p>
+<p>Define the <strong>mean square between clusters</strong> as <span
+class="math display">\[
+  \sigma_b^2 = \frac{m}{N-1}\sum_{i=1}^N(\bar{y}_i-\mu)^2,
+\]</span> where <span class="math inline">\(\bar{y}_i\)</span> is the
+mean of the target variable for all elements in the <span
+class="math inline">\(i\)</span>-th cluster.</p>
+<p>The <em>total</em> variance (i.e., the variance of the values of the
+target variable for <em>all</em> elements in the population) can be
+written as <span class="math display">\[
+  \sigma^2 = \frac{(N-1)\sigma_b^2 + N(m-1)\sigma_w^2}{NM-1} =
+\frac{N-1}{NM-1}\sigma_b^2 + \frac{m-1}{NM-1}\sigma_w^2,
+\]</span> so the total variance is a weighted average of <span
+class="math inline">\(\sigma_b^2\)</span> and <span
+class="math inline">\(\sigma_w^2\)</span>, so for a given population an
+increase in one mean square must result in a decrease of the other
+(assuming a constant cluster size).</p>
+<p>The <em>design effect</em> for the cluster sampling design is <span
+class="math display">\[
+  D = \frac{V_C(\hat\mu)}{V_{\small \text{SRS}}(\hat\mu)} =
+\frac{\sigma_b^2}{\sigma^2}.
+\]</span> Note that this is the same for <span
+class="math inline">\(\hat\tau\)</span>, and the two estimators of <span
+class="math inline">\(\hat\tau\)</span> are equivalent if all clusters
+are the same size.</p>
+<p>What does all this imply about how <em>clustering</em> affects the
+variance of <span class="math inline">\(\hat\mu\)</span> or <span
+class="math inline">\(\hat\tau\)</span>?</p>
+<p><img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /><img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-4-2.png" width="100%" style="display: block; margin: auto;" /><img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-4-3.png" width="100%" style="display: block; margin: auto;" /></p>
+<div style="page-break-after: always;"></div>
+<p><strong>Example</strong>: The figure below shows a population of 400
+elements. Assume that the darkness of the element is proportional to the
+target variable (i.e., darker elements have larger values of the target
+variable).
+<img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" />
+Both cluster sampling and stratified sampling involve partitioning the
+elements into subsets (i.e., clusters or strata).</p>
+<ol style="list-style-type: decimal">
+<li><p>What would be a good way to partition the elements into
+<em>clusters</em> for a <em>cluster sampling design</em> so as to reduce
+the variance of an estimator of <span class="math inline">\(\mu\)</span>
+or <span class="math inline">\(\tau\)</span>?</p></li>
+<li><p>What would be a good way to partition the elements into
+<em>strata</em> for a <em>stratified sampling design</em> so as to
+reduce the variance of an estimator of <span
+class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span>?</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<p><strong>Example</strong>: The figure below shows a population of 400
+elements. The target variable is the number of objects in each element.
+Suppose we want to estimate <span class="math inline">\(\tau\)</span>
+(i.e., the total number of objects) or <span
+class="math inline">\(\mu\)</span> (i.e., the mean number of objects per
+unit area). Note that the number of objects tends to increase as we move
+west.</p>
+<p><img src="lecture-10-09-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" />
+Both cluster sampling and stratified sampling involve partitioning the
+elements into subsets (i.e., clusters or strata).</p>
+<ol style="list-style-type: decimal">
+<li><p>What would be a good way to partition the elements into
+<em>clusters</em> for a <em>cluster sampling design</em> so as to reduce
+the variance of an estimator of <span class="math inline">\(\mu\)</span>
+or <span class="math inline">\(\tau\)</span>?</p></li>
+<li><p>What would be a good way to partition the elements into
+<em>strata</em> for a <em>stratified sampling design</em> so as to
+reduce the variance of an estimator of <span
+class="math inline">\(\mu\)</span> or <span
+class="math inline">\(\tau\)</span>?</p></li>
+</ol>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

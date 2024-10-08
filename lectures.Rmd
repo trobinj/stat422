@@ -76,7 +76,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Introduction to (one-stage) cluster sampling](lecture-10-07-2024.html). A set of [homework questions](hw-cluster.html) on cluster sampling is now available, and the [studyguide](e2-studyguide.html) for the second examination is also now available.
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Estimators of $\tau$ under cluster sampling, the design effect for cluster sampling](lecture-10-09-2024.html).
 
 `r i <- i + 1; d[i]` 
  

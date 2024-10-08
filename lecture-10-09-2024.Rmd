@@ -1,0 +1,355 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "10-09-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+<!-- Note: Discuss how the unbiased and ratio estimators are equivalent if all m are equal so that m = M/N. -->
+
+## Estimators of $\tau$
+
+Recall for a cluster sampling design $\tau$ is
+$$
+  \tau = \sum_{i=1}^N y_i,
+$$
+where 
+$$
+  y_i = \sum_{j=1}^{m_i} y_{ij}
+$$
+is the total of the target variable over the elements in the $i$-th cluster. Assuming simple random sampling of clusters, there are *two* estimators of $\tau$ we might use: the "ratio estimator" and the "unbiased estimator".
+
+### The "Ratio Estimator"
+
+Recall that the estimator of $\mu$ is
+$$
+  \hat\mu = \frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i}.
+$$
+Since $\tau = M\mu$ we might multiply this estimator by $M$ to get an estimator of $\tau$:
+$$
+  \hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i}.
+$$
+Note that we can also write this as
+$$
+  \hat\tau = M\frac{\bar{y}}{\bar{m}},
+$$
+where $\bar{y} = \frac{1}{n}\sum_{i \in \mathcal{S}} y_i$ and $\bar{m} = \frac{1}{n}\sum_{i \in \mathcal{S}} m_i$. 
+
+If we think of the clusters as elements and $y_i$ as the target variable then this is effectively a *ratio estimator* for simple random sampling (of clusters). What then is the auxiliary variable?
+
+**Example**: A cluster sampling design selects $n$ = 3 boxes using simple random sampling. The number of widgets in these boxes are $m_1$ = 3, $m_2$ = 4, and $m_3$ = 5. The total weight of the widgets in these boxes are $y_1$ = 6.2, $y_2$ = 7.5, and $y_3$ = 10.3. Assume that the population of 425 widgets is contained in 100 boxes. What is the estimate of $\tau$ using this estimator?
+
+\vspace{2cm}
+
+Since $\hat\tau = M\hat\mu$, the estimated variance of $\hat\tau$ can be derived by multiplying the estimated variance of $\hat\mu$ by $M^2$ to get
+$$
+  \hat{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}}(y_i-\hat\mu m_i)^2}{n-1},
+$$
+and $\hat\mu = \left. \sum_{i \in \mathcal{S}} y_i \middle/ \sum_{i \in \mathcal{S}} m_i \right.$ is the usual estimator of $\mu$ for cluster sampling. 
+
+**Example**: For the example given earlier, what is the estimated variance of $\hat\tau$ and the bound on the error of estimation? 
+
+\pagebreak
+
+### The "Unbiased Estimator"
+
+Recall that we discussed an alternative estimator of $\mu$ under simple random sampling of clusters,
+$$
+  \hat\mu = \frac{\bar{y}}{\mu_m}
+$$
+where
+$$
+  \bar{y} = \frac{1}{n}\sum_{i \in \mathcal{S}} y_i \ \ \ \text{and} \ \ \ \mu_m = M/N.
+$$
+Since $\tau = M\mu$ we might multiply this estimator by $M$ to get an estimator of $\tau$:
+$$
+  \hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i,
+$$
+which can also be written as $\hat\tau = N\bar{y}$. If we think of the clusters as elements and $y_i$ as the target variable, then this is effectively the traditional "expansion estimator" for simple random sampling. 
+
+**Example**: A cluster sampling design selects $n$ = 3 boxes using simple random sampling. The number of widgets in these boxes are $m_1$ = 3, $m_2$ = 4, and $m_3$ = 5. The total weight of the widgets in these boxes are $y_1$ = 6.2, $y_2$ = 7.5, and $y_3$ = 10.3. Assume that the population of 425 widgets is contained in 100 boxes. What is the estimate of $\tau$ using this estimator?
+
+\vspace{3cm}
+
+The estimated variance of this estimator is 
+$$
+  \hat{V}(\hat\tau) = N^2\left(1 - \frac{n}{N}\right)\frac{s^2}{n} \ \ \ \text{where} \ \ \ s^2 = \frac{\sum_{i \in \mathcal{S}}(y_i - \bar{y})^2}{n-1}.
+$$
+Note that this can be derived simply by regarding the clusters as elements with target variable $y_i$.
+
+**Example**: For the example given earlier, what is the estimated variance of $\hat\tau$ and the bound on the error of estimation? 
+
+\pagebreak
+
+## Comparison of Two Estimators of $\tau$
+
+So we have *two* estimators of $\tau$ for a cluster sampling design when using a simple random sampling of clusters:
+$$
+\hat\tau = M\frac{\sum_{i \in \mathcal{S}} y_i}{\sum_{i \in \mathcal{S}} m_i} \ \ \ \text{and} \ \ \ 
+\hat\tau = \frac{N}{n}\sum_{i \in \mathcal{S}} y_i.
+$$
+The two estimators are equivalent if and only if all $m_i$ are equal (in which case $m_i = M/N$ for all clusters). What are the relative advantages and disadvantages of these two estimators?
+
+\vspace{3cm}
+
+### Simulation Study 
+
+Consider three populations of $M$ = 300 clustered elements. The populations differ with respect to variation in the cluster sizes. 
+
+```{r, fig.height = 4, fig.width = 9}
+N <- 300
+y <- rep(NA,N)
+m <- rep(NA,N)
+
+for (i in 1:N) {
+  m[i] <- 5
+  y[i] <- sum(rpois(m[i], 10))
+}
+y <- y - mean(y) + 50
+
+pop.a <- data.frame(y = y, m = m, case = "A")
+
+for (i in 1:N) {
+  m[i] <- sample(c(4:6), 1)
+  y[i] <- sum(rpois(m[i], 10))
+}
+y <- y - mean(y) + 50
+
+pop.b <- data.frame(y = y, m = m, case = "B")
+
+for (i in 1:N) {
+  m[i] <- sample(c(2:8), 1)
+  y[i] <- sum(rpois(m[i], 10))
+}
+y <- y - mean(y) + 50
+
+pop.c <- data.frame(y = y, m = m, case = "C")
+
+pop <- rbind(pop.a, pop.b, pop.c) 
+
+p <- ggplot(pop, aes(x = m, y = y)) + theme_minimal()
+p <- p + facet_wrap(~case) + geom_abline(intercept = 0, slope = 10)
+p <- p + geom_count(shape = 21, fill = "white") + scale_size_area() + guides(size = "none")
+p <- p + ylim(0, max(pop$y))
+p <- p + xlab(tex("$m_i$")) + ylab(tex("$y_i$"))
+p <- p + scale_x_continuous(breaks = 0:8, limits = c(0,8.5))
+p
+```
+Now suppose we simulate cluster sampling designs with simple random sampling of $n$ = 25 clusters and compute the two estimators of $\tau$.
+```{r, fig.height = 5}
+n <- 25
+r <- 1000
+
+sim.a <- data.frame(r = 1:r, est.rat = NA, est.unb = NA, case = "A")
+M <- sum(pop.a$m)
+for (i in 1:r) {
+  ind <- sample(1:N, n)
+  sim.a$est.rat[i] <- M*sum(pop.a$y[ind])/sum(pop.a$m[ind]) 
+  sim.a$est.unb[i] <- N*mean(pop.a$y[ind])
+}
+
+sim.b <- data.frame(r = 1:r, est.rat = NA, est.unb = NA, case = "B")
+M <- sum(pop.b$m)
+for (i in 1:r) {
+  ind <- sample(1:N, n)
+  sim.b$est.rat[i] <- M*sum(pop.b$y[ind])/sum(pop.b$m[ind]) 
+  sim.b$est.unb[i] <- N*mean(pop.b$y[ind])
+}
+
+sim.c <- data.frame(r = 1:r, est.rat = NA, est.unb = NA, case = "C")
+M <- sum(pop.c$m)
+for (i in 1:r) {
+  ind <- sample(1:N, n)
+  sim.c$est.rat[i] <- M*sum(pop.c$y[ind])/sum(pop.c$m[ind]) 
+  sim.c$est.unb[i] <- N*mean(pop.c$y[ind])
+}
+
+sim <- as.data.frame(rbind(sim.a, sim.b, sim.c)) %>% 
+  pivot_longer(cols = c(est.rat, est.unb), names_to = "estimator", values_to = "estimate") %>%
+  mutate(estimator = factor(estimator, levels = c("est.rat","est.unb"), labels = c("Ratio Estimator","Unbiased Estimator")))
+
+p <- ggplot(sim, aes(x = estimate)) + facet_grid(estimator~case)
+p <- p + geom_density(adjust = 2, alpha = 0.5)
+p <- p + theme_minimal() + noyaxis
+p <- p + labs(y = NULL, x = "Estimate")
+p <- p + annotate("point", x = 15000, y = 0, shape = 16)
+p
+
+sim %>% group_by(case, estimator) %>% summarize(Variance = var(estimate), B = 2*sqrt(Variance)) %>% 
+  rename(Case = case, Estimator = estimator) %>% ktbl(align = c("c","l","c","c"))
+```
+
+## Design Effect of Cluster Sampling
+
+Assume a cluster sampling design with $N$ clusters, simple random sampling of clusters, and all clusters are of the same size so that all $m_i = m = M/N$. 
+
+Define the **mean square within clusters** as
+$$
+  \sigma_w^2 = \frac{1}{N}\sum_{i=1}^N s_i^2,
+$$
+where $s_i^2$ is the standard deviation of the target variable for all the elements in the $i$-th cluster.
+
+Define the **mean square between clusters** as
+$$
+  \sigma_b^2 = \frac{m}{N-1}\sum_{i=1}^N(\bar{y}_i-\mu)^2,
+$$
+where $\bar{y}_i$ is the mean of the target variable for all elements in the $i$-th cluster. 
+
+The *total* variance (i.e., the variance of the values of the target variable for *all* elements in the population) can be written as
+$$
+  \sigma^2 = \frac{(N-1)\sigma_b^2 + N(m-1)\sigma_w^2}{NM-1} = \frac{N-1}{NM-1}\sigma_b^2 + \frac{m-1}{NM-1}\sigma_w^2,
+$$
+so the total variance is a weighted average of $\sigma_b^2$ and $\sigma_w^2$, so for a given population an increase in one mean square must result in a decrease of the other (assuming a constant cluster size).
+
+The *design effect* for the cluster sampling design is
+$$
+  D = \frac{V_C(\hat\mu)}{V_{\small \text{SRS}}(\hat\mu)} = \frac{\sigma_b^2}{\sigma^2}.
+$$
+Note that this is the same for $\hat\tau$, and the two estimators of $\hat\tau$ are equivalent if all clusters are the same size. 
+
+What does all this imply about how *clustering* affects the variance of $\hat\mu$ or $\hat\tau$?
+
+```{r, fig.height = 4}
+set.seed(123)
+n <- 25
+m <- 5
+mu <- rnorm(n, 20, 1)
+mydata <- expand.grid(mu = mu, element = 1:m)
+mydata$cluster <- as.factor(rep(1:n, m))
+mydata$y <- mydata$mu + rnorm(length(mydata$mu))/2
+mydata$y <- scale(mydata$y)*5 + 20
+mydata$ybar <- with(mydata, tapply(y, cluster, mean))
+
+tmp <- anova(aov(y ~ factor(cluster), data = mydata))
+sb <- unlist(tmp[3])[1]
+st <- var(mydata$y)
+
+p <- ggplot(mydata, aes(x = cluster, y = y)) 
+p <- p + labs(x = "Cluster", y = "Target Variable")
+p <- p + geom_point(shape = 16, alpha = 0.25)
+p <- p + geom_point(aes(y = ybar), shape = 16)
+p <- p + ggtitle("High Between MS, Low Within MS, High D")
+p <- p + theme_classic()
+plot(p)
+
+n <- 25
+m <- 5
+mu <- rnorm(n, 20, 1/10)
+mydata <- expand.grid(mu = mu, element = 1:m)
+mydata$cluster <- as.factor(rep(1:n, m))
+mydata$y <- mydata$mu + rnorm(length(mydata$mu))*3
+mydata$y <- scale(mydata$y)*5 + 20
+mydata$ybar <- with(mydata, tapply(y, cluster, mean))
+
+p <- ggplot(mydata, aes(x = cluster, y = y)) 
+p <- p + labs(x = "Cluster", y = "Target Variable")
+p <- p + geom_point(shape = 16, alpha = 0.25)
+p <- p + geom_point(aes(y = ybar), shape = 16)
+p <- p + ggtitle("Medium Between MS, Medium Within MS, Medium D")
+p <- p + theme_classic()
+plot(p)
+
+n <- 25
+m <- 5
+mu <- rnorm(n, 20, 1/100)
+mydata <- expand.grid(mu = mu, element = 1:m)
+mydata$cluster <- as.factor(rep(1:n, m))
+mydata$y <- mydata$mu + rnorm(length(mydata$mu))*10
+mydata$y <- mydata$y - predict(lm(y ~ cluster, data = mydata), mydata)
+mydata$y <- mydata$y + rep(rnorm(n),m)
+mydata$y <- scale(mydata$y)*5 + 20
+mydata$ybar <- with(mydata, tapply(y, cluster, mean))
+
+p <- ggplot(mydata, aes(x = cluster, y = y)) 
+p <- p + labs(x = "Cluster", y = "Target Variable")
+p <- p + geom_point(shape = 16, alpha = 0.25)
+p <- p + geom_point(aes(y = ybar), shape = 16)
+p <- p + ggtitle("Low Between MS, High Within MS, Low D")
+p <- p + theme_classic()
+plot(p)
+```
+
+\pagebreak
+
+**Example**: The figure below shows a population of 400 elements. Assume that the darkness of the element is proportional to the target variable (i.e., darker elements have larger values of the target variable). 
+```{r, fig.width = 9, fig.height = 9}
+d <- expand.grid(x = seq(0.5, 9.5, by = 1), y = seq(0.5, 9.5, by = 1)) %>% mutate(z = y)
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_tile(aes(alpha = z)) + coord_fixed()
+p <- p + labs(x = "Longitude", y = "Latitude") + scale_alpha(range = c(0.05, 0.95)) + guides(alpha = "none")
+p <- p + scale_x_continuous(breaks = seq(0, 10, by = 1), minor_breaks = seq(0, 10, by = 0.5), labels = NULL)
+p <- p + scale_y_continuous(breaks = seq(0, 10, by = 1), minor_breaks = seq(0, 10, by = 0.5), labels = NULL)
+p <- p + geom_hline(yintercept = seq(0, 10, by = 0.5), color = "white")
+p <- p + geom_vline(xintercept = seq(0, 10, by = 0.5), color = "white")
+
+plot(p)
+```
+Both cluster sampling and stratified sampling involve partitioning the elements into subsets (i.e., clusters or strata). 
+
+1. What would be a good way to partition the elements into *clusters* for a *cluster sampling design* so as to reduce the variance of an estimator of $\mu$ or $\tau$?
+
+1. What would be a good way to partition the elements into *strata* for a *stratified sampling design* so as to reduce the variance of an estimator of $\mu$ or $\tau$?
+
+\pagebreak
+
+**Example**: The figure below shows a population of 400 elements. The target variable is the number of objects in each element. Suppose we want to estimate $\tau$ (i.e., the total number of objects) or $\mu$ (i.e., the mean number of objects per unit area). Note that the number of objects tends to increase as we move west. 
+
+```{r, fig.width = 9, fig.height = 9}
+set.seed(123)
+
+N <- 1000
+
+d <- data.frame(x = rtrunc(fdrtool::rhalfnorm, N, 0, 10, theta = 0.3), y = runif(N, 0, 10))
+
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_point(alpha = 0.5, size = 1) + guides(alpha = "none") + coord_fixed()
+p <- p + labs(x = "Longitude", y = "Latitude")
+p <- p + scale_x_continuous(breaks = seq(0, 10, by = 1), minor_breaks = seq(0, 10, by = 0.5), labels = NULL)
+p <- p + scale_y_continuous(breaks = seq(0, 10, by = 1), minor_breaks = seq(0, 10, by = 0.5), labels = NULL)
+p <- p + geom_hline(yintercept = seq(0, 10, by = 0.5), color = "black", linetype = 2)
+p <- p + geom_vline(xintercept = seq(0, 10, by = 0.5), color = "black", linetype = 2)
+
+plot(p)
+```
+Both cluster sampling and stratified sampling involve partitioning the elements into subsets (i.e., clusters or strata). 
+
+1. What would be a good way to partition the elements into *clusters* for a *cluster sampling design* so as to reduce the variance of an estimator of $\mu$ or $\tau$?
+
+1. What would be a good way to partition the elements into *strata* for a *stratified sampling design* so as to reduce the variance of an estimator of $\mu$ or $\tau$?
