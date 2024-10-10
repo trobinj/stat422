@@ -1,0 +1,385 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "10-11-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+
+## Sampling With Replacement with Unequal Selection Probabilities
+
+This design can be described as follows:
+
+1. Assume $N$ sampling units, each with a specified *selection probability* $\delta_i$.
+
+2. Obtain a sample of $n$ sampling units by selecting units one at a time such that on each draw the probability that the $i$-th unit is selected is $\delta_i$. The selection probabilities *do not change* from draw to draw, so it is possible that we will select the same element on two or more draws (i.e., sampling *with* replacement). 
+
+### Selection Versus Inclusion Probabilities
+
+Selection probabilities ($\delta_i$) are *not* generally equal to inclusion probabilities ($\pi_i$). 
+
+**Example**: Suppose we obtain a sample of $n$ sampling units *with replacement*, where the *selection probability* of the $i$-th unit is $\delta_i$. The *inclusion probability* of the $i$-the unit is then
+$$
+  \pi_i = 1 - (1 - \delta_i)^n.
+$$
+
+```{r}
+n <- 5
+N <- 10
+```
+
+**Example**: Selection probabilities are usually only useful when sampling *with replacement*. But they can be defined when sampling *without replacement* if we select the sample by selecting *one unit at a time*. Suppose we have a population with $N$ = `r N` elements, and a simple random sampling design *without replacement* with a sample size of $n$ = `r n`. All elements have *inclusion probabilities* of $\pi_i$ = $n/N$ = `r n/N`. But the *selection probabilities* change over draws and depend on previous draws.
+
+```{r}
+set.seed(111)
+
+indx <- sample(1:N, n)
+d <- as.data.frame(cbind(1:n, matrix(NA, n, N), indx))
+
+names(d) <- c("Draw", paste("$\\mathcal{E}_{", 1:N, "}$", sep = ""), "Selected")
+for (i in 1:n) {
+  d[i,2:(N+1)] <- rep(paste("1/", N - i + 1, sep = ""), N)
+}
+for (i in 2:n) {
+  d[i:n, indx[i - 1] + 1] <- "0" 
+}
+```
+Here is one possible sample:
+$$
+  \mathcal{S} = \{`r paste("\\mathcal{E}_{", indx, "}", sep = "")` \}.
+$$
+The selection probabilities are shown in the table below.
+```{r}
+ktbl(d) %>% add_header_above(c(" " = 1, "Element" = N, " " = 1))
+```
+
+```{r}
+set.seed(114)
+
+indx <- sample(1:N, n)
+d <- as.data.frame(cbind(1:n, matrix(NA, n, N), indx))
+
+names(d) <- c("Draw", paste("$\\mathcal{E}_{", 1:N, "}$", sep = ""), "Selected")
+for (i in 1:n) {
+  d[i,2:(N+1)] <- rep(paste("1/", N - i + 1, sep = ""), N)
+}
+for (i in 2:n) {
+  d[i:n, indx[i - 1] + 1] <- "0" 
+}
+```
+Here is another possible sample:
+$$
+  \mathcal{S} = \{`r paste("\\mathcal{E}_{", indx, "}", sep = "")` \}.
+$$
+The selection probabilities are shown in the table below.
+```{r}
+ktbl(d) %>% add_header_above(c(" " = 1, "Element" = N, " " = 1))
+```
+```{r}
+set.seed(101)
+
+indx <- sample(1:N, n, replace = TRUE)
+d <- as.data.frame(cbind(1:n, matrix(NA, n, N), indx))
+
+names(d) <- c("Draw", paste("$\\mathcal{E}_{", 1:N, "}$", sep = ""), "Selected")
+for (i in 1:n) {
+  d[i,2:(N+1)] <- paste("1/", N, sep = "")
+}
+```
+Note that a defining property of sampling *with replacement* is that the selection probabilities *do not change from draw to draw*. When sampling *with replacement* with *equal selection probabilities*, we might get a sample such as the following:
+$$
+  \mathcal{S} = \{`r paste("\\mathcal{E}_{", indx, "}", sep = "")` \}.
+$$
+But the selection probabilities remain constant. 
+```{r}
+ktbl(d) %>% add_header_above(c(" " = 1, "Element" = N, " " = 1))
+```
+They would also remain constant if the selection probabilities were *unequal*.
+
+### The Hansen-Hurwitz Estimator
+
+Assuming an element sampling design using sampling *with replacement*, the Hansen-Hurwitz estimator of $\tau$ is
+$$
+  \hat\tau = \frac{1}{n}\sum_{i \in \mathcal{S}}\frac{y_i}{\delta_i}.
+$$
+The estimated variance of this estimator is
+$$
+  \hat{V}(\hat\tau) = \frac{1}{n(n-1)}\sum_{i \in \mathcal{S}}(y_i/\delta_i - \hat\tau)^2.
+$$
+**Example**: Suppose we select a sample of $n$ = 3 units with replacement: $\mathcal{E}_5$, $\mathcal{E}_2$, and $\mathcal{E}_5$ again. The target variable values of $y_5$ = 4 and $y_2$ = 1, and selection probabilities of $\delta_5$ = 0.05 and $\delta_2$ = 0.01. What is the estimate of $\tau$ and the estimated variance of $\hat\tau$?
+
+\vspace{3cm}
+
+What is the Hansen-Hurwitz estimator if all selection probabilities are *equal* (i.e., all $\delta_i = 1/N$)? 
+
+\vspace{3cm}
+
+Note: For the estimator of $\mu$, we would divide $\hat\tau$ by the number of elements in the population ($N$ for element sampling, and $M$ for cluster sampling), and the estimated variance of $\hat\tau$ by the square of this ($N^2$ for element sampling, and $M^2$ for cluster sampling). But see the section below on estimation of $\mu$ with PPS cluster sampling. 
+
+### Specification of Selection Probabilities
+
+How should we specify the selection probabilities? The best choice would be to use
+$$
+  \delta_i = \frac{y_i}{\sum_{i=1}^N y_i}.
+$$
+That is, $\delta_i = y_i/\tau_y$. Why would this be best?
+
+\vspace{3cm}
+
+Since we do not know $y_i$ before we sample, instead perhaps we can find an *auxiliary variable* that is *approximately* proportional to $y_i$ such that $y_i \approx cx_i$, then we could use
+$$
+  \delta_i = \frac{x_i}{\sum_{i=1}^N x_i}.
+$$
+That is, $\delta_i = x_i/\tau_x$. 
+
+Note: We are implicitly assuming here that all $y_i > 0$ and all $x_i > 0$. 
+
+**Example**: Suppose we have the following $N$ = 5 sampling units. 
+```{r}
+d <- data.frame(Unit = 1:5, x = c(1,4,2,5,8), p = "")
+names(d)[2:3] <- c("$x_i$","$\\delta_i$")
+ktbl(d)
+```
+What would be the selection probabilities assuming that $y_i$ is approximately proportional to $x_i$?
+
+\pagebreak
+
+### Simulation Study
+
+**Example**: Consider the observations of a target variable (volume) and an auxiliary variable (area) for a population of elements.
+```{r, fig.height = 4}
+d <- trtools::redoak %>% mutate(area = pi * (dbh/2)^2)
+p <- ggplot(d, aes(x = area, y = volume)) + theme_classic()
+p <- p + geom_point(alpha = 0.25)
+p <- p + guides(size = "none")
+p <- p + labs(x = "Trunk Slice Area (square in)", y = "Volume (cubic ft)")
+plot(p)
+```
+Let $y_i$ and $x_i$ be the volume and trunk slice area, respectively. Let's compare three approaches to estimating $\tau_y$.
+
+1. Simple random sampling with $\hat\tau_y = N\bar{y}$.
+
+0. Simple random sampling with the ratio estimator $\hat\tau_y = \tau_x\bar{y}/\bar{x}$.
+
+0. Sampling with replacement with selection probabilities of $\delta_i = x_i/\tau_x$ and using the Hansen-Hurwitz estimator. 
+
+Note: The value of $\tau_y$ is `r sum(trtools::redoak$volume)`. 
+
+```{r, fig.height = 3}
+set.seed(123)
+N <- nrow(d)
+n <- 10
+reps <- 100000
+yavg <- rep(NA,reps)
+yrat <- rep(NA,reps)
+yrep <- rep(NA,reps)
+taux <- sum(d$area)
+d$delt <- d$area/taux
+for (i in 1:reps) {
+  indx <- sample(1:N,n)
+  ybar <- mean(d$volume[indx])
+  xbar <- mean(d$area[indx])
+  
+  yavg[i] <- N * ybar
+  yrat[i] <- taux * ybar / xbar;
+  
+  indx <- sample(1:N, n, replace = TRUE, prob = d$delt)
+  yrep[i] <- mean(d$volume[indx]/d$delt[indx])
+}
+
+d <- data.frame(Estimate = c(yavg, yrat, yrep), 
+  Estimator = rep(c("SRS","SRS w/Ratio Estimator","Hansen-Hurwitz"), each = reps))
+d$Estimator <- factor(d$Estimator, levels = c("SRS","SRS w/Ratio Estimator","Hansen-Hurwitz"))
+
+p <- ggplot(d, aes(x = Estimate)) + theme_minimal() + noyaxis
+p <- p + geom_histogram() + facet_wrap(~ Estimator)
+plot(p)
+
+d <- d %>% group_by(Estimator) %>% summarize(Variance = var(Estimate), Bound = 2*sqrt(var(Estimate)))
+ktbl(d, align = c("l","c","c","c"))
+```
+
+Now consider a situation of estimating the number of objects in transects where the transects vary in size. Let $y_i$ be the number of objects, and let $x_i$ be the size of the transect.
+
+```{r, fig.height = 4}
+f <- function(N, M, d, n = 0, plot = TRUE) {
+  x <- seq(0, 100, by = 100/N)
+  fa <- function(x, d) {
+    d + x * (50 - d)/100
+  }
+  fb <- function(x, d) {
+    -fa(x, d)
+  } 
+  par(mai = c(0,0,0,0))
+  if (plot) plot(x, fa(x,d), type = "l", ylim = c(-50,50),
+                 bty = "n", xaxt = "n", yaxt = "n",
+                 xlab = "", ylab = "")
+  if (plot) lines(x, fb(x,d), type = "l")
+  for (i in 1:length(x)) {
+    if (plot) lines(c(x[i], x[i]), c(fa(x[i], d), fb(x[i], d)))
+  }
+  t <- 0
+  y <- rep(NA, M)
+  z <- rep(NA, M)
+  
+  if (n > 0) {
+    samp <- sample(1:N, n)
+    for (i in 1:length(x)) {
+      if (i %in% samp) {
+        if (plot) polygon(c(x[i], x[i+1], x[i+1], x[i]), 
+                          c(fa(x[i], d), fa(x[i+1], d), fb(x[i+1], d), fb(x[i], d)), 
+                          col = grey(0.85))
+      }
+    }
+  }
+  
+  while (t < M) {
+    p.x <- runif(1, 0, 100)
+    p.y <- runif(1, -50, 50)
+    if ((p.y < fa(p.x, d)) * (p.y > fb(p.x, d))) {
+      t <- t + 1
+      if (plot) points(p.x, p.y, pch = 16, cex = 0.25)
+      y[t] <- p.x
+      z[t] <- exp(rnorm(1))
+    }
+  }
+  if (plot) lines(x, fb(x,d), type = "l")
+  for (i in 1:length(x)) {
+    if (plot) lines(c(x[i], x[i]), c(fa(x[i], d), fb(x[i], d)))
+  }
+  transect <- factor(cut(y, breaks = seq(0, 100, by = 100/N), labels = FALSE), labels = 1:N)
+  count <- as.vector(table(transect))
+  y <- data.frame(transect = 1:N, count = count, total = tapply(z, transect, sum))
+  y$total = y$count
+  
+  y$area <- NA
+  for (i in 1:N) {
+    a <- fa(x[i], d) - fb(x[i], d)
+    b <- fa(x[i+1], d) - fb(x[i+1], d)
+    h <- x[i+1] - x[i]
+    y$area[i] <- h*(a+b)/2
+  }
+  
+  list(pop = y, sam = subset(y, transect %in% samp))
+}
+
+N <- 50
+n <- 10
+m <- 5000
+pop <- f(N, m, 10, n, plot = TRUE)$pop
+pop$d <- pop$area/sum(pop$area)
+
+p <- ggplot(pop, aes(x = area, y = total)) + theme_minimal()
+p <- p + geom_point() + labs(x = "Transect Area", y = "Number of Objects")
+plot(p)
+```
+
+Note: The value of $\tau_y$ is `r sum(pop$total)`. 
+
+```{r, fig.height = 3}
+set.seed(123)
+d <- pop
+N <- nrow(d)
+n <- 10
+reps <- 100000
+yavg <- rep(NA,reps)
+yrat <- rep(NA,reps)
+yrep <- rep(NA,reps)
+taux <- sum(d$area)
+delt <- d$area/taux
+for (i in 1:reps) {
+  indx <- sample(1:N,n)
+  ybar <- mean(d$total[indx])
+  xbar <- mean(d$area[indx])
+  
+  yavg[i] <- N * ybar
+  yrat[i] <- taux * ybar / xbar;
+  
+  indx <- sample(1:N, n, replace = TRUE, prob = delt)
+  yrep[i] <- mean(d$total[indx]/delt[indx])
+}
+
+d <- data.frame(Estimate = c(yavg, yrat, yrep), 
+  Estimator = rep(c("SRS","SRS w/Ratio Estimator","Hansen-Hurwitz"), each = reps))
+d$Estimator <- factor(d$Estimator, levels = c("SRS","SRS w/Ratio Estimator","Hansen-Hurwitz"))
+
+p <- ggplot(d, aes(x = Estimate)) + theme_minimal() + noyaxis
+p <- p + geom_histogram() + facet_wrap(~ Estimator)
+plot(p)
+
+d <- d %>% group_by(Estimator) %>% summarize(Variance = var(Estimate), Bound = 2*sqrt(var(Estimate)))
+ktbl(d, align = c("l","c","c","c"))
+```
+
+### Why Ever Sample *With* Replacement
+
+It would seem that sampling *with replacement* would be less efficient than sampling *without replacement* since there is a probability of including the same sampling unit more than once. So why would we ever use a with replacement sampling 
+design?
+
+1. If $n$ is much smaller than $N$ (as is often the case), then the probability of selecting the same unit more than once is negligible and so the loss in efficiency in small. In such cases sampling *with* replacement is *almost* like sampling *without* replacement. 
+
+0. The mathematics of sampling with replacement is much simpler, which makes both sampling design and analysis much more tractable in practice. Later we will discuss sampling *without replacement* with *unequal inclusion probabilities*, which also can be used to improve estimation. But outside of some special cases (e.g., stratified random sampling) the actual process of selecting the sample is much more complex, requiring specialized algorithms and expertise. 
+
+## Cluster Sampling with Probabilities Proportional to Size (PPS)
+
+Consider a cluster sampling design but where the clusters are sampled *with replacement* with (selection) probabilities proportional to *cluster size* so that we use $m_i$ for $x_i$. Then
+$$
+  \delta_i = \frac{m_i}{\sum_{i=1}^N m_i} = \frac{m_i}{M}.
+$$
+This is sometimes called sampling with **probabilities proportional to size** (PPS). 
+
+As before let $y_i$ be the cluster total for the $i$-th cluster so that $y_i = \sum_{i \in \mathcal{S}} y_{ij}$. Then the Hansen-Hurwitz estimator for $\tau$ can be written as
+$$
+  \hat\tau = \frac{1}{n}\sum_{i \in \mathcal{S}}\frac{y_i}{\delta_i} = \frac{M}{n}\sum_{i \in \mathcal{S}}\frac{y_i}{m_i},
+$$
+since $\delta_i = m_i/M$. The estimated variance for $\hat\tau$ then becomes
+$$
+  \hat{V}(\hat\tau) = \frac{M^2}{n(n-1)}\sum_{i \in \mathcal{S}}(y_i/m_i - \hat\tau/M)^2.
+$$
+The Hansen-Hurwitz estimator of $\mu$ is obtained as $\hat\mu = \hat\tau/M$. That is,
+$$
+  \hat\mu = \frac{1}{n}\sum_{i \in \mathcal{S}}\frac{y_i}{m_i}.
+$$
+The estimated variance of $\hat\mu$ is then
+$$
+  \hat{V}(\hat\mu) = \frac{1}{n(n-1)}\sum_{i \in \mathcal{S}}(y_i/m_i - \hat\mu)^2.
+$$
+
+**Example**: A cluster sampling design selects $n$ = 3 boxes using sampling with replacement with probabilities proportional to cluster size (i.e., $\delta_i = m_i/M$). The number of widgets in these boxes are $m_1$ = 3, $m_2$ = 4, and $m_3$ = 5. The total weight of the widgets in these boxes are $y_1$ = 6.2, $y_2$ = 7.5, and $y_3$ = 10.3. Assume that the population of 425 widgets is contained in 100 boxes. Assuming sampling with replacement with probabilities proportional to size, what are the estimates of $\tau$ and $\mu$ as given by the Hansen-Hurwitz estimator?
+
