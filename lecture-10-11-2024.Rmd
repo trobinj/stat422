@@ -356,6 +356,8 @@ design?
 
 0. The mathematics of sampling with replacement is much simpler, which makes both sampling design and analysis much more tractable in practice. Later we will discuss sampling *without replacement* with *unequal inclusion probabilities*, which also can be used to improve estimation. But outside of some special cases (e.g., stratified random sampling) the actual process of selecting the sample is much more complex, requiring specialized algorithms and expertise. 
 
+0. Some specialized sampling designs/protocols cannot easily avoid selecting the same sampling unit more than once. We will discuss some of these later. 
+
 ## Cluster Sampling with Probabilities Proportional to Size (PPS)
 
 Consider a cluster sampling design but where the clusters are sampled *with replacement* with (selection) probabilities proportional to *cluster size* so that we use $m_i$ for $x_i$. Then
