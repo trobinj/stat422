@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Monday, Oct 14</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Monday, Oct 14</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-14-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="stratified-cluster-sampling-designs" class="section level2">
+<h2>Stratified Cluster Sampling Designs</h2>
+<p>Another complex sampling design is to <em>combine</em> stratified
+random sampling with cluster sampling to exploit the benefits of both
+designs.</p>
+<ol style="list-style-type: decimal">
+<li>Partition <span class="math inline">\(M\)</span> elements into <span
+class="math inline">\(N\)</span> clusters.</li>
+<li>Assign the <span class="math inline">\(N\)</span> clusters into
+<span class="math inline">\(L\)</span> strata.</li>
+<li>Use a sampling design (e.g., SRS, PPS) to select some clusters from
+each strata.</li>
+</ol>
+Examples of stratified cluster sampling:
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Element
+</th>
+<th style="text-align:center;">
+Cluster
+</th>
+<th style="text-align:center;">
+Stratum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+student
+</td>
+<td style="text-align:center;">
+classroom
+</td>
+<td style="text-align:center;">
+grade level
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+tree
+</td>
+<td style="text-align:center;">
+plot
+</td>
+<td style="text-align:center;">
+elevation
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+household
+</td>
+<td style="text-align:center;">
+block
+</td>
+<td style="text-align:center;">
+city/suburb
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+store
+</td>
+<td style="text-align:center;">
+city
+</td>
+<td style="text-align:center;">
+region
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+minute
+</td>
+<td style="text-align:center;">
+hour
+</td>
+<td style="text-align:center;">
+day/night
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="systematic-sampling" class="section level2">
+<h2>Systematic Sampling</h2>
+<p>Systematic sampling is cluster sampling where the elements are
+assigned to clusters so that they are “systematically spread out” as
+opposed to close/adjacent (usually in space or time).</p>
+<div id="ordered-systematic-sampling" class="section level3">
+<h3>Ordered Systematic Sampling</h3>
+<p>Suppose we have a population of <span
+class="math inline">\(M\)</span> = 12 elements that can be
+<em>ordered</em> in, say, space or time. How might we put these elements
+into <span class="math inline">\(N\)</span> = 4 clusters of <span
+class="math inline">\(m_i\)</span> = 3 elements each?</p>
+It might be convenient to cluster <em>adjacent</em> elements.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="12">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Elements
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Sampling Units
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{1}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{3}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{4}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{5}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{6}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{7}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{8}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{9}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{10}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{11}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{12}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{1}\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{2}\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{3}\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{4}\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+But alternatively we could “spread out” the elements within each
+cluster.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="12">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Elements
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+Sampling Units
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{1}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{2}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{3}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{4}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{5}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{6}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{7}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{8}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{9}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{10}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{11}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\mathcal{E}_{12}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{1}\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{2}\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{3}\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(\mathcal{U}_{4}\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\checkmark\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This is an example of a 1-in-4 (ordered) systematic sampling
+design.</p>
+<p><strong>Example</strong>: A 1-in-5 systematic sample with <span
+class="math inline">\(M\)</span> = 15 elements. The population is <span
+class="math display">\[
+\mathcal{P} =
+    \{ \mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3, \mathcal{E}_4,
+    \mathcal{E}_5 \ | \ \mathcal{E}_6, \mathcal{E}_7, \mathcal{E}_8,
+    \mathcal{E}_9, \mathcal{E}_{10} \ | \ \mathcal{E}_{11},
+\mathcal{E}_{12},
+    \mathcal{E}_{13}, \mathcal{E}_{14}, \mathcal{E}_{15} \},
+\]</span> and the sampling units are <span
+class="math display">\[\begin{align*}
+\mathcal{U}_1 &amp; = \{\mathcal{E}_1,\mathcal{E}_6,\mathcal{E}_{11}\},
+\\
+\mathcal{U}_2 &amp; = \{\mathcal{E}_2,\mathcal{E}_7,\mathcal{E}_{12}\},
+\\
+\mathcal{U}_3 &amp; = \{\mathcal{E}_3,\mathcal{E}_8,\mathcal{E}_{13}\},
+\\
+\mathcal{U}_4 &amp; = \{\mathcal{E}_4,\mathcal{E}_9,\mathcal{E}_{14}\},
+\\
+\mathcal{U}_5 &amp; =
+\{\mathcal{E}_5,\mathcal{E}_{10},\mathcal{E}_{15}\}.
+\end{align*}\]</span></p>
+<p><strong>Example</strong>: A 1-in-3 systematic sample with <span
+class="math inline">\(M\)</span> = 15 elements. The population is <span
+class="math display">\[
+\mathcal{P} = \{
+    \mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3 \ | \ \mathcal{E}_4,
+    \mathcal{E}_5, \mathcal{E}_6 \ | \ \mathcal{E}_7, \mathcal{E}_8,
+    \mathcal{E}_9 \ | \ \mathcal{E}_{10}, \mathcal{E}_{11},
+\mathcal{E}_{12} \ | \
+    \mathcal{E}_{13}, \mathcal{E}_{14}, \mathcal{E}_{15} \},
+\]</span> and the sampling units are <span
+class="math display">\[\begin{align*}
+\mathcal{U}_1 &amp; =
+\{\mathcal{E}_1,\mathcal{E}_4,\mathcal{E}_7,\mathcal{E}_{10},\mathcal{E}_{13}\},
+\\
+\mathcal{U}_2 &amp; =
+\{\mathcal{E}_2,\mathcal{E}_5,\mathcal{E}_8,\mathcal{E}_{11},\mathcal{E}_{14}\},
+\\
+\mathcal{U}_3 &amp; =
+\{\mathcal{E}_3,\mathcal{E}_6,\mathcal{E}_9,\mathcal{E}_{12},\mathcal{E}_{15}\}.
+\end{align*}\]</span></p>
+<p><strong>Example</strong>: A 1-in-3 systematic sample with <span
+class="math inline">\(M\)</span> = 14 elements. The population is <span
+class="math display">\[
+\mathcal{P} = \{
+    \mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3 \ | \ \mathcal{E}_4,
+    \mathcal{E}_5, \mathcal{E}_6 \ | \ \mathcal{E}_7, \mathcal{E}_8,
+    \mathcal{E}_9 \ | \ \mathcal{E}_{10}, \mathcal{E}_{11},
+\mathcal{E}_{12} \ | \
+    \mathcal{E}_{13}, \mathcal{E}_{14} \},
+\]</span> and the sampling units are <span
+class="math display">\[\begin{align*}
+\mathcal{U}_1 &amp; =
+\{\mathcal{E}_1,\mathcal{E}_4,\mathcal{E}_7,\mathcal{E}_{10},\mathcal{E}_{13}\},
+\\
+\mathcal{U}_2 &amp; =
+\{\mathcal{E}_2,\mathcal{E}_5,\mathcal{E}_8,\mathcal{E}_{11},\mathcal{E}_{14}\},
+\\
+\mathcal{U}_3 &amp; =
+\{\mathcal{E}_3,\mathcal{E}_6,\mathcal{E}_9,\mathcal{E}_{12}\}.
+\end{align*}\]</span></p>
+<p>How do we a sampling unit with ordered systematic sampling?</p>
+<ol style="list-style-type: decimal">
+<li>Randomly select a number between 1 and <span
+class="math inline">\(k\)</span>. Call this number <span
+class="math inline">\(j\)</span>.</li>
+<li>Select elements <span class="math inline">\(\mathcal{E}_{j},
+\mathcal{E}_{j+k}, \mathcal{E}_{j+2k}, \mathcal{E}_{j+3k},
+\dots\)</span>.</li>
+</ol>
+<p>Why use systematic sampling?</p>
+<ol style="list-style-type: decimal">
+<li><p>Simple protocol (e.g., “observe every 10th
+customer/fish/minute”).</p></li>
+<li><p>As in other cluster sampling designs, useful when there is no
+sampling frame.</p></li>
+<li><p>Samples can be more representative, leading to lower variance
+than cluster sampling <em>with adjacent elements</em> and simple random
+sampling.</p></li>
+</ol>
+<p><strong>Example</strong>: Consider four designs for selecting 20
+elements out of 100.</p>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="aligned-grid-systematic-sampling" class="section level3">
+<h3>Aligned Grid Systematic Sampling</h3>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="unaligned-grid-systematic-sample" class="section level3">
+<h3>Unaligned Grid Systematic Sample</h3>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grid-systematic-sampling-versus-simple-random-sampling"
+class="section level3">
+<h3>Grid Systematic Sampling Versus Simple Random Sampling</h3>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grid-systematic-sampling-versus-stratified-random-sampling"
+class="section level3">
+<h3>Grid Systematic Sampling Versus Stratified Random Sampling</h3>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="performance-of-systematic-sampling" class="section level3">
+<h3>Performance of Systematic Sampling</h3>
+<p><strong>Example</strong>: Consider the following populations of 1000
+ordered elements and three different designs.</p>
+<ol style="list-style-type: decimal">
+<li><p>Simple random sampling.</p></li>
+<li><p>Stratified random sampling by treating groups of 100 adjacent
+elements as strata.</p></li>
+<li><p>1-in-100 ordered systematic sampling.</p></li>
+</ol>
+<p>In each case 10 elements were selected and averaged to estimate <span
+class="math inline">\(\mu\)</span>.</p>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /><img src="lecture-10-14-2024_files/figure-html/unnamed-chunk-12-2.png" width="100%" style="display: block; margin: auto;" />
+Note: The numbers shown in each plot are the standard errors (i.e., the
+square root of the variance of the estimator).</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

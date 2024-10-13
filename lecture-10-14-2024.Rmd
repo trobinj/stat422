@@ -1,0 +1,465 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "10-14-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("../../utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Stratified Cluster Sampling Designs
+
+Another complex sampling design is to *combine* stratified random sampling with cluster sampling to exploit the benefits of both designs.
+
+1. Partition $M$ elements into $N$ clusters.
+0. Assign the $N$ clusters into $L$ strata.
+0. Use a sampling design (e.g., SRS, PPS) to select some clusters from each strata. 
+
+Examples of stratified cluster sampling:
+```{r}
+element <- c("student", "tree", "household", "store", "minute") 
+cluster <- c("classroom", "plot", "block", "city", "hour")
+stratum <- c("grade level", "elevation", "city/suburb", "region", "day/night")
+d <- data.frame(Element = element, Cluster = cluster, Stratum = stratum)
+ktbl(d)
+```
+
+## Systematic Sampling
+
+Systematic sampling is cluster sampling where the elements are assigned to clusters so that they are "systematically spread out" as opposed to close/adjacent (usually in space or time).
+
+### Ordered Systematic Sampling
+
+Suppose we have a population of $M$ = 12 elements that can be *ordered* in, say, space or time. How might we put these elements into $N$ = 4 clusters of $m_i$ = 3 elements each?
+
+It might be convenient to cluster *adjacent* elements.
+```{r}
+d <- matrix("", 4, 12)
+d[1,c(1,2,3)] <- "$\\checkmark$"
+d[2,c(4,5,6)] <- "$\\checkmark$"
+d[3,c(7,8,9)] <- "$\\checkmark$"
+d[4,c(10,11,12)] <- "$\\checkmark$"
+d <- cbind(paste("$\\mathcal{U}_{", 1:4, "}$", sep = ""), d)
+d <- as.data.frame(d)
+names(d) <- c("Sampling Units", paste("$\\mathcal{E}_{", 1:12, "}$", sep = ""))
+ktbl(d) %>% add_header_above(c(" " = 1, "Elements" = 12))
+```
+
+But alternatively we could "spread out" the elements within each cluster.
+```{r}
+d <- matrix("", 4, 12)
+d[1,c(1,5,9)] <- "$\\checkmark$"
+d[2,c(2,6,10)] <- "$\\checkmark$"
+d[3,c(3,7,11)] <- "$\\checkmark$"
+d[4,c(4,8,12)] <- "$\\checkmark$"
+d <- cbind(paste("$\\mathcal{U}_{", 1:4, "}$", sep = ""), d)
+d <- as.data.frame(d)
+names(d) <- c("Sampling Units", paste("$\\mathcal{E}_{", 1:12, "}$", sep = ""))
+ktbl(d) %>% add_header_above(c(" " = 1, "Elements" = 12))
+```
+
+This is an example of a 1-in-4 (ordered) systematic sampling design.
+
+**Example**: A 1-in-5 systematic sample with $M$ = 15 elements. The population is
+$$
+\mathcal{P} = 
+	\{ \mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3, \mathcal{E}_4,
+	\mathcal{E}_5 \ | \ \mathcal{E}_6, \mathcal{E}_7, \mathcal{E}_8,
+	\mathcal{E}_9, \mathcal{E}_{10} \ | \ \mathcal{E}_{11}, \mathcal{E}_{12}, 
+	\mathcal{E}_{13}, \mathcal{E}_{14}, \mathcal{E}_{15} \},
+$$
+and the sampling units are 
+\begin{align*}
+\mathcal{U}_1 & = \{\mathcal{E}_1,\mathcal{E}_6,\mathcal{E}_{11}\}, \\
+\mathcal{U}_2 & = \{\mathcal{E}_2,\mathcal{E}_7,\mathcal{E}_{12}\}, \\
+\mathcal{U}_3 & = \{\mathcal{E}_3,\mathcal{E}_8,\mathcal{E}_{13}\}, \\
+\mathcal{U}_4 & = \{\mathcal{E}_4,\mathcal{E}_9,\mathcal{E}_{14}\}, \\
+\mathcal{U}_5 & = \{\mathcal{E}_5,\mathcal{E}_{10},\mathcal{E}_{15}\}.
+\end{align*}
+
+**Example**: A 1-in-3 systematic sample with $M$ = 15 elements. The population is
+$$
+\mathcal{P} = \{
+	\mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3 \ | \ \mathcal{E}_4,
+	\mathcal{E}_5, \mathcal{E}_6 \ | \ \mathcal{E}_7, \mathcal{E}_8,
+	\mathcal{E}_9 \ | \ \mathcal{E}_{10}, \mathcal{E}_{11}, \mathcal{E}_{12} \ | \
+	\mathcal{E}_{13}, \mathcal{E}_{14}, \mathcal{E}_{15} \},
+$$
+and the sampling units are
+\begin{align*}
+\mathcal{U}_1 & = \{\mathcal{E}_1,\mathcal{E}_4,\mathcal{E}_7,\mathcal{E}_{10},\mathcal{E}_{13}\}, \\
+\mathcal{U}_2 & = \{\mathcal{E}_2,\mathcal{E}_5,\mathcal{E}_8,\mathcal{E}_{11},\mathcal{E}_{14}\}, \\
+\mathcal{U}_3 & = \{\mathcal{E}_3,\mathcal{E}_6,\mathcal{E}_9,\mathcal{E}_{12},\mathcal{E}_{15}\}.
+\end{align*}
+
+**Example**: A 1-in-3 systematic sample with $M$ = 14 elements. The population is
+$$
+\mathcal{P} = \{
+	\mathcal{E}_1, \mathcal{E}_2, \mathcal{E}_3 \ | \ \mathcal{E}_4,
+	\mathcal{E}_5, \mathcal{E}_6 \ | \ \mathcal{E}_7, \mathcal{E}_8,
+	\mathcal{E}_9 \ | \ \mathcal{E}_{10}, \mathcal{E}_{11}, \mathcal{E}_{12} \ | \
+	\mathcal{E}_{13}, \mathcal{E}_{14} \},
+$$
+and the sampling units are
+\begin{align*}
+\mathcal{U}_1 & = \{\mathcal{E}_1,\mathcal{E}_4,\mathcal{E}_7,\mathcal{E}_{10},\mathcal{E}_{13}\}, \\
+\mathcal{U}_2 & = \{\mathcal{E}_2,\mathcal{E}_5,\mathcal{E}_8,\mathcal{E}_{11},\mathcal{E}_{14}\}, \\
+\mathcal{U}_3 & = \{\mathcal{E}_3,\mathcal{E}_6,\mathcal{E}_9,\mathcal{E}_{12}\}.
+\end{align*}
+
+How do we a sampling unit with ordered systematic sampling?
+
+1. Randomly select a number between 1 and $k$. Call this number $j$.
+0. Select elements $\mathcal{E}_{j}, \mathcal{E}_{j+k}, \mathcal{E}_{j+2k}, \mathcal{E}_{j+3k}, \dots$. 
+
+Why use systematic sampling?
+
+1. Simple protocol (e.g., "observe every 10th customer/fish/minute"). 
+
+0. As in other cluster sampling designs, useful when there is no sampling frame. 
+
+0. Samples can be more representative, leading to lower variance than cluster sampling *with adjacent elements* and simple random sampling.
+
+**Example**: Consider four designs for selecting 20 elements out of 100.  
+
+```{r, fig.height = 2.5, fig.width = 9}
+set.seed(102)
+
+par(cex = 0.7, mar = c(5,4,0,2))
+
+y <- sample(1:100, 20)
+plot(y, rep(1,length(y)), yaxt = "n", bty = "n", pch = 1, cex = 0.75, xaxt = "n",
+     xlim = c(-15,100), ylim = c(0.5,4.5), ylab = "", xlab = "Element Index")
+
+axis(1, at = c(1, seq(10, 100, by = 10)))
+
+set.seed(102)
+
+y <- c(sample(1:20, 4), sample(21:40, 4), sample(41:60, 4), 
+       sample(61:80, 5), sample(81:100, 4))
+       
+y <- sample(1:5, 1)
+for (i in seq(1, 96, by = 5)) {
+	if (i == 1) {
+		y <- sample(1:5, 1)
+	}
+	else {
+		y <- c(y, sample(i:(i + 4), 1))
+	}
+}       
+points(y, rep(2,length(y)), pch = 1, cex = 0.75)
+
+set.seed(103)
+
+y <- 1:100
+y <- y[rep(1:20, each = 5) %in% sample(1:20, 4)]
+points(y, rep(3,length(y)), pch = 1, cex = 0.75)
+
+set.seed(108)
+
+y <- seq(sample(1:5, 1), 100, by = 5)
+points(y, rep(4,length(y)), pch = 1, cex = 0.75)
+
+text(1, 1:4, c("SRS","Stratified","Cluster (Adjacent)","Systematic (1-in-5)"), pos = 2)
+
+for (i in seq(5, 95, by = 5)) {
+	for (j in 1:4) {
+		lines(c(i,i)+0.5, c(j-0.125, j+0.125))
+	}
+}
+```
+
+### Aligned Grid Systematic Sampling
+
+```{r, fig.height = 4}
+par(mar = c(5,4,1,3))
+
+set.seed(104)
+tmp <- expand.grid(r = 1:5, c = 1:10) 
+tmp$x <- NA
+tmp$y <- NA
+x <- runif(1, 0, 10)
+y <- runif(1, 0, 10)
+for (i in 1:max(tmp$c)) {
+  for (j in 1:max(tmp$r)) {
+    tmp$x[tmp$c == i] <- x + (i-1) * 10
+    tmp$y[tmp$r == j] <- y + (j-1) * 10
+  }
+}
+plot(tmp$x, tmp$y, bty = "n", pch = 0,
+  xlim = c(0,100), ylim = c(0,50),
+  xlab = "Longitude (Relative)", 
+  ylab = "Latitude (Relative)")
+
+for (i in seq(0, 100, by = 10)) {
+  abline(v = i, lty = 2)
+}
+for (i in seq(0, 50, by = 10)) {
+  abline(h = i, lty = 2)
+}
+```
+
+### Unaligned Grid Systematic Sample
+
+```{r, fig.height = 4}
+par(mar = c(5,4,1,3))
+unaligned <- function(r, c, kx = 1, ky = 1) {
+  tmp <- expand.grid(r = 1:r, c = 1:c)
+  tmp$x <- NA
+  tmp$y <- NA
+  tmp$x[tmp$c == 1 & tmp$r == 1] <- runif(1,0,kx)
+  tmp$y[tmp$c == 1 & tmp$r == 1] <- runif(1,0,ky)
+  tmp$x[tmp$c == 1 & tmp$r > 1] <- runif(r-1,0,kx)
+  tmp$y[tmp$r == 1 & tmp$c > 1] <- runif(c-1,0,ky)
+  for (i in 2:c) {
+    tmp$x[tmp$c == i] <- tmp$x[tmp$c == 1] + kx * (i-1)
+  }
+  for (i in 2:r) {
+    tmp$y[tmp$r == i] <- tmp$y[tmp$r == 1] + ky * (i-1)
+  }
+  return(data.frame(x = tmp$x, y = tmp$y))
+}
+
+set.seed(101)
+
+d <- unaligned(5,10,10,10)
+
+plot(d, bty = "n", pch = 0,
+     xlab = "Longitude (Relative)", ylab = "Latitude (Relative)",
+     xlim = c(0,100), ylim = c(0,50))
+for (i in seq(0, 100, by = 10)) {
+  abline(v = i, lty = 2)
+}
+for (i in seq(0, 50, by = 10)) {
+  abline(h = i, lty = 2)
+}
+
+plot(d, bty = "n", pch = 0,
+     xlab = "Longitude (Relative)", ylab = "Latitude (Relative)",
+     xlim = c(0,100), ylim = c(0,50))
+for (i in seq(0, 100, by = 10)) {
+  abline(v = i, lty = 2)
+}
+for (i in seq(0, 50, by = 10)) {
+  abline(h = i, lty = 2)
+}
+
+for (j in 1:5) {
+  x <- d$x[seq(1, 46, by = 5) + j - 1]
+  y <- d$y[seq(1, 46, by = 5) + j - 1]
+  lines(x, y)
+}
+for (i in 1:10) {
+  x <- d$x[c(1:5) + (i - 1)*5]
+  y <- d$y[c(1:5) + (i - 1)*5]
+  lines(x, y)
+}
+```
+
+### Grid Systematic Sampling Versus Simple Random Sampling
+
+```{r, fig.height = 4}
+par(mar = c(5,4,1,3))
+set.seed(104)
+tmp <- expand.grid(r = 1:5, c = 1:10) 
+tmp$x <- NA
+tmp$y <- NA
+x <- runif(1, 0, 10)
+y <- runif(1, 0, 10)
+for (i in 1:max(tmp$c)) {
+  for (j in 1:max(tmp$r)) {
+    tmp$x[tmp$c == i] <- x + (i-1) * 10
+    tmp$y[tmp$r == j] <- y + (j-1) * 10
+  }
+}
+plot(tmp$x, tmp$y, bty = "n", pch = 0, cex = 0.5,
+     xlim = c(0,100), ylim = c(0,50),
+     xlab = "Longitude (Relative)", 
+     ylab = "Latitude (Relative)")
+
+for (i in seq(0, 100, by = 10)) {
+  abline(v = i, lty = 2)
+}
+for (i in seq(0, 50, by = 10)) {
+  abline(h = i, lty = 2)
+}
+
+set.seed(101)
+points(runif(50, 0, 100), runif(50, 0, 50), pch = 15, cex = 0.5)
+```
+
+### Grid Systematic Sampling Versus Stratified Random Sampling
+
+```{r, fig.height = 4}
+set.seed(104)
+par(mar = c(5,4,1,3))
+tmp <- expand.grid(r = 1:5, c = 1:10) 
+tmp$x <- NA
+tmp$y <- NA
+x <- runif(1, 0, 10)
+y <- runif(1, 0, 10)
+for (i in 1:max(tmp$c)) {
+  for (j in 1:max(tmp$r)) {
+    tmp$x[tmp$c == i] <- x + (i-1) * 10
+    tmp$y[tmp$r == j] <- y + (j-1) * 10
+  }
+}
+plot(tmp$x, tmp$y, bty = "n", pch = 0, cex = 0.5,
+     xlim = c(0,100), ylim = c(0,50),
+     xlab = "Longitude (Relative)", 
+     ylab = "Latitude (Relative)")
+
+for (i in seq(0, 100, by = 10)) {
+  abline(v = i, lty = 2)
+}
+for (i in seq(0, 50, by = 10)) {
+  abline(h = i, lty = 2)
+}
+
+set.seed(102)
+tmp <- expand.grid(c = 1:10, r = 1:5, x = NA, y = NA)
+for (i in 1:50) {
+  tmp$x[i] <- runif(1, (tmp$c[i] - 1) * 10, tmp$c[i] * 10)
+  tmp$y[i] <- runif(1, (tmp$r[i] - 1) * 10, tmp$r[i] * 10)
+}
+points(tmp$x, tmp$y, pch = 15, cex = 0.5)
+```
+
+### Performance of Systematic Sampling
+
+**Example**: Consider the following populations of 1000 ordered elements and three different designs.
+
+1. Simple random sampling.
+
+2. Stratified random sampling by treating groups of 100 adjacent elements as strata.
+
+3. 1-in-100 ordered systematic sampling.
+
+In each case 10 elements were selected and averaged to estimate $\mu$. 
+
+```{r, fig.height = 3}
+set.seed(101)
+x <- 1:1000
+y <- 10 + rnorm(length(x), 0, 1)
+y <- y - mean(y) + 10
+
+d <- data.frame(x = x, y = y)
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_vline(xintercept = seq(0, 1000, by = 100) + 0.5, linetype = 2)
+p <- p + geom_point(alpha = 0.5, size = 1)
+p <- p + labs(x = "Element Index", y = "Target Variable")
+plot(p)
+
+tmp <- data.frame(y = y, g = factor(rep(1:10, 100)))
+```
+
+```{r, fig.height = 3, warning = FALSE}
+samp <- function(y) {
+  y.sys <- y[seq(sample(1:100, 1), length = 10, by = 100)]
+  y.srs <- y[sample(1:1000, 10)]
+  y.str <- rep(NA,4)
+  for (i in 1:10) {
+    y.str[i] <- y[sample(seq((i-1)*100 + 1, i*100), 1)]
+  }
+  return(c(mean(y.sys), mean(y.srs), mean(y.str)))
+}
+
+rep <- 10000
+tmp <- t(replicate(rep, samp(y)))
+tmp <- data.frame(y = as.vector(tmp),
+  method = rep(c("Systematic","Simple","Stratified"), each = rep))
+tmp$method <- ordered(tmp$method, levels = c("Simple","Systematic","Stratified"))
+
+evar <- as.data.frame(round(aggregate(y ~ method, data = tmp, sd)$y, 4))
+names(evar) <- "text"
+evar$x <- 9.25
+evar$y <- 1.4
+evar$method = c("Simple","Systematic","Stratified")
+
+p <- ggplot(tmp, aes(x = y))
+p <- p + geom_density(adjust = 3) + facet_wrap(~ method)
+p <- p + xlab("Estimate") 
+p <- p + geom_text(aes(x = x, y = y, label = text), data = evar)
+p <- p + theme_minimal() + noyaxis
+plot(p)
+```
+
+```{r, fig.height = 3}
+y.m <- mean(y)
+y.s <- sd(y)
+
+set.seed(101)
+x <- 1:1000
+y <- 50 + 0.5*x + rnorm(length(x), 0, 10)
+y <- y.m + y.s*(y-mean(y))/sd(y)
+
+d <- data.frame(x = x, y = y)
+p <- ggplot(d, aes(x = x, y = y)) + theme_minimal()
+p <- p + geom_vline(xintercept = seq(0, 1000, by = 100) + 0.5, linetype = 2)
+p <- p + geom_point(alpha = 0.5, size = 1)
+p <- p + labs(x = "Element Index", y = "Target Variable")
+plot(p)
+
+samp <- function(y) {
+  y.sys <- y[seq(sample(1:100, 1), length = 10, by = 100)]
+  y.srs <- y[sample(1:1000, 10)]
+  y.str <- rep(NA,4)
+  for (i in 1:10) {
+    y.str[i] <- y[sample(seq((i-1)*100 + 1, i*100), 1)]
+  }
+  return(c(mean(y.sys), mean(y.srs), mean(y.str)))
+}
+
+rep <- 10000
+tmp <- t(replicate(rep, samp(y)))
+tmp <- data.frame(y = as.vector(tmp),
+  method = rep(c("Systematic","Simple","Stratified"), each = rep))
+tmp$method <- ordered(tmp$method, levels = c("Simple","Systematic","Stratified"))
+
+evar <- as.data.frame(round(aggregate(y ~ method, data = tmp, sd)$y, 4))
+names(evar) <- "text"
+evar$x <- 9.25
+evar$y <- 10
+evar$method = c("Simple","Systematic","Stratified")
+
+p <- ggplot(tmp, aes(x = y)) + theme_minimal() + noyaxis
+p <- p + geom_density(adjust = 4) + facet_wrap(~ method)
+p <- p + xlab("Estimate")
+p <- p + geom_text(aes(x = x, y = y, label = text), data = evar)
+p
+```
+Note: The numbers shown in each plot are the standard errors (i.e., the square root of the variance of the estimator). 

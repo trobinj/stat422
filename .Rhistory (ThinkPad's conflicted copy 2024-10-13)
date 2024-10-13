@@ -1,0 +1,512 @@
+?solnp
+rmarkdown::render("e1-studyguide.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-09-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-11-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-13-2024.Rmd", output_format = "pdf_document")
+36*4
+install.packages(c("abind", "lpSolve", "ps"))
+install.packages(c("abind", "gam", "ggrepel", "lpSolve", "matrixStats", "ps", "ragg", "RcppArmadillo", "sftime", "TMB"))
+rmarkdown::render("lecture-09-13-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-08-30-2024.Rmd", output_format = "pdf_document")
+install.packages(c("Deriv", "gam", "httr2", "lpSolve", "ps", "ragg", "RcppArmadillo"))
+rmarkdown::render("lecture-09-16-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-16-2024.Rmd", output_format = "pdf_document")
+install.packages(c("kableExtra","tidyverse"))
+install.packages(c("kableExtra","tidyverse"))
+install.packages(c("kableExtra","tidyverse"))
+install.packages(c("kableExtra","tidyverse"))
+install.packages(c("kableExtra", "tidyverse"))
+install.packages(c("kableExtra", "tidyverse"))
+install.packages(c("kableExtra", "tidyverse"))
+install.packages("knitr")
+install.packages("knitr")
+install.packages("tikzDevice")
+install.packages("RcppArmadillo")
+install.packages("RcppArmadillo")
+install.packages("Rcpp")
+rmarkdown::render("lecture-09-16-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-18-2024.Rmd", output_format = "pdf_document")
+install.packages("evaluate")
+install.packages(c("bit", "curl", "jsonlite", "openssl"))
+install.packages(c("bit", "curl", "distributional", "e1071", "evaluate", "gam", "gert", "jsonlite", "kableExtra", "lpSolve", "openssl", "pdftools", "pkgdown", "profvis", "ps", "ragg", "RcppArmadillo", "sandwich", "tinytex", "VGAM"))
+rmarkdown::render("lecture-09-23-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-23-2024.Rmd", output_format = "pdf_document")
+40000*(1+0.05^32)
+40000*(1+0.05)^32
+48000*(1+0.06)^29 * 48000*(1+0.05)
+48000*(1+0.06)^29 * (1+0.05)
+48000*(1+0.06)^29 * (1+0.05) -> b
+40000*(1+0.05)^32 -> a
+a-b
+b-a
+40000*(1+0.05)^32
+40000*(1+0.05)^32
+48000*(1+0.05)^30
+48000*(1+0.05)^30 - 40000*(1+0.05)^32
+48000*(1+0.05)^30 - 40000*(1+0.06)^32
+48000*(1+0.06)^30 - 40000*(1+0.05)^32
+48000*(1+0.06)^30 - 40000*(1+0.05)^32*(1+01)^2
+48000*(1+0.06)^30*(1+0.01)^30 - 40000*(1+0.05)^32
+48000*(1+0.06)^30*(1+0.01)^30 - 40000*(1+0.05)^29
+48000*(1+0.05)^30*(1+0.01)^30 - 40000*(1+0.05)^29
+b <- 48000/(1 + 0.06)^30
+b
+a <- 40000/(1 + 0.05)^32
+b
+a
+b <- 48000/(1 + 0.01)^30
+b
+b <- 48000/(1 + 0.01)^30
+b
+40000/(1 + 0.05)^32
+48000/(1 + 0.05)^32
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+a-b
+b-a
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+1^32
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+a
+source("~/.active-rstudio-document", echo=TRUE)
+a
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+b
+a
+48000*(1+0.05)^32
+source("~/.active-rstudio-document", echo=TRUE)
+fva
+source("~/.active-rstudio-document", echo=TRUE)
+A
+B
+a
+b
+b
+fva
+fva-b
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+a
+source("~/.active-rstudio-document", echo=TRUE)
+s
+a
+source("~/.active-rstudio-document", echo=TRUE)
+a
+source("~/.active-rstudio-document", echo=TRUE)
+b
+a
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+b
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+b
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+sum(b)
+sum(a)
+source("~/.active-rstudio-document", echo=TRUE)
+b
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+fv1
+fv2
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+source("~/.active-rstudio-document", echo=TRUE)
+pv2
+sum(pv1)
+sum(pv2)
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+pv2
+fv1
+fv2
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+pv2
+sum(pv2)
+sum(pv12)
+sum(pv1)
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+pv2
+sum(pv2)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+pv2
+source("~/.active-rstudio-document", echo=TRUE)
+fb1
+fv1
+fv2
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+pv2
+pv2 - pv1
+pv2/(1 + 0.01)^30
+source("~/.active-rstudio-document", echo=TRUE)
+pv1
+pv2
+source("~/.active-rstudio-document", echo=TRUE)
+fv1
+fv2
+fv1/32
+fv2/(1 + 0.01)^32
+fv2/(1 + 0.01)^30
+1.01^32
+1^32
+source("~/.active-rstudio-document", echo=TRUE)
+fv1
+fv2
+source("~/.active-rstudio-document", echo=TRUE)
+fv1
+fv2
+fv1-fv2
+fv2-fv1
+source("~/.active-rstudio-document", echo=TRUE)
+fv1
+fv2
+48000/(1 + 0.01)^32 - 48000
+sum(48000/(1 + 0.01)^c(0:32)) - 48000
+source("~/.active-rstudio-document", echo=TRUE)
+b
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+a-b
+b-a
+a-b
+source("~/.active-rstudio-document", echo=TRUE)
+b
+a
+a-b
+b
+source("~/.active-rstudio-document", echo=TRUE)
+b-a
+a-b
+b-a
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+48000/(1 + 0.06)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+a
+source("~/.active-rstudio-document", echo=TRUE)
+b
+source("~/.active-rstudio-document", echo=TRUE)
+480000/(1+0.05)^32
+source("~/.active-rstudio-document", echo=TRUE)
+npv
+source("~/.active-rstudio-document", echo=TRUE)
+npv
+source("~/.active-rstudio-document", echo=TRUE)
+npv1
+npv2
+npv2-nv1
+npv2-npv1
+npv2-npv1-66
+npv2-npv1-66000
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+pvf
+source("~/.active-rstudio-document", echo=TRUE)
+pv
+source("~/.active-rstudio-document", echo=TRUE)
+pv
+sum(pv)
+source("~/.active-rstudio-document", echo=TRUE)
+sum(pv)
+sum(pv) - 48
+sum(pv) - 48000
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+48000*30
+source("~/.active-rstudio-document", echo=TRUE)
+pv
+source("~/.active-rstudio-document", echo=TRUE)
+fv
+source("~/.active-rstudio-document", echo=TRUE)
+pv
+sum(80000/(1+0.05)^2)
+source("~/.active-rstudio-document", echo=TRUE)
+36*2
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+pv
+fv
+source("~/.active-rstudio-document", echo=TRUE)
+pv
+source("~/.active-rstudio-document", echo=TRUE)
+fv <- 48000*(1+0.01)^c(1:30)
+fv
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+48000-66000
+source("~/.active-rstudio-document", echo=TRUE)
+pvf
+source("~/.active-rstudio-document", echo=TRUE)
+pvf
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+sum(48000*(1+0.01)^t)
+48000 + 32*40000
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+32*40000/(1 + 0.05)^32
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+48000*(1+0.01)^t
+source("~/.active-rstudio-document", echo=TRUE)
+33+48
+100/(1+0.05)^2
+48000*(1+0.01)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+A
+a
+source("~/.active-rstudio-document", echo=TRUE)
+a
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+a-b
+b-a
+a-b
+48000+66000
+source("~/.active-rstudio-document", echo=TRUE)
+b
+a
+source("~/.active-rstudio-document", echo=TRUE)
+a
+b
+source("~/.active-rstudio-document", echo=TRUE)
+d
+a-b-d
+a-b-d-48000
+b-a
+a-b
+(a-b)/66
+install.packages("FNN")
+?trtools::households
+?trtools::televisions
+rmarkdown::render("lecture-09-23-2024.Rmd", output_format = "pdf_document")
+install.packages("latex2exp")
+rmarkdown::render("lecture-09-25-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-25-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-25-2024.Rmd", output_format = "pdf_document")
+?trtools::televisions
+rmarkdown::render("lecture-09-25-2024.Rmd", output_format = "pdf_document")
+rmarkdown::render("lecture-09-25-2024.Rmd", output_format = "pdf_document")
+0.012/0.007
+3113433/160054.2
+rmarkdown::render("lecture-09-25-2024.Rmd", output_format = "pdf_document")
+install.packages(c("bit64", "brms", "FNN"))
+install.packages("broom")
+install.packages("b64")
+source("C:/Users/trobi/Dropbox/Teaching/misc R examples/claims-poisson.R", echo=TRUE)
+library(BalancedSampling)
+cube
+.cube_cpp
+cubestratified
+as.matrix
+cube
+install.packages("mmrm")
+rm(list = ls())
+save.image()
+us
+library(mmrm)
+head(fev_data)
+rmarkdown::render("lecture-09-30-2024.Rmd", output_format = "pdf_document")
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R")
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R")
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+plot(y,x)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+install.packages("glue")
+rmarkdown::render("lecture-10-02-2024.Rmd", output_format = "pdf_document")
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/Dropbox/Teaching/s422/lahiri-ratio-estimator-simulation.R", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+source("~/.active-rstudio-document", echo=TRUE)
+install.packages(c("glue", "GWalkR", "insight", "QuickJSR"))
+rmarkdown::render("lecture-10-04-2024.Rmd", output_format = "pdf_document")
+source("~/Dropbox/Teaching/babynames/babynames.R", echo=TRUE)
+install.packages("usmap")
+install.packages("usmap")
+install.packages("usmap")
+source("~/Dropbox/Teaching/babynames/babynames.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-map.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+source("~/Dropbox/Teaching/babynames/babynames-time.R", echo=TRUE)
+install.packages(c("askpass", "rbibutils", "sys", "xfun"))
+install.packages("survey")
+rmarkdown::render("lecture-10-09-2024.Rmd", output_format = "pdf_document")
+source("C:/Users/trobi/Dropbox/Teaching/s422/postrandomization-as-calibration.R", echo=TRUE)
+install.packages(c("data.table", "sf", "wk"))
