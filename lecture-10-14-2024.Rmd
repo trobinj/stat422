@@ -47,7 +47,7 @@ Another complex sampling design is to *combine* stratified random sampling with 
 
 1. Partition $M$ elements into $N$ clusters.
 0. Assign the $N$ clusters into $L$ strata.
-0. Use a sampling design (e.g., SRS, PPS) to select some clusters from each strata. 
+0. Use a sampling design (e.g., SRS, PPS) to select some clusters from each stratum. 
 
 Examples of stratified cluster sampling:
 ```{r}
@@ -57,6 +57,8 @@ stratum <- c("grade level", "elevation", "city/suburb", "region", "day/night")
 d <- data.frame(Element = element, Cluster = cluster, Stratum = stratum)
 ktbl(d)
 ```
+
+<!-- We can talk about different sampling designs for clusters: SRS, PPS, stratified, and cluster (which then becomes multi-stage cluster sampling). -->
 
 ## Systematic Sampling
 
