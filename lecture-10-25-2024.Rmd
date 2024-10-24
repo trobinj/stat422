@@ -416,6 +416,6 @@ names(d) <- c("primary","secondary","tertiary","Target Variable")
 ktbl(d) %>% add_header_above(c("Sampling Unit" = 3, " "))
 ```
 
-In principle, any probability sampling design can be used at each stage. But often only the first stage uses a design other than SRS (e.g., PPS, stratified random sampling). 
+In principle, any probability sampling design can be used at each stage. But often only the first stage uses a design other than SRS (e.g., PPS, stratified random sampling). Tyipcally later stages use SRS. 
 
 
