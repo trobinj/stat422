@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Friday, Oct 25</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Statistics 422</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="syllabus.html">Syllabus</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Friday, Oct 25</h1>
+
+</div>
+
+
+<p>You can also download a <a href="lecture-10-25-2024.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="optimum-sample-sizes-for-two-stage-cluster-sampling"
+class="section level2">
+<h2>Optimum Sample Sizes for Two-Stage Cluster Sampling</h2>
+<p>One of the advantages of two-stage cluster sampling over one-stage
+cluster sampling is that we have more control over the cost and
+precision (in terms of the variance of an estimator) of the survey. This
+is because there are <em>two</em> stages of sampling, and thus
+<em>two</em> sample size decisions.</p>
+<ol style="list-style-type: decimal">
+<li>The number of clusters to sample (<span
+class="math inline">\(n\)</span>).</li>
+<li>The number of elements to sample from each cluster (<span
+class="math inline">\(m_1, m_2, \dots, m_n\)</span>).</li>
+</ol>
+<div id="between-group-and-within-group-mean-squares"
+class="section level3">
+<h3>Between-Group and Within-Group Mean Squares</h3>
+<p>Assume a simple case where we have the following.</p>
+<ol style="list-style-type: decimal">
+<li>Simple random sampling at both stages.</li>
+<li>All clusters are the same size (i.e., all <span
+class="math inline">\(M_i\)</span> are equal).</li>
+<li>The number of elements sampled from each cluster are the same (i.e.,
+all <span class="math inline">\(m_i\)</span> are equal).</li>
+</ol>
+<p>To simplify notation, let <span class="math inline">\(\bar{M} =
+M/N\)</span> be the number of elements per cluster, and let <span
+class="math inline">\(m\)</span> denote the number of elements sampled
+from each cluster. In this case the unbiased and ratio estimators are
+the same. Without loss of generality we will consider <span
+class="math inline">\(\hat\mu\)</span>.</p>
+<p>The variance of <span class="math inline">\(\hat\mu\)</span> can be
+written as <span class="math display">\[
+  V(\hat\mu) = \left(1 - \frac{n}{N}\right)\frac{\sigma_b^2}{n\bar{M}} +
+  \left(1 - \frac{m}{\bar{M}}\right)\frac{\sigma^2_w}{nm},
+\]</span> where <span class="math inline">\(\sigma_b^2\)</span> and
+<span class="math inline">\(\sigma_w^2\)</span> are the mean squares
+between-groups and within-groups, respectively, defined as <span
+class="math display">\[
+  \sigma_b^2 = \bar{M}\frac{\sum_{i=1}^N(\mu_i - \mu)^2}{N-1}, \ \ \
+  \sigma_w^2 = \frac{1}{N}\sum_{i=1}^N \sigma_i^2,
+\]</span> where <span class="math inline">\(\mu_i\)</span> and <span
+class="math inline">\(\sigma_i^2\)</span> are the mean and variances of
+the target variable for <em>all</em> the elements in the <span
+class="math inline">\(i\)</span>-th cluster.</p>
+<p><strong>Example</strong>: Consider populations with <span
+class="math inline">\(M\)</span> = 1250 elements in <span
+class="math inline">\(N\)</span> = 25 clusters, each of size <span
+class="math inline">\(\bar{M}\)</span> = 50.</p>
+<p><img src="lecture-10-25-2024_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-10-25-2024_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-10-25-2024_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+The mean squares for the three populations are given below.
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Population
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma_b^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma_w^2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:center;">
+1551.41
+</td>
+<td style="text-align:center;">
+10.39
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:center;">
+873.23
+</td>
+<td style="text-align:center;">
+23.68
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+103.07
+</td>
+<td style="text-align:center;">
+38.76
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="optimal-sample-sizes" class="section level3">
+<h3>Optimal Sample Sizes</h3>
+<p>Assume that the total cost of the survey can be computed as <span
+class="math display">\[
+  C = nc_1 + nmc_2,
+\]</span> where <span class="math inline">\(c_1\)</span> is the
+<em>cost-per-cluster</em> and <span class="math inline">\(c_2\)</span>
+is the <em>cost-per-element</em>. Minimizing cost for a fixed variance
+or bound, or minimizing the variance or bound for a fixed cost yields
+<span class="math display">\[
+  m_{\text{opt}} = \sqrt{\frac{\bar{M}\sigma_w^2}{\sigma_b^2 -
+\sigma_w^2} \times \frac{c_1}{c_2}}.
+\]</span> Note: We must have <span class="math inline">\(1 \le m \le
+\bar{M}\)</span>, and <span
+class="math inline">\(m_{\text{opt}}\)</span> will not necessarily
+respect this constraint. Also <span
+class="math inline">\(m_{\text{opt}}\)</span> isn’t defined if <span
+class="math inline">\(\sigma_b^2 &lt; \sigma_w^2\)</span>.</p>
+<p>The sample size for the <em>number of clusters</em> (<span
+class="math inline">\(n\)</span>) to minimize the variance for a fixed
+cost is <span class="math display">\[
+  n_{\text{opt}} = \frac{C}{c_1 + c_2m_{\text{opt}}}.
+\]</span> Note: Clearly we must have <span class="math inline">\(1 \le n
+\le N\)</span>.</p>
+<p>We can encounter various “limiting cases” when solving for <span
+class="math inline">\(m_{\text{opt}}\)</span> and <span
+class="math inline">\(n_{\text{opt}}\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(m_{\text{opt}} &lt; 1\)</span> then
+set <span class="math inline">\(m_{\text{opt}} = 1\)</span> (i.e.,
+sample just one element per cluster).</li>
+<li>If <span class="math inline">\(m_{\text{opt}} &gt; \bar{M}\)</span>,
+then set <span class="math inline">\(m_{\text{opt}} = \bar{M}\)</span>
+(i.e., use one-stage cluster sampling).</li>
+<li>If <span class="math inline">\(\sigma_b^2 &lt; \sigma_w^2\)</span>
+then set <span class="math inline">\(m_{\text{opt}} = \bar{M}\)</span>
+(i.e., use one-stage cluster sampling).</li>
+<li>If <span class="math inline">\(n_{\text{opt}} \ge N\)</span> then
+set <span class="math inline">\(n_{\text{opt}} = N\)</span> (i.e., use
+stratified random sampling).</li>
+</ol>
+<strong>Example</strong>: What would be the optimal sample sizes for the
+three populations if we have a total budget of <span
+class="math inline">\(C\)</span> = 100, the cost per cluster is <span
+class="math inline">\(c_1\)</span> = 10, and the cost per element is
+<span class="math inline">\(c_2\)</span> = 1?<br />
+
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Population
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma_b^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(\sigma_w^2\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(m_{\text{opt}}\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(n_{\text{opt}}\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+A
+</td>
+<td style="text-align:center;">
+1551.41
+</td>
+<td style="text-align:center;">
+10.39
+</td>
+<td style="text-align:center;">
+1.836067
+</td>
+<td style="text-align:center;">
+8.448752
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+B
+</td>
+<td style="text-align:center;">
+873.23
+</td>
+<td style="text-align:center;">
+23.68
+</td>
+<td style="text-align:center;">
+3.733201
+</td>
+<td style="text-align:center;">
+7.281624
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+C
+</td>
+<td style="text-align:center;">
+103.07
+</td>
+<td style="text-align:center;">
+38.76
+</td>
+<td style="text-align:center;">
+17.359517
+</td>
+<td style="text-align:center;">
+3.655035
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice what happens as <span
+class="math inline">\(m_{\text{opt}}\)</span> and <span
+class="math inline">\(n_{\text{opt}}\)</span> as <span
+class="math inline">\(\sigma_b^2\)</span> increases, and notice what
+happens to <span class="math inline">\(m_{\text{opt}}\)</span> and <span
+class="math inline">\(n_{\text{opt}}\)</span> as <span
+class="math inline">\(\sigma_w^2\)</span> increases.</p>
+<p>Clearly the solution is approximate — we would need to round the
+sample sizes.</p>
+<p>How do we get <span class="math inline">\(\sigma_b^2\)</span> and
+<span class="math inline">\(\sigma_w^2\)</span> <em>in
+practice</em>?</p>
+<div style="page-break-after: always;"></div>
+<p><strong>Example</strong>: The following plot shows <span
+class="math inline">\(m_{\text{opt}}\)</span> and <span
+class="math inline">\(n_{\text{opt}}\)</span> as a function of the
+between-group and within-group mean squares for a population of <span
+class="math inline">\(N\)</span> = 100 clusters with <span
+class="math inline">\(\bar{M}\)</span> = 25 elements in each cluster.
+The costs are <span class="math inline">\(c_1\)</span> = 10 and <span
+class="math inline">\(c_2\)</span> = 1. The fixed total cost is <span
+class="math inline">\(C\)</span> = 100.
+<img src="lecture-10-25-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><strong>Example</strong>: The following plot shows <span
+class="math inline">\(m_{\text{opt}}\)</span> and <span
+class="math inline">\(n_{\text{opt}}\)</span> as a function of the
+between-group and within-group mean squares for a population of now
+<span class="math inline">\(N\)</span> = 20 clusters, with the
+cost-per-cluster reduced to <span class="math inline">\(c_1\)</span> =
+1.</p>
+<p><img src="lecture-10-25-2024_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="numerical-solution" class="section level3">
+<h3>Numerical Solution</h3>
+<p>We can also solve this problem <em>numerically</em>. Here is the
+numerical solution to the first example above.</p>
+<pre class="r"><code>library(Rsolnp)
+
+# Function to compute the variance of the estimator.
+vf &lt;- function(x, msb, msw, N, Mbar, c1, c2) {
+  m &lt;- x[1]
+  n &lt;- x[2]
+  return((1 - n/N) * msb / (n * Mbar) + (1 - m/Mbar) * msw/(n*m))
+}
+
+# Function to compute the cost of the survey.
+cf &lt;- function(x, msb, msw, N, Mbar, c1, c2) {
+  m &lt;- x[1]
+  n &lt;- x[2]
+  return(n*c1 + n*m*c2)
+}
+
+# Find n and m to minimize the variance subject to the
+# constraint that the cost must equal 100. 
+tmp &lt;- solnp(pars = c(5,5), fun = vf, eqfun = cf, eqB = 100, 
+  N = 25, Mbar = 50, msb = 1551.41, msw = 10.39, c1 = 10, c2 = 1, LB = c(1,1), UB = c(50,25))</code></pre>
+<pre><code>
+Iter: 1 fn: 3.4968   Pars:  3.71283 7.09572
+Iter: 2 fn: 3.1969   Pars:  2.72390 7.80416
+Iter: 3 fn: 3.1021   Pars:  2.17386 8.19659
+Iter: 4 fn: 3.0797   Pars:  1.90797 8.39335
+Iter: 5 fn: 3.0767   Pars:  1.84024 8.44547
+Iter: 6 fn: 3.0766   Pars:  1.83610 8.44873
+Iter: 7 fn: 3.0766   Pars:  1.83607 8.44875
+Iter: 8 fn: 3.0766   Pars:  1.83607 8.44875
+solnp--&gt; Completed in 8 iterations</code></pre>
+<pre class="r"><code>tmp$pars</code></pre>
+<pre><code>[1] 1.836067 8.448752</code></pre>
+<pre class="r"><code>round(tmp$pars)</code></pre>
+<pre><code>[1] 2 8</code></pre>
+</div>
+</div>
+<div id="multi-stage-cluster-sampling" class="section level2">
+<h2>Multi-Stage Cluster Sampling</h2>
+<p>A multi-stage cluster sampling design is a natural extension of a
+two-stage cluster sampling design. A <span
+class="math inline">\(k\)</span>-stage cluster sampling design where
+<span class="math inline">\(k\)</span> <span
+class="math inline">\(\ge\)</span> 2 can be designed by applying
+clusters sampling designs <em>recursively</em>.</p>
+<p>A three-stage cluster sampling design can be described as
+follows.</p>
+<ol style="list-style-type: decimal">
+<li>Partition the <span class="math inline">\(M\)</span> elements in a
+population into clusters.</li>
+<li>Select <span class="math inline">\(n_1\)</span> <em>primary</em>
+sampling units using a probability sampling design.</li>
+<li>For each of the <span class="math inline">\(n_1\)</span> sampled
+primary units, partition the elements into sub-clusters.</li>
+<li>Select <span class="math inline">\(n_2\)</span> <em>secondary</em>
+sampling units using a probability sampling design.</li>
+<li>For each of the <span class="math inline">\(n_2\)</span> sampled
+secondary units, sample <em>tertiary</em> sampling units (i.e.,
+elements) using a probability sampling design, and observe the target
+variable for these sampled elements.</li>
+</ol>
+<p>Multi-stage cluster sampling designs are useful when elements are
+formed into groups <em>hierarchically</em>. Here are some examples of
+the three levels of sampling units in three-stage cluster sampling
+designs.</p>
+<table class="table table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Sampling Unit
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+primary
+</th>
+<th style="text-align:center;">
+secondary
+</th>
+<th style="text-align:center;">
+tertiary
+</th>
+<th style="text-align:center;">
+Target Variable
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+pallet
+</td>
+<td style="text-align:center;">
+box
+</td>
+<td style="text-align:center;">
+widget
+</td>
+<td style="text-align:center;">
+weight
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+neighborhood
+</td>
+<td style="text-align:center;">
+block
+</td>
+<td style="text-align:center;">
+household
+</td>
+<td style="text-align:center;">
+income
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+county
+</td>
+<td style="text-align:center;">
+farm
+</td>
+<td style="text-align:center;">
+field
+</td>
+<td style="text-align:center;">
+acres of wheat
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+school
+</td>
+<td style="text-align:center;">
+classroom
+</td>
+<td style="text-align:center;">
+student
+</td>
+<td style="text-align:center;">
+test score
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+day
+</td>
+<td style="text-align:center;">
+hour
+</td>
+<td style="text-align:center;">
+minute
+</td>
+<td style="text-align:center;">
+number of fish
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+plot
+</td>
+<td style="text-align:center;">
+sub-plot
+</td>
+<td style="text-align:center;">
+tree
+</td>
+<td style="text-align:center;">
+volume
+</td>
+</tr>
+</tbody>
+</table>
+<p>In principle, any probability sampling design can be used at each
+stage. But often only the first stage uses a design other than SRS
+(e.g., PPS, stratified random sampling).</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

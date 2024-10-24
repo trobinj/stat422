@@ -1,0 +1,421 @@
+---
+output:
+  word_document: default
+  pdf_document: default
+  html_document:
+    theme: readable
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(lubridate)
+date <- "10-25-2024"
+weekday <- wday(mdy(date), label = TRUE, abbr = FALSE)
+month <- month(mdy(date), label = TRUE)
+day <- day(mdy(date))
+```
+
+---
+title: `r paste(weekday, ", ", month, " ", day, sep = "")`
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{array}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, dev = ifelse(knitr::is_html_output(), "png", "pdf"))
+```
+
+```{r packages, echo = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities, echo = FALSE}
+source("utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
+## Optimum Sample Sizes for Two-Stage Cluster Sampling
+
+One of the advantages of two-stage cluster sampling over one-stage cluster sampling is that we have more control over the cost and precision (in terms of the variance of an estimator) of the survey. This is because there are *two* stages of sampling, and thus *two* sample size decisions.
+
+1. The number of clusters to sample ($n$).
+2. The number of elements to sample from each cluster ($m_1, m_2, \dots, m_n$). 
+
+### Between-Group and Within-Group Mean Squares
+
+Assume a simple case where we have the following.
+
+1. Simple random sampling at both stages.
+2. All clusters are the same size (i.e., all $M_i$ are equal).
+3. The number of elements sampled from each cluster are the same (i.e., all $m_i$ are equal). 
+
+To simplify notation, let $\bar{M} = M/N$ be the number of elements per cluster, and let $m$ denote the number of elements sampled from each cluster. In this case the unbiased and ratio estimators are the same. Without loss of generality we will consider $\hat\mu$. 
+
+The variance of $\hat\mu$ can be written as
+$$
+  V(\hat\mu) = \left(1 - \frac{n}{N}\right)\frac{\sigma_b^2}{n\bar{M}} + 
+  \left(1 - \frac{m}{\bar{M}}\right)\frac{\sigma^2_w}{nm},
+$$
+where $\sigma_b^2$ and $\sigma_w^2$ are the mean squares between-groups and within-groups, respectively, defined as
+$$
+  \sigma_b^2 = \bar{M}\frac{\sum_{i=1}^N(\mu_i - \mu)^2}{N-1}, \ \ \
+  \sigma_w^2 = \frac{1}{N}\sum_{i=1}^N \sigma_i^2,
+$$
+where $\mu_i$ and $\sigma_i^2$ are the mean and variances of the target variable for *all* the elements in the $i$-th cluster.
+
+```{r}
+f.m <- c(2,1,0.25)
+f.e <- rep(1,3)
+```
+
+**Example**: Consider populations with $M$ = 1250 elements in $N$ = 25 clusters, each of size $\bar{M}$ = 50. 
+
+```{r, fig.height = 4}
+set.seed(101)
+
+n <- 25
+m <- 50
+mu <- rnorm(n, 20, 1) * f.m[1]
+mydata <- expand.grid(mu = mu, element = 1:m)
+mydata$cluster <- as.factor(rep(1:n, m))
+mydata$y <- mydata$mu + rnorm(length(mydata$mu)) * f.e[1]
+mydata$y <- scale(mydata$y)*sqrt(40) + 50
+mydata$ybar <- with(mydata, tapply(y, cluster, mean))
+
+mydata$cluster <- factor(mydata$cluster)
+
+sb <- var(with(mydata, tapply(y, cluster, mean))) * m
+sw <- mean(with(mydata, tapply(y, cluster, var)))
+
+sb <- as.character(round(sb,2))
+sw <- as.character(round(sw,2))
+
+p <- ggplot(mydata, aes(x = cluster, y = y)) + geom_point(shape = 16, alpha = 0.25)
+p <- p + xlab("Cluster") + ylab("Target Variable")
+p <- p + geom_point(aes(y = ybar), shape = 21, fill = "white")
+p <- p + ggtitle("Population A: High Between, Low Within")
+p <- p + theme_minimal()
+p <- p + ylim(20,80)
+
+p1 <- p
+
+p <- ggplot(mydata, aes(x = "Population", y = y)) + geom_jitter(shape = 16, alpha = 0.25)
+p <- p + theme_minimal() 
+p <- p + annotate("point", x = "Population", y = mean(mydata$y), shape = 21, fill = "white")
+p <- p + ylim(20,80) + ggtitle(" ") + xlab("") + ylab("")
+
+p2 <- p
+
+cowplot::plot_grid(p1, p2, rel_widths = c(3/4, 1/4))
+
+sba <- as.numeric(sb)
+swa <- as.numeric(sw)
+```
+
+```{r, fig.height = 4}
+set.seed(101)
+
+n <- 25
+m <- 50
+mu <- rnorm(n, 20, 1) * f.m[2]
+mydata <- expand.grid(mu = mu, element = 1:m)
+mydata$cluster <- as.factor(rep(1:n, m))
+mydata$y <- mydata$mu + rnorm(length(mydata$mu)) * f.e[2]
+mydata$y <- scale(mydata$y)*sqrt(40) + 50
+mydata$ybar <- with(mydata, tapply(y, cluster, mean))
+
+mydata$cluster <- factor(mydata$cluster)
+
+sb <- var(with(mydata, tapply(y, cluster, mean))) * m
+sw <- mean(with(mydata, tapply(y, cluster, var)))
+
+sb <- as.character(round(sb,2))
+sw <- as.character(round(sw,2))
+
+p <- ggplot(mydata, aes(x = cluster, y = y)) + geom_point(shape = 16, alpha = 0.25)
+p <- p + xlab("Cluster") + ylab("Target Variable")
+p <- p + geom_point(aes(y = ybar), shape = 21, fill = "white")
+p <- p + ggtitle("Population B: Medium Between, Medium Within")
+p <- p + theme_minimal()
+p <- p + ylim(20,80)
+
+p1 <- p
+
+p <- ggplot(mydata, aes(x = "Population", y = y)) + geom_jitter(shape = 16, alpha = 0.25)
+p <- p + theme_minimal() 
+p <- p + annotate("point", x = "Population", y = mean(mydata$y), shape = 21, fill = "white")
+p <- p + ylim(20,80) + ggtitle(" ") + xlab("") + ylab("")
+
+p2 <- p
+
+cowplot::plot_grid(p1, p2, rel_widths = c(3/4, 1/4))
+
+sbb <- as.numeric(sb)
+swb <- as.numeric(sw)
+```
+
+```{r, fig.height = 4}
+set.seed(101)
+
+n <- 25
+m <- 50
+mu <- rnorm(n, 20, 1) * f.m[3]
+mydata <- expand.grid(mu = mu, element = 1:m)
+mydata$cluster <- as.factor(rep(1:n, m))
+mydata$y <- mydata$mu + rnorm(length(mydata$mu)) * f.e[3]
+mydata$y <- scale(mydata$y)*sqrt(40) + 50
+mydata$ybar <- with(mydata, tapply(y, cluster, mean))
+
+mydata$cluster <- factor(mydata$cluster)
+
+sb <- var(with(mydata, tapply(y, cluster, mean))) * m
+sw <- mean(with(mydata, tapply(y, cluster, var)))
+
+sb <- as.character(round(sb,2))
+sw <- as.character(round(sw,2))
+
+p <- ggplot(mydata, aes(x = cluster, y = y)) + geom_point(shape = 16, alpha = 0.25)
+p <- p + xlab("Cluster") + ylab("Target Variable")
+p <- p + geom_point(aes(y = ybar), shape = 21, fill = "white")
+p <- p + ggtitle("Population C: Low Between, High Within")
+p <- p + theme_minimal()
+p <- p + ylim(20,80)
+
+p1 <- p
+
+p <- ggplot(mydata, aes(x = "Population", y = y)) + geom_jitter(shape = 16, alpha = 0.25)
+p <- p + theme_minimal() 
+p <- p + annotate("point", x = "Population", y = mean(mydata$y), shape = 21, fill = "white")
+p <- p + ylim(20,80) + ggtitle(" ") + xlab("") + ylab("")
+
+p2 <- p
+
+cowplot::plot_grid(p1, p2, rel_widths = c(3/4, 1/4))
+
+sbc <- as.numeric(sb)
+swc <- as.numeric(sw)
+```
+
+The mean squares for the three populations are given below.
+```{r}
+d <- data.frame(Population = c("A","B","C"), 
+  sb = c(sba,sbb,sbc), sw = c(swa,swb,swc))
+names(d)[2:3] <- c("$\\sigma_b^2$","$\\sigma_w^2$")
+ktbl(d)
+```
+
+### Optimal Sample Sizes
+
+Assume that the total cost of the survey can be computed as
+$$
+  C = nc_1 + nmc_2,
+$$
+where $c_1$ is the *cost-per-cluster* and $c_2$ is the *cost-per-element*. Minimizing cost for a fixed variance or bound, or minimizing the variance or bound for a fixed cost yields
+$$
+  m_{\text{opt}} = \sqrt{\frac{\bar{M}\sigma_w^2}{\sigma_b^2 - \sigma_w^2} \times \frac{c_1}{c_2}}.
+$$
+Note: We must have $1 \le m \le \bar{M}$, and $m_{\text{opt}}$ will not necessarily respect this constraint. Also $m_{\text{opt}}$ isn't defined if $\sigma_b^2 < \sigma_w^2$.
+
+The sample size for the *number of clusters* ($n$) to minimize the variance for a fixed cost is
+$$
+  n_{\text{opt}} = \frac{C}{c_1 + c_2m_{\text{opt}}}.
+$$
+Note: Clearly we must have $1 \le n \le N$. 
+
+We can encounter various "limiting cases" when solving for $m_{\text{opt}}$ and $n_{\text{opt}}$.
+
+1. If $m_{\text{opt}} < 1$ then set $m_{\text{opt}} = 1$ (i.e., sample just one element per cluster). 
+0. If $m_{\text{opt}} > \bar{M}$, then set $m_{\text{opt}} = \bar{M}$ (i.e., use one-stage cluster sampling).
+0. If $\sigma_b^2 < \sigma_w^2$ then set $m_{\text{opt}} = \bar{M}$ (i.e., use one-stage cluster sampling).
+0. If $n_{\text{opt}} \ge N$ then set $n_{\text{opt}} = N$ (i.e., use stratified random sampling).
+
+
+```{r}
+sb = c(sba,sbb,sbc)
+sw = c(swa,swb,swc)
+c1 = 10
+c2 = 1
+mopt = sqrt(m*sw/(sb-sw) * c1/c2)
+C = 100
+nopt = C / (c1 + c2*mopt)
+d <- data.frame(Population = c("A","B","C"), 
+  sb = c(sba,sbb,sbc), sw = c(swa,swb,swc), mopt = mopt, nopt = nopt)
+names(d)[2:5] <- c("$\\sigma_b^2$","$\\sigma_w^2$","$m_{\\text{opt}}$","$n_{\\text{opt}}$")
+```
+
+**Example**: What would be the optimal sample sizes for the three populations if we have a total budget of $C$ = `r C`, the cost per cluster is $c_1$ = `r c1`, and the cost per element is $c_2$ = `r c2`?  
+```{r}
+ktbl(d)
+```
+Notice what happens as $m_{\text{opt}}$ and $n_{\text{opt}}$ as $\sigma_b^2$ increases, and notice what happens to $m_{\text{opt}}$ and $n_{\text{opt}}$ as $\sigma_w^2$ increases.
+
+Clearly the solution is approximate --- we would need to round the sample sizes. 
+
+How do we get $\sigma_b^2$ and $\sigma_w^2$ *in practice*?
+
+\pagebreak
+
+**Example**: The following plot shows $m_{\text{opt}}$ and $n_{\text{opt}}$ as a function of the between-group and within-group mean squares for a population of $N$ = 100 clusters with $\bar{M}$ = 25 elements in each cluster. The costs are $c_1$ = 10 and $c_2$ = 1. The fixed total cost is $C$ = 100. 
+```{r, cache = TRUE}
+library(Rsolnp)
+
+N <- 100
+M <- 25
+v <- 200
+
+d <- data.frame(msb = seq(200, 5000, length = 500)) %>%
+  mutate(msw = ((N*M-1)*v - (N-1)*msb)/(N*(M-1))) %>% 
+  mutate(n = NA, m = NA)
+
+vf <- function(x, msb, msw, N, Mbar, c1, c2) {
+  m <- x[1]
+  n <- x[2]
+  return((1 - n/N) * msb / (n * Mbar) + (1 - m/Mbar) * msw/(n*m))
+}
+
+cf <- function(x, msb, msw, N, Mbar, c1, c2) {
+  m <- x[1]
+  n <- x[2]
+  return(n*c1 + n*m*c2)
+}
+
+for (i in 1:nrow(d)) {
+  tmp <- solnp(pars = c(5,5), fun = vf, eqfun = cf, eqB = 100, 
+    N = N, Mbar = M, msb = d$msb[i], msw = d$msw[i], c1 = 10, c2 = 1, 
+    LB = c(1,1), UB = c(M,N), control = list(trace = 0))
+  d$m[i] <- tmp$par[1]
+  d$n[i] <- tmp$par[2]
+}
+
+d <- d %>% pivot_longer(cols = c(n, m), names_to = "stage", values_to = "size") %>%
+  mutate(stage = ifelse(stage == "m", "Elements Per Cluster (m)", "Clusters (n)"))
+
+p <- ggplot(d, aes(x = msb, y = size, color = stage)) + theme_minimal()
+p <- p + geom_vline(xintercept = c(274,4615), linetype = 3, alpha = 0.5)
+p <- p + geom_hline(yintercept = c(1,M), linetype = 3, alpha = 0.5)
+p <- p + geom_line()
+p <- p + scale_x_continuous(name = "Between-Group Mean Square", sec.axis = sec_axis(~ ((N*M-1)*v - (N-1)*.)/(N*(M-1)), name = "Within-Group Mean Square"))
+p <- p + labs(color = "Stage", y = "Sample Size") + 
+  theme(legend.position = "inside", legend.position.inside = c(0.7,0.8))
+p <- p + annotate(geom = "text", x = 150, y = 12.5, label = "One-Stage Cluster Sampling", 
+  angle = 90)
+p <- p + annotate(geom = "text", x = 4750, y = 12.5, label = "One Element Per Cluster", angle = -90)
+plot(p)
+```
+
+**Example**: The following plot shows $m_{\text{opt}}$ and $n_{\text{opt}}$ as a function of the between-group and within-group mean squares for a population of now $N$ = 20 clusters, with the cost-per-cluster reduced to $c_1$ = 1.
+
+```{r}
+library(Rsolnp)
+
+N <- 20
+M <- 25
+v <- 200
+c1 <- 1
+c2 <- 1
+
+d <- data.frame(msb = seq(175, 520, length = 200)) %>%
+  mutate(msw = ((N*M-1)*v - (N-1)*msb)/(N*(M-1))) %>% 
+  mutate(n = NA, m = NA)
+
+vf <- function(x, msb, msw, N, Mbar, c1, c2) {
+  m <- x[1]
+  n <- x[2]
+  return((1 - n/N) * msb / (n * Mbar) + (1 - m/Mbar) * msw/(n*m))
+}
+
+cf <- function(x, msb, msw, N, Mbar, c1, c2) {
+  m <- x[1]
+  n <- x[2]
+  return(n*c1 + n*m*c2)
+}
+
+for (i in 1:nrow(d)) {
+  tmp <- solnp(pars = c(5,5), fun = vf, eqfun = cf, eqB = 100, 
+               N = N, Mbar = M, msb = d$msb[i], msw = d$msw[i], c1 = c1, c2 = c2, 
+               LB = c(1,1), UB = c(M,N), control = list(trace = 0))
+  d$m[i] <- tmp$par[1]
+  d$n[i] <- tmp$par[2]
+}
+
+d <- d %>% pivot_longer(cols = c(n, m), names_to = "stage", values_to = "size") %>%
+  mutate(stage = ifelse(stage == "m", "Elements Per Cluster (m)", "Clusters (n)"))
+
+p <- ggplot(d, aes(x = msb, y = size, color = stage)) + theme_minimal()
+p <- p + geom_vline(xintercept = c(207,485), linetype = 3, alpha = 0.5)
+p <- p + geom_hline(yintercept = c(1,M,N), linetype = 3, alpha = 0.5)
+p <- p + geom_line() + ylim(0, max(N,M))
+p <- p + scale_x_continuous(name = "Between-Group Mean Square", sec.axis = sec_axis(~ ((N*M-1)*v - (N-1)*.)/(N*(M-1)), name = "Within-Group Mean Square"))
+p <- p + labs(color = "Stage", y = "Sample Size") + 
+  theme(legend.position = "inside", legend.position.inside = c(0.65,0.4))
+p <- p + annotate(geom = "text", x = 200, y = 12.5, label = "One-Stage Cluster Sampling", angle = 90)
+p <- p + annotate(geom = "text", x = 492, y = 12.5, label = "Stratified Sampling", angle = -90)
+plot(p)
+```
+
+\pagebreak
+
+### Numerical Solution
+
+We can also solve this problem *numerically*. Here is the numerical solution to the first example above.
+
+```{r, comment = "", echo = TRUE}
+library(Rsolnp)
+
+# Function to compute the variance of the estimator.
+vf <- function(x, msb, msw, N, Mbar, c1, c2) {
+  m <- x[1]
+  n <- x[2]
+  return((1 - n/N) * msb / (n * Mbar) + (1 - m/Mbar) * msw/(n*m))
+}
+
+# Function to compute the cost of the survey.
+cf <- function(x, msb, msw, N, Mbar, c1, c2) {
+  m <- x[1]
+  n <- x[2]
+  return(n*c1 + n*m*c2)
+}
+
+# Find n and m to minimize the variance subject to the
+# constraint that the cost must equal 100. 
+tmp <- solnp(pars = c(5,5), fun = vf, eqfun = cf, eqB = 100, 
+  N = 25, Mbar = 50, msb = 1551.41, msw = 10.39, c1 = 10, c2 = 1, LB = c(1,1), UB = c(50,25))
+tmp$pars
+round(tmp$pars)
+```
+
+## Multi-Stage Cluster Sampling
+
+A multi-stage cluster sampling design is a natural extension of a two-stage cluster sampling design. A $k$-stage cluster sampling design where $k$ $\ge$ 2 can be designed by applying clusters sampling designs *recursively*. 
+
+A three-stage cluster sampling design can be described as follows.
+
+1. Partition the $M$ elements in a population into clusters.
+0. Select $n_1$ *primary* sampling units using a probability sampling design.
+0. For each of the $n_1$ sampled primary units, partition the elements into sub-clusters.
+0. Select $n_2$ *secondary* sampling units using a probability sampling design.
+0. For each of the $n_2$ sampled secondary units, sample *tertiary* sampling units (i.e., elements) using a probability sampling design, and observe the target variable for these sampled elements.
+
+Multi-stage cluster sampling designs are useful when elements are formed into groups *hierarchically*. Here are some examples of the three levels of sampling units in three-stage cluster sampling designs.
+
+```{r}
+l1 <- c("pallet","neighborhood","county","school","day","plot")
+l2 <- c("box","block","farm","classroom","hour","sub-plot")
+l3 <- c("widget","household","field","student","minute","tree")
+y <- c("weight","income","acres of wheat","test score","number of fish","volume")
+d <- data.frame(l1, l2, l3, y)
+names(d) <- c("primary","secondary","tertiary","Target Variable")
+ktbl(d) %>% add_header_above(c("Sampling Unit" = 3, " "))
+```
+
+In principle, any probability sampling design can be used at each stage. But often only the first stage uses a design other than SRS (e.g., PPS, stratified random sampling). 
+
+
