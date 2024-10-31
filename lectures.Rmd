@@ -102,7 +102,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Abundance estimation with diagnostic tests, mark-recapture designs](lecture-10-30-2024.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Mark-recapture --- continued, using "marked" elements in cluster sampling for abundance estiation](lecture-11-01-2024.html). A [set of homework questions](hw-abundance.html) on abundance estimation is now available.
  
 ***
 
