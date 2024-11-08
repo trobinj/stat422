@@ -601,17 +601,15 @@ d %&gt;% group_by(design) %&gt;% summarize(variance = var(estimate), bound = 2*s
 <p>An interesting use of balanced sampling is with strata. Stratified
 random sampling can be viewed as a special case of balanced sampling,
 but balanced sampling allows us to make use of overlapping strata.</p>
-<div id="balanced-sampling-to-set-sample-sizes" class="section level3">
-<h3>Balanced Sampling to Set Sample Size(s)</h3>
-<p>Suppose we set the inclusion probabilities such that <span
-class="math display">\[
-  \sum_{i \in \mathcal{P}} \pi_i = a
-\]</span></p>
-<p>and specify an auxiliary variable of <span class="math inline">\(x_i
-= \pi_i\)</span>. What then does the balancing equation imply?</p>
+<div id="balanced-sampling-via-inclusion-probabilities"
+class="section level3">
+<h3>Balanced Sampling via Inclusion Probabilities</h3>
+<p>Suppose we obtain a balanced sample with the auxiliary variable <span
+class="math inline">\(x_i = \pi_i\)</span>. What then does the balancing
+equation imply?</p>
 <p>Now suppose we set the inclusion probabilities such that <span
 class="math display">\[
-  \sum_{i \in \mathcal{D}} \pi_i = b,
+  \sum_{i \in \mathcal{D}} \pi_i = n_d,
 \]</span> where <span class="math inline">\(\mathcal{D}\)</span> denotes
 a domain, and we specify an auxiliary variable of <span
 class="math display">\[
@@ -621,7 +619,10 @@ class="math display">\[
     0, &amp; \text{otherwise}.
   \end{cases}
 \]</span> What then does the balancing equation imply?</p>
-<!-- Note that if we compute the inclusion probabilities as $\pi_i = nx_i/\tau_x$ then the sample will be "automatically" balanced (or calibrated) with respect to $x_i$. It is easy to show that $\sum_{i \in \mathcal{S}} x_i/\pi_i = \tau_x$. -->
+<p>Suppose the inclusion probabilities are defined as <span
+class="math inline">\(\pi_i = nx_i/\tau_x\)</span>. Then we can show
+that the sample will be balanced with respect to <span
+class="math inline">\(x_i\)</span>.</p>
 </div>
 <div id="stratified-random-sampling-as-balanced-sampling"
 class="section level3">

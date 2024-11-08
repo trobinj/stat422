@@ -259,18 +259,13 @@ d %>% group_by(design) %>% summarize(variance = var(estimate), bound = 2*sqrt(va
 
 An interesting use of balanced sampling is with strata. Stratified random sampling can be viewed as a special case of balanced sampling, but balanced sampling allows us to make use of overlapping strata. 
 
-### Balanced Sampling to Set Sample Size(s)
+### Balanced Sampling via Inclusion Probabilities
 
-Suppose we set the inclusion probabilities such that 
-$$
-  \sum_{i \in \mathcal{P}} \pi_i = a
-$$
-
-and specify an auxiliary variable of $x_i = \pi_i$. What then does the balancing equation imply? 
+Suppose we obtain a balanced sample with the auxiliary variable $x_i = \pi_i$. What then does the balancing equation imply? 
 
 Now suppose we set the inclusion probabilities such that
 $$
-  \sum_{i \in \mathcal{D}} \pi_i = b,
+  \sum_{i \in \mathcal{D}} \pi_i = n_d,
 $$
 where $\mathcal{D}$ denotes a domain, and we specify an auxiliary variable of 
 $$
@@ -282,7 +277,7 @@ $$
 $$
 What then does the balancing equation imply?
 
-<!-- Note that if we compute the inclusion probabilities as $\pi_i = nx_i/\tau_x$ then the sample will be "automatically" balanced (or calibrated) with respect to $x_i$. It is easy to show that $\sum_{i \in \mathcal{S}} x_i/\pi_i = \tau_x$. -->
+Suppose the inclusion probabilities are defined as $\pi_i = nx_i/\tau_x$. Then we can show that the sample will be balanced with respect to $x_i$.
 
 ### Stratified Random Sampling as Balanced Sampling
 
