@@ -279,6 +279,8 @@ What then does the balancing equation imply?
 
 Suppose the inclusion probabilities are defined as $\pi_i = nx_i/\tau_x$. Then we can show that the sample will be balanced with respect to $x_i$.
 
+\pagebreak
+
 ### Stratified Random Sampling as Balanced Sampling
 
 Suppose we use balanced sampling with the following.
