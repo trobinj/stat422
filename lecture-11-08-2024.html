@@ -494,6 +494,58 @@ equations</em>.</p></li>
 calibrate the sample by re-weighting <em>after</em> the sample is
 obtained, while balanced sampling seeks to select a sample that is
 <em>already calibrated</em>.</p>
+<!-- Note: The cube() function appears to have a bug in the current version of BalancedSampling. But I was able -->
+<!-- to replicate previous results by using the cubestratified() function with one stratum. -->
+<p><strong>Example</strong>: Two estimators with “unbalanced sampling”
+and one with balanced sampling for the <a
+href="lecture-09-25-2024.html">Red Oaks population</a>.</p>
+<pre class="r"><code>library(BalancedSampling)
+library(trtools) # ask me for instructions as to how to install this package
+
+set.seed(123)  # random number seed 
+
+y &lt;- redoak$volume
+x &lt;- with(redoak, pi * (dbh/2)^2)
+
+reps &lt;- 10000     # number of samples to sample
+N &lt;- nrow(redoak) # population size
+n &lt;- 50           # sample size
+mux &lt;- mean(x)    # population mean of auxiliary variable
+
+est.unb &lt;- rep(NA, reps) # estimates from unbalanced sampling (no auxiliary variable)
+est.rat &lt;- rep(NA, reps) # estimates from unbalanced sampling (ratio estimator)
+est.bal &lt;- rep(NA, reps) # estimates from balanced sampling 
+
+p &lt;- rep(n/N, N) # specify inclusion probabilities
+X &lt;- cbind(p, x) # specify array (matrix) of auxiliary variables
+
+for (i in 1:reps) {
+  indx &lt;- sample(1:N, n)                        # unbalanced sampling (SRS)
+  est.unb[i] &lt;- sum(y[indx]/p[indx])/N                 
+  est.rat[i] &lt;- mux*sum(y[indx]/p[indx])/sum(x[indx]/p[indx]) 
+  indx &lt;- cubestratified(p, X, rep(1, N))       # balanced sampling using the &quot;cube method&quot;
+  est.bal[i] &lt;- sum(y[indx]/p[indx])/N                    
+}
+
+# visualization of the approximated sampling distributions 
+
+d &lt;- data.frame(estimate = c(est.unb, est.rat, est.bal), 
+  design = rep(c(&quot;Unbalanced&quot;, &quot;Ratio&quot;, &quot;Balanced&quot;), each = reps))
+
+library(ggplot2)
+p &lt;- ggplot(d, aes(x = estimate)) + theme_minimal() +
+  geom_histogram() + facet_wrap(~design) + 
+  labs(x = &quot;Estimate&quot;, y = &quot;Frequency&quot;)
+plot(p)</code></pre>
+<p><img src="lecture-11-08-2024_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(dplyr)
+d %&gt;% group_by(design) %&gt;% summarize(variance = var(estimate), bound = 2*sqrt(variance))</code></pre>
+<pre><code># A tibble: 3 × 3
+  design     variance bound
+  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+1 Balanced      1.17   2.16
+2 Ratio         0.973  1.97
+3 Unbalanced   19.1    8.74</code></pre>
 <p><strong>Example</strong>: Here is a simulation study with a
 population of 1000 elements. For each element we have two auxiliary
 variables: <span class="math inline">\(x_{i1}\)</span> and <span
@@ -522,8 +574,8 @@ p &lt;- rep(n/N, N)      # specify inclusion probabilities
 X &lt;- cbind(p, x1, x2) # specify array (matrix) of auxiliary variables
 
 for (i in 1:reps) {
-  indx &lt;- sample(1:N, n)                  # unbalanced sampling (SRS)
-  est.unb[i] &lt;- mean(y[indx])             # compute estimate of mu
+  indx &lt;- sample(1:N, n)                  # &quot;unbalanced&quot; sampling (SRS)
+  est.unb[i] &lt;- sum(y[indx]/p[indx])/N    # compute estimate of mu
   indx &lt;- cubestratified(p, X, rep(1, N)) # balanced sampling using the &quot;cube method&quot;
   est.bal[i] &lt;- sum(y[indx]/p[indx])/N    # compute estimate of mu
 }
@@ -538,7 +590,7 @@ p &lt;- ggplot(d, aes(x = estimate)) + theme_minimal() +
   geom_histogram() + facet_wrap(~design) + 
   labs(x = &quot;Estimate&quot;, y = &quot;Frequency&quot;)
 plot(p)</code></pre>
-<p><img src="lecture-11-08-2024_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="lecture-11-08-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>library(dplyr)
 d %&gt;% group_by(design) %&gt;% summarize(variance = var(estimate), bound = 2*sqrt(variance))</code></pre>
 <pre><code># A tibble: 2 × 3
@@ -659,7 +711,7 @@ values.</p></li>
 of the inter-element distances. Here the auxiliary variables effectively
 reflect <em>where</em> the elements are located in space/time.</p></li>
 </ol>
-<p><img src="lecture-11-08-2024_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" />
+<p><img src="lecture-11-08-2024_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" />
 The R packages <strong>BalancedSampling</strong> and
 <strong>Spbsampling</strong> include functions for spatially balanced
 sampling.</p>

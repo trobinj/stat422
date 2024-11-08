@@ -170,6 +170,51 @@ Whereas ratio and (generalized) regression estimators seek to calibrate the samp
 <!-- Note: The cube() function appears to have a bug in the current version of BalancedSampling. But I was able -->
 <!-- to replicate previous results by using the cubestratified() function with one stratum. -->
 
+**Example**: Two estimators with "unbalanced sampling" and one with balanced sampling for the [Red Oaks population](lecture-09-25-2024.html).
+```{r, fig.height = 3, echo = TRUE}
+library(BalancedSampling)
+library(trtools) # ask me for instructions as to how to install this package
+
+set.seed(123)  # random number seed 
+
+y <- redoak$volume
+x <- with(redoak, pi * (dbh/2)^2)
+
+reps <- 10000     # number of samples to sample
+N <- nrow(redoak) # population size
+n <- 50           # sample size
+mux <- mean(x)    # population mean of auxiliary variable
+
+est.unb <- rep(NA, reps) # estimates from unbalanced sampling (no auxiliary variable)
+est.rat <- rep(NA, reps) # estimates from unbalanced sampling (ratio estimator)
+est.bal <- rep(NA, reps) # estimates from balanced sampling 
+
+p <- rep(n/N, N) # specify inclusion probabilities
+X <- cbind(p, x) # specify array (matrix) of auxiliary variables
+
+for (i in 1:reps) {
+  indx <- sample(1:N, n)                        # unbalanced sampling (SRS)
+  est.unb[i] <- sum(y[indx]/p[indx])/N                 
+  est.rat[i] <- mux*sum(y[indx]/p[indx])/sum(x[indx]/p[indx]) 
+  indx <- cubestratified(p, X, rep(1, N))       # balanced sampling using the "cube method"
+  est.bal[i] <- sum(y[indx]/p[indx])/N                    
+}
+
+# visualization of the approximated sampling distributions 
+
+d <- data.frame(estimate = c(est.unb, est.rat, est.bal), 
+  design = rep(c("Unbalanced", "Ratio", "Balanced"), each = reps))
+
+library(ggplot2)
+p <- ggplot(d, aes(x = estimate)) + theme_minimal() +
+  geom_histogram() + facet_wrap(~design) + 
+  labs(x = "Estimate", y = "Frequency")
+plot(p)
+
+library(dplyr)
+d %>% group_by(design) %>% summarize(variance = var(estimate), bound = 2*sqrt(variance))
+```
+
 **Example**: Here is a simulation study with a population of 1000 elements. For each element we have two auxiliary variables: $x_{i1}$ and $x_{i2}$. I used two sampling designs to select a sample of $n$ = 50 elements: an *unbalanced* sampling design where all elements have an inclusion probability of 0.05 (SRS), and a *balanced* sampling design using the same inclusion probabilities but also using the two auxiliary variables for the balancing equations.  
 ```{r, fig.height = 3, echo = TRUE}
 library(BalancedSampling)
@@ -191,8 +236,8 @@ p <- rep(n/N, N)      # specify inclusion probabilities
 X <- cbind(p, x1, x2) # specify array (matrix) of auxiliary variables
 
 for (i in 1:reps) {
-  indx <- sample(1:N, n)                  # unbalanced sampling (SRS)
-  est.unb[i] <- mean(y[indx])             # compute estimate of mu
+  indx <- sample(1:N, n)                  # "unbalanced" sampling (SRS)
+  est.unb[i] <- sum(y[indx]/p[indx])/N    # compute estimate of mu
   indx <- cubestratified(p, X, rep(1, N)) # balanced sampling using the "cube method"
   est.bal[i] <- sum(y[indx]/p[indx])/N    # compute estimate of mu
 }
