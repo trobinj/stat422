@@ -42,7 +42,6 @@ source("utilities.R")
 
 `r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
 
-
 ## Line-Intercept Sampling
 
 A sample of elements in a region are selected according to the following procedure.
