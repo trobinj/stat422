@@ -11,7 +11,10 @@ This site contains materials for Dr. Tim Johnson's *Survey Sampling Methods* cou
 
 <center>
 
-![https://xkcd.com/2620](https://imgs.xkcd.com/comics/health_data.png)
+![https://xkcd.com/2537](https://imgs.xkcd.com/comics/painbow_award.png)
+
+But if you really want to use this color scheme, you can do so in R with the package [**painbow**](https://github.com/steveharoz/painbow).
+
 </center>
 
 ***
