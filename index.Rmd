@@ -11,13 +11,11 @@ This site contains materials for Dr. Tim Johnson's *Survey Sampling Methods* cou
 
 <center>
 
-![https://xkcd.com/2537](https://imgs.xkcd.com/comics/painbow_award.png)
-
-But if you really want to use this color scheme, you can do so in R with the package [**painbow**](https://github.com/steveharoz/painbow).
+![https://xkcd.com/557](http://imgs.xkcd.com/comics/students.png)
 
 </center>
 
 ***
 
-The [Rmarkdown](https://rmarkdown.rstudio.com/) source files for everything on this website can be viewed at [https://github.com/trobinj/stat516/tree/gh-pages](https://github.com/trobinj/stat422/tree/gh-pages). These are the files with the .Rmd extension.
+The [Rmarkdown](https://rmarkdown.rstudio.com/) source files for everything on this website can be viewed at [GitHub](https://github.com/trobinj/stat422/tree/gh-pages). These are the files with the .Rmd extension.
 
