@@ -140,9 +140,9 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Review of sampling design](lecture-12-02-2024.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Review of inference](lecture-12-04-2024.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` No lecture. I will be in my office during the usual lecture time if you would like to stop by with questions or look over your old examinations.
 
 ***
 
