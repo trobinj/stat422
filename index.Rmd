@@ -5,7 +5,7 @@ output:
     theme: readable
 ---
 
-This site contains materials for Dr. Tim Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho for the fall semester of 2024.
+This site is a placeholder for Dr. Tim Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho.
 
 ***
 
