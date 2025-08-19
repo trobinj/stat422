@@ -11,7 +11,7 @@ This site is a placeholder for Dr. Tim Johnson's *Survey Sampling Methods* cours
 
 <center>
 
-![https://xkcd.com/59](http://imgs.xkcd.com/comics/graduation.jpg)
+![](calvinandhobbes.gif)
 
 </center>
 
