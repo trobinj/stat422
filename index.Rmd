@@ -1,11 +1,11 @@
 ---
-title: "Statistics 422 (Survey Sampling Methods)"
+title: "Statistics 4220 (Survey Sampling Methods)"
 output: 
   html_document: 
     theme: readable
 ---
 
-This site is a placeholder for Dr. Tim Johnson's *Survey Sampling Methods* course (Stat 422) at the University of Idaho.
+This site is a placeholder for Dr. Timothy Johnson's *Survey Sampling Methods* course (Stat 4220) at the University of Idaho.
 
 ***
 
