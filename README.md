@@ -1,2 +1,2 @@
 # stat422
-Course materials for Stat 422.
+Course materials for Stat 4220.

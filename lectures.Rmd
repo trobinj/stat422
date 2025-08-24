@@ -18,7 +18,7 @@ i <- 0
 
 &nbsp;
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Introduction, fundamental concepts including elements, sampling units, populations, samples, sampling designs](lecture-08-25-2025.html).
 
 `r i <- i + 1; d[i]`  
 
