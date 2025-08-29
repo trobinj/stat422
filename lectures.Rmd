@@ -22,7 +22,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Introduction to simple random sampling, parameters and estimators, introduction to sampling distributions](lecture-08-27-2025.html).
 
-`r i <- i + 1; d[i]` [Sampling distributions --- continued, sampling distributions $\bar{y}$ and $\hat\tau$ under SRS](lecture-08-29-2025.html).
+`r i <- i + 1; d[i]` [Sampling distributions --- continued, sampling distributions $\bar{y}$ and $\hat\tau$ under SRS](lecture-08-29-2025.html). A [homework assignment on simple random sampling](hw-srs.html) is now available. After today's lecture you should be able to do the first section titled "Sampling Distributions". 
  
 ***
 
