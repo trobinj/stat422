@@ -28,7 +28,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` Holiday.
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Sampling with replacement, central limit theorem, interpreting normal sampling distributions, standard errors and bounds on the error of estimation, confidence intervals](lecture-09-03-2025.html).
 
 `r i <- i + 1; d[i]` 
  
