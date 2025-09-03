@@ -71,6 +71,8 @@ srs <- function(x, n, stat = mean, labels = 1:length(x), replace = FALSE) {
 }
 ```
 
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](lecture-", date, ".pdf) copy of this lecture.", sep = ""), "")`
+
 ## Sampling With Replacement
 
 A variation on simple random sampling is a design where we sample *with replacement* where every possible sample of $n$ elements has the same probability of being selected, but where the elements need not be distinct.
