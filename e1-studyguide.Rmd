@@ -1,0 +1,107 @@
+---
+title: "First Examination Study Guide"
+output: 
+  html_document: 
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](e1-studyguide.pdf) copy of this lecture.", sep = ""), "")`
+
+1. Understand *elements* and a *sampling units* and the difference between them.
+
+0. How do we define a *population* and a *sample*?
+
+0. How do we define a *sampling frame*?
+
+0. How do we define a *sample space*?
+
+0. How do we define a *sampling design*? 
+
+0. How do we define a *simple random sampling* design?
+
+0. What is meant by a *complex sampling design*?
+
+0. What is meant by *element sampling*?
+
+0. How can you determine the number of possible samples for a simple random sampling, and how can you do this for a stratified sampling design?
+
+0. What is the *inclusion probability* of an element, and how do you compute the inclusion probability of an element for a simple random sampling design and for a stratified sampling design? 
+
+0. What is meant by sampling *with* versus *without* replacement?
+
+0. What do the parameters $\tau$ and $\mu$ represent? How would you compute them *if* you could observe the value of the target variable for every element in the population?
+
+0. What are the estimators for $\tau$ and $\mu$ using a sample obtained using a simple random sampling design? What are the estimators of $\tau$ and $\mu$ using a sample obtained using a stratified sampling design? What are the variances of these estimators for each design? 
+
+0. What is meant by the *sampling distribution* of an estimator? 
+
+0. What does it mean to say that an estimator is *unbiased*? 
+
+0. What is the *finite population correction*? When then would it be "safe" to ignore the finite population correct factor in our calculations by assuming $1-n/N \approx 1$? What does this suggest we might do if we do not know $N$ when we need to compute/estimate the variance of an estimator or a function thereof?
+
+0. A *census* is when every element in the population is observed. It can be viewed as a special case of a simple random sampling design with $n=N$. When using simple random sampling, how many possible samples are there for a census, and what are $V(\hat\tau)$ and $V(\hat\mu)$ for a census?
+
+0. Consider $V(\hat\tau)$ and $V(\hat\mu)$. What effect does increasing $n$ have on these quantities, assuming everything else is constant. Also what is the effect of increasing $N$ or increasing $\sigma^2$?
+
+0. What is stated by the *central limit theorem*? 
+
+0. If we consider the distribution of the error of estimation, $|\hat\theta - \theta|$, where $\hat\theta$ represents and estimator like $\bar{y}$ or $\hat\tau$, and $\theta$ represents a parameter like $\mu$ or $\tau$, how can we find the (approximate) mean, median, and 95th percentile of the error of estimation using $V(\hat\theta)$?
+
+0. What is meant by the *standard error* of an estimator?
+
+0. What does the *bound on the error of estimation* mean in general --- i.e., how would you define it or interpret it? How is this related to the (estimated) variance of an estimator and the *standard error* for an estimator?
+
+0. How is a *confidence interval* for $\tau$ or $\mu$ constructed using an estimator and the bound on the error of estimation? What is meant by the *confidence level* of a confidence interval formula?
+
+0. What is meant by *variance estimation*? What is the distinction between, say, $V(\hat\tau)$ and $\hat{V}(\hat\tau)$? 
+
+0. How do we define $y_i$ if the target variable is *categorical*, and what are the interpretation of $\tau$ and $\mu$ when we do this? 
+
+0. What is a *domain*?
+
+0. For a simple random sampling design we discussed *two* estimators of $\tau_d$. What are their advantages and disadvantages relative to the other (i.e., when might you use one estimator over the other)? 
+
+0. How do we specify the *sample size* ($n$) for a simple random sampling design? What are our strategies for specifying $\sigma$ in this calculation? When estimating the number or proportion of elements in the population that fall into some category, what are our strategies for specifying $\sigma$? 
+
+0. What is *stratified random sampling*? What are the steps?
+
+0. Simple random sampling is often a *part* of a complex sampling design. In what sense is this true for stratified random sampling? That is, how does a stratified random sampling design use simple random sampling?
+
+0. Two design decisions in stratified random sampling are *stratification* and *allocation*. What is meant by each?
+
+0. In general, when using *optimum allocation*, how do $N_j$, $\sigma_j$, and $c_j$ affect allocation? That is, if you consider the allocation fraction $n_j/n$ (i.e., the proportion of the total sample size allocated to the $j$-th stratum), how does increasing/decreasing $N_j$, $\sigma_j$, or $c_j$ change the allocation fraction?
+
+0. For optimum allocation we discussed *two* formulas for computing the total sample size ($n$). Why two formulas? 
+
+0. What is meant by *Neyman allocation* and *proportional allocation*? 
+
+0. Consider our discussion of stratified random sampling with *optimum* allocation, stratified random sampling with *proportional* allocation, and simple random sampling. If we compare the three designs, when is one better than the other in terms of the producing a lower variance of the estimators $\mu$ and $\tau$? 
+
+0. What is the *design effect* of a complex sampling design? How do you interpret it?
+
+0. What is the *effective sample size* of a complex sampling design? How do you interpret it?
+
+0. When we can assign elements to strata (i.e., form our own strata), how should we do so to achieve the *optimum stratification* so as to reduce/minimize the variance of $\hat\mu$ or $\hat\tau$? 
+
+0. Why would we use *double sampling* instead of stratified random sampling? 
+
+0. How does the variance of an estimator of $\mu$ or $\tau$ with double sampling compare to that under stratified random sampling and simple random sampling?
+
+0. What is meant by *post-stratification*? 
+
+0. How does post-stratification differ from stratified random sampling with respect to *how the sample is selected*?
+
+0. How does post-stratification differ from stratified random sampling with respect to the *variances of estimators* of $\mu$ and $\tau$?
+
+0. How are *survey weights* used to compute $\hat\tau$ or $\hat\mu$? 
+
+0. How is a survey weight of an element computed for a simple random sampling design and for a stratified random sampling design?
+
+0. For a stratified random sampling design, understand how t make inferences for the mean or total for one stratum, the mean or total of two or more strata combined, and for the difference between the means or totals of two strata.  
+
+In addition to the above, be comfortable understanding how to do the calculations used in the homework problems as well as all notation.
+
