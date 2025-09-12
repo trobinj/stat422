@@ -14,8 +14,12 @@ library(tidyverse)
 library(kableExtra)
 ```
 
-```{r utilities, echo = FALSE}
-source("../../utilities.R")
+```{r, echo = FALSE}
+ktbl <- function(d, caption = NULL, align = "c") {
+  d %>% kable(format = ifelse(knitr::is_html_output(), "html", "latex"), 
+    booktabs = TRUE, linesep = "", align = align, escape = FALSE, caption = caption) %>%
+    kable_styling(full_width = FALSE, bootstrap_options = "hover", latex_options = "hold_position")
+}
 ```
 
 In class we discussed formulas for computing the sample sizes for optimum allocation for a stratified random sampling design. These formulas can be derived *analytically* using calculus and what are called Lagrange multipliers. Another approach is to solve the optimum allocation problem *numerically* by computer. This has a couple of advantages. One is that it lets us avoid having to do mathematical derivations which can be difficult, time-consuming, and error-prone. Of course, we do not need to re-do the derivations for optimum allocation for the cases we discussed in class since we already have the equations, but we would if we were to (a) consider a different estimator with a different variance or (b) a different cost function. Another advantage is that the numerical approach allows us to find a solution where the sample sizes are constrained such that $2 \le n_j \le N_j$. 
