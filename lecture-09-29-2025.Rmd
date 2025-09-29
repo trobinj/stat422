@@ -131,7 +131,7 @@ We have that $\bar{y}$ = `r mean(d$y)` and $\bar{x}$ = `r mean(d$x)`, so the est
 
 The estimated variance of the estimator $r$ under simple random sampling is
 $$
-  \hat{V}(r) = \left(\frac{1}{\mu_x^2}\right)\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}.
+  \hat{V}(r) = \frac{1}{\mu_x^2}\left(1 - \frac{n}{N}\right)\frac{s_r^2}{n} \ \ \ \text{where} \ \ \ s_r^2 = \frac{\sum_{i \in \mathcal{S}} (y_i - rx_i)^2}{n-1}.
 $$
 Note: If $\mu_x$ is unknown it can be replaced with $\bar{x}$. 
 
