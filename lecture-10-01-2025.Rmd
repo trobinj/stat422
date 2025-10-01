@@ -211,7 +211,7 @@ so we could define an estimator of $\mu_y$ as
 $$
   \hat\mu_y = \frac{\bar{y}}{\bar{x}}\mu_x.
 $$
-Multiplying this estimator would give us an estimator of $\tau_y$ since $\tau_y = N\mu_y$, so that would be
+Multiplying this estimator by $N$ would give us an estimator of $\tau_y$ since $\tau_y = N\mu_y$, so that would be
 $$
   \hat\tau_y = \frac{\bar{y}}{\bar{x}}\tau_x. 
 $$
