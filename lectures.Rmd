@@ -66,7 +66,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` [Mean squared error, double sampling for ratio estimators, ratio estimators for stratified random sampling designs](lecture-10-06-2025.html). A set of [homework questions](hw-ratio.html) is now available concerning ratio estimators, regression estimators, and reweighting and calibration. 
+`r i <- i + 1; d[i]` [Mean squared error, double sampling for ratio estimators, ratio estimators for stratified random sampling designs](lecture-10-06-2025.html). A set of [homework questions](hw-ratio.html) is now available concerning ratio estimators, regression estimators, and re-weighting and calibration. 
 
 `r i <- i + 1; d[i]` 
 

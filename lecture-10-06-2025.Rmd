@@ -134,7 +134,7 @@ d <- d %>% rename("$i$" = leaf, "Area" = area, "Length $\\times$ Width" = length
 options(knitr.kable.NA = '')
 ktbl(d)
 ```
-The mean crude area approximation of the 20 leaves in the first sample is `r round(mx1,2)` square cm. the mean area of the 10 leaves in the second sample is `r round(my2,2)` square cm, and the mean crude area approximation for these 10 leaves is `r round(mx2, 2)` square cm. What is are the estimates of $\mu_y$ and $\tau_y$ using a ratio estimator?
+The mean crude area approximation of the 20 leaves in the first sample is `r round(mx1,2)` square cm, the mean area of the 10 leaves in the second sample is `r round(my2,2)` square cm, and the mean crude area approximation for these 10 leaves is `r round(mx2, 2)` square cm. What is are the estimates of $\mu_y$ and $\tau_y$ using a ratio estimator?
 
 \pagebreak
 
