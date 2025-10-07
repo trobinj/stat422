@@ -11,7 +11,7 @@
 
 
 
-<title>Lectures</title>
+<title>Friday, October 24</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -260,112 +260,106 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Lectures</h1>
+<h1 class="title toc-ignore">Friday, October 24</h1>
 
 </div>
 
 
-<p> </p>
-<p>Mon, Aug 25. <a href="lecture-08-25-2025.html">Introduction,
-fundamental concepts including elements, sampling units, populations,
-samples, sampling designs</a>.</p>
-<p>Wed, Aug 27. <a href="lecture-08-27-2025.html">Introduction to simple
-random sampling, parameters and estimators, introduction to sampling
-distributions</a>.</p>
-<p>Fri, Aug 29. <a href="lecture-08-29-2025.html">Sampling distributions
-— continued, sampling distributions <span
-class="math inline">\(\bar{y}\)</span> and <span
-class="math inline">\(\hat\tau\)</span> under SRS</a>. A <a
-href="hw-srs.html">homework assignment on simple random sampling</a> is
-now available. After today’s lecture you should be able to do the first
-section titled “Sampling Distributions”.</p>
-<hr />
-<p>Mon, Sep 1. Holiday.</p>
-<p>Wed, Sep 3. <a href="lecture-09-03-2025.html">Sampling with
-replacement, central limit theorem, interpreting normal sampling
-distributions, standard errors and bounds on the error of estimation,
-confidence intervals</a>.</p>
-<p>Fri, Sep 5. <a href="lecture-09-05-2025.html">Simulation studies,
-categorical target variables, domain estimators</a>.</p>
-<hr />
-<p>Mon, Sep 8. <a href="lecture-09-08-2025.html">Sample size selection,
-summary of inference in the context of simple random sampling</a>.</p>
-<p>Wed, Sep 10. <a href="lecture-09-10-2025.html">Introduction to
-stratified random sampling</a>.</p>
-<p>Fri, Sep 12. <a href="lecture-09-12-2025.html">Optimum
-allocation</a>. A set of <a href="hw-stratified.html">homework
-problems</a> concerning stratified sampling and related topics is now
-available. The <a href="e1-studyguide.html">study guide</a> for the
-first examination is also now available.</p>
-<hr />
-<p>Mon, Sep 15. <a href="lecture-09-15-2025.html">Optimum allocation —
-continued, design effect, effective sample size</a>.</p>
-<p>Wed, Sep 17. <a href="lecture-09-17-2025.html">Optimum
-stratification, stratified random sampling via double sampling</a>.</p>
-<p>Fri, Sep 19. <a href="lecture-09-19-2025.html">Post-stratification,
-survey weights and re-weighting</a>.</p>
-<hr />
-<p>Mon, Sep 22. <a href="lecture-09-22-2025.html">Inferences concerning
-stratum parameters</a>.</p>
-<p>Wed, Sep 24. <a href="lecture-09-24-2025.html">Using the
-<code>survey</code> package in R for inferences from simple and
-stratified random sampling designs</a>.</p>
-<p>Fri, Sep 26. <strong>First examination</strong>.</p>
-<hr />
-<p>Mon, Sep 29. <a href="lecture-09-29-2025.html">Estimating
-ratios</a>.</p>
-<p>Wed, Oct 1. <a href="lecture-10-01-2025.html">Introduction to ratio
-estimators</a>.</p>
-<p>Fri, Oct 3. <a href="lecture-10-03-2025.html">Ratio estimators —
-continued</a>.</p>
-<hr />
-<p>Mon, Oct 6. <a href="lecture-10-06-2025.html">Mean squared error,
-double sampling for ratio estimators, ratio estimators for stratified
-random sampling designs</a>. A set of <a href="hw-ratio.html">homework
-questions</a> is now available concerning ratio estimators, regression
-estimators, and re-weighting and calibration.</p>
-<p>Wed, Oct 8. <a href="lecture-10-08-2025.html">Regression estimators,
-the prediction perspective</a>.</p>
-<p>Fri, Oct 10.</p>
-<hr />
-<p>Mon, Oct 13.</p>
-<p>Wed, Oct 15.</p>
-<p>Fri, Oct 17.</p>
-<hr />
-<p>Mon, Oct 20.</p>
-<p>Wed, Oct 22.</p>
-<p>Fri, Oct 24.</p>
-<hr />
-<p>Mon, Oct 27. <strong>Second examination</strong>.</p>
-<p>Wed, Oct 29.</p>
-<p>Fri, Oct 31.</p>
-<hr />
-<p>Mon, Nov 3.</p>
-<p>Wed, Nov 5.</p>
-<p>Fri, Nov 7.</p>
-<hr />
-<p>Mon, Nov 10.</p>
-<p>Wed, Nov 12.</p>
-<p>Fri, Nov 14.</p>
-<hr />
-<p>Mon, Nov 17.</p>
-<p>Wed, Nov 19.</p>
-<p>Fri, Nov 21.</p>
-<hr />
-<p>Mon, Nov 24. Fall recess.</p>
-<p>Wed, Nov 26. Fall recess.</p>
-<p>Fri, Nov 28. Fall recess.</p>
-<hr />
-<p>Mon, Dec 1.</p>
-<p>Wed, Dec 3.</p>
-<p>Fri, Dec 5. <strong>Third examination</strong>.</p>
-<hr />
-<p>Mon, Dec 8.</p>
-<p>Wed, Dec 10.</p>
-<p>Fri, Dec 12.</p>
-<hr />
-<p>Monday, Dec 15. <strong>Final examination</strong>, 12:45 to 2:45
-PM.</p>
+<p>You can also download a <a href="lecture-10-24-2025.pdf">PDF</a> copy
+of this lecture.</p>
+<div id="inclusion-probabilities-revisited" class="section level2">
+<h2>Inclusion Probabilities — Revisited</h2>
+<p>Recall that an <em>inclusion probability</em> (<span
+class="math inline">\(\pi_i\)</span>) of the <span
+class="math inline">\(i\)</span>-th element is the probability that the
+element will be in the selected sample.</p>
+<p>For <em>simple random sampling</em>, all elements have an inclusion
+probability of <span class="math inline">\(\pi_i = n/N\)</span>.</p>
+<p>For <em>stratified random sampling</em>, the inclusion probability of
+the <span class="math inline">\(i\)</span>-th element is <span
+class="math inline">\(\pi_i = n_j/N_j\)</span> if the element is in
+stratum <span class="math inline">\(j\)</span>.</p>
+<p>What are the inclusion probabilities for a <em>cluster sampling
+design</em>? It depends on how the <em>clusters</em> are sampled. The
+inclusion probability of an element is the same as that of its cluster.
+Consider three ways to sample clusters.</p>
+<ol style="list-style-type: decimal">
+<li>Simple random sampling.</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Stratified random sampling.</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>(Selection) probability proportional to (cluster) size (with
+replacement).</li>
+</ol>
+<p>Question: Some people <a
+href="https://www.investopedia.com/terms/s/simple-random-sample.asp">define</a>
+simple random sampling as one where every element has the same inclusion
+probability. Is this correct? Why or why not?</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="some-themes-in-survey-sampling" class="section level2">
+<h2>Some Themes in Survey Sampling</h2>
+<div id="auxiliary-variables" class="section level3">
+<h3>Auxiliary Variables</h3>
+<p>An <em>auxiliary variable</em> is a variable that can be observed for
+every element (or sometimes the sampling unit) in the population.</p>
+<p>Uses of auxiliary variables:</p>
+<ol style="list-style-type: decimal">
+<li><p>Improving a <em>sampling design</em>. What examples of this have
+we seen so far?</p></li>
+<li><p>Improving an <em>estimator</em>. What examples of this have we
+seen so far?</p></li>
+</ol>
+</div>
+<div id="double-sampling" class="section level3">
+<h3>Double Sampling</h3>
+<p>A <em>double sampling</em> can be used to facilitate the use of an
+auxiliary variable in compute an estimator.</p>
+<ol style="list-style-type: decimal">
+<li><p>How might we use double sampling to facilitate the use of
+estimators used in <em>stratified random sampling</em>?</p></li>
+<li><p>How might we use double sampling to facilitate the use of a
+<em>ratio or regression estimator</em>?</p></li>
+</ol>
+</div>
+<div id="simple-random-sampling-in-complex-sampling-designs"
+class="section level3">
+<h3>Simple Random Sampling in Complex Sampling Designs</h3>
+<p>Some complex sampling designs using simple random sampling in some
+way.</p>
+<ol style="list-style-type: decimal">
+<li><p>How might <em>stratified random sampling</em> use simple random
+sampling?</p></li>
+<li><p>How might <em>cluster sampling</em> use simple random
+sampling?</p></li>
+</ol>
+</div>
+<div id="sampling-design-decisions" class="section level3">
+<h3>Sampling Design Decisions</h3>
+<p>Fundamentally, design decisions involve specifying the sample space
+of possible samples, and sometimes also changing their
+probabilities.</p>
+<ol style="list-style-type: decimal">
+<li><p>What design decisions are made in <em>simple random
+sampling</em>?</p></li>
+<li><p>What design decisions are made in <em>stratified random
+sampling</em>?</p></li>
+<li><p>What design decisions are made in <em>cluster
+sampling</em>?</p></li>
+</ol>
+</div>
+<div id="relative-precision-of-the-designs" class="section level3">
+<h3>Relative Precision of the Designs</h3>
+<ol style="list-style-type: decimal">
+<li><p>How does <em>stratified random sampling</em> (usually) compare to
+simple random sampling?</p></li>
+<li><p>How does <em>cluster sampling</em> compare (usually) to simple
+random sampling?</p></li>
+</ol>
+</div>
+</div>
 
 
 
