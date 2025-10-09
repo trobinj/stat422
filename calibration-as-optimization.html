@@ -11,7 +11,7 @@
 
 
 
-<title>Lectures</title>
+<title>Calibration As Constrained Optimization</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -260,114 +260,134 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Lectures</h1>
+<h1 class="title toc-ignore">Calibration As Constrained
+Optimization</h1>
 
 </div>
 
 
-<p> </p>
-<p>Mon, Aug 25. <a href="lecture-08-25-2025.html">Introduction,
-fundamental concepts including elements, sampling units, populations,
-samples, sampling designs</a>.</p>
-<p>Wed, Aug 27. <a href="lecture-08-27-2025.html">Introduction to simple
-random sampling, parameters and estimators, introduction to sampling
-distributions</a>.</p>
-<p>Fri, Aug 29. <a href="lecture-08-29-2025.html">Sampling distributions
-— continued, sampling distributions <span
-class="math inline">\(\bar{y}\)</span> and <span
-class="math inline">\(\hat\tau\)</span> under SRS</a>. A <a
-href="hw-srs.html">homework assignment on simple random sampling</a> is
-now available. After today’s lecture you should be able to do the first
-section titled “Sampling Distributions”.</p>
-<hr />
-<p>Mon, Sep 1. Holiday.</p>
-<p>Wed, Sep 3. <a href="lecture-09-03-2025.html">Sampling with
-replacement, central limit theorem, interpreting normal sampling
-distributions, standard errors and bounds on the error of estimation,
-confidence intervals</a>.</p>
-<p>Fri, Sep 5. <a href="lecture-09-05-2025.html">Simulation studies,
-categorical target variables, domain estimators</a>.</p>
-<hr />
-<p>Mon, Sep 8. <a href="lecture-09-08-2025.html">Sample size selection,
-summary of inference in the context of simple random sampling</a>.</p>
-<p>Wed, Sep 10. <a href="lecture-09-10-2025.html">Introduction to
-stratified random sampling</a>.</p>
-<p>Fri, Sep 12. <a href="lecture-09-12-2025.html">Optimum
-allocation</a>. A set of <a href="hw-stratified.html">homework
-problems</a> concerning stratified sampling and related topics is now
-available. The <a href="e1-studyguide.html">study guide</a> for the
-first examination is also now available.</p>
-<hr />
-<p>Mon, Sep 15. <a href="lecture-09-15-2025.html">Optimum allocation —
-continued, design effect, effective sample size</a>.</p>
-<p>Wed, Sep 17. <a href="lecture-09-17-2025.html">Optimum
-stratification, stratified random sampling via double sampling</a>.</p>
-<p>Fri, Sep 19. <a href="lecture-09-19-2025.html">Post-stratification,
-survey weights and re-weighting</a>.</p>
-<hr />
-<p>Mon, Sep 22. <a href="lecture-09-22-2025.html">Inferences concerning
-stratum parameters</a>.</p>
-<p>Wed, Sep 24. <a href="lecture-09-24-2025.html">Using the
-<code>survey</code> package in R for inferences from simple and
-stratified random sampling designs</a>.</p>
-<p>Fri, Sep 26. <strong>First examination</strong>.</p>
-<hr />
-<p>Mon, Sep 29. <a href="lecture-09-29-2025.html">Estimating
-ratios</a>.</p>
-<p>Wed, Oct 1. <a href="lecture-10-01-2025.html">Introduction to ratio
-estimators</a>.</p>
-<p>Fri, Oct 3. <a href="lecture-10-03-2025.html">Ratio estimators —
-continued</a>.</p>
-<hr />
-<p>Mon, Oct 6. <a href="lecture-10-06-2025.html">Mean squared error,
-double sampling for ratio estimators, ratio estimators for stratified
-random sampling designs</a>. A set of <a href="hw-ratio.html">homework
-questions</a> is now available concerning ratio estimators, regression
-estimators, and re-weighting and calibration.</p>
-<p>Wed, Oct 8. <a href="lecture-10-08-2025.html">Regression estimators,
-the prediction perspective</a>.</p>
-<p>Fri, Oct 10. <a href="lecture-10-10-2025.html">Re-weighting and
-calibration</a>. The <a href="e2-studyguide.html">study guide</a> for
-the second examination is now available.</p>
-<hr />
-<p>Mon, Oct 13.</p>
-<p>Wed, Oct 15.</p>
-<p>Fri, Oct 17.</p>
-<hr />
-<p>Mon, Oct 20.</p>
-<p>Wed, Oct 22.</p>
-<p>Fri, Oct 24.</p>
-<hr />
-<p>Mon, Oct 27. <strong>Second examination</strong>.</p>
-<p>Wed, Oct 29.</p>
-<p>Fri, Oct 31.</p>
-<hr />
-<p>Mon, Nov 3.</p>
-<p>Wed, Nov 5.</p>
-<p>Fri, Nov 7.</p>
-<hr />
-<p>Mon, Nov 10.</p>
-<p>Wed, Nov 12.</p>
-<p>Fri, Nov 14.</p>
-<hr />
-<p>Mon, Nov 17.</p>
-<p>Wed, Nov 19.</p>
-<p>Fri, Nov 21.</p>
-<hr />
-<p>Mon, Nov 24. Fall recess.</p>
-<p>Wed, Nov 26. Fall recess.</p>
-<p>Fri, Nov 28. Fall recess.</p>
-<hr />
-<p>Mon, Dec 1.</p>
-<p>Wed, Dec 3.</p>
-<p>Fri, Dec 5. <strong>Third examination</strong>.</p>
-<hr />
-<p>Mon, Dec 8.</p>
-<p>Wed, Dec 10.</p>
-<p>Fri, Dec 12.</p>
-<hr />
-<p>Monday, Dec 15. <strong>Final examination</strong>, 12:45 to 2:45
-PM.</p>
+<p>This demonstration shows how calibration can be approached as a <a
+href="https://en.wikipedia.org/wiki/Constrained_optimization">constrained
+optimization</a> problem.</p>
+<p>First I will create some artificial data, although we could use real
+data if it was available.</p>
+<pre class="r"><code>set.seed(123)
+
+N &lt;- 100 # population size
+n &lt;- 5 # sample size
+y &lt;- runif(N, 2, 10) # generate sample
+x &lt;- y + runif(N, -1, 1) # generate auxiliary variable
+
+mux &lt;- mean(x) # population mean of x
+taux &lt;- sum(x) # population total of x
+
+i &lt;- sample(1:N, n) # indices of sampled elements
+i</code></pre>
+<pre><code>[1] 30 94 89 16 88</code></pre>
+<pre class="r"><code>y &lt;- y[i] # values of target variable for sampled elements
+x &lt;- x[i] # values of auxiliary variable for sampled elements
+cbind(y, x)</code></pre>
+<pre><code>            y        x
+[1,] 3.176909 3.556923
+[2,] 7.254065 7.494052
+[3,] 9.091752 9.918129
+[4,] 9.198600 8.483188
+[5,] 9.144409 9.273590</code></pre>
+<p>Here we used simple random sampling, so the design weights are all
+defined as <span class="math inline">\(d_i = N/n\)</span> which is 20
+for every sampled element. Consider finding a set of survey weights that
+are “close” to the design weights in the sense that the loss function
+<span class="math display">\[
+\sum_{i \in \mathcal{S}} \frac{(w_i - d_i)^2}{d_iq_i},
+\]</span> where <span class="math inline">\(1/q_i\)</span> is a “weight”
+for the <span class="math inline">\(i\)</span>-th element (not the same
+as a design or survey weight). We can program this in R as follows.</p>
+<pre class="r"><code>lf &lt;- function(w) {
+  sum((w - d)^2/(d * q))
+}</code></pre>
+<p>We want to minimize the loss function, but subject to the constrain
+that the sample is <em>calibrated</em>. Suppose we wish to calibrate the
+sample with respect to <span class="math inline">\(\tau_x\)</span> so
+that <span class="math display">\[
+  \tau_x = \sum_{i \in \mathcal{S}}w_ix_i.
+\]</span> We can write the following constraint function which should
+take a value of zero if the constraint is met.</p>
+<pre class="r"><code>cf &lt;- function(w) {
+  sum(w*x) - taux
+}</code></pre>
+<p>Now suppose we specify that <span class="math inline">\(q_i =
+1/x_i\)</span> and solve the constrained optimization problem by finding
+the set of weights that minimize the loss function subject to the
+constraint defined above.</p>
+<pre class="r"><code>library(Rsolnp)
+w &lt;- runif(n) # initial values of weights
+d &lt;- rep(N/n, n) # design weights
+q &lt;- 1/x # reciprocal loss function weights
+w &lt;- solnp(pars = w, fun = lf, eqfun = cf, eqB = 0, LB = rep(0, n))$pars</code></pre>
+<pre><code>
+Iter: 1 fn: 38.5642  Pars:  15.53739 15.53712 15.53717 15.53722 15.53725
+Iter: 2 fn: 38.5642  Pars:  15.53723 15.53720 15.53721 15.53721 15.53721
+Iter: 3 fn: 38.5642  Pars:  15.53721 15.53721 15.53721 15.53721 15.53721
+solnp--&gt; Completed in 3 iterations</code></pre>
+<pre class="r"><code>w</code></pre>
+<pre><code>[1] 15.53721 15.53721 15.53721 15.53721 15.53721</code></pre>
+<p>We can verify that these weights calibrate the sample with respect to
+<span class="math inline">\(\tau_x\)</span>.</p>
+<pre class="r"><code>taux</code></pre>
+<pre><code>[1] 601.6922</code></pre>
+<pre class="r"><code>sum(w*x)</code></pre>
+<pre><code>[1] 601.6922</code></pre>
+<p>Also we can see that these weights are equivalent to using a
+<em>ratio estimator</em>.</p>
+<pre class="r"><code>sum(w*y)</code></pre>
+<pre><code>[1] 588.3279</code></pre>
+<pre class="r"><code>taux * mean(y) / mean(x)</code></pre>
+<pre><code>[1] 588.3279</code></pre>
+<p>Now suppose we define <span class="math inline">\(q_i = 1\)</span>
+and define a second auxiliary variable <span class="math inline">\(z_i =
+1\)</span>. Note that <span class="math inline">\(N = \sum_{i=1}^N
+z_i\)</span> so if we calibrate with respect to this auxiliary variable
+we are simply requiring that we can “estimate” the population size.</p>
+<pre class="r"><code>q &lt;- 1
+z &lt;- rep(1, n)
+cf &lt;- function(w) {
+  sum(w*z) - N
+}
+w &lt;- solnp(pars = w, fun = lf, eqfun = cf, eqB = 0, LB = rep(0, n))$pars</code></pre>
+<pre><code>
+Iter: 1 fn: 1.4e-13  Pars:  20.00000 20.00000 20.00000 20.00000 20.00000
+Iter: 2 fn: 1.174e-28    Pars:  20.00000 20.00000 20.00000 20.00000 20.00000
+solnp--&gt; Completed in 2 iterations</code></pre>
+<pre class="r"><code>w</code></pre>
+<pre><code>[1] 20 20 20 20 20</code></pre>
+<p>These are equivalent to the design weights. The sample was already
+calibrated to with respect to this auxiliary variable. But now suppose
+we want to calibrate with respect to <em>both</em> <span
+class="math inline">\(x_i\)</span> and <span
+class="math inline">\(z_i\)</span>.</p>
+<pre class="r"><code>cf &lt;- function(w) {
+  c(sum(w*z) - N, sum(w*x) - taux)
+}
+w &lt;- solnp(pars = w, fun = lf, eqfun = cf, eqB = c(0, 0), LB = rep(0, n))$pars</code></pre>
+<pre><code>
+Iter: 1 fn: 59.2468  Pars:  48.71575 21.72178  5.10167 14.94000  9.52080
+Iter: 2 fn: 59.2468  Pars:  48.71575 21.72177  5.10167 14.94000  9.52080
+Iter: 3 fn: 59.2468  Pars:  48.71575 21.72178  5.10167 14.94000  9.52080
+solnp--&gt; Completed in 3 iterations</code></pre>
+<pre class="r"><code>w</code></pre>
+<pre><code>[1] 48.71575 21.72178  5.10167 14.94000  9.52080</code></pre>
+<p>We can verify calibration.</p>
+<pre class="r"><code>c(N,taux)</code></pre>
+<pre><code>[1] 100.0000 601.6922</code></pre>
+<pre class="r"><code>c(sum(w*z), sum(w*x))</code></pre>
+<pre><code>[1] 100.0000 601.6922</code></pre>
+<p>It turns out that this is equivalent to using a <em>regression
+estimator</em>.</p>
+<pre class="r"><code>sum(w*y)</code></pre>
+<pre><code>[1] 583.209</code></pre>
+<pre class="r"><code>b &lt;- cor(y, x) * sd(y) / sd(x)
+N*mean(y) + b * (taux - N * mean(x))</code></pre>
+<pre><code>[1] 583.209</code></pre>
 
 
 
