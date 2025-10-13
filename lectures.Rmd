@@ -74,7 +74,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` [Introduction to cluster sampling](lecture-10-13-2025.html).
+`r i <- i + 1; d[i]` [Introduction to cluster sampling](lecture-10-13-2025.html). A [homework assignment](hw-cluster.html) concerning cluster sampling is now available. 
 
 `r i <- i + 1; d[i]` 
 
