@@ -78,7 +78,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Cluster sampling --- continued, estimation of $\tau$, the design effect for cluster sampling](lecture-10-15-2025.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Sampling with replacement with unequal selection probabilities, the Hansen-Hurwitz estimator, cluster sampling with selection probabilities proportional to cluster size](lecture-10-17-2025.html).
  
 ***
 
