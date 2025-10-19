@@ -11,7 +11,7 @@ This site is a placeholder for Dr. Timothy Johnson's *Survey Sampling Methods* c
 
 <center>
 
-![https://xkcd.com/1526](https://imgs.xkcd.com/comics/placebo_blocker.png)
+![https://xkcd.com/2576](https://imgs.xkcd.com/comics/control_group.png)
 
 </center>
 
