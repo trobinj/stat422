@@ -86,7 +86,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Systematic sampling --- continued, ranked set sampling](lecture-10-22-2025.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Inclusion probabilities revisited, themes](lecture-10-24-2025.html).
  
 ***
 
