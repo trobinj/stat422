@@ -98,7 +98,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Introduction to abundance estimation, abundance estimation using one-stage cluster sampling and simple random sampling](lecture-11-03-2025.html).
 
 `r i <- i + 1; d[i]` 
 

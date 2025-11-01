@@ -1,0 +1,100 @@
+---
+title: "Two-Stage Cluster Sampling"
+output:
+  html_document: 
+    theme: readable
+  pdf_document: default
+header-includes:
+  - \usepackage{float}
+  - \usepackage{booktabs}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE, out.width = "100%", fig.align = "center", cache = FALSE, comment = "", dev = ifelse(knitr::is_html_output(), "png", "tikz"))
+```
+
+```{r packages, message = FALSE}
+library(tidyverse)
+suppressWarnings(library(kableExtra))
+```
+
+```{r utilities}
+source("utilities.R")
+```
+
+`r ifelse(knitr::is_html_output(), paste("You can also download a [PDF](hw-twostage.pdf) copy of this document.", sep = ""), "")`
+
+```{r}
+yi <- c(10, 12, 11)
+Mi <- c(100, 110, 90)
+mi <- c(20, 30, 25)
+
+N <- 100
+M <- round(N * min(Mi))
+n <- length(yi)
+
+tau.unb <- N/n * sum(Mi * yi)
+tau.rat <- M * sum(Mi * yi) / sum(Mi)
+tau.pps <- M/n * sum(yi)
+```
+
+## Forest Survey
+
+Forestry researchers used a two-stage cluster sampling design to estimate the total volume of `r format(M, scientific = FALSE)` black cherry trees in a forest region. The region was first divided into `r N` transects. Then `r n` of these transects were selected by a probability sampling design. Finally within each of these transects some of the trees were selected using simple random sampling. The total number of trees within each of these three transects as well as the number of sampled trees and the mean volume (in cubic feet) of those sampled trees are shown in the table below.
+```{r}
+d <- data.frame(Transect = 1:3, total = Mi, sampled = mi, Volume = yi)
+names(d) <- c("Transect", "Total Trees", "Sampled Trees", "Mean Volume")
+ktbl(d) %>% add_header_above(c(" " = 1, "Number of Trees" = 2, " " = 1))
+```
+Use the information given above to answer in the following concerning the estimation of the total volume of all the black cherry trees in the region. 
+
+1. Assume that the transects were selected using *simple random sampling*. Confirm that the estimate of the total volume of all the trees in the region using the *unbiased* estimator is `r format(tau.unb, scientific = FALSE)` cubic feet, and that the estimate using the *ratio* estimator is `r format(tau.rat, scientific = FALSE)` cubic feet.
+
+0. Assume that the transects were selected using *sampling with replacement* with *probabilities proportional to size*. Confirm that the estimate of the total volume of all the trees in the region using the *Hansen-Hurwitz* estimator is `r format(tau.pps, scientific = FALSE)` cubic feet.
+
+## Educational Testing
+
+```{r}
+M <- 2000
+N <- 100
+n <- 3
+Mi <- c(16,20,19)
+mi <- round(Mi/3)
+yi <- c(70,80,75)
+
+mu.unb <- N/M/n * sum(Mi * yi)
+mu.rat <- sum(Mi * yi)/sum(Mi)
+mu.pps <- sum(yi)/n
+```
+
+Consider a cluster sampling design using a population of `r M` second grade students in a school district. Researchers would like to estimate the average score of these students on a particular test based on a sample of students since the testing is expensive. They decided to use a two-stage cluster sampling design where they selected a sample of `r n` classrooms of students out of the `r N` classrooms in the district, and then selected some of the students from each of these selected classrooms using simple random sampling. The table below shows the mean test score for the sampled students from each of the sampled classrooms. It also shows the number of students in the classroom as well as the number of students that were sampled for testing. 
+```{r}
+d <- data.frame(Classroom = 1:n, total = Mi, sampled = mi, Score = yi)
+names(d) <- c("Classroom","Total Students","Sampled Students","Mean Score")
+ktbl(d) %>% add_header_above(c(" " = 1, "Number of Students" = 2, " " = 1))
+```
+Use the information given above to answer in the following concerning the estimation of the mean test score for all the second grade students in the school district.
+
+1. Assume that the classrooms were selected using *simple random sampling*. Confirm that the estimate of the mean test score for all second grade students in the district using the *unbiased* estimator is `r rnd(mu.unb,1)`, and that the estimate using the *ratio* estimator is `r rnd(mu.rat,1)`. 
+
+0. Assume that the classrooms were selected using *sampling with replacement* with *probabilities proportional to size*. Confirm that the estimate of the mean test score for all second grade students in the district using the *Hansen-Hurwitz* estimator is `r rnd(mu.pps,1)`. 
+
+## Optimum Sample Sizes for Educational Testing
+
+Suppose that based on either a previous survey or a pilot survey the researchers in the previous problem had estimates of the between-classroom and within-classroom mean squares. Assume that the researchers also have a fixed budget of 500 units, and that the estimated cost per classroom selected is 20 units, and the estimated cost per student selected and tested is 5 units (here the cost units represents both financial cost as well as time). The table below shows the approximate optimal sample sizes for the number of students per classroom to sample as well as the number of classrooms to sample (assuming simple random sampling at both stages) for four hypothetical populations.
+```{r}
+C <- 500
+c1 <- 20
+c2 <- 5
+msb <- rep(M/N * var(yi), 4) * c(0.125,0.5,1,1.5)
+msw <- rep(25, 4) * c(2,1,0.6,0.25)
+mopt <- round(sqrt(M/N * msw / (msb - msw) * c1/c2),2)
+nopt <- round(C / (c1 + c2 * mopt),2)
+d <- data.frame(Population = LETTERS[1:4], between = msb, within = msw, mopt = mopt, nopt = nopt)
+names(d)[4:5] <- c("$m_{\\text{opt}}$","$n_{\\text{opt}}$")
+ktbl(d) %>% add_header_above(c(" " = 1, "Mean Square" = 2, " " = 1, " " = 1))
+```
+Not all classrooms are the same size, but they are usually around 20 students. So the calculations use $\bar{M}$ = 20 in their calculations. Confirm the optimal sample sizes shown above (within rounding error).
+
+
+
