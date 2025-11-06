@@ -98,11 +98,11 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` [Introduction to abundance estimation, abundance estimation using one-stage cluster sampling and simple random sampling](lecture-11-03-2025.html). The [homework assignment on two-state cluster sampling](hw-twostage.html) is now available.
+`r i <- i + 1; d[i]` [Introduction to abundance estimation, abundance estimation using one-stage cluster sampling and simple random sampling](lecture-11-03-2025.html). A [homework assignment on two-state cluster sampling](hw-twostage.html) is now available.
 
 `r i <- i + 1; d[i]` [Abundance estimation with diagnostic tests, mark-recapture designs](lecture-11-05-2025.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Multinomial and hypergeometric models for mark-recapture designs, mark-recapture with cluster sampling](lecture-11-07-2025.html). A [homework assignment on abundance estimation](hw-abundance.html) is now available. 
  
 ***
 
