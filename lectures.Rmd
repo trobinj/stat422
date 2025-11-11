@@ -108,7 +108,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Horvitz-Thompson and Hansen-Hurwitz estimators](lecture-11-10-2025.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Horvitz-Thompson estimator --- continued, specification of inclusion probabilities](lecture-11-12-2025.html).
 
 `r i <- i + 1; d[i]` 
  
