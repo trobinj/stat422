@@ -110,7 +110,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Horvitz-Thompson estimator --- continued, specification of inclusion probabilities](lecture-11-12-2025.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Direct and indirect specification of inclusion probabilities, balanaced sampling](lecture-11-14-2025.html). The [homework assignment assignment concerning inclusion probabilities and related topics](hw-inclusion.html) is now available. The [study guide](e3-studyguide.html) for the third examination is also now available.
  
 ***
 
