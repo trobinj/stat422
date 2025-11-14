@@ -96,7 +96,7 @@ plot(x, y, axes = FALSE, ann = FALSE, pch = ifelse(d, 16, 1), cex = 0.5)
 plot(tess, wlines = "tess", lty = "solid", showpoints = FALSE, add = TRUE, col = grey(0.75))
 box()
 ```
-Let $y_i$ be the value of the target variable for the $i$-th object, and let $a_i$ be the area of the polygon around that object that contains all the points that would lead to the selection of that object. How to we determine selection and inclusion probabilities? How would we compute an estimate of $\tau$ or $\mu$ using the Hansen-Hurwitz and Horvitz-Thompson estimators? 
+Let $y_i$ be the value of the target variable for the $i$-th object, and let $a_i$ be the area of the polygon around that object that contains all the points that would lead to the selection of that object. How to we determine selection and inclusion probabilities? How would we compute an estimate of $\tau$ or $\mu$ using the Horvitz-Thompson estimator? 
 
 \pagebreak
 
