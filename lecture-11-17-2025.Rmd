@@ -360,6 +360,79 @@ A sample of trees is selected according to the following procedure.
 
 Also see Figure 2 in [this paper](http://pommerening.org/wiki/images/e/ec/SamplingMeasuresOfTreeDiversity.pdf).
 
+Here are some examples:
+
+```{r, fig.height = 4}
+library(shape)
+
+bsampler <- function(seed) {
+
+set.seed(seed)
+
+fgen <- function(n) {
+  r <- runif(n, 0.05, 0.5) # distribution of tree radii
+  x <- runif(n, -15, 15) # distribution of x coordinate
+  y <- runif(n, -10, 10) # distribution of y coordinate
+  return(list(x = x, y = y, r = r))
+}
+
+# function to check that trees do not overlap
+fcheck <- function(d) {
+  x <- d$x
+  y <- d$y
+  r <- d$r
+  n <- length(r)
+  for (i in 2:n) {
+    for (j in 1:(i-1)) {
+      if (sqrt((x[i] - x[j])^2 + (y[i] - y[j])^2) < (r[i] + r[j])) {
+        return(FALSE)
+      }
+    }
+  }
+  return(TRUE)
+}
+
+# create plot using angle a (in degrees)
+fplot <- function(d, a) {
+  x <- d$x
+  y <- d$y
+  r <- d$r
+  n <- length(r)
+  par(mai = c(0.1,0.1,0.1,0.1))
+  emptyplot(xlim = c(min(x) - max(r), max(x) + max(r)), 
+    ylim = c(min(y) - max(r), max(y) + max(r)), frame.plot = FALSE)
+  for (i in 1:n) {
+    u <- 2*r[i]/(2*sin((a*pi/180)/2))
+    v <- atan2(y[i], x[i])
+    if (sqrt(x[i]^2 + y[i]^2) < u) {
+      segments(0, 0, x1 = 100*cos(v+a*pi/360), y1 = 100*sin(v+a*pi/360), lwd = 1, lty = 3)
+      segments(0, 0, x1 = 100*cos(v-a*pi/360), y1 = 100*sin(v-a*pi/360), lwd = 1, lty = 3)
+      plotcircle(mid = c(x[i],y[i]), r = r[i], arrow = FALSE, 
+        from = 0, to = 4*pi/2, lcol = "black", lwd = 1)
+      plotcircle(mid = c(x[i], y[i]), r = u, arrow = FALSE, 
+        from = 0, to = 4*pi/2, lty = 2, lcol = "black", lwd = 1)
+    } else {
+      plotcircle(mid = c(x[i],y[i]), r = r[i], arrow = FALSE, 
+        from = 0, to = 4*pi/2, lcol = grey(0.75), lwd = 1)
+    }
+  }
+  points(0, 0, pch = 3)
+}
+
+repeat {
+  d <- fgen(50)
+  if (fcheck(d)) {
+    break
+  }
+}
+fplot(d, 10)
+}
+
+bsampler(9334)
+bsampler(3764)
+bsampler(2974)
+```
+
 Let $\alpha$ be the critical angle and $d_i$ by the diameter of the $i$-th tree. Then the radius ($r_i$) of a circle that encloses all points that would result in the selection of the $i$-th tree is 
 $$
   r_i = \frac{d_i}{2\sin(\alpha/2)}.
