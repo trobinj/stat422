@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.12)  20 NOV 2025 10:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.12)  1 DEC 2025 08:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**lecture-11-21-2025.tex
-(./lecture-11-21-2025.tex
+**lecture-12-01-2025.tex
+(./lecture-12-01-2025.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -494,8 +494,8 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count313
 \l__pdf_internal_box=\box74
-) (./lecture-11-21-2025.aux)
-\openout1 = `lecture-11-21-2025.aux'.
+) (./lecture-12-01-2025.aux)
+\openout1 = `lecture-12-01-2025.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
 LaTeX Font Info:    ... okay on input line 89.
@@ -643,47 +643,47 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/sha
 re/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-m
 athex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}] [2] [3]
-<lecture-11-21-2025_files/figure-latex/unnamed-chunk-3-1.pdf, id=42, 459.7175pt
+<lecture-12-01-2025_files/figure-latex/unnamed-chunk-3-1.pdf, id=42, 459.7175pt
  x 201.75375pt>
-File: lecture-11-21-2025_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file 
+File: lecture-12-01-2025_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file 
 (type pdf)
-<use lecture-11-21-2025_files/figure-latex/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: lecture-11-21-2025_files/figure-latex/unnamed-chunk-3-
+<use lecture-12-01-2025_files/figure-latex/unnamed-chunk-3-1.pdf>
+Package pdftex.def Info: lecture-12-01-2025_files/figure-latex/unnamed-chunk-3-
 1.pdf  used on input line 317.
 (pdftex.def)             Requested size: 469.75502pt x 206.1709pt.
-<lecture-11-21-2025_files/figure-latex/unnamed-chunk-4-1.pdf, id=43, 459.7175pt
+<lecture-12-01-2025_files/figure-latex/unnamed-chunk-4-1.pdf, id=43, 459.7175pt
  x 201.75375pt>
-File: lecture-11-21-2025_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file 
+File: lecture-12-01-2025_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file 
 (type pdf)
-<use lecture-11-21-2025_files/figure-latex/unnamed-chunk-4-1.pdf>
-Package pdftex.def Info: lecture-11-21-2025_files/figure-latex/unnamed-chunk-4-
+<use lecture-12-01-2025_files/figure-latex/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: lecture-12-01-2025_files/figure-latex/unnamed-chunk-4-
 1.pdf  used on input line 330.
 (pdftex.def)             Requested size: 469.75502pt x 206.1709pt.
-[4 <./lecture-11-21-2025_files/figure-latex/unnamed-chunk-3-1.pdf>]
-<lecture-11-21-2025_files/figure-latex/unnamed-chunk-5-1.pdf, id=56, 461.725pt 
+[4 <./lecture-12-01-2025_files/figure-latex/unnamed-chunk-3-1.pdf>]
+<lecture-12-01-2025_files/figure-latex/unnamed-chunk-5-1.pdf, id=56, 461.725pt 
 x 201.75375pt>
-File: lecture-11-21-2025_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file 
+File: lecture-12-01-2025_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file 
 (type pdf)
-<use lecture-11-21-2025_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: lecture-11-21-2025_files/figure-latex/unnamed-chunk-5-
+<use lecture-12-01-2025_files/figure-latex/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: lecture-12-01-2025_files/figure-latex/unnamed-chunk-5-
 1.pdf  used on input line 335.
 (pdftex.def)             Requested size: 469.75502pt x 205.26274pt.
-[5 <./lecture-11-21-2025_files/figure-latex/unnamed-chunk-4-1.pdf> <./lecture-1
-1-21-2025_files/figure-latex/unnamed-chunk-5-1.pdf>]
-<lecture-11-21-2025_files/figure-latex/unnamed-chunk-6-1.pdf, id=78, 459.7175pt
+[5 <./lecture-12-01-2025_files/figure-latex/unnamed-chunk-4-1.pdf> <./lecture-1
+2-01-2025_files/figure-latex/unnamed-chunk-5-1.pdf>]
+<lecture-12-01-2025_files/figure-latex/unnamed-chunk-6-1.pdf, id=78, 459.7175pt
  x 199.74625pt>
-File: lecture-11-21-2025_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file 
+File: lecture-12-01-2025_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file 
 (type pdf)
-<use lecture-11-21-2025_files/figure-latex/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: lecture-11-21-2025_files/figure-latex/unnamed-chunk-6-
+<use lecture-12-01-2025_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: lecture-12-01-2025_files/figure-latex/unnamed-chunk-6-
 1.pdf  used on input line 375.
 (pdftex.def)             Requested size: 469.75502pt x 204.11946pt.
-<lecture-11-21-2025_files/figure-latex/unnamed-chunk-7-1.pdf, id=79, 459.7175pt
+<lecture-12-01-2025_files/figure-latex/unnamed-chunk-7-1.pdf, id=79, 459.7175pt
  x 199.74625pt>
-File: lecture-11-21-2025_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file 
+File: lecture-12-01-2025_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file 
 (type pdf)
-<use lecture-11-21-2025_files/figure-latex/unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: lecture-11-21-2025_files/figure-latex/unnamed-chunk-7-
+<use lecture-12-01-2025_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: lecture-12-01-2025_files/figure-latex/unnamed-chunk-7-
 1.pdf  used on input line 377.
 (pdftex.def)             Requested size: 469.75502pt x 204.11946pt.
 
@@ -692,8 +692,8 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6 <./lecture-11-21-2025_files/figure-latex/unnamed-chunk-6-1.pdf> <./lecture-1
-1-21-2025_files/figure-latex/unnamed-chunk-7-1.pdf>] [7] (./lecture-11-21-2025.
+[6 <./lecture-12-01-2025_files/figure-latex/unnamed-chunk-6-1.pdf> <./lecture-1
+2-01-2025_files/figure-latex/unnamed-chunk-7-1.pdf>] [7] (./lecture-12-01-2025.
 aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -716,7 +716,7 @@ e/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm
 /lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/f
 onts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.
 pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb>
-Output written on lecture-11-21-2025.pdf (7 pages, 286804 bytes).
+Output written on lecture-12-01-2025.pdf (7 pages, 286295 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  144 compressed objects within 2 object streams

@@ -118,7 +118,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Adaptive cluster sampling](lecture-11-19-2025.html).
  
-`r i <- i + 1; d[i]` [Detectability](lecture-11-21-2025.html).
+`r i <- i + 1; d[i]` Class cancelled. 
  
 ***
 
@@ -130,7 +130,7 @@ i <- 0
  
 ***
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Detectability](lecture-12-01-2025.html).
  
 `r i <- i + 1; d[i]` 
 
