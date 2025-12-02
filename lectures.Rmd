@@ -132,7 +132,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Detectability](lecture-12-01-2025.html).
  
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Non-response](lecture-12-03-2025.html).
 
 `r i <- i + 1; d[i]` **Third examination**.
  
