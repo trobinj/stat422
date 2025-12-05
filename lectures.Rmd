@@ -142,7 +142,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` 
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Final examination review](lecture-12-12-2025.html).
 
 ***
 
