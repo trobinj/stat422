@@ -140,7 +140,7 @@ i <- 0
 
 `r i <- i + 1; d[i]` [Survey weights, revisited](lecture-12-08-2025.html).
 
-`r i <- i + 1; d[i]` 
+`r i <- i + 1; d[i]` [Replication weights](replication_weights.html) and [multiple imputation](multiple_imputation.html).
 
 `r i <- i + 1; d[i]` [Final examination review](lecture-12-12-2025.html).
 

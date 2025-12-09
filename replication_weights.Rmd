@@ -1,0 +1,146 @@
+---
+title: "Replication Weights for Variance Estimation"
+output:
+  html_document:
+    theme: readable
+  pdf_document: default
+urlcolor: blue
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{float}
+  - \usepackage{array}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "", message = FALSE, out.width = "100%", fig.align = "center", fig.width = 9, cache = FALSE)
+```
+
+```{r options, echo = FALSE}
+options(digits = 4)
+set.seed(123)
+```
+
+## Variance Estimation by Simulation
+
+Multiple times you have seen me estimate the variance of an estimator for a specific design via *simulation*. This involves two steps:
+
+1. Apply the sampling design repeatedly ($R$ times) to a population.
+2. For each sample, compute the estimate using a given estimator.
+
+We can then approximate the variance as
+$$
+  \mbox{V}(\hat\theta) = \frac{1}{R-1}\sum_{r=1}^R(\hat\theta_r - \bar\theta)^2,
+$$
+where $\hat\theta_r$ is the estimate computed from the $r$-th sample, and 
+$$
+  \bar\theta = \frac{1}{R}\sum_{r=1}^R \hat\theta_r.
+$$
+But, of course, this is only applicable if we have the entire population.
+
+## Random Group Method
+
+Suppose that rather than conducting a survey to obtain a sample of $n$ elements, we conduct $R$ surveys using the same design that each obtain a sample of $n/R$ elements. Then let 
+$$
+  \tilde\theta = \frac{1}{R}\sum_{r=1}^R \hat\theta_r,
+$$
+be our estimator of $\theta$, where $\hat\theta_r$ is the estimate from the $r$-th survey. The variance of $\tilde\theta$ can be estimated as
+$$
+  \hat{\mbox{V}}(\tilde\theta) = 
+  \frac{1}{R(R-1)}\sum_{r=1}^R(\hat\theta_r - \tilde\theta)^2.
+$$
+A variation on this approach is to obtain one sample using some design, but then attempt to divide the sample into $R$ sub-samples and apply the above.
+
+## Resampling Methods
+
+Resampling methods using some sort of method of sampling from the sample to approximate the variance (or other properties) of the sampling distribution of an estimator.
+
+There are several resampling methods that have been proposed.
+
+1. Bootstrap.
+
+2. Jackknife.
+
+3. Balanced repeated replication.
+
+4. Successive-difference replication. 
+
+Rather than listing $R$ samples, we define the samples in terms of $R$ sets of survey weights called *replication weights*. 
+
+1. Estimate a parameter of interest $\theta$ with an estimator $\hat\theta$ using the *survey weights*. 
+
+2. Estimate the parameter using *each* of $R$ sets of *replication weights*. Call these estimates $\hat\theta_1, \hat\theta_2, \dots, \hat\theta_R$. 
+
+3. Approximate the variance of the estimator $\hat\theta$ as
+$$
+\hat{\mbox{V}}(\hat\theta) = a \sum_{r = 1}^R b_r (\hat\theta_r - \hat\theta)^2,
+$$
+where $a$ and $b_r$ are scale factors that depend on the type of replication weights used.
+
+The above steps could be done using something as simple as a spreadsheet, but specialized software will streamline the calculation. 
+
+## Example: American Community Survey (ACS)
+
+Load R packages.
+```{r}
+library(tidyverse)
+library(tidycensus)
+library(tigris)
+library(srvyr)
+```
+Enter API key (get your own).
+```{r, eval = FALSE}
+census_api_key("key goes here")
+```
+```{r, echo = FALSE}
+census_api_key("8ed92a7140c4066a9b044ba23e09edf4a0678834")
+```
+Download microdata.
+```{r, cache = TRUE, results = FALSE}
+pnw_microdata <- get_pums(variables = c("HISPEED","FINCP","PUMA"), 
+  survey = "acs5", year = 2023, state = c("ID","WA","OR"), 
+  rep_weights = "housing", recode = TRUE) |> rename_with(tolower)
+```
+Here we can sample a few households to see some of the variables of interest as well as the survey weights (`wgtp`) and the first few (out of 80) replication weights (`wgtp1` through `wgtp80`).
+```{r}
+set.seed(123)
+pnw_microdata |> slice_sample(n = 10) |> 
+  select(state_label, hispeed_label, puma, wgtp, wgtp1:wgtp5)
+```
+Create survey design object by specifying the survey weights and replication weights. 
+```{r, cache = TRUE}
+pnw_design <- pnw_microdata |> 
+  as_survey_rep(weights = wgtp, repweights = wgtp1:wgtp80,
+    type = "ACS", mse = TRUE)
+```
+Domain means for household income by state and whether or not they have hi-speed internet.
+```{r, cache = TRUE}
+pnw_design |> group_by(state_label, hispeed_label) |> 
+  filter(hispeed_label %in% c("Yes","No")) |> 
+  summarise(meanfinc = survey_mean(fincp))
+```
+Here is how we can get domain estimates for the proportion of households with hi-speed internet for each PUMA and make a geographic plot. First I will obtain the domain estimates.
+```{r}
+pnw_hispeed <- pnw_design |> group_by(state, puma) |> 
+  summarise(meanfinc = survey_mean(hispeed_label == "Yes"))
+```
+Next I need to download geometry data for the plot. 
+```{r, cache = TRUE, results = FALSE}
+fips <- as.numeric(unique(pnw_microdata$state))
+geom <- vector(mode = "list", length = length(fips))
+for (i in 1:length(geom)) {
+  geom[[i]] <- pumas(state = fips[i], year = 2023)
+}
+geom <- geom |> bind_rows() |> rename_with(tolower)
+```
+Then I merge the domain estimates with the geometry data.
+```{r}
+d <- full_join(geom, pnw_hispeed,
+  by = c("statefp20" = "state", "pumace20" = "puma"))
+```
+And then, finally, the plot.
+```{r}
+ggplot(d, aes(fill = meanfinc)) + geom_sf() + theme_void() + 
+  labs(fill = "Proportion")
+```
+
+
