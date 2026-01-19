@@ -7,17 +7,3 @@ output:
 
 This site is a placeholder for Dr. Timothy Johnson's *Survey Sampling Methods* course (Stat 4220) at the University of Idaho.
 
-***
-
-<center>
-
-![https://xkcd.com/557](http://imgs.xkcd.com/comics/students.png)
-
-Another fun fact: If you go into teaching, you'll have a different dream that you forgot to write a final examination!
-
-</center>
-
-***
-
-The [Rmarkdown](https://rmarkdown.rstudio.com/) source files for everything on this website can be viewed at [GitHub](https://github.com/trobinj/stat422/tree/gh-pages). These are the files with the .Rmd extension.
-
